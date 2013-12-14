@@ -23,7 +23,7 @@
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>
-        <property name="packagesToScan" value="org.springside.examples.quickstart"/>
+        <property name="packagesToScan" value="com.ipet.server"/>
         <property name="jpaProperties">
             <props>
                 <!-- 命名规则 My_NAME->MyName -->
