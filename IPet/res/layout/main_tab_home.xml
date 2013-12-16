@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res/com.ipet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.ipet.android.ui.common.SimpleTitleBar
+        android:id="@+id/main_home_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/main_home_title"
+        app:title_left_res_visibility="invisible"
+        app:title_right_res_visibility="invisible" />
+
+    <com.ipet.android.ui.common.PinnedHeaderListView
+        android:id="@id/main_home_listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:scrollbars="none"
+        />
+  
+<!-- 
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/x1" />
+
+    </ScrollView>
+ -->
+</LinearLayout>
