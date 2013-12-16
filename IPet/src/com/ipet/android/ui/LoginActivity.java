@@ -61,7 +61,7 @@ public class LoginActivity extends Activity {
 		forgotView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Toast.makeText(LoginActivity.this, "��ʱδʵ��",Toast.LENGTH_LONG).show();
+				Toast.makeText(LoginActivity.this, "暂时未实现",Toast.LENGTH_LONG).show();
 			}
 		});
 	}
@@ -123,7 +123,7 @@ public class LoginActivity extends Activity {
 	}
 
 	private void goRegister() {
-		Toast.makeText(this, "��ʱδʵ��",
+		Toast.makeText(this, "暂时未实现",
 				Toast.LENGTH_LONG).show();
 	}
 

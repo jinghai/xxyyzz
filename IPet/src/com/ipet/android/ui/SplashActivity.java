@@ -25,16 +25,16 @@ public class SplashActivity extends Activity {
 		init();
 	}
 
-	// ¿ªÊ¼³õÊ¼»¯
+	// å¼€å§‹åˆå§‹åŒ–
 	private void init() {
-		// ¶ÁÈ¡SharedPreferencesÖĞĞèÒªµÄÊı¾İ
-		// Ê¹ÓÃSharedPreferencesÀ´¼ÇÂ¼³ÌĞòµÄÊ¹ÓÃ´ÎÊı
+		// è¯»å–SharedPreferencesä¸­éœ€è¦çš„æ•°æ®
+		// ä½¿ç”¨SharedPreferencesæ¥è®°å½•ç¨‹åºçš„ä½¿ç”¨æ¬¡æ•°
 		SharedPreferences sp = getSharedPreferences(Constant.SP_SETTING_FILENAME, MODE_PRIVATE);
-		// È¡µÃÏàÓ¦µÄÖµ£¬Èç¹ûÃ»ÓĞ¸ÃÖµ£¬ËµÃ÷»¹Î´Ğ´Èë£¬ÓÃtrue×÷ÎªÄ¬ÈÏÖµ
+		// å–å¾—ç›¸åº”çš„å€¼ï¼Œå¦‚æœæ²¡æœ‰è¯¥å€¼ï¼Œè¯´æ˜è¿˜æœªå†™å…¥ï¼Œç”¨trueä½œä¸ºé»˜è®¤å€¼
 		isFirstIn = sp.getBoolean(Constant.SP_SETTING_FIRST_RUN_KEY, true);
-		// ÅĞ¶Ï³ÌĞòÓëµÚ¼¸´ÎÔËĞĞ£¬Èç¹ûÊÇµÚÒ»´ÎÔËĞĞÔòÌø×ªµ½Òıµ¼½çÃæ£¬·ñÔòÌø×ªµ½Ö÷½çÃæ
+		// åˆ¤æ–­ç¨‹åºä¸ç¬¬å‡ æ¬¡è¿è¡Œï¼Œå¦‚æœæ˜¯ç¬¬ä¸€æ¬¡è¿è¡Œåˆ™è·³è½¬åˆ°å¼•å¯¼ç•Œé¢ï¼Œå¦åˆ™è·³è½¬åˆ°ä¸»ç•Œé¢
 		if (!isFirstIn) {
-			// Ê¹ÓÃHandlerµÄpostDelayed·½·¨£¬3ÃëºóÖ´ĞĞÌø×ªµ½MainActivity
+			// ä½¿ç”¨Handlerçš„postDelayedæ–¹æ³•ï¼Œ3ç§’åæ‰§è¡Œè·³è½¬åˆ°MainActivity
 			mHandler.sendEmptyMessageDelayed(GO_MAIN,Constant.SPLASH_DELAY_MILLIS);
 			//mHandler.sendEmptyMessageDelayed(GO_GUIDE,Constant.SPLASH_DELAY_MILLIS);
 		} else {
@@ -58,7 +58,7 @@ public class SplashActivity extends Activity {
 		}
 	};
 
-	// ×ªÏòÖ÷½çÃæ
+	// è½¬å‘ä¸»ç•Œé¢
 	protected void goMain() {
 		Log.i("SPLASH", "to Main");
 		//Intent intent = new Intent(SplashActivity.this, WelcomeRegisterOrLoginActivity.class);
@@ -67,7 +67,7 @@ public class SplashActivity extends Activity {
 		finish();
 	}
 
-	// ×ªÏòÒıµ¼½çÃæ
+	// è½¬å‘å¼•å¯¼ç•Œé¢
 	protected void goGuide() {
 		Log.i("SPLASH", "to Guide");
 		Intent intent = new Intent(SplashActivity.this, GuideActivity.class);

@@ -12,9 +12,9 @@ public class ConversationManager {
     	ConversationMessage msg = new ConversationMessage();
     	msg.setId("A");
     	//msg.setAvatar("http://weibo.kedacom.com/weibo/files/share/photos/portrait/1/4/head_64.jpg?t=1367977581860");
-    	msg.setName("PetÃØÊé");
-    	msg.setContent("²âÊÔÏûÏ¢");
-    	msg.setCreated_at("½ñÌì");
+    	msg.setName("Petç§˜ä¹¦");
+    	msg.setContent("æµ‹è¯•æ¶ˆæ¯");
+    	msg.setCreated_at("ä»Šå¤©");
 		list.add(msg); 
 		return list;
 	}
@@ -25,9 +25,9 @@ public class ConversationManager {
 
         	ConversationMessage msg = new ConversationMessage();
         	msg.setId(Integer.toString(i));
-        	msg.setName("Ğ¡ÃØÊé"+i);
-        	msg.setContent("²âÊÔÏûÏ¢"+i);
-        	msg.setCreated_at("×òÌì");
+        	msg.setName("å°ç§˜ä¹¦"+i);
+        	msg.setContent("æµ‹è¯•æ¶ˆæ¯"+i);
+        	msg.setCreated_at("æ˜¨å¤©");
         	if(i==2){
         		msg.setNew_msg_num("2");
         	}

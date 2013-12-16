@@ -36,14 +36,14 @@ public class GuideActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_guide);
 
-		// ³õÊ¼»¯Ò³Ãæ
+		// åˆå§‹åŒ–é¡µé¢
 		initViews();
-		// ³õÊ¼»¯Ğ¡Ô²µã
+		// åˆå§‹åŒ–å°åœ†ç‚¹
 		initDots();
 	}
 
 	private void initViews() {
-		// ½«ÒªÏÔÊ¾µÄÍ¼Æ¬·Åµ½ArrayListµ±ÖĞ£¬´æµ½ÊÊÅäÆ÷ÖĞ
+		// å°†è¦æ˜¾ç¤ºçš„å›¾ç‰‡æ”¾åˆ°ArrayListå½“ä¸­ï¼Œå­˜åˆ°é€‚é…å™¨ä¸­
 		LayoutInflater inflater = getLayoutInflater();
 		pageViews = new ArrayList<View>();
 		pageViews.add(inflater.inflate(R.layout.activity_guide_item1, null));
@@ -105,9 +105,9 @@ public class GuideActivity extends Activity {
 				Constant.SP_SETTING_FILENAME, Context.MODE_PRIVATE
 						+ Context.MODE_APPEND);
 		Editor editor = preferences.edit();
-		// ´æÈëÊı¾İ
+		// å­˜å…¥æ•°æ®
 		editor.putBoolean(Constant.SP_SETTING_FIRST_RUN_KEY, false);
-		// Ìá½»ĞŞ¸Ä
+		// æäº¤ä¿®æ”¹
 		editor.commit();
 	}
 
@@ -144,7 +144,7 @@ public class GuideActivity extends Activity {
 	private void initDots() {
 
 		group = (ViewGroup) findViewById(R.id.dotViewGroup);
-		// ½«Ğ¡Ô²µã·Åµ½imageViewÊı×éµ±ÖĞ
+		// å°†å°åœ†ç‚¹æ”¾åˆ°imageViewæ•°ç»„å½“ä¸­
 		imageViews = new ImageView[pageViews.size()];
 		for (int i = 0; i < pageViews.size(); i++) {
 			imageView = new ImageView(this);
@@ -157,7 +157,7 @@ public class GuideActivity extends Activity {
 		setCurrentDot(0);
 	}
 
-	// ÉèÖÃµ±Ç°µÄÑùÊ½
+	// è®¾ç½®å½“å‰çš„æ ·å¼
 	private void setCurrentDot(int arg) {
 		for (int i = 0; i < imageViews.length; i++) {
 			imageViews[arg].setBackgroundResource(R.drawable.dot_focused);

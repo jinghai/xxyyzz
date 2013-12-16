@@ -19,23 +19,23 @@ public class ActivityManager {
         return instance;  
     }  
     
-    //ÍË³öÕ»¶¥Activity 
+    //é€€å‡ºæ ˆé¡¶Activity 
     public void removeActivity(Activity activity) { 
         if (activity != null) { 
-           //ÔÚ´Ó×Ô¶¨Òå¼¯ºÏÖĞÈ¡³öµ±Ç°ActivityÊ±£¬Ò²½øĞĞÁËActivityµÄ¹Ø±Õ²Ù×÷ 
+           //åœ¨ä»è‡ªå®šä¹‰é›†åˆä¸­å–å‡ºå½“å‰Activityæ—¶ï¼Œä¹Ÿè¿›è¡Œäº†Activityçš„å…³é—­æ“ä½œ 
             activity.finish(); 
             activityList.remove(activity); 
             activity = null; 
         } 
     } 
-    //»ñµÃµ±Ç°Õ»¶¥Activity 
+    //è·å¾—å½“å‰æ ˆé¡¶Activity 
     public Activity currentActivity() { 
         Activity activity = null; 
        if(!activityList.isEmpty()) 
          activity= activityList.get(activityList.size()-1);
         return activity; 
     } 
-    //½«µ±Ç°ActivityÍÆÈëÕ»ÖĞ 
+    //å°†å½“å‰Activityæ¨å…¥æ ˆä¸­ 
     public void addActivity(Activity activity) { 
     	activityList.add(activity); 
     } 

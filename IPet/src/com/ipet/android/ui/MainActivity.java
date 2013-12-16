@@ -20,7 +20,7 @@ public class MainActivity extends FragmentActivity {
 	private static String TAG_MESSAGE = "3";
 	private static String TAG_ME = "4";
 	private long mExitTime;
-	// ¶¨ÒåFragmentTabHost¶ÔÏó
+	// å®šä¹‰FragmentTabHostå¯¹è±¡
 	private FragmentTabHost mTabHost;
 	private LayoutInflater layoutInflater;
 
@@ -36,7 +36,7 @@ public class MainActivity extends FragmentActivity {
 
 	private void initView() {
 		layoutInflater = LayoutInflater.from(this);
-		// ÊµÀı»¯TabHost¶ÔÏó£¬µÃµ½TabHost
+		// å®ä¾‹åŒ–TabHostå¯¹è±¡ï¼Œå¾—åˆ°TabHost
 		mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
 		mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 
@@ -67,7 +67,7 @@ public class MainActivity extends FragmentActivity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			if ((System.currentTimeMillis() - mExitTime) > 2000) {
-				Toast.makeText(this, "ÔÙ°´Ò»´ÎÍË³ö³ÌĞò", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "å†æŒ‰ä¸€æ¬¡é€€å‡ºç¨‹åº", Toast.LENGTH_SHORT).show();
 				mExitTime = System.currentTimeMillis();
 			} else {
 				ActivityManager.getInstance().exit();

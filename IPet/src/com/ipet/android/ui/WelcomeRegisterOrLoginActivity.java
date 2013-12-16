@@ -53,7 +53,7 @@ public class WelcomeRegisterOrLoginActivity extends Activity {
 			}
 
 			case R.id.welcome_reg_btn: {
-				Toast.makeText(WelcomeRegisterOrLoginActivity.this, "��ʱδʵ��",
+				Toast.makeText(WelcomeRegisterOrLoginActivity.this, "暂时未实现",
 						Toast.LENGTH_LONG).show();
 			}
 			}

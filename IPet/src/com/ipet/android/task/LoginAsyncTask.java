@@ -27,7 +27,7 @@ public class LoginAsyncTask extends AsyncTask<Integer, Integer, Integer> {
 	protected void onPreExecute() {
 		// TODO Auto-generated method stub
 		super.onPreExecute();
-		Log.i("LoginAsyncTask", "¿ªÊ¼Ö´ÐÐÒì²½Ïß³Ì");
+		Log.i("LoginAsyncTask", "å¼€å§‹æ‰§è¡Œå¼‚æ­¥çº¿ç¨‹");
 		String str = this.activity.getResources().getString(R.string.login_loading);
 		this.progress = ProgressDialog.show(this.activity, null,str);
 	}

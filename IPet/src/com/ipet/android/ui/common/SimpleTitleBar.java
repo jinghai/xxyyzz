@@ -33,7 +33,7 @@ public class SimpleTitleBar extends LinearLayout {
 
 	public SimpleTitleBar(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		// ¼ÓÔØ×Ô¶¨ÒåµÄlayout
+		// åŠ è½½è‡ªå®šä¹‰çš„layout
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		// LayoutInflater inflater = getLayoutInflater();
 		inflater.inflate(R.layout.title_bar_simple, this);
@@ -51,13 +51,13 @@ public class SimpleTitleBar extends LinearLayout {
 	}
 
 	private void setCenterContainer(TypedArray type) {
-		// ÉèÖÃ±êÌâ
+		// è®¾ç½®æ ‡é¢˜
 		title = (TextView) findViewById(R.id.titlebar_title);
 		title.setText(type.getString(R.styleable.TitleBar_title));
 
 	}
 
-	// leftÇøÓò
+	// leftåŒºåŸŸ
 	private void setLeftContainer(TypedArray type) {
 		int visibilty = type.getInt(R.styleable.TitleBar_title_left_res_visibility, Constant.TITLE_VISIBILITY_GONE);
 		FrameLayout leftContainer = (FrameLayout) findViewById(R.id.titlebar_left_container);
@@ -68,7 +68,7 @@ public class SimpleTitleBar extends LinearLayout {
 
 	}
 
-	// ÉèÖÃÊÇÍ¼±ê»¹ÊÇÎÄ×Ö°´Å¥
+	// è®¾ç½®æ˜¯å›¾æ ‡è¿˜æ˜¯æ–‡å­—æŒ‰é’®
 	private void setLeftImageOrText(TypedArray type, int resType) {
 		RelativeLayout leftImage = (RelativeLayout) findViewById(R.id.titlebar_left_image_container);
 		RelativeLayout leftText = (RelativeLayout) findViewById(R.id.titlebar_left_text_container);
@@ -79,12 +79,12 @@ public class SimpleTitleBar extends LinearLayout {
 		} else {
 			leftImage.setVisibility(GONE);
 			leftText.setVisibility(VISIBLE);
-			// TODO Ô¤ÁôÊµÏÖ
+			// TODO é¢„ç•™å®ç°
 		}
 	}
 
 
-	//ÉèÖÃÍ¼±ê
+	//è®¾ç½®å›¾æ ‡
 	private ImageView setImageBtn(TypedArray type, int resId, int styleableAttrId) {
 		ImageView imageBtn = (ImageView) findViewById(resId);
 		int attrImage = type.getResourceId(styleableAttrId, R.drawable.common_tb_back);
@@ -111,7 +111,7 @@ public class SimpleTitleBar extends LinearLayout {
 		} else {
 			rightImage.setVisibility(GONE);
 			rightText.setVisibility(VISIBLE);
-			// TODO:Ô¤ÁôÊµÏÖ
+			// TODO:é¢„ç•™å®ç°
 			rightTextBtn = (TextView) findViewById(R.id.titlebar_right_text);
 			String str = type.getString(R.styleable.TitleBar_title_right_text);
 			rightTextBtn.setText(str);
@@ -119,7 +119,7 @@ public class SimpleTitleBar extends LinearLayout {
 
 	}
 
-	// ÉèÖÃÕûÌåÇøÓòÊÇ·ñ¿É¼û
+	// è®¾ç½®æ•´ä½“åŒºåŸŸæ˜¯å¦å¯è§
 	private void setVisibility(FrameLayout container, int visibilty) {
 		switch (visibilty) {
 		case Constant.TITLE_VISIBILITY_VISIBLE: {
@@ -144,7 +144,7 @@ public class SimpleTitleBar extends LinearLayout {
 		return null;
 	}
 
-	// ÉèÖÃÃû³ÆÓë·µ»Ø°´Å¥½çÃæ
+	// è®¾ç½®åç§°ä¸è¿”å›æŒ‰é’®ç•Œé¢
 	public void setLeftViewClick(OnClickListener l) {
 		this.getLeftView().setOnClickListener(l);
 	}
@@ -158,7 +158,7 @@ public class SimpleTitleBar extends LinearLayout {
 		
 	}
 	
-	// ÉèÖÃÃû³ÆÓë·µ»Ø°´Å¥½çÃæ
+	// è®¾ç½®åç§°ä¸è¿”å›æŒ‰é’®ç•Œé¢
 	public void setRightViewClick(OnClickListener l) {
 		this.getRightView().setOnClickListener(l);
 	}
