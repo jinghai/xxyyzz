@@ -3,13 +3,13 @@ package com.ipet.android.ui.view;
 import java.util.List;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -53,6 +53,9 @@ public class ListFeedAdapter extends BaseAdapter implements PinnedHeaderAdapter,
 	public class ViewHolder {
 		public TextView create_by;
 		public TextView content;
+		public ImageView content_image;
+		public View header;
+		public TextView create_at;
 	}
 
 
@@ -64,8 +67,11 @@ public class ListFeedAdapter extends BaseAdapter implements PinnedHeaderAdapter,
 		if (convertView == null) {
 			view = inflater.inflate(R.layout.list_feed_item, null);
 			holder = new ViewHolder();
-			holder.create_by = (TextView) view.findViewById(R.id.feed_header);
-			holder.content = (TextView) view.findViewById(R.id.feed_content);
+			holder.header = view.findViewById(R.id.inc_feed_header);
+			holder.create_by = (TextView) view.findViewById(R.id.feed_created_by);
+			holder.create_at = (TextView) view.findViewById(R.id.feed_created_at);
+			holder.content_image =  (ImageView) view.findViewById(R.id.feed_content_image);
+			//holder.content = (TextView) view.findViewById(R.id.feed_content);
 			view.setTag(holder);
 		} else {
 			view = convertView;
@@ -73,11 +79,13 @@ public class ListFeedAdapter extends BaseAdapter implements PinnedHeaderAdapter,
 		}
 		Feed feed = list.get(position);
 		holder.create_by.setText(feed.getCreate_by());
-		holder.content.setText(feed.getContent());
+		holder.create_at.setText(feed.getCreate_at());
+		//holder.content.setText(feed.getContent());
+		//holder.content_image
 		if (lastItemPosition == position) {
-			holder.create_by.setVisibility(View.INVISIBLE);
+			holder.header.setVisibility(View.INVISIBLE);
 		} else {
-			holder.create_by.setVisibility(View.VISIBLE);
+			holder.header.setVisibility(View.VISIBLE);
 		}
 		return view;
 	}
@@ -110,8 +118,10 @@ public class ListFeedAdapter extends BaseAdapter implements PinnedHeaderAdapter,
         }   
  
 		// TODO Auto-generated method stub
-		((TextView) header.findViewById(R.id.feed_header)).setText(list.get(   
-                position).getCreate_by());   
+		((TextView) header.findViewById(R.id.feed_created_by)).setText(list.get(   
+                position).getCreate_by());  
+		((TextView) header.findViewById(R.id.feed_created_at)).setText(list.get(   
+                position).getCreate_at());  
 		lastItemPosition = position;   
 
 	}

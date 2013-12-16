@@ -1,5 +1,7 @@
 <resources>
 	<color name="background">#FFF0F0F0</color>
+	<color name="feed_header_background">#E6F0F0F0</color>
+	
 	<color name="font_white">#FFFFFFFF</color>
 	<color name="font_black">#FF222222</color>
 	<color name="font_gray">#ffbfbfbf</color>
