@@ -1,4 +1,4 @@
-package com.ipet.android.ui.common;
+package com.ipet.android.widget;
 /**
  * Copyright (C) 2010 The Android Open Source Project
  *
