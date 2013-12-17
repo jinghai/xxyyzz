@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.ipet.R;
+import com.ipet.android.ui.adapter.ListConversationAdapter;
 import com.ipet.android.ui.manager.ConversationManager;
-import com.ipet.android.ui.view.ListConversationAdapter;
 
 public class MainConversationFragment extends Fragment {
 	private Activity activity;
