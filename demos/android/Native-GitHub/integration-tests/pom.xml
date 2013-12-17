@@ -11,7 +11,7 @@
 
     <packaging>apk</packaging>
     <artifactId>github-android-integration-tests</artifactId>
-    <name>GitHub-Android integration tests</name>
+    <name>Demo-GitHub:: Android integration tests</name>
 
     <dependencies>
         <dependency>
@@ -73,12 +73,12 @@
                     </execution>
                 </executions>
             </plugin>
-             <plugin>
+            <plugin>
                 <groupId>com.jayway.maven.plugins.android.generation2</groupId>
                 <artifactId>android-maven-plugin</artifactId>
-                 <configuration>
-                     <resourceDirectory>${project.build.directory}/filtered-res</resourceDirectory>
-                 </configuration>
+                <configuration>
+                    <resourceDirectory>${project.build.directory}/filtered-res</resourceDirectory>
+                </configuration>
             </plugin>
         </plugins>
     </build>
