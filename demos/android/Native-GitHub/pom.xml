@@ -7,7 +7,7 @@
     <groupId>com.github.github</groupId>
     <artifactId>github-android-parent</artifactId>
     <packaging>pom</packaging>
-    <name>Demo-GitHub Android App Parent</name>
+    <name>Demo-Native-GitHub Android App Parent</name>
 
     <modules>
         <module>app</module>

@@ -11,7 +11,7 @@
 
     <packaging>apk</packaging>
     <artifactId>github-android-integration-tests</artifactId>
-    <name>Demo-GitHub:: Android integration tests</name>
+    <name>Demo-Native-GitHub:: Android integration tests</name>
 
     <dependencies>
         <dependency>

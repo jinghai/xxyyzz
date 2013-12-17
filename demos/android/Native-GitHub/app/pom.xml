@@ -10,7 +10,7 @@
     </parent>
 
     <packaging>apk</packaging>
-    <name>Demo-GitHub:: for Android</name>
+    <name>Demo-Native-GitHub:: for Android</name>
     <artifactId>github-android</artifactId>
     <url>https://github.com/github/android</url>
 
