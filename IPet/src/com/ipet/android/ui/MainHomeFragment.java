@@ -8,9 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ipet.R;
-import com.ipet.android.ui.common.PinnedHeaderListView;
+import com.ipet.android.task.FeedLoadAsyncTask;
+import com.ipet.android.ui.adapter.ListFeedAdapter;
+import com.ipet.android.ui.common.FeedListView;
 import com.ipet.android.ui.manager.FeedManager;
-import com.ipet.android.ui.view.ListFeedAdapter;
+import com.ipet.android.widget.PullToRefreshListView.OnRefreshListener;
+
 
 public class MainHomeFragment extends Fragment {
 	private Activity activity;
@@ -26,12 +29,20 @@ public class MainHomeFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		this.activity = getActivity();
 
-		PinnedHeaderListView  listView= (PinnedHeaderListView) activity.findViewById(R.id.main_home_listView);
-		ListFeedAdapter adapter = new ListFeedAdapter(activity,listView,FeedManager.load());
+		final FeedListView  listView= (FeedListView) activity.findViewById(R.id.main_home_listView);
+		final ListFeedAdapter adapter = new ListFeedAdapter(activity,FeedManager.load());
         listView.setAdapter(adapter);
         listView.setOnScrollListener(adapter);
         listView.setPinnedHeaderView(activity.getLayoutInflater().inflate(   
-                R.layout.list_feed_item_header, listView, false));   
+                R.layout.list_feed_item_header, listView, false));  
+        
+        listView.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Do work to refresh the list here.
+            	new FeedLoadAsyncTask(listView,adapter).execute();
+            }
+        });
 
 	}
     

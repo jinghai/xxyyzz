@@ -47,5 +47,4 @@
             android:theme="@style/IPetThem.NoTitleBar" >
         </activity>
     </application>
-
 </manifest>

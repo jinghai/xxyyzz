@@ -13,7 +13,7 @@
         app:title_left_res_visibility="invisible"
         app:title_right_res_visibility="invisible" />
 
-    <com.ipet.android.ui.common.PinnedHeaderListView
+    <com.ipet.android.ui.common.FeedListView
         android:id="@id/main_home_listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
