@@ -35,6 +35,7 @@ public class MainHomeFragment extends Fragment {
         listView.setOnScrollListener(adapter);
         listView.setPinnedHeaderView(activity.getLayoutInflater().inflate(   
                 R.layout.list_feed_item_header, listView, false));  
+        listView.setLastUpdated("更新于:12-10 10:10");
         
         listView.setOnRefreshListener(new OnRefreshListener() {
             @Override
