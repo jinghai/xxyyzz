@@ -30,6 +30,7 @@ public class FeedLoadAsyncTask extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String result) {
     	adapter.prependList(FeedManager.loadNew());
+    	listView.setLastUpdated("更新于:12-11 10:10");
     	listView.onRefreshComplete();
         super.onPostExecute(result);
     }
