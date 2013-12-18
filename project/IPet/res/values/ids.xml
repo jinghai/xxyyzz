@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="welcome_reg_btn" type="id" />
+    <item name="welcome_login_btn" type="id" />
+    <item name="login_connect_qq" type="id" />
+    <item name="login_connect_sina" type="id" />
+    <item name="version_info" type="id" />
+    <item name="dotViewGroup" type="id" />
+    <item name="guidePages" type="id" />
+    
+    <item name="common_bg_title_bar" type="id" />
+    
+    <item name="titlebar_title" type="id" />
+    <item name="titlebar" type="id" />
+    
+    <item name="titlebar_left_container" type="id" />
+    <item name="titlebar_left_image_container" type="id" />
+    <item name="titlebar_left_btn" type="id" />
+    <item name="titlebar_left_text_container" type="id" />
+    
+    <item name="titlebar_right_container" type="id" />
+    <item name="titlebar_right_image_container" type="id" />
+    <item name="titlebar_right_btn" type="id" />
+    <item name="titlebar_right_text_container" type="id" />
+    <item name="titlebar_right_text" type="id" />
+    
+    
+    <item name="login_titlebar" type="id" />
+    <item name="login_account" type="id" />
+    <item name="login_password" type="id" />
+    <item name="login_toggle_password" type="id" />
+    <item name="login_forgot_password" type="id" />
+    <item name="login_login_btn" type="id" />
+    
+    <item name="realtabcontent" type="id" />
+    <item name="main_home_titlebar" type="id" />
+    <item name="main_find_titlebar" type="id" />
+    <item name="main_camera_titlebar" type="id" />
+    <item name="main_me_titlebar" type="id" />
+    <item name="main_conversation_titlebar" type="id" />
+    <item name="main_conversation_listView" type="id" />
+        
+    <item name="conversation_avatar" type="id" />
+    <item name="new_msg_num" type="id" />
+    <item name="conversationg_middle_area" type="id" />
+    <item name="conversation_checkbox" type="id" />
+    <item name="date_time" type="id" />
+    <item name="conversation_unsend" type="id" />
+    <item name="conversation_from" type="id" />
+    <item name="conversation_name" type="id" />
+    <item name="conversation_content" type="id" />
+    
+    <item name="main_home_listView" type="id" />
+
+
+</resources>

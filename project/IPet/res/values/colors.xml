@@ -1,0 +1,20 @@
+<resources>
+	<color name="background">#FFF0F0F0</color>
+	<color name="feed_header_background">#E6F0F0F0</color>
+	
+	<color name="font_white">#FFFFFFFF</color>
+	<color name="font_black">#FF222222</color>
+	<color name="font_gray">#ffbfbfbf</color>
+	
+	<color name="font_input_hint">#ffbfbfbf</color>
+
+	
+	<color name="font_white_titlebar">#E6FFFFFF</color>
+	<color name="font_white_titlebar_pressed">#E6D6D6D6</color>
+	
+	<color name="font_subjet_gray">#ff666666</color>
+	
+	<color name="font_welcome_blue">#ff3399ff</color>
+	
+
+</resources>

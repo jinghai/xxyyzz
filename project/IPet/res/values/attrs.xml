@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <declare-styleable name="TitleBar">
+   		<attr name="title" format="string" localization="suggested" />
+   		
+   		<attr name="title_left_image" format="reference" />
+   		<attr name="title_right_image" format="reference" />
+   		
+   		<attr name="title_left_text" format="reference" />
+   		<attr name="title_right_text" format="reference" />
+   		
+   		
+   		<attr name="title_right_res_type">
+        	<enum name="text" value="0" />
+        	<enum name="image" value="1" />
+    	</attr>
+   		<attr name="title_left_res_type">
+        	<enum name="text" value="0" />
+        	<enum name="image" value="1" />
+    	</attr>
+    	
+   		<attr name="title_left_res_visibility">
+        	<enum name="visible" value="0" />
+        	<enum name="invisible" value="1" />
+        	<enum name="gone" value="2" />
+    	</attr>
+    	
+   		<attr name="title_right_res_visibility">
+        	<enum name="visible" value="0" />
+        	<enum name="invisible" value="1" />
+        	<enum name="gone" value="2" />
+    	</attr>
+   </declare-styleable>
+</resources>
