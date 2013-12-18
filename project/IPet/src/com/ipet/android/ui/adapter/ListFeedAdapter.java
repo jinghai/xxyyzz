@@ -134,6 +134,12 @@ public class ListFeedAdapter extends BaseAdapter implements PinnedHeaderAdapter,
 		this.list.addAll(0,list);
 		this.notifyDataSetChanged();
 	}
+
+	public void appendList(List<Feed> list) {
+		// TODO Auto-generated method stub
+		this.list.addAll(list);
+		this.notifyDataSetChanged();
+	}
 	
 
 

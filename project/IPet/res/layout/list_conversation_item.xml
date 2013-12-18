@@ -11,7 +11,7 @@
 	    android:paddingBottom="10dp" >
 	    
 	    <com.loopj.android.image.SmartImageView
-	        android:id="@id/conversation_avatar"
+	        android:id="@+id/conversation_avatar"
 	        android:layout_width="60dp"
 	        android:layout_height="60dp"
 	        android:layout_alignParentLeft="true"
@@ -22,13 +22,13 @@
 	        android:src="@drawable/list_default_avatar_boy" />
 	    
 	    <TextView
-	        android:id="@id/new_msg_num"
+	        android:id="@+id/new_msg_num"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentTop="true"
 	        android:layout_marginRight="3dp"
 	        android:layout_marginTop="5dp"
-	        android:layout_toLeftOf="@id/conversationg_middle_area"
+	        android:layout_toLeftOf="@+id/conversationg_middle_area"
 	        android:background="@drawable/list_info_remind_bg"
 	        android:gravity="center"
 	        android:includeFontPadding="false"
@@ -41,7 +41,7 @@
 	        android:visibility="gone" />
 	    
 	    <CheckBox
-	        android:id="@id/conversation_checkbox"
+	        android:id="@+id/conversation_checkbox"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentRight="true"
@@ -54,17 +54,17 @@
 	        android:visibility="gone" />
 
 	    <RelativeLayout
-	        android:id="@id/conversationg_middle_area"
+	        android:id="@+id/conversationg_middle_area"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_alignTop="@id/conversation_avatar"
-	        android:layout_toLeftOf="@id/conversation_checkbox"
-	        android:layout_toRightOf="@id/conversation_avatar"
+	        android:layout_alignTop="@+id/conversation_avatar"
+	        android:layout_toLeftOf="@+id/conversation_checkbox"
+	        android:layout_toRightOf="@+id/conversation_avatar"
 	        android:gravity="left"
 	        android:paddingRight="10dp" >
 	       
 	        <TextView
-	            android:id="@id/date_time"
+	            android:id="@+id/date_time"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignParentRight="true"
@@ -74,26 +74,26 @@
 	            android:textSize="@dimen/text_size_12" />
 
 	        <ImageView
-	            android:id="@id/conversation_unsend"
+	            android:id="@+id/conversation_unsend"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_marginRight="5dp"
 	            android:layout_marginTop="2dp"
-	            android:layout_toLeftOf="@id/date_time"
+	            android:layout_toLeftOf="@+id/date_time"
 	            android:src="@drawable/icon_conversation_failure"
 	            android:visibility="invisible" />
 
 	        <LinearLayout
-	            android:id="@id/conversation_from"
+	            android:id="@+id/conversation_from"
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
 	            android:gravity="left"
  				android:orientation="horizontal" 
-				android:layout_toLeftOf="@id/conversation_unsend" 
+				android:layout_toLeftOf="@+id/conversation_unsend" 
 				android:layout_alignParentLeft="true" 
 				android:layout_alignParentTop="true">
  				<TextView
- 				    android:id="@id/conversation_name"
+ 				    android:id="@+id/conversation_name"
  				    android:layout_width="wrap_content"
  				    android:layout_height="wrap_content"
  				    android:ellipsize="middle"
@@ -105,11 +105,11 @@
 	        </LinearLayout>
 	        
 	         <TextView
-	             android:id="@id/conversation_content"
+	             android:id="@+id/conversation_content"
 	             android:layout_width="wrap_content"
 	             android:layout_height="wrap_content"
 	             android:layout_alignParentLeft="true"
-	             android:layout_below="@id/conversation_from"
+	             android:layout_below="@+id/conversation_from"
 	             android:layout_marginTop="3dip"
 	             android:ellipsize="end"
 	             android:includeFontPadding="false"

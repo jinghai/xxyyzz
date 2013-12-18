@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <com.ipet.android.ui.common.SimpleTitleBar
-        android:id="@id/main_camera_titlebar"
+        android:id="@+id/main_camera_titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="@string/main_camera_title"

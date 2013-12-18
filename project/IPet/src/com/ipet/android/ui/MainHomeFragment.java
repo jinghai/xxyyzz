@@ -1,5 +1,7 @@
 package com.ipet.android.ui;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,14 +11,18 @@ import android.view.ViewGroup;
 
 import com.ipet.R;
 import com.ipet.android.task.FeedLoadAsyncTask;
+import com.ipet.android.task.FeedLoadMoreAsyncTask;
+import com.ipet.android.task.FeedLoadNewAsyncTask;
 import com.ipet.android.ui.adapter.ListFeedAdapter;
 import com.ipet.android.ui.common.FeedListView;
-import com.ipet.android.ui.manager.FeedManager;
+import com.ipet.android.ui.common.FeedListView.OnLoadMoreListener;
+import com.ipet.android.vo.Feed;
 import com.ipet.android.widget.PullToRefreshListView.OnRefreshListener;
 
 
 public class MainHomeFragment extends Fragment {
 	private Activity activity;
+	private ArrayList<Feed> list = new ArrayList<Feed>(0);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,20 +36,35 @@ public class MainHomeFragment extends Fragment {
 		this.activity = getActivity();
 
 		final FeedListView  listView= (FeedListView) activity.findViewById(R.id.main_home_listView);
-		final ListFeedAdapter adapter = new ListFeedAdapter(activity,FeedManager.load());
+		final ListFeedAdapter adapter = new ListFeedAdapter(activity,list);
         listView.setAdapter(adapter);
         listView.setOnScrollListener(adapter);
         listView.setPinnedHeaderView(activity.getLayoutInflater().inflate(   
                 R.layout.list_feed_item_header, listView, false));  
-        listView.setLastUpdated("更新于:12-10 10:10");
+        
+        View emptyView =  activity.findViewById(R.id.empty); 
+        listView.setEmptyView(emptyView);
+        
+        new FeedLoadAsyncTask(listView,adapter).execute();
         
         listView.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // Do work to refresh the list here.
-            	new FeedLoadAsyncTask(listView,adapter).execute();
+            	new FeedLoadNewAsyncTask(listView,adapter).execute();
             }
         });
+        
+        listView.setOnLoadMoreListener(new OnLoadMoreListener(){
+
+			@Override
+			public void LoadMore() {
+				// TODO Auto-generated method stub
+				new FeedLoadMoreAsyncTask(listView,adapter).execute();
+			}
+        	
+        });
+  
 
 	}
     

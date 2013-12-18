@@ -6,7 +6,7 @@
     tools:context=".LoginActivity" >
 
     <com.ipet.android.ui.common.SimpleTitleBar
-        android:id="@id/login_titlebar"
+        android:id="@+id/login_titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="@string/title_login"
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/login_titlebar"
+        android:layout_below="@+id/login_titlebar"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="15dp"
@@ -41,7 +41,7 @@
                 android:textSize="16sp" />
 
             <AutoCompleteTextView
-                android:id="@id/login_account"
+                android:id="@+id/login_account"
                 android:layout_width="0.0dip"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="26dp"
@@ -73,7 +73,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@id/login_password"
+                android:id="@+id/login_password"
                 android:layout_width="0.0dip"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="26dp"
@@ -89,7 +89,7 @@
                 android:windowSoftInputMode="stateHidden" />
 
             <TextView
-                android:id="@id/login_toggle_password"
+                android:id="@+id/login_toggle_password"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"
@@ -106,7 +106,7 @@
 
 
     <TextView
-        android:id="@id/login_forgot_password"
+        android:id="@+id/login_forgot_password"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -122,11 +122,11 @@
         android:textSize="16sp" />
     
    <TextView
-        android:id="@id/login_login_btn"
+        android:id="@+id/login_login_btn"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/login_forgot_password"
+        android:layout_below="@+id/login_forgot_password"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"

@@ -14,12 +14,23 @@
         app:title_right_res_visibility="invisible" />
 
     <com.ipet.android.ui.common.FeedListView
-        android:id="@id/main_home_listView"
+        android:id="@+id/main_home_listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         android:scrollbars="none"
         />
-  
+
+     <TextView
+         android:id="@+id/empty"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:layout_weight="1"
+         android:gravity="center"
+         android:padding="15dip"
+         android:text="@string/drop_to_more_load_label"
+         android:textSize="22sp"
+         android:visibility="gone" />
+ 
 <!-- 
     <ScrollView
         android:id="@+id/scrollView1"

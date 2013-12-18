@@ -19,7 +19,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@id/welcome_login_btn"
+        android:id="@+id/welcome_login_btn"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30.0dip"
@@ -32,7 +32,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@id/welcome_reg_btn"
+        android:id="@+id/welcome_reg_btn"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30.0dip"
@@ -67,7 +67,7 @@
                 android:background="@drawable/welcome_weibo_login"/>
 
             <TextView
-                android:id="@id/login_connect_sina"
+                android:id="@+id/login_connect_sina"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -92,7 +92,7 @@
                 android:background="@drawable/welcome_qq_login"/>
 
             <TextView
-                android:id="@id/login_connect_qq"
+                android:id="@+id/login_connect_qq"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -106,7 +106,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@id/version_info"
+        android:id="@+id/version_info"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20.0dip"

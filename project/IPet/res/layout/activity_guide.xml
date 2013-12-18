@@ -6,12 +6,12 @@
     tools:context=".GuideActivity" >
 
    <android.support.v4.view.ViewPager
-       android:id="@id/guidePages"
+       android:id="@+id/guidePages"
        android:layout_width="match_parent"
        android:layout_height="match_parent" />
 
    <LinearLayout
-       android:id="@id/dotViewGroup"
+       android:id="@+id/dotViewGroup"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_alignParentBottom="true"

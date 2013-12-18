@@ -6,7 +6,7 @@
     android:orientation="vertical" >
 
     <com.ipet.android.ui.common.SimpleTitleBar
-        android:id="@id/main_conversation_titlebar"
+        android:id="@+id/main_conversation_titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="@string/main_conversation_title"
@@ -14,7 +14,7 @@
         app:title_right_res_visibility="invisible" />
 
     <ListView
-        android:id="@id/main_conversation_listView"
+        android:id="@+id/main_conversation_listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         android:scrollbars="none"
