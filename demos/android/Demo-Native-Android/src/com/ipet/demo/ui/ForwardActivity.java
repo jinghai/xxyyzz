@@ -24,4 +24,8 @@ public class ForwardActivity extends Activity {
         // ToDo add your GUI initialization code here
     }
 
+    private void backAndFinish() {
+        this.finish();
+    }
+
 }
