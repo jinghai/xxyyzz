@@ -21,16 +21,18 @@ public class FeedDao {
     }
 
     public void save(Feed feed) {
-        String sql = "insert into feeds (content,created_at,created_by,created_on)values(?,?,?,?)";
+        String sql = "insert into feeds (content,created_at,created_by) values(?,?,?)";
         SQLiteDatabase db = helper.getWritableDatabase();
-        Log.d(TAG, db.toString());
-        Log.d(TAG, feed.toString());
-        db.execSQL(sql, new Object[]{feed.content, feed.createdAt,
-            feed.createdBy, feed.createdOn});
+        Log.d(TAG, "save:" + sql);
+        db.execSQL(sql, new Object[]{feed.content, feed.createdAt, feed.createdBy});
     }
 
     public void update(Feed feed) {
-        //todo
+        String sql = "update feeds set content=?,created_at=?,created_by=? where id=?";
+        SQLiteDatabase db = helper.getWritableDatabase();
+        Log.d(TAG, "update:" + sql);
+        db.execSQL(sql, new Object[]{feed.content, feed.createdAt, feed.createdBy, feed.id});
+
     }
 
     public Feed getById(Integer id) {
@@ -43,15 +45,12 @@ public class FeedDao {
             String content = cursor.getString(cursor.getColumnIndex("content"));
             String createdBy = cursor.getString(cursor
                     .getColumnIndex("created_by"));
-            String createdOn = cursor.getString(cursor
-                    .getColumnIndex("created_on"));
             String createdAt = cursor.getString(cursor
                     .getColumnIndex("created_at"));
             String imgUrl = cursor
                     .getString(cursor.getColumnIndex("img_url"));
 
-            return new Feed(fid, content, createdBy, createdOn, createdAt,
-                    imgUrl);
+            return new Feed(fid, content, createdBy, createdAt, imgUrl);
         } else {
 
             return null;
@@ -70,14 +69,12 @@ public class FeedDao {
             String content = cursor.getString(cursor.getColumnIndex("content"));
             String createdBy = cursor.getString(cursor
                     .getColumnIndex("created_by"));
-            String createdOn = cursor.getString(cursor
-                    .getColumnIndex("created_on"));
             String createdAt = cursor.getString(cursor
                     .getColumnIndex("created_at"));
             String imgUrl = cursor
                     .getString(cursor.getColumnIndex("img_url"));
 
-            feeds.add(new Feed(fid, content, createdBy, createdOn, createdAt,
+            feeds.add(new Feed(fid, content, createdBy, createdAt,
                     imgUrl));
         }
         cursor.close();
@@ -89,9 +86,7 @@ public class FeedDao {
         String sql = "delete from feeds where id=?";
         SQLiteDatabase db = helper.getWritableDatabase();
 
-        Log.d(TAG, db.toString());
-        Log.d(TAG, "start to delete id=" + id.toString());
-
+        Log.d(TAG, "removeByIds:" + sql);
         db.execSQL(sql, new Object[]{id.toString()});
 
     }

@@ -3,11 +3,14 @@ package com.ipet.android.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Helper class to create & upgrade database cache tables
  */
 public class DBHelper extends SQLiteOpenHelper {
+
+    private static final String TAG = "DBHelper";
 
     /**
      * Version constant to increment when the database should be rebuilt
@@ -28,12 +31,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(final SQLiteDatabase db) {
+        Log.d(TAG, "onCreate:" + db.toString());
         String feeds = "create table IF NOT EXISTS feeds("
                 + "id integer primary key autoincrement,"
                 + "content varchar(500),"
-                + "created_at varchar(20),"
                 + "created_by varchar(20),"
-                + "created_on varchar(20),"
+                + "created_at varchar(20),"
                 + "img_url varchar(20) );";
         db.execSQL(feeds);
     }
@@ -41,6 +44,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(final SQLiteDatabase db, final int oldVersion,
             final int newVersion) {
+        Log.d(TAG, "onUpgrade:" + db.toString());
         db.execSQL("DROP TABLE IF EXISTS feeds");
         onCreate(db);
     }

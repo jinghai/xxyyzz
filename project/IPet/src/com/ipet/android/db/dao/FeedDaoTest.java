@@ -26,10 +26,10 @@ public class FeedDaoTest extends AndroidTestCase {
 
         //init test data
         feed1 = new Feed("content", "zhangzuliang",
-                "2013-12-12 12:12:12", "Shanghai", "/img/zhangzuliang20131212121212.gif");
+                "2013-12-12 12:12:12", "/img/zhangzuliang20131212121212.gif");
 
         feed2 = new Feed("content2", "zhangzuliang",
-                "2013-12-12 12:12:13", "Suzhou", "/img/zhangzuliang20131212121213.gif");
+                "2013-12-12 12:12:13", "/img/zhangzuliang20131212121213.gif");
 
         Log.d(TAG, "start unit test feeDao");
 
