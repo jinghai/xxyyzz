@@ -4,29 +4,30 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-<TextView
+
+    <Button
+        android:id="@+id/main.uiIndexBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="界面" />
+
+    <Button
+        android:id="@+id/main.dbIndexBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="数据库" />
+
+<Button
+    android:id="@+id/main.fileIndexBtn"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:text="Hello World, MainActivity"
-    />
+    android:text="文件" />
 
 <Button
-    android:id="@+id/button1"
+    android:id="@+id/main.exitBtn"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:text="Button" />
-
-<Button
-    android:id="@+id/button2"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Button" />
-
-<Button
-    android:id="@+id/button3"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Button" />
+    android:text="退出" />
 
 </LinearLayout>
 
