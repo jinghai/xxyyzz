@@ -3,6 +3,7 @@ package com.ipet.android.ui.adapter;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,8 +79,6 @@ public class ListFeedAdapter extends BaseAdapter implements PinnedHeaderAdapter,
 		holder.create_at.setText(feed.getCreate_at());
 		//holder.content.setText(feed.getContent());
 		//holder.content_image
-		
-		//Log.i("getView", "p"+position);
 		
 		//数据pos获取的0 实际显示的位置是1
 		if (lastItemPosition == position+1) {

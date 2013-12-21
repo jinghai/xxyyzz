@@ -18,6 +18,7 @@ package com.ipet.android.ui.common;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListAdapter;
@@ -37,6 +38,7 @@ public class FeedListView extends PullToRefreshListView {
 	private RelativeLayout mMoreView;
 	private TextView mMoreViewText;
 	private ProgressBar mMoreViewProgress;
+	private int lastY = 0;
 	
 	private OnLoadMoreListener onLoadMoreListener;
 
@@ -94,6 +96,9 @@ public class FeedListView extends PullToRefreshListView {
 	private int mHeaderViewWidth;
 
 	private int mHeaderViewHeight;
+	
+	private int mWidthMeasureSpec;
+	private int mHeightMeasureSpec;
 
 	public FeedListView(Context context) {
 		super(context);
@@ -157,6 +162,8 @@ public class FeedListView extends PullToRefreshListView {
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		mWidthMeasureSpec = widthMeasureSpec;
+		mHeightMeasureSpec = heightMeasureSpec;
 		if (mHeaderView != null) {
 			measureChild(mHeaderView, widthMeasureSpec, heightMeasureSpec);
 			mHeaderViewWidth = mHeaderView.getMeasuredWidth();
@@ -167,22 +174,14 @@ public class FeedListView extends PullToRefreshListView {
 	@Override
 	protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
 		super.onLayout(changed, left, top, right, bottom);
-		if (mHeaderView != null) {
-			mHeaderView.layout(0, 0, mHeaderViewWidth, mHeaderViewHeight);
+		if (mHeaderView != null && getFirstVisiblePosition()>0) {
 			configureHeaderView(getFirstVisiblePosition());
+			measureChild(mHeaderView, mWidthMeasureSpec, mHeightMeasureSpec);
+			mHeaderView.layout(0, lastY, mHeaderViewWidth, mHeaderViewHeight+lastY);
 		}
 	}
 
 	public void configureHeaderView(int position) {
-		if (position == 0) {
-			// mHeaderViewVisible = false;
-			View firstView = getChildAt(0);
-			int bottom = firstView.getBottom();
-			mAdapter.configurePinnedHeader(mHeaderView, position, MAX_ALPHA);
-			mHeaderView.layout(0, bottom, mHeaderViewWidth, mHeaderViewHeight + bottom);
-			mHeaderViewVisible = false;
-			return;
-		}
 		if (mHeaderView == null) {
 			return;
 		}
@@ -196,6 +195,7 @@ public class FeedListView extends PullToRefreshListView {
 
 		case PinnedHeaderAdapter.PINNED_HEADER_VISIBLE: {
 			mAdapter.configurePinnedHeader(mHeaderView, position, MAX_ALPHA);
+			measureChild(mHeaderView, mWidthMeasureSpec, mHeightMeasureSpec);
 			if (mHeaderView.getTop() != 0) {
 				mHeaderView.layout(0, 0, mHeaderViewWidth, mHeaderViewHeight);
 			}
@@ -216,10 +216,13 @@ public class FeedListView extends PullToRefreshListView {
 				y = 0;
 				alpha = MAX_ALPHA;
 			}
+		
 			mAdapter.configurePinnedHeader(mHeaderView, position, alpha);
+			measureChild(mHeaderView, mWidthMeasureSpec, mHeightMeasureSpec);
 			if (mHeaderView.getTop() != y) {
 				mHeaderView.layout(0, y, mHeaderViewWidth, mHeaderViewHeight + y);
 			}
+			lastY = y;
 			mHeaderViewVisible = true;
 			break;
 		}
@@ -229,7 +232,7 @@ public class FeedListView extends PullToRefreshListView {
 	@Override
 	protected void dispatchDraw(Canvas canvas) {
 		super.dispatchDraw(canvas);
-		if (mHeaderViewVisible) {
+		if (mHeaderViewVisible && getFirstVisiblePosition()>0) {
 			drawChild(canvas, mHeaderView, getDrawingTime());
 		}
 	}

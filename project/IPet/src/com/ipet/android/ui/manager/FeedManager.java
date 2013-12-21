@@ -25,7 +25,7 @@ public class FeedManager {
 		for (int i = 0; i < 2; i++) {   
 			Feed feed = new Feed();
 			feed.setCreate_by("kongchun"+i);
-			feed.setCreate_at("现在 "+i+":00");
+			feed.setCreate_at("现在 zai "+i+":00");
 			feed.setContent("context"+i);
 	    	list.add(feed); 
 	    }   
