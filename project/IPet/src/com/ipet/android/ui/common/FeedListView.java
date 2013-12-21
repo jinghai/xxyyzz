@@ -128,6 +128,7 @@ public class FeedListView extends PullToRefreshListView implements OnScrollListe
 		mMoreViewText = (TextView) mMoreView.findViewById(R.id.drop_to_refresh_text);
 		mMoreViewProgress = (ProgressBar) mMoreView.findViewById(R.id.drop_to_refresh_progress);
 		addFooterView(mMoreView);
+		super.setOnScrollListener(this);
 	}
 	
 	public void prepareForMore() {
@@ -283,16 +284,12 @@ public class FeedListView extends PullToRefreshListView implements OnScrollListe
 		MORE_LOAD_PROCESS = false;
 	}
 	
-    @Override
-    public void setOnScrollListener(AbsListView.OnScrollListener l) {
-        mOnScrollListener = l;
-    }
-
 	
 	@Override
     public void onScroll(AbsListView view, int firstVisibleItem,
             int visibleItemCount, int totalItemCount) {
-		  
+		   super.onScroll(view, firstVisibleItem,
+                   visibleItemCount, totalItemCount);
 
           if(firstVisibleItem>0 && visibleItemCount+firstVisibleItem==totalItemCount && !MORE_LOAD_PROCESS){
               if(mMoreView.getVisibility() != View.GONE){
