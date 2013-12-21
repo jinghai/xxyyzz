@@ -96,8 +96,6 @@ public class ListFeedAdapter extends BaseAdapter implements PinnedHeaderAdapter,
 		if (view instanceof FeedListView) {
 			((FeedListView) view).configureHeaderView(firstVisibleItem);
 		}
-
-		
 	}
 
 	@Override

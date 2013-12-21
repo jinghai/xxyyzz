@@ -21,10 +21,12 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.ListAdapter;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.AbsListView.OnScrollListener;
 
 import com.ipet.R;
 import com.ipet.android.widget.PullToRefreshListView;
@@ -33,7 +35,7 @@ import com.ipet.android.widget.PullToRefreshListView;
  * A ListView that maintains a header pinned at the top of the list. The pinned
  * header can be pushed up and dissolved as needed.
  */
-public class FeedListView extends PullToRefreshListView {
+public class FeedListView extends PullToRefreshListView implements OnScrollListener{
 	private LayoutInflater mInflater;
 	private RelativeLayout mMoreView;
 	private TextView mMoreViewText;
@@ -41,6 +43,10 @@ public class FeedListView extends PullToRefreshListView {
 	private int lastY = 0;
 	
 	private OnLoadMoreListener onLoadMoreListener;
+	
+	private OnScrollListener mOnScrollListener;
+	
+	private static boolean MORE_LOAD_PROCESS = false;
 
 
 
@@ -125,6 +131,7 @@ public class FeedListView extends PullToRefreshListView {
 	}
 	
 	public void prepareForMore() {
+		MORE_LOAD_PROCESS = true;
 		mMoreViewProgress.setVisibility(View.VISIBLE);
 		mMoreViewText.setText(R.string.drop_to_more_load_label);
     }
@@ -268,10 +275,37 @@ public class FeedListView extends PullToRefreshListView {
 
 	public void onLoadMoreComplete() {
 		// TODO Auto-generated method stub
-		this.resetFooter(View.VISIBLE);
+		this.onLoadMoreComplete(View.VISIBLE);
 	}
 	public void onLoadMoreComplete(int visiblity) {
 		// TODO Auto-generated method stub
 		this.resetFooter(visiblity);
+		MORE_LOAD_PROCESS = false;
 	}
+	
+    @Override
+    public void setOnScrollListener(AbsListView.OnScrollListener l) {
+        mOnScrollListener = l;
+    }
+
+	
+	@Override
+    public void onScroll(AbsListView view, int firstVisibleItem,
+            int visibleItemCount, int totalItemCount) {
+		  
+
+          if(firstVisibleItem>0 && visibleItemCount+firstVisibleItem==totalItemCount && !MORE_LOAD_PROCESS){
+              if(mMoreView.getVisibility() != View.GONE){
+            		prepareForMore();
+        			onLoadMore();
+              }
+          }
+          
+          if (mOnScrollListener != null) {
+              mOnScrollListener.onScroll(view, firstVisibleItem,
+                      visibleItemCount, totalItemCount);
+          }
+
+   }
+
 }
