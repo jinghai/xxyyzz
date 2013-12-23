@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
- 	<include layout="@layout/list_feed_item_header" />
+ 	<include layout="@layout/list_feed_item_header"  android:id="@+id/inc_feed_header"/>
 
  	<ImageView
  	    android:id="@+id/feed_content_image"
