@@ -8,17 +8,17 @@ package com.ipet.android.sdk;
 /**
  * SDK异常
  */
-public class IpetSDKException extends RuntimeException {
+public class SDKException extends RuntimeException {
 
     private static final long serialVersionUID = 3048792398595051727L;
 
     private Throwable cause;
 
-    public IpetSDKException(String message) {
+    public SDKException(String message) {
         super(message);
     }
 
-    public IpetSDKException(Throwable t) {
+    public SDKException(Throwable t) {
         super(t.getMessage());
         this.cause = t;
     }

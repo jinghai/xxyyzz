@@ -8,6 +8,6 @@ package com.ipet.android.sdk;
  *
  * @author xiaojinghai
  */
-public class IpetSDK {
+public class SDK {
 
 }
