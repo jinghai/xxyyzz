@@ -5,6 +5,8 @@
 	<color name="font_white">#FFFFFFFF</color>
 	<color name="font_black">#FF222222</color>
 	<color name="font_gray">#ffbfbfbf</color>
+	<color name="font_blue">#ff537FAF</color>
+
 	
 	<color name="font_input_hint">#ffbfbfbf</color>
 

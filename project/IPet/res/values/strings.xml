@@ -45,6 +45,13 @@
     <string name="pull_to_refresh_tap_label">下拉刷新</string>
     <string name="drop_to_more_label">更多</string>
     <string name="drop_to_more_load_label">加载中...</string>
+    <string name="me_into_profile">详细</string>
+    <string name="me_into_profile2">资料</string>
+    <string name="default_num_zero">0</string>
+    <string name="me_feeds_label">相册</string>
+    <string name="me_followers_label">关注</string>
+    <string name="me_fans_label">粉丝</string>
+    <string name="me_friends_label">好友</string>
     
     
     
