@@ -4,7 +4,7 @@
  */
 package com.ipet.android.sdk.api;
 
-import com.ipet.android.sdk.api.domain.User;
+import com.ipet.android.sdk.api.domain.IpetUser;
 
 /**
  *
@@ -31,6 +31,6 @@ public interface AccountOperations {
      *
      * @param user
      */
-    public void register(User user);
+    public void register(IpetUser user);
 
 }

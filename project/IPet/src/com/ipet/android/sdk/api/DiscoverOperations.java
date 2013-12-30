@@ -4,7 +4,7 @@
  */
 package com.ipet.android.sdk.api;
 
-import com.ipet.android.sdk.api.domain.Photo;
+import com.ipet.android.sdk.api.domain.IpetPhoto;
 import java.util.List;
 
 /**
@@ -19,7 +19,7 @@ public interface DiscoverOperations {
      * @param n
      * @return
      */
-    public List<Photo> getNewer(int n);
+    public List<IpetPhoto> getNewer(int n);
 
     /**
      * 获取某图片之后n条热点图片
@@ -28,6 +28,6 @@ public interface DiscoverOperations {
      * @param n
      * @return
      */
-    public List<Photo> getNext(long pid, int n);
+    public List<IpetPhoto> getNext(long pid, int n);
 
 }

@@ -10,7 +10,7 @@ import java.io.File;
  *
  * @author xiaojinghai
  */
-public class Photo {
+public class IpetPhoto {
 
     private Long id;
     //缩略图地址

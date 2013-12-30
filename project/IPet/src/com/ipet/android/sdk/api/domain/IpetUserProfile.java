@@ -7,7 +7,10 @@ package com.ipet.android.sdk.api.domain;
 /**
  *
  * @author xiaojinghai
+ *
+ * 临时未定
  */
-public class UserSettings {
+public class IpetUserProfile {
 
+    //Todo
 }

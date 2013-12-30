@@ -4,8 +4,9 @@
  */
 package com.ipet.android.sdk.api;
 
-import com.ipet.android.sdk.api.domain.User;
-import com.ipet.android.sdk.api.domain.UserSettings;
+import com.ipet.android.sdk.api.domain.IpetUser;
+import com.ipet.android.sdk.api.domain.IpetUserProfile;
+import com.ipet.android.sdk.api.domain.IpetUserSettings;
 import java.io.File;
 
 /**
@@ -19,7 +20,7 @@ public interface UserOperations {
      *
      * @param user
      */
-    public void updateUserInfo(User user);
+    public void updateUserInfo(IpetUser user);
 
     /**
      * 更新用户头像
@@ -33,7 +34,7 @@ public interface UserOperations {
      *
      * @param settings
      */
-    public void updateUserSettings(UserSettings settings);
+    public void updateUserSettings(IpetUserSettings settings);
 
     /**
      * 修改密码
@@ -48,13 +49,20 @@ public interface UserOperations {
      *
      * @return
      */
-    public User getUserInfo();
+    public IpetUser getUserInfo();
 
     /**
      * 获取别人用户信息
      *
      * @return
      */
-    public User getOtherUserInfo();
+    public IpetUser getOtherUserInfo(long userId);
+
+    /**
+     * 获取用户档案
+     *
+     * @return
+     */
+    public IpetUserProfile getUserProfile();
 
 }

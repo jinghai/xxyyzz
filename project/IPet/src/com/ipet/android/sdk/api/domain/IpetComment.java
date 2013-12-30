@@ -8,7 +8,7 @@ package com.ipet.android.sdk.api.domain;
  *
  * @author xiaojinghai
  */
-public class Comment {
+public class IpetComment {
 
     //内容
     private String context;

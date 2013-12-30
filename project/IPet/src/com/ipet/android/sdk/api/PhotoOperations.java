@@ -4,8 +4,8 @@
  */
 package com.ipet.android.sdk.api;
 
-import com.ipet.android.sdk.api.domain.Comment;
-import com.ipet.android.sdk.api.domain.Photo;
+import com.ipet.android.sdk.api.domain.IpetComment;
+import com.ipet.android.sdk.api.domain.IpetPhoto;
 import java.util.List;
 
 /**
@@ -19,14 +19,14 @@ public interface PhotoOperations {
      *
      * @param photo
      */
-    public void publicPhoto(Photo photo);
+    public void publicPhoto(IpetPhoto photo);
 
     /**
      * 发表评论
      *
      * @param comment
      */
-    public void publicComment(Comment comment);
+    public void publicComment(IpetComment comment);
 
     /**
      * 获取最新n条图片
@@ -34,7 +34,7 @@ public interface PhotoOperations {
      * @param n
      * @return
      */
-    public List<Photo> getNewer(int n);
+    public List<IpetPhoto> getNewer(int n);
 
     /**
      * 获取某图片之后n条图片
@@ -43,5 +43,5 @@ public interface PhotoOperations {
      * @param n
      * @return
      */
-    public List<Photo> getNext(long pid, int n);
+    public List<IpetPhoto> getNext(long pid, int n);
 }

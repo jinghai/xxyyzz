@@ -4,7 +4,7 @@
  */
 package com.ipet.android.sdk.api;
 
-import com.ipet.android.sdk.api.domain.User;
+import com.ipet.android.sdk.api.domain.IpetUser;
 import java.util.List;
 
 /**
@@ -34,7 +34,7 @@ public interface ContactOperations {
      * @param size 页容量
      * @return
      */
-    public List<User> getMySubscibes(int index, int size);
+    public List<IpetUser> getMySubscibes(int index, int size);
 
     /**
      * 获取我的粉丝列表(粉丝)
@@ -43,7 +43,7 @@ public interface ContactOperations {
      * @param size
      * @return
      */
-    public List<User> getMyfollowers(int index, int size);
+    public List<IpetUser> getMyfollowers(int index, int size);
 
     /**
      * 获取互粉列表（朋友）
@@ -52,5 +52,5 @@ public interface ContactOperations {
      * @param size
      * @return
      */
-    public List<User> getMyfriends(int index, int size);
+    public List<IpetUser> getMyfriends(int index, int size);
 }
