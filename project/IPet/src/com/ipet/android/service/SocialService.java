@@ -1,7 +1,5 @@
 package com.ipet.android.service;
 
-import java.util.List;
-
 import org.springframework.security.crypto.encrypt.AndroidEncryptors;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionFactory;
@@ -10,8 +8,7 @@ import org.springframework.social.connect.sqlite.SQLiteConnectionRepository;
 import org.springframework.social.connect.sqlite.support.SQLiteConnectionRepositoryHelper;
 import org.springframework.social.connect.support.ConnectionFactoryRegistry;
 import android.content.Context;
-import com.ipet.android.app.Contato;
-import com.ipet.android.sdk.api.config.IpetApiConfig;
+import com.ipet.android.MyApp;
 import com.ipet.android.sdk.api.connect.IpetConnectionFactory;
 
 public abstract class SocialService {
@@ -21,7 +18,7 @@ public abstract class SocialService {
 
     public static void init(Context context) {
         connectionFactoryRegistry = new ConnectionFactoryRegistry();
-        connectionFactoryRegistry.addConnectionFactory(new IpetConnectionFactory(IpetApiConfig.APP_ID, IpetApiConfig.APP_SECRET));
+        connectionFactoryRegistry.addConnectionFactory(new IpetConnectionFactory(MyApp.APP_ID, MyApp.APP_SECRET));
 
         SQLiteConnectionRepositoryHelper repositoryHelper = new SQLiteConnectionRepositoryHelper(context);
         connectionRepository = new SQLiteConnectionRepository(repositoryHelper,
