@@ -22,8 +22,10 @@ public class MainCameraFragment extends Fragment {
     	//这里相当于 activity的 onCreate方法处理
     	
     	this.activity = getActivity();
+
+    	//this.activity就相当于  Activity 中的 this
     	
-    	//找到元素
+    	//找到元素  
     	//this.activity.findViewById(R.id.xxxx);
     }
 }
