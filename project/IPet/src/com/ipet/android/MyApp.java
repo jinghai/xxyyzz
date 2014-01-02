@@ -19,6 +19,7 @@ public class MyApp extends Application {
     private static Ipet IpetApi;
     public static final String APP_ID = "1";
     public static final String APP_SECRET = "1";
+    
 
     public static Context getContext() {
         return context;

@@ -45,7 +45,7 @@
                     android:layout_centerVertical="true"
                     android:orientation="vertical" >
 
-                    <ImageView
+                    <com.loopj.android.image.SmartImageView
                         android:id="@+id/me_avatar"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
@@ -56,10 +56,11 @@
                         android:id="@+id/me_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginTop="10dp"
-                        android:text="user_name"
                         android:textColor="@color/font_white"
                         android:textSize="@dimen/text_size_14" />
+
                 </LinearLayout>
             </RelativeLayout>
 
