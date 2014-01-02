@@ -16,16 +16,19 @@ public class IpetUser {
     private String secret;
     private String email;
     private String phone;
+ 
     //详细信息URL
     private String ProfileUrl;
     //头像URL
     private String pictureUrl;
-    //关注数量
-    private int subscibeCount;
+    //发布数量
+    private String feedCount; 
+	//关注数量
+    private String subscibeCount;
     //粉丝数量
-    private int followerCount;
+    private String followerCount;
     //互粉数量
-    private int friendsCount;
+    private String friendsCount;
     //最后一次的地理位置文字说明
     private String lastLocation;
     //创建时间
@@ -131,49 +134,35 @@ public class IpetUser {
         this.pictureUrl = pictureUrl;
     }
 
-    /**
-     * @return the subscibeCount
-     */
-    public int getSubscibeCount() {
-        return subscibeCount;
-    }
+   
 
-    /**
-     * @param subscibeCount the subscibeCount to set
-     */
-    public void setSubscibeCount(int subscibeCount) {
-        this.subscibeCount = subscibeCount;
-    }
+  
 
-    /**
-     * @return the followerCount
-     */
-    public int getFollowerCount() {
-        return followerCount;
-    }
+    public String getSubscibeCount() {
+		return subscibeCount;
+	}
 
-    /**
-     * @param followerCount the followerCount to set
-     */
-    public void setFollowerCount(int followerCount) {
-        this.followerCount = followerCount;
-    }
+	public void setSubscibeCount(String subscibeCount) {
+		this.subscibeCount = subscibeCount;
+	}
 
-    /**
-     * @return the friendsCount
-     */
-    public int getFriendsCount() {
-        return friendsCount;
-    }
+	public String getFollowerCount() {
+		return followerCount;
+	}
 
-    /**
-     * @param friendsCount the friendsCount to set
-     */
-    public void setFriendsCount(int friendsCount) {
-        this.friendsCount = friendsCount;
-    }
+	public void setFollowerCount(String followerCount) {
+		this.followerCount = followerCount;
+	}
 
-    /**
+	public String getFriendsCount() {
+		return friendsCount;
+	}
+
+	public void setFriendsCount(String friendsCount) {
+		this.friendsCount = friendsCount;
+	}
+
+	/**
      * @return the lastLocation
      */
     public String getLastLocation() {
@@ -228,5 +217,13 @@ public class IpetUser {
     public void setProfileUrl(String ProfileUrl) {
         this.ProfileUrl = ProfileUrl;
     }
+    
+    public String getFeedCount() {
+		return feedCount;
+	}
+
+	public void setFeedCount(String feedCount) {
+		this.feedCount = feedCount;
+	}
 
 }

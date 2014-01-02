@@ -19,6 +19,7 @@ public class MainCameraFragment extends Fragment {
     
     @Override
 	public void onActivityCreated(Bundle savedInstanceState) {
+    	super.onActivityCreated(savedInstanceState);
     	//这里相当于 activity的 onCreate方法处理
     	
     	this.activity = getActivity();
