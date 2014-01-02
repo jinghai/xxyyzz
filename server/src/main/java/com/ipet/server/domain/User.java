@@ -14,97 +14,101 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.ImmutableList;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "ss_user")
 public class User extends IdEntity {
-	private String loginName;
-	private String name;
-	private String plainPassword;
-	private String password;
-	private String salt;
-	private String roles;
-	private Date registerDate;
 
-	public User() {
-	}
+    private String loginName;
+    private String name;
+    private String plainPassword;
+    private String password;
+    private String salt;
+    private String roles;
+    private Date registerDate;
 
-	public User(Long id) {
-		this.id = id;
-	}
+    public User() {
+    }
 
-	@NotBlank
-	public String getLoginName() {
-		return loginName;
-	}
+    public User(Long id) {
+        this.id = id;
+    }
 
-	public void setLoginName(String loginName) {
-		this.loginName = loginName;
-	}
+    @NotBlank
+    public String getLoginName() {
+        return loginName;
+    }
 
-	@NotBlank
-	public String getName() {
-		return name;
-	}
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @NotBlank
+    public String getName() {
+        return name;
+    }
 
-	// 不持久化到数据库，也不显示在Restful接口的属性.
-	@Transient
-	@JsonIgnore
-	public String getPlainPassword() {
-		return plainPassword;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setPlainPassword(String plainPassword) {
-		this.plainPassword = plainPassword;
-	}
+    // 不持久化到数据库，也不显示在Restful接口的属性.
+    @Transient
+    @JsonIgnore
+    public String getPlainPassword() {
+        return plainPassword;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setPlainPassword(String plainPassword) {
+        this.plainPassword = plainPassword;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public String getSalt() {
-		return salt;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
+    public String getSalt() {
+        return salt;
+    }
 
-	public String getRoles() {
-		return roles;
-	}
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
 
-	public void setRoles(String roles) {
-		this.roles = roles;
-	}
+    public String getRoles() {
+        return roles;
+    }
 
-	@Transient
-	@JsonIgnore
-	public List<String> getRoleList() {
-		// 角色列表在数据库中实际以逗号分隔字符串存储，因此返回不能修改的List.
-		return ImmutableList.copyOf(StringUtils.split(roles, ","));
-	}
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
 
-	// 设定JSON序列化时的日期格式
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
-	public Date getRegisterDate() {
-		return registerDate;
-	}
+    @Transient
+    @JsonIgnore
+    public List<String> getRoleList() {
+        // 角色列表在数据库中实际以逗号分隔字符串存储，因此返回不能修改的List.
+        return ImmutableList.copyOf(StringUtils.split(roles, ","));
+    }
 
-	public void setRegisterDate(Date registerDate) {
-		this.registerDate = registerDate;
-	}
+    // 设定JSON序列化时的日期格式
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getRegisterDate() {
+        return registerDate;
+    }
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
+    public void setRegisterDate(Date registerDate) {
+        this.registerDate = registerDate;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
 }
