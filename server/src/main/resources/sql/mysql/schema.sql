@@ -5,6 +5,8 @@ create table ss_task (
 	id bigint auto_increment,
 	title varchar(128) not null,
 	description varchar(255),
+        create_at timestamp not null default 0,
+        update_at timestamp not null default 0,
 	user_id bigint not null,
     primary key (id)
 ) engine=InnoDB;
@@ -17,5 +19,7 @@ create table ss_user (
 	salt varchar(64) not null,
 	roles varchar(255) not null,
 	register_date timestamp not null default 0,
+        create_at timestamp not null default 0,
+        update_at timestamp not null default 0,
 	primary key (id)
 ) engine=InnoDB;
