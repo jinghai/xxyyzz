@@ -18,11 +18,11 @@
         <item name="android:windowBackground">@drawable/common_bg</item>
     </style>
     
-    <style name="IPetThem.NoTitleBar" parent="IPetTheme">
+    <style name="IPetTheme.NoTitleBar" parent="IPetTheme">
         <item name="android:windowNoTitle">true</item>
     </style>
 
-    <style name="IPetThem.NoTitleBar.FullScreen" parent="IPetThem.NoTitleBar">
+    <style name="IPetTheme.NoTitleBar.FullScreen" parent="IPetTheme.NoTitleBar">
         <item name="android:windowFullscreen">true</item>
     </style>
 
