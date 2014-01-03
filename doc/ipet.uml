@@ -1004,7 +1004,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="9RnxhxH850SQdIJXu1um5QAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="miKQhuXJuEKJEkKKxSJEMwAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">SignIn</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">CheckIn</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="jrKFbRhC0Eup9K+L+GevNgAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -3293,7 +3293,7 @@
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[21]" type="UMLClass" guid="r/7uzTNB9kG0odlKg6+b3AAA">
-<XPD:ATTR name="Name" type="string">SignIn</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">CheckIn</XPD:ATTR>
 <XPD:REF name="Namespace">zCklBKTv2E6bnWqLEwiqIAAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">0uqYcG5Jykqng9X/loessAAA</XPD:REF>
