@@ -9,9 +9,13 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import org.hibernate.validator.constraints.Email;
 
 @Entity
@@ -21,43 +25,40 @@ public class User extends IdEntity implements Serializable {
     //登录名称
     // JSR303 BeanValidator的校验规则
     @NotBlank
-    @Column
+    @Column(length = 50)
     private String loginName;
 
     //登录密码
-    @Column
+    @Column(length = 50)
     private String password;
 
-    @Column(unique = true)
-    @Email
+    @Column(unique = true, length = 50)
+    @Email()
     private String email;
 
-    @Column(unique = true)
+    @Column(unique = true, length = 15)
     private String phone;
 
-    //@JsonUnwrapped
-    //private Avatar avatar;
-    @Column
-    private String avatar12;
-
-    @Column
-    private String avatar32;
-
-    @Column
-    private String avatar48;
-
-    @Column
-    private String avatar64;
-
     //盐,加密算法时使用
-    @Column
+    @JsonIgnore
+    @Column(length = 50)
     private String salt;
 
     @Column()
+    @JsonIgnore
     private String roles;
 
     @Column()
-    private Integer userState;
+    @Enumerated(EnumType.ORDINAL)
+    private UserState userState;
+
+    //登录次数
+    @Column()
+    private Long LoginNum;
+
+    @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_profile_id")
+    private UserProfile userProfile;
 
     //明文密码,瞬时属性,加密时使用,不持久化
     @JsonIgnore
@@ -100,45 +101,27 @@ public class User extends IdEntity implements Serializable {
         return ToStringBuilder.reflectionToString(this);
     }
 
-    /**
-     * @return the email
-     */
     public String getEmail() {
         return email;
     }
 
-    /**
-     * @param email the email to set
-     */
     public void setEmail(String email) {
         this.email = email;
     }
 
-    /**
-     * @return the phone
-     */
     public String getPhone() {
         return phone;
     }
 
-    /**
-     * @param phone the phone to set
-     */
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    /**
-     * @return the userState
-     */
-    public Integer getUserState() {
+    public UserState getUserState() {
         return userState;
     }
 
-    /**
-     * @param userState the userState to set
-     */
-    public void setUserState(Integer userState) {
+    public void setUserState(UserState userState) {
         this.userState = userState;
     }
 
@@ -158,60 +141,12 @@ public class User extends IdEntity implements Serializable {
         this.plainPassword = plainPassword;
     }
 
-    /**
-     * @return the avatar12
-     */
-    public String getAvatar12() {
-        return avatar12;
+    public Long getLoginNum() {
+        return LoginNum;
     }
 
-    /**
-     * @param avatar12 the avatar12 to set
-     */
-    public void setAvatar12(String avatar12) {
-        this.avatar12 = avatar12;
-    }
-
-    /**
-     * @return the avatar32
-     */
-    public String getAvatar32() {
-        return avatar32;
-    }
-
-    /**
-     * @param avatar32 the avatar32 to set
-     */
-    public void setAvatar32(String avatar32) {
-        this.avatar32 = avatar32;
-    }
-
-    /**
-     * @return the avatar48
-     */
-    public String getAvatar48() {
-        return avatar48;
-    }
-
-    /**
-     * @param avatar48 the avatar48 to set
-     */
-    public void setAvatar48(String avatar48) {
-        this.avatar48 = avatar48;
-    }
-
-    /**
-     * @return the avatar64
-     */
-    public String getAvatar64() {
-        return avatar64;
-    }
-
-    /**
-     * @param avatar64 the avatar64 to set
-     */
-    public void setAvatar64(String avatar64) {
-        this.avatar64 = avatar64;
+    public void setLoginNum(Long LoginNum) {
+        this.LoginNum = LoginNum;
     }
 
 }

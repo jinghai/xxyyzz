@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ipet.server.domain.User;
 import com.ipet.server.domain.UserRole;
 import com.ipet.server.repository.UserDao;
-import java.util.ArrayList;
 import java.util.Date;
 import org.springside.modules.security.utils.Digests;
 import org.springside.modules.utils.Encodes;
@@ -23,13 +22,13 @@ import org.springside.modules.utils.Encodes;
 // Spring Service Bean的标识.
 @Component
 @Transactional(readOnly = true)
-public class AccountService {
+public class UserService {
 
     public static final String HASH_ALGORITHM = "SHA-1";
     public static final int HASH_INTERATIONS = 1024;
     private static final int SALT_SIZE = 8;
 
-    private static Logger logger = LoggerFactory.getLogger(AccountService.class);
+    private static Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     private UserDao userDao;
@@ -44,13 +43,6 @@ public class AccountService {
 
     public User findUserByLoginName(String loginName) {
         return getUserDao().findByLoginName(loginName);
-    }
-
-    @Transactional(readOnly = false)
-    public void registerUser(User user) {
-        entryptPassword(user);
-        user.setRoles(UserRole.ENDUSER.name());
-        getUserDao().save(user);
     }
 
     @Transactional(readOnly = false)

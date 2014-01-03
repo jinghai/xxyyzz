@@ -10,22 +10,10 @@ package com.ipet.server.domain;
  */
 public enum UserState {
 
-    ENABLE("启用", 1), DISABLE("停用", 2), VERIFYING("待验证", 3);
-    // 成员变量
-    private final String name;
-    private final int value;
-
-    // 构造方法
-    private UserState(String name, int value) {
-        this.name = name;
-        this.value = value;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public int getValue() {
-        return this.value;
-    }
+    //启用
+    ENABLE,
+    //停用
+    DISABLE,
+    //验证
+    VERIFYING
 }

@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -71,6 +73,16 @@ public abstract class IdEntity {
      */
     public void setUpdateAt(Date updateAt) {
         this.updateAt = updateAt;
+    }
+
+    @PrePersist
+    public void onCreate() {
+        updateAt = updateAt = new Date();
+    }
+
+    @PreUpdate
+    public void onUpdate() {
+        updateAt = new Date();
     }
 
 }
