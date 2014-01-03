@@ -11,14 +11,7 @@ import com.ipet.server.domain.User;
 import com.ipet.server.domain.UserRole;
 import com.ipet.server.repository.UserDao;
 import java.util.Date;
-import java.util.Map;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
-import org.springside.modules.persistence.DynamicSpecifications;
-import org.springside.modules.persistence.SearchFilter;
 import org.springside.modules.security.utils.Digests;
-import org.springside.modules.utils.DateProvider;
 import org.springside.modules.utils.Encodes;
 
 /**
@@ -40,67 +33,41 @@ public class AccountService {
     @Autowired
     private UserDao userDao;
 
-    private DateProvider dateProvider = DateProvider.DEFAULT;
-
     public List<User> getAllUser() {
-        return (List<User>) userDao.findAll();
+        return (List<User>) getUserDao().findAll();
     }
 
     public User getUser(Long id) {
-        return userDao.findOne(id);
+        return getUserDao().findOne(id);
     }
 
     public User findUserByLoginName(String loginName) {
-        return userDao.findByLoginName(loginName);
+        return getUserDao().findByLoginName(loginName);
     }
 
     @Transactional(readOnly = false)
     public void registerUser(User user) {
-        //user.setSalt(user.getLoginName());
+        user.setSalt(user.getLoginName());
         entryptPassword(user);
         user.setRoles(UserRole.END.getValue());
 
-        Date date = dateProvider.getDate();
+        Date date = new Date();
         user.setCreateAt(date);
         user.setUpdateAt(date);
 
-        userDao.save(user);
+        getUserDao().save(user);
     }
 
     @Transactional(readOnly = false)
     public void updateUser(User user) {
-        userDao.save(user);
+        getUserDao().save(user);
     }
 
     @Transactional(readOnly = false)
     public void deleteUser(Long id) {
 
-        userDao.delete(id);
+        getUserDao().delete(id);
 
-    }
-
-    /**
-     * 创建分页请求.
-     */
-    private PageRequest buildPageRequest(int pageNumber, int pagzSize, String sortType) {
-        Sort sort = null;
-        if ("auto".equals(sortType)) {
-            sort = new Sort(Sort.Direction.DESC, "id");
-        } else if ("title".equals(sortType)) {
-            sort = new Sort(Sort.Direction.ASC, "title");
-        }
-
-        return new PageRequest(pageNumber - 1, pagzSize, sort);
-    }
-
-    /**
-     * 创建动态查询条件组合.
-     */
-    private Specification<User> buildSpecification(Long userId, Map<String, Object> filterParams) {
-        Map<String, SearchFilter> filters = SearchFilter.parse(filterParams);
-        filters.put("user.id", new SearchFilter("user.id", SearchFilter.Operator.EQ, userId));
-        Specification<User> spec = DynamicSpecifications.bySearchFilter(filters.values(), User.class);
-        return spec;
     }
 
     /**
@@ -114,7 +81,18 @@ public class AccountService {
         user.setPassword(Encodes.encodeHex(hashPassword));
     }
 
-    public void setDateProvider(DateProvider dateProvider) {
-        this.dateProvider = dateProvider;
+    /**
+     * @return the userDao
+     */
+    public UserDao getUserDao() {
+        return userDao;
     }
+
+    /**
+     * @param userDao the userDao to set
+     */
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
 }

@@ -32,7 +32,7 @@ import org.springside.modules.beanvalidator.BeanValidators;
  */
 @Controller
 @RequestMapping(value = "/api/v1/user")
-public class TaskRestController {
+public class AccountRestController {
 
     @Autowired
     private AccountService accountService;
@@ -65,7 +65,7 @@ public class TaskRestController {
             return new ResponseEntity(BeanValidators.extractPropertyAndMessage(failures), HttpStatus.BAD_REQUEST);
         }
 
-        //保存任务
+        //注册
         accountService.registerUser(user);
 
         //按照Restful风格约定，创建指向新任务的url, 也可以直接返回id或对象.
