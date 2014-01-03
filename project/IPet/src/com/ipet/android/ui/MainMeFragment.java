@@ -1,5 +1,6 @@
 package com.ipet.android.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.ipet.R;
 import com.ipet.android.sdk.api.domain.IpetUser;
 import com.ipet.android.ui.manager.UserManager;
+import com.ipet.android.ui.utils.AnimUtils;
 import com.ipet.android.ui.utils.BitmapUtils;
 import com.loopj.android.image.SmartImageTask;
 import com.loopj.android.image.SmartImageView;
@@ -94,7 +96,9 @@ public class MainMeFragment extends Fragment {
 		public void onClick(View v) {
 			switch (v.getId()) {
 				case R.id.me_info_layout: {
-					Toast.makeText(activity, "TT", Toast.LENGTH_LONG).show();
+					Intent intent = new Intent(MainMeFragment.this.activity, SetUserInfoActivity.class);
+					startActivity(intent);
+					AnimUtils.pushLeftToRight(MainMeFragment.this.activity);
 					break;
 				}
 				

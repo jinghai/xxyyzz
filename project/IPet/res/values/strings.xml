@@ -7,7 +7,6 @@
     <string name="splash_desc">启动界面</string>
     <string name="title_activity_guide">GuideActivity</string>
     <string name="hello_world">Hello world!</string>
-    
     <string name="guide_desc">引导界面</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="guide_btn_enter">立即体验</string>
@@ -31,14 +30,11 @@
     <string name="login_failure_other">登录失败</string>
     <string name="login_failure_auth">用户名或密码不正确</string>
     <string name="login_loading">正在登录...</string>
-    
     <string name="main_home_title">首页</string>
     <string name="main_find_title">发现</string>
     <string name="main_camera_title">拍照</string>
     <string name="main_conversation_title">消息</string>
     <string name="main_me_title">我的</string>
-    
-    
     <string name="pull_to_refresh_pull_label">下拉可以刷新</string>
     <string name="pull_to_refresh_release_label">释放可以刷新</string>
     <string name="pull_to_refresh_refreshing_label">加载中...</string>
@@ -52,9 +48,7 @@
     <string name="me_followers_label">关注</string>
     <string name="me_fans_label">粉丝</string>
     <string name="me_friends_label">好友</string>
-    
-    
-    
-    
+    <string name="title_activity_set_user_info">SetUserInfoActivity</string>
+    <string name="me_set_info_title">编辑个人资料</string>
 
 </resources>

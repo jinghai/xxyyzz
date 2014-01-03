@@ -1,0 +1,18 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res/com.ipet"
+    tools:context=".SetUserInfoActivity" >
+
+
+    <com.ipet.android.ui.common.SimpleTitleBar
+        android:id="@+id/me_set_info_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/me_set_info_title"
+        app:title_left_res_visibility="visible"
+        app:title_right_res_visibility="invisible" />
+    
+</LinearLayout>
