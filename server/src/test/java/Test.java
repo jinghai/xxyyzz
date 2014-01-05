@@ -1,24 +1,22 @@
 
-import com.ipet.server.domain.User;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.log4j.Logger;
+import static org.apache.log4j.Logger.getLogger;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.core.NestedRuntimeException;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.FormHttpMessageConverter;
-
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 /*
@@ -31,21 +29,43 @@ import org.springframework.web.client.RestTemplate;
  */
 public class Test {
 
+    private static final Logger LOGGER = getLogger(Test.class);
+
     public static RestTemplate restTemplate = new RestTemplate();
 
-    public static void main(String[] ares) {
+    public static void main(String[] ares) throws IOException {
         //发送实体
         MultiValueMap<String, String> request = new LinkedMultiValueMap<String, String>();
         request.add("username", "测试用户");
-        request.add("password", "test");
+        request.add("password", "");
+        try {
+            String s = restTemplate.getForObject("http://localhost:8080/server/api/v1/account/create.json", String.class);
+            //String s = restTemplate.postForObject("http://localhost:8080/server/api/v1/account/create.json", request, String.class);
+            System.out.println(s);
+        } catch (HttpClientErrorException e) {
+            LOGGER.error("HttpClientErrorException:  " + e.getResponseBodyAsString());
 
-        String s = restTemplate.postForObject("http://localhost:8080/server/api/v1/account/create.json", request, String.class);
-        System.out.println(s);
+            ObjectMapper mapper = new ObjectMapper();
+            ErrorHolder eh = mapper.readValue(e.getResponseBodyAsString(), ErrorHolder.class);
 
-        // Set the Accept header
-        HttpHeaders requestHeaders = new HttpHeaders();
-        requestHeaders.setAccept(Collections.singletonList(new MediaType("application", "json")));
-        HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
+            LOGGER.error("HttpClientErrorException:  " + eh.getErrorMessage());
+        } catch (HttpStatusCodeException e) {
+            LOGGER.error("HttpStatusCodeException:  " + e.getResponseBodyAsString());
+        } catch (RestClientException e) {
+            LOGGER.error("RestClientException:  " + e.getMessage());
+        } catch (NestedRuntimeException e) {
+            LOGGER.error("NestedRuntimeException:  " + e.getMessage());
+        } catch (RuntimeException e) {
+            LOGGER.error("RuntimeException:  " + e.getMessage());
+        }
+
+
+        /*
+         // Set the Accept header
+         HttpHeaders requestHeaders = new HttpHeaders();
+         requestHeaders.setAccept(Collections.singletonList(new MediaType("application", "json")));
+         HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
+         */
     }
 
     public static HttpHeaders createHeaders(final String username, final String password) {

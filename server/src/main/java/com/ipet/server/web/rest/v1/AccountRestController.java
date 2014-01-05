@@ -1,9 +1,7 @@
-package com.ipet.server.web.api.rest.v1;
+package com.ipet.server.web.rest.v1;
 
 import com.ipet.server.domain.User;
 import com.ipet.server.service.AccountService;
-import javax.validation.Valid;
-import javax.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,10 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -32,10 +29,14 @@ public class AccountRestController {
     @Autowired
     private AccountService accountService;
 
-    @RequestMapping(value = "/create.json", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/create.json", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<?> create(String username, String password) {
         logger.debug("username:" + username);
+        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
+            throw new RuntimeException("用户名或密码为空");
+        }
+
         User newUser = new User();
         newUser.setLoginName(username);
         newUser.setPlainPassword(password);

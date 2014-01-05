@@ -35,15 +35,15 @@ public class AccountService {
     private UserDao userDao;
 
     public List<User> getAllUser() {
-        return (List<User>) userDao.findAll();
+        return (List<User>) getUserDao().findAll();
     }
 
     public User getUser(Long id) {
-        return userDao.findOne(id);
+        return getUserDao().findOne(id);
     }
 
     public User findUserByLoginName(String loginName) {
-        return userDao.findByLoginName(loginName);
+        return getUserDao().findByLoginName(loginName);
     }
 
     @Transactional(readOnly = false)
@@ -53,18 +53,18 @@ public class AccountService {
         user.setRoles(UserRole.ENDUSER.name());
         user.setLoginNum(0l);
         //user.setUserProfile(new UserProfile());
-        userDao.save(user);
+        getUserDao().save(user);
     }
 
     @Transactional(readOnly = false)
     public void updateUser(User user) {
-        userDao.save(user);
+        getUserDao().save(user);
     }
 
     @Transactional(readOnly = false)
     public void deleteUser(Long id) {
 
-        userDao.delete(id);
+        getUserDao().delete(id);
 
     }
 

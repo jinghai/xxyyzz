@@ -1,4 +1,4 @@
-package com.ipet.server.web.api.rest.v1;
+package com.ipet.server.web.rest.v1;
 
 import com.ipet.server.domain.User;
 import com.ipet.server.service.UserService;
