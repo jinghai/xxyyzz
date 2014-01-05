@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import com.ipet.server.domain.User;
+import com.ipet.server.domain.UserProfile;
 import com.ipet.server.domain.UserRole;
+import com.ipet.server.domain.UserState;
 import com.ipet.server.repository.UserDao;
-import java.util.ArrayList;
-import java.util.Date;
 import org.springside.modules.security.utils.Digests;
 import org.springside.modules.utils.Encodes;
 
@@ -35,33 +35,36 @@ public class AccountService {
     private UserDao userDao;
 
     public List<User> getAllUser() {
-        return (List<User>) getUserDao().findAll();
+        return (List<User>) userDao.findAll();
     }
 
     public User getUser(Long id) {
-        return getUserDao().findOne(id);
+        return userDao.findOne(id);
     }
 
     public User findUserByLoginName(String loginName) {
-        return getUserDao().findByLoginName(loginName);
+        return userDao.findByLoginName(loginName);
     }
 
     @Transactional(readOnly = false)
     public void registerUser(User user) {
         entryptPassword(user);
+        user.setUserState(UserState.ENABLE);
         user.setRoles(UserRole.ENDUSER.name());
-        getUserDao().save(user);
+        user.setLoginNum(0l);
+        //user.setUserProfile(new UserProfile());
+        userDao.save(user);
     }
 
     @Transactional(readOnly = false)
     public void updateUser(User user) {
-        getUserDao().save(user);
+        userDao.save(user);
     }
 
     @Transactional(readOnly = false)
     public void deleteUser(Long id) {
 
-        getUserDao().delete(id);
+        userDao.delete(id);
 
     }
 

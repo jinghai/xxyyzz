@@ -29,6 +29,7 @@ public class User extends IdEntity implements Serializable {
     private String loginName;
 
     //登录密码
+    @JsonIgnore
     @Column(length = 50)
     private String password;
 
@@ -48,6 +49,7 @@ public class User extends IdEntity implements Serializable {
     @JsonIgnore
     private String roles;
 
+    @JsonIgnore
     @Column()
     @Enumerated(EnumType.ORDINAL)
     private UserState userState;
@@ -56,6 +58,7 @@ public class User extends IdEntity implements Serializable {
     @Column()
     private Long LoginNum;
 
+    @JsonIgnore
     @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_profile_id")
     private UserProfile userProfile;
@@ -147,6 +150,20 @@ public class User extends IdEntity implements Serializable {
 
     public void setLoginNum(Long LoginNum) {
         this.LoginNum = LoginNum;
+    }
+
+    /**
+     * @return the userProfile
+     */
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    /**
+     * @param userProfile the userProfile to set
+     */
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
     }
 
 }

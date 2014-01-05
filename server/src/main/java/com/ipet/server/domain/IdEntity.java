@@ -77,7 +77,7 @@ public abstract class IdEntity {
 
     @PrePersist
     public void onCreate() {
-        updateAt = updateAt = new Date();
+        createAt = new Date();
     }
 
     @PreUpdate
