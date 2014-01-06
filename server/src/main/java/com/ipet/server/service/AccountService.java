@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import com.ipet.server.domain.User;
-import com.ipet.server.domain.UserProfile;
 import com.ipet.server.domain.UserRole;
 import com.ipet.server.domain.UserState;
 import com.ipet.server.repository.UserDao;
@@ -42,8 +41,51 @@ public class AccountService {
         return getUserDao().findOne(id);
     }
 
-    public User findUserByLoginName(String loginName) {
-        return getUserDao().findByLoginName(loginName);
+    /**
+     * 用户名是否已存在
+     *
+     * @param loginName
+     * @return
+     */
+    public Boolean availableUsername(String loginName) {
+        Long userId = getUserDao().getUserIdByLoginNameAndUserState(loginName, UserState.ENABLE);
+        return userId == null;
+    }
+
+    /**
+     * 电话号码是否已存在
+     *
+     * @param phone
+     * @return
+     */
+    public Boolean availablePhone(String phone) {
+        Long userId = getUserDao().getUserIdByPhoneAndUserState(phone, UserState.ENABLE);
+        return userId == null;
+    }
+
+    /**
+     * 验证Email是否已存在
+     *
+     * @param email
+     * @return
+     */
+    public Boolean availableEmail(String email) {
+        Long userId = getUserDao().getUserIdByEmailAndUserState(email, UserState.ENABLE);
+        return userId == null;
+    }
+
+    /**
+     * 是否第一次使用系统
+     *
+     * @param userId
+     * @return
+     */
+    public Boolean isNewUser(Long userId) {
+        Long t = getUserDao().getLoginNumByIdAndUserState(userId, UserState.ENABLE);
+        if (null == t) {
+            return false;
+        }
+        return 0l == t;
     }
 
     @Transactional(readOnly = false)

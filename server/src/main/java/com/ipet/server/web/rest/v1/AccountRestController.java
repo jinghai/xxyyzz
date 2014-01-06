@@ -29,7 +29,7 @@ public class AccountRestController {
     @Autowired
     private AccountService accountService;
 
-    @RequestMapping(value = "/create.json", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<?> create(String username, String password) {
         logger.debug("username:" + username);
@@ -44,6 +44,44 @@ public class AccountRestController {
         accountService.registerUser(newUser);
         return new ResponseEntity(newUser, HttpStatus.CREATED);
     }
+
+    @RequestMapping(value = "/availableUsername", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<?> availableUsername(String username) {
+        logger.debug("username:" + username);
+        if (StringUtils.isEmpty(username)) {
+            throw new RuntimeException("非法参数");
+        }
+        return new ResponseEntity(accountService.availableUsername(username), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/availablePhone", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<?> availablePhone(String phone) {
+        if (StringUtils.isEmpty(phone)) {
+            throw new RuntimeException("非法参数");
+        }
+        return new ResponseEntity(accountService.availablePhone(phone), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/availableEmail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<?> availableEmail(String email) {
+        if (StringUtils.isEmpty(email)) {
+            throw new RuntimeException("非法参数");
+        }
+        return new ResponseEntity(accountService.availableEmail(email), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/isNewUser", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<?> isNewUser(Long userId) {
+        if (null == userId) {
+            throw new RuntimeException("非法参数");
+        }
+        return new ResponseEntity(accountService.isNewUser(userId), HttpStatus.OK);
+    }
+
 
     /*
      //for test

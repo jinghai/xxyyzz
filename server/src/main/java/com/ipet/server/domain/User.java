@@ -9,13 +9,9 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import org.hibernate.validator.constraints.Email;
 
 @Entity
@@ -56,13 +52,18 @@ public class User extends IdEntity implements Serializable {
 
     //登录次数
     @Column()
-    private Long LoginNum;
+    private Long loginNum;
 
-    @JsonIgnore
-    @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_profile_id")
-    private UserProfile userProfile;
+    @Column
+    private String avatar32;
 
+    @Column
+    private String avatar48;
+
+    /* @JsonIgnore
+     @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+     @JoinColumn(name = "user_profile_id")
+     private UserProfile userProfile;*/
     //明文密码,瞬时属性,加密时使用,不持久化
     @JsonIgnore
     @Transient
@@ -145,25 +146,39 @@ public class User extends IdEntity implements Serializable {
     }
 
     public Long getLoginNum() {
-        return LoginNum;
+        return loginNum;
     }
 
-    public void setLoginNum(Long LoginNum) {
-        this.LoginNum = LoginNum;
-    }
-
-    /**
-     * @return the userProfile
-     */
-    public UserProfile getUserProfile() {
-        return userProfile;
+    public void setLoginNum(Long loginNum) {
+        this.loginNum = loginNum;
     }
 
     /**
-     * @param userProfile the userProfile to set
+     * @return the avatar32
      */
-    public void setUserProfile(UserProfile userProfile) {
-        this.userProfile = userProfile;
+    public String getAvatar32() {
+        return avatar32;
+    }
+
+    /**
+     * @param avatar32 the avatar32 to set
+     */
+    public void setAvatar32(String avatar32) {
+        this.avatar32 = avatar32;
+    }
+
+    /**
+     * @return the avatar48
+     */
+    public String getAvatar48() {
+        return avatar48;
+    }
+
+    /**
+     * @param avatar48 the avatar48 to set
+     */
+    public void setAvatar48(String avatar48) {
+        this.avatar48 = avatar48;
     }
 
 }

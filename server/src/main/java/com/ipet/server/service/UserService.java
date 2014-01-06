@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import com.ipet.server.domain.User;
 import com.ipet.server.domain.UserRole;
+import com.ipet.server.domain.UserState;
 import com.ipet.server.repository.UserDao;
 import java.util.Date;
 import org.springside.modules.security.utils.Digests;
@@ -37,35 +38,30 @@ public class UserService {
         return (List<User>) getUserDao().findAll();
     }
 
-    public User getUser(Long id) {
-        return getUserDao().findOne(id);
+    public User getUserById(Long userId) {
+        User user = getUserDao().findByIdAndUserState(userId, UserState.ENABLE);
+        return user;
     }
 
-    public User findUserByLoginName(String loginName) {
-        return getUserDao().findByLoginName(loginName);
-    }
-
-    @Transactional(readOnly = false)
-    public void updateUser(User user) {
-        getUserDao().save(user);
-    }
-
-    @Transactional(readOnly = false)
-    public void deleteUser(Long id) {
-
-        getUserDao().delete(id);
-
+    public List<User> getUserByIds(List<Long> ids) {
+        List<User> users = getUserDao().findByIdInAndUserState(ids, UserState.ENABLE);
+        return users;
     }
 
     /**
-     * 设定安全的密码，生成随机的salt并经过1024次 sha-1 hash
+     * 更新用户信息
+     *
+     * @param userUpdate
+     * @param userId
+     * @return
      */
-    private void entryptPassword(User user) {
-        byte[] salt = Digests.generateSalt(SALT_SIZE);
-        user.setSalt(Encodes.encodeHex(salt));
-
-        byte[] hashPassword = Digests.sha1(user.getPlainPassword().getBytes(), salt, HASH_INTERATIONS);
-        user.setPassword(Encodes.encodeHex(hashPassword));
+    @Transactional(readOnly = false)
+    public User updateUserInfo(User userUpdate) {
+        User user = getUserById(userUpdate.getId());
+        user.setEmail(userUpdate.getEmail());
+        user.setPhone(userUpdate.getPhone());
+        getUserDao().save(user);
+        return user;
     }
 
     /**

@@ -27,20 +27,22 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author xiaojinghai
  */
-public class Test {
+public class TestD {
 
-    private static final Logger LOGGER = getLogger(Test.class);
+    private static final Logger LOGGER = getLogger(TestAccountRestController.class);
 
     public static RestTemplate restTemplate = new RestTemplate();
+
+    public static final String baseUrl = "http://localhost:8080/server/api/v1/user";
 
     public static void main(String[] ares) throws IOException {
         //发送实体
         MultiValueMap<String, String> request = new LinkedMultiValueMap<String, String>();
         request.add("username", "测试用户");
-        request.add("password", "");
+        request.add("password", "test");
         try {
-            String s = restTemplate.getForObject("http://localhost:8080/server/api/v1/account/create.json", String.class);
-            //String s = restTemplate.postForObject("http://localhost:8080/server/api/v1/account/create.json", request, String.class);
+            //String s = restTemplate.getForObject("http://localhost:8080/server/api/v1/account/create.json", String.class);
+            String s = restTemplate.postForObject("http://localhost:8080/server/api/v1/account/create", request, String.class);
             System.out.println(s);
         } catch (HttpClientErrorException e) {
             LOGGER.error("HttpClientErrorException:  " + e.getResponseBodyAsString());
