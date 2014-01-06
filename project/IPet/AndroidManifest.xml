@@ -48,8 +48,13 @@
         </activity>
         <activity
             android:name="com.ipet.android.ui.SetUserInfoActivity"
-            android:label="@string/title_activity_set_user_info" 
-            android:theme="@style/IPetTheme.NoTitleBar">
+            android:label="@string/title_activity_set_user_info"
+            android:theme="@style/IPetTheme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.ipet.android.ui.SetUserNickNameActivity"
+            android:label="@string/title_activity_set_user_nick_name"
+            android:theme="@style/IPetTheme.NoTitleBar"  >
         </activity>
     </application>
 

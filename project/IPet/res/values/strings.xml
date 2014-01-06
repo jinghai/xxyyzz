@@ -50,5 +50,9 @@
     <string name="me_friends_label">好友</string>
     <string name="title_activity_set_user_info">SetUserInfoActivity</string>
     <string name="me_set_info_title">编辑个人资料</string>
+    <string name="title_activity_set_user_nick_name">SetUserNickNameActivity</string>
+    <string name="me_set_info_nickname_title">编辑昵称</string>
+    <string name="btn_save">保存</string>
+    <string name="nickname_empty">昵称不能为空</string>
 
 </resources>

@@ -99,6 +99,7 @@
         </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/me_info_nickname_layout"
                     android:layout_width="fill_parent"
                     android:layout_height="50dp"
                     android:layout_marginLeft="5dp"
@@ -130,6 +131,7 @@
                         android:textSize="@dimen/text_size_16" />
 
                     <TextView
+                        android:id="@+id/nickname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
@@ -138,7 +140,6 @@
                         android:layout_toLeftOf="@+id/imageView2"
                         android:ellipsize="middle"
                         android:padding="8dp"
-                        android:text="天堂龙"
                         android:textColor="@color/font_black"
                         android:textSize="@dimen/text_size_16" />
 
