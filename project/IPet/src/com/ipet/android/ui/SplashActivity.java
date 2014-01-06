@@ -10,6 +10,8 @@ import android.util.Log;
 
 import com.ipet.R;
 import com.ipet.android.Constant;
+import com.ipet.android.MyApp;
+import com.ipet.android.ui.manager.UserManager;
 import com.ipet.android.ui.utils.AnimUtils;
 
 public class SplashActivity extends Activity {
@@ -27,6 +29,12 @@ public class SplashActivity extends Activity {
 
 	// 开始初始化
 	private void init() {
+		// 初始化模拟用户数据
+		MyApp application = (MyApp) this.getApplication();
+		if (application.getUser() == null) {
+			application.setUser(UserManager.getCurrentUser());
+		}
+
 		// 读取SharedPreferences中需要的数据
 		// 使用SharedPreferences来记录程序的使用次数
 		SharedPreferences sp = getSharedPreferences(Constant.SP_SETTING_FILENAME, MODE_PRIVATE);
@@ -35,15 +43,15 @@ public class SplashActivity extends Activity {
 		// 判断程序与第几次运行，如果是第一次运行则跳转到引导界面，否则跳转到主界面
 		if (!isFirstIn) {
 			// 使用Handler的postDelayed方法，3秒后执行跳转到MainActivity
-			mHandler.sendEmptyMessageDelayed(GO_MAIN,Constant.SPLASH_DELAY_MILLIS);
-			//mHandler.sendEmptyMessageDelayed(GO_GUIDE,Constant.SPLASH_DELAY_MILLIS);
+			mHandler.sendEmptyMessageDelayed(GO_MAIN, Constant.SPLASH_DELAY_MILLIS);
+			// mHandler.sendEmptyMessageDelayed(GO_GUIDE,Constant.SPLASH_DELAY_MILLIS);
 		} else {
 			mHandler.sendEmptyMessageDelayed(GO_GUIDE, Constant.SPLASH_DELAY_MILLIS);
 		}
 
 	}
 
-	private Handler mHandler = new Handler() {
+	private final Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
@@ -61,7 +69,8 @@ public class SplashActivity extends Activity {
 	// 转向主界面
 	protected void goMain() {
 		Log.i("SPLASH", "to Main");
-		//Intent intent = new Intent(SplashActivity.this, WelcomeRegisterOrLoginActivity.class);
+		// Intent intent = new Intent(SplashActivity.this,
+		// WelcomeRegisterOrLoginActivity.class);
 		Intent intent = new Intent(SplashActivity.this, MainActivity.class);
 		startActivity(intent);
 		finish();
