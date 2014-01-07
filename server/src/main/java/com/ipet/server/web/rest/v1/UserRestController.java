@@ -2,6 +2,9 @@ package com.ipet.server.web.rest.v1;
 
 import com.ipet.server.domain.User;
 import com.ipet.server.service.UserService;
+import com.ipet.server.util.ProjectUtil;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -74,4 +78,32 @@ public class UserRestController {
         logger.debug("user:" + user.toString());
         return userService.updateUserInfo(user);
     }
+
+    @RequestMapping(value = "/upload", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String upload(/*@RequestParam*/String name, /*@RequestParam*/ MultipartFile file) throws IOException {
+        String path = "F:/uploads";
+        if (file.isEmpty()) {
+            throw new RuntimeException("无效参数");
+        }
+        ProjectUtil.createDir(path);
+        //file.transferTo(new File(path + "/" + file.getOriginalFilename()));
+        file.transferTo(new File(path + "/" + name));
+        return "";
+    }
+
+    @RequestMapping(value = "/uploads", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String uploads(List<String> names, List<MultipartFile> files) throws IOException {
+        String path = "F:/uploads";
+        if (files.isEmpty()) {
+            throw new RuntimeException("无效参数");
+        }
+        for (int i = 0, len = files.size(); i < len; i++) {
+            MultipartFile file = files.get(i);
+            file.transferTo(new File(path + "/" + names.get(i)));
+        }
+        return "";
+    }
+
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 /**
  *
@@ -17,6 +18,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ControllerAdvice
 public class RestExceptionHandler {
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public String handleMaxUploadSizeExceededError(RuntimeException e) {
+        return "文件过大";
+    }
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
