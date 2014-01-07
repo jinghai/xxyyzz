@@ -33,6 +33,7 @@
         <version.oltu>0.31</version.oltu>
         <jersey.version>1.17</jersey.version>
         <mysql.version>5.1.21</mysql.version>
+        <thumbnailator.version>0.4.7</thumbnailator.version>
 
         <!-- Plugin的属性定义 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -167,13 +168,18 @@
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
         </dependency>
-        <!--
+        
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
             <version>${commons-fileupload.version}</version>
         </dependency>
-        -->
+        <!--Photo-->
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>${thumbnailator.version}</version>
+        </dependency>       
 
 
         <dependency>

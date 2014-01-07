@@ -1,9 +1,8 @@
 package com.ipet.server.web.rest.v1;
 
 import com.ipet.server.domain.User;
+import com.ipet.server.service.FileUploadService;
 import com.ipet.server.service.UserService;
-import com.ipet.server.util.ProjectUtil;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,6 +35,8 @@ public class UserRestController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private FileUploadService uploder;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -81,28 +83,11 @@ public class UserRestController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String upload(/*@RequestParam*/String name, /*@RequestParam*/ MultipartFile file) throws IOException {
-        String path = "F:/uploads";
+    public String upload(@RequestParam(required = false) String name, /*@RequestParam*/ MultipartFile file) throws IOException {
         if (file.isEmpty()) {
             throw new RuntimeException("无效参数");
         }
-        ProjectUtil.createDir(path);
-        //file.transferTo(new File(path + "/" + file.getOriginalFilename()));
-        file.transferTo(new File(path + "/" + name));
-        return "";
-    }
-
-    @RequestMapping(value = "/uploads", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public String uploads(List<String> names, List<MultipartFile> files) throws IOException {
-        String path = "F:/uploads";
-        if (files.isEmpty()) {
-            throw new RuntimeException("无效参数");
-        }
-        for (int i = 0, len = files.size(); i < len; i++) {
-            MultipartFile file = files.get(i);
-            file.transferTo(new File(path + "/" + names.get(i)));
-        }
+        uploder.uploadAvatar(name, file);
         return "";
     }
 
