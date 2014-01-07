@@ -1,4 +1,4 @@
-<map version="1.0.1">
+<map version="0.9.0">
 <!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
 <node CREATED="1387963812612" ID="ID_106339678" MODIFIED="1387963826113" TEXT="IpetApi">
 <node CREATED="1387964604451" ID="ID_1043490503" MODIFIED="1388021757504" POSITION="right" TEXT="&#x8d26;&#x53f7;/account">
@@ -50,8 +50,9 @@
 <icon BUILTIN="full-1"/>
 <icon BUILTIN="button_ok"/>
 </node>
-<node CREATED="1388991004540" ID="ID_1944842876" MODIFIED="1388991021788" TEXT="&#x6279;&#x91cf;&#x83b7;&#x53d6;&#x57fa;&#x672c;&#x4fe1;&#x606f;">
+<node CREATED="1388991004540" ID="ID_1944842876" MODIFIED="1389095602495" TEXT="&#x6279;&#x91cf;&#x83b7;&#x53d6;&#x57fa;&#x672c;&#x4fe1;&#x606f;">
 <icon BUILTIN="full-1"/>
+<icon BUILTIN="button_ok"/>
 </node>
 </node>
 </node>

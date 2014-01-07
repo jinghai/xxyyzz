@@ -5,10 +5,14 @@ SrpingData JPA(OK)
 SpringMVC Rest Json转换（OK）
 RestTemplate Http调用（OK）
 RestTemplate 提交Json数据以及Json自动转换(OK)
-RestTemplate 提交Url参数（未成功）
-SpringMVC Rest上传
+RestTemplate 提交Url参数（OK）
+RestTemplate 自定义异常处理(OK)
+SpringMVC Rest上传 OK
+RestTemplate 上传文件 OK
+获取项目测试资源文件?
+获取运行程序的磁盘地址
+缩略图处理
 SpringMVC Etag机制
-RestTemplate 上传文件
 RestTemplate Etag处理
 RestTemplate Gzip处理
 附近搜索算法
