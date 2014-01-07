@@ -8,26 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import com.ipet.server.domain.User;
-import com.ipet.server.domain.UserRole;
 import com.ipet.server.domain.UserState;
 import com.ipet.server.repository.UserDao;
-import java.util.Date;
-import org.springside.modules.security.utils.Digests;
-import org.springside.modules.utils.Encodes;
 
 /**
  * 用户管理类.
  *
- * @author calvin
+ * @author xiaojinghai
  */
-// Spring Service Bean的标识.
 @Component
 @Transactional(readOnly = true)
 public class UserService {
-
-    public static final String HASH_ALGORITHM = "SHA-1";
-    public static final int HASH_INTERATIONS = 1024;
-    private static final int SALT_SIZE = 8;
 
     private static Logger logger = LoggerFactory.getLogger(UserService.class);
 

@@ -17,9 +17,8 @@ import org.springside.modules.utils.Encodes;
 /**
  * 用户管理类.
  *
- * @author calvin
+ * @author xiaojinghai
  */
-// Spring Service Bean的标识.
 @Component
 @Transactional(readOnly = true)
 public class AccountService {
@@ -33,10 +32,21 @@ public class AccountService {
     @Autowired
     private UserDao userDao;
 
+    /**
+     * 获取所有用户
+     *
+     * @return
+     */
     public List<User> getAllUser() {
         return (List<User>) getUserDao().findAll();
     }
 
+    /**
+     * 按ID获取用户
+     *
+     * @param id
+     * @return User或null
+     */
     public User getUser(Long id) {
         return getUserDao().findOne(id);
     }
@@ -88,21 +98,63 @@ public class AccountService {
         return 0l == t;
     }
 
+    /**
+     * 注册终端用户
+     *
+     * @param user
+     */
     @Transactional(readOnly = false)
     public void registerUser(User user) {
         entryptPassword(user);
         user.setUserState(UserState.ENABLE);
         user.setRoles(UserRole.ENDUSER.name());
         user.setLoginNum(0l);
-        //user.setUserProfile(new UserProfile());
         getUserDao().save(user);
     }
 
+    /**
+     * 修改密码
+     *
+     * @param userId
+     * @param oldPassword 旧的明文密码
+     * @param newPassword 新的明文密码
+     */
+    @Transactional(readOnly = false)
+    public void changePassword(Long userId, String oldPassword, String newPassword) {
+        User user = getUser(userId);
+        if (null == user) {
+            throw new RuntimeException("无效参数");
+        }
+
+        String salt = user.getSalt();
+        String password = user.getPassword();
+        //验证旧密码是否正确
+        Boolean validOldPassword = this.verifyPassword(oldPassword, password, salt);
+        if (!validOldPassword) {
+            throw new RuntimeException("旧密码错误");
+        }
+
+        user.setPlainPassword(newPassword);
+        this.entryptPassword(user);
+        this.getUserDao().save(user);
+
+    }
+
+    /**
+     * 更新用户信息
+     *
+     * @param user
+     */
     @Transactional(readOnly = false)
     public void updateUser(User user) {
         getUserDao().save(user);
     }
 
+    /**
+     * 物理删除用户
+     *
+     * @param id
+     */
     @Transactional(readOnly = false)
     public void deleteUser(Long id) {
 
@@ -111,7 +163,22 @@ public class AccountService {
     }
 
     /**
-     * 设定安全的密码，生成随机的salt并经过1024次 sha-1 hash
+     * 验证密码正确性
+     *
+     * @param plainPassword 明文密码
+     * @param passord 密文密码
+     * @param salt
+     */
+    private Boolean verifyPassword(String plainPassword, String passord, String salt) {
+        byte[] hashPassword = Digests.sha1(plainPassword.getBytes(), Encodes.decodeHex(salt), HASH_INTERATIONS);
+        String p = Encodes.encodeHex(hashPassword);
+        return p.equals(passord);
+    }
+
+    /**
+     * 加密密码，成随机的salt并经过1024次 sha-1 hash
+     *
+     * @param user
      */
     private void entryptPassword(User user) {
         byte[] salt = Digests.generateSalt(SALT_SIZE);

@@ -16,9 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Task的Restful API的Controller.
  *
- * @author calvin
+ * @author xiaojinghai
  */
 @Controller
 @RequestMapping(value = "/api/v1/account")
@@ -50,7 +49,7 @@ public class AccountRestController {
     public ResponseEntity<?> availableUsername(String username) {
         logger.debug("username:" + username);
         if (StringUtils.isEmpty(username)) {
-            throw new RuntimeException("非法参数");
+            throw new RuntimeException("无效参数");
         }
         return new ResponseEntity(accountService.availableUsername(username), HttpStatus.OK);
     }
@@ -59,7 +58,7 @@ public class AccountRestController {
     @ResponseBody
     public ResponseEntity<?> availablePhone(String phone) {
         if (StringUtils.isEmpty(phone)) {
-            throw new RuntimeException("非法参数");
+            throw new RuntimeException("无效参数");
         }
         return new ResponseEntity(accountService.availablePhone(phone), HttpStatus.OK);
     }
@@ -68,7 +67,7 @@ public class AccountRestController {
     @ResponseBody
     public ResponseEntity<?> availableEmail(String email) {
         if (StringUtils.isEmpty(email)) {
-            throw new RuntimeException("非法参数");
+            throw new RuntimeException("无效参数");
         }
         return new ResponseEntity(accountService.availableEmail(email), HttpStatus.OK);
     }
@@ -77,9 +76,21 @@ public class AccountRestController {
     @ResponseBody
     public ResponseEntity<?> isNewUser(Long userId) {
         if (null == userId) {
-            throw new RuntimeException("非法参数");
+            throw new RuntimeException("无效参数");
         }
         return new ResponseEntity(accountService.isNewUser(userId), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/changePassword", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<?> changePassword(String userId, String oldPassword, String newPassword) {
+        if (null == userId || StringUtils.isEmpty(oldPassword) || StringUtils.isEmpty(newPassword)) {
+            throw new RuntimeException("无效参数");
+        }
+        Long userIdValue = Long.parseLong(userId);
+        accountService.changePassword(userIdValue, oldPassword, newPassword);
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 
