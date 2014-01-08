@@ -6,18 +6,30 @@ package com.ipet.server.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.Locale;
+import java.util.UUID;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.EncodedResource;
 import org.springframework.core.io.support.LocalizedResourceHelper;
-import org.springframework.util.FileCopyUtils;
 
 /**
  *
  * @author xiaojinghai
  */
 public class ProjectUtil {
+
+    /**
+     * 生成13位短UUID (13 characters)
+     *
+     * @return short UUID
+     */
+    public static String generateShortUUID() {
+        UUID uuid = UUID.randomUUID();
+        long l = ByteBuffer.wrap(uuid.toString().getBytes()).getLong();
+        return Long.toString(l, Character.MAX_RADIX);
+    }
 
     /**
      * 获取项目路径

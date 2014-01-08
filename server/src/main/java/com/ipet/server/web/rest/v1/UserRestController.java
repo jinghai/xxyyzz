@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -83,11 +82,12 @@ public class UserRestController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String upload(@RequestParam(required = false) String name, /*@RequestParam*/ MultipartFile file) throws IOException {
+    public String upload(String userId, /*@RequestParam*/ MultipartFile file) throws IOException {
+        long uid = Long.parseLong(userId);
         if (file.isEmpty()) {
             throw new RuntimeException("无效参数");
         }
-        uploder.uploadAvatar(name, file);
+        uploder.uploadAvatar(file, uid);
         return "";
     }
 
