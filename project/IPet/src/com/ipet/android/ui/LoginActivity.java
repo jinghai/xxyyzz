@@ -32,12 +32,12 @@ public class LoginActivity extends Activity {
 	private boolean psdDisplayFlg = false;
 	private String account = null;
 	private String password = null;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		
+
 		ActivityManager.getInstance().addActivity(this);
 
 		SimpleTitleBar titleBar = (SimpleTitleBar) findViewById(R.id.login_titlebar);
@@ -48,69 +48,69 @@ public class LoginActivity extends Activity {
 				LoginActivity.this.goRegister();
 			}
 		});
-		
+
 		accountView = (AutoCompleteTextView) this.findViewById(R.id.login_account);
 		passwordView = (EditText) this.findViewById(R.id.login_password);
 		toggleView = (TextView) this.findViewById(R.id.login_toggle_password);
 		toggleView.setOnClickListener(togglePasswordClick);
-		
+
 		loginBtnView = (TextView) this.findViewById(R.id.login_login_btn);
 		loginBtnView.setOnClickListener(loginClick);
-		
+
 		forgotView = (TextView) this.findViewById(R.id.login_forgot_password);
 		forgotView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Toast.makeText(LoginActivity.this, "暂时未实现",Toast.LENGTH_LONG).show();
+
+				Toast.makeText(LoginActivity.this, "暂时未实现", Toast.LENGTH_LONG).show();
 			}
 		});
 	}
-	
-	protected OnClickListener togglePasswordClick = new OnClickListener() {	
+
+	protected OnClickListener togglePasswordClick = new OnClickListener() {
 		@Override
 		public void onClick(View arg0) {
 			int index = passwordView.getSelectionStart();
 			if (!psdDisplayFlg) {
 				// display password text, for example "123456"
-				//passwordView.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+				// passwordView.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
 				passwordView.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
 				toggleView.setText(R.string.login_toggle_password_hide);
 			} else {
 				// hide password, display "."
-				//passwordView.setTransformationMethod(PasswordTransformationMethod.getInstance());
+				// passwordView.setTransformationMethod(PasswordTransformationMethod.getInstance());
 				passwordView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 				toggleView.setText(R.string.login_toggle_password_show);
 			}
 			psdDisplayFlg = !psdDisplayFlg;
 			Editable etable = passwordView.getText();
-            Selection.setSelection(etable, index);	
+			Selection.setSelection(etable, index);
 		}
 	};
-	
-	private OnClickListener loginClick = new OnClickListener() {
+
+	private final OnClickListener loginClick = new OnClickListener() {
 		@Override
 		public void onClick(View loginBtnView) {
-			if(!validateLogin()){
+			if (!validateLogin()) {
 				return;
 			}
-			new LoginAsyncTask(LoginActivity.this,LoginActivity.this.account,LoginActivity.this.password).execute();
+			new LoginAsyncTask(LoginActivity.this, LoginActivity.this.account, LoginActivity.this.password).execute();
 		}
 	};
 
-	
 	private boolean validateLogin() {
 
-		this.account =  accountView.getText().toString();
-		if(StringUtils.isEmpty(account)){
+		this.account = accountView.getText().toString();
+		if (StringUtils.isEmpty(account)) {
 			showError(R.string.login_empty_account);
-			accountView.requestFocus(); 
+			accountView.requestFocus();
 			return false;
 		}
-		
+
 		this.password = passwordView.getText().toString();
-		if(StringUtils.isEmpty(password)){
+		if (StringUtils.isEmpty(password)) {
 			showError(R.string.login_empty_password);
-			passwordView.requestFocus(); 
+			passwordView.requestFocus();
 			return false;
 		}
 
@@ -119,14 +119,17 @@ public class LoginActivity extends Activity {
 
 	public void showError(int resId) {
 		// TODO Auto-generated method stub
-		Toast.makeText(LoginActivity.this,resId,Toast.LENGTH_LONG).show();
+		Toast.makeText(LoginActivity.this, resId, Toast.LENGTH_LONG).show();
 	}
 
 	private void goRegister() {
-		Toast.makeText(this, "暂时未实现",
-				Toast.LENGTH_LONG).show();
+		// Toast.makeText(this, "暂时未实现", Toast.LENGTH_LONG).show();
+		Intent intent = new Intent(this, RegisterActivity.class);
+		startActivity(intent);
+		AnimUtils.pushLeftToRight(this);
 	}
 
+	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			AnimUtils.backAndFinish(this);
@@ -134,13 +137,11 @@ public class LoginActivity extends Activity {
 		}
 		return true;
 	}
-	
-	public void goMain(){
+
+	public void goMain() {
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 		AnimUtils.pushLeftToRight(this);
 	}
-	
-	
 
 }

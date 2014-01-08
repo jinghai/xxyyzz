@@ -16,7 +16,7 @@
         app:title_right_text="@string/login_register" />
 
     <LinearLayout
-        android:id="@+id/login_linearLayout1"
+        android:id="@+id/login_linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -110,7 +110,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/login_linearLayout1"
+        android:layout_below="@+id/login_linearLayout"
         android:layout_marginTop="10dp"
         android:gravity="right"
         android:paddingBottom="2dp"

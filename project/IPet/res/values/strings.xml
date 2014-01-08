@@ -54,5 +54,10 @@
     <string name="me_set_info_nickname_title">编辑昵称</string>
     <string name="btn_save">保存</string>
     <string name="nickname_empty">昵称不能为空</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_register">用户注册</string>
+    <string name="register">注册</string>
+    <string name="repassword">重复:</string>
+    <string name="input_repassword_hint">请重复密码</string>
 
 </resources>
