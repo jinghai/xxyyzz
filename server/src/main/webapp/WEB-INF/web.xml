@@ -68,10 +68,4 @@
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 
-    <!-- Tomcat应用程序图标，不是浏览器URL显示图标-->
-    <icon>
-        <small-icon>/favicon.ico</small-icon>
-        <large-icon>/favicon.ico</large-icon>
-    </icon>
-
 </web-app>

@@ -15,7 +15,7 @@ import org.springframework.web.client.ResponseErrorHandler;
  *
  * @author xiaojinghai
  */
-public class CustomResponseErrorHandler implements ResponseErrorHandler {
+public class MyErrorHandler implements ResponseErrorHandler {
 
     private final ResponseErrorHandler errorHandler = new DefaultResponseErrorHandler();
 

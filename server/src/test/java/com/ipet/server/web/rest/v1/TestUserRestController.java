@@ -14,7 +14,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 
 /*
  * To change this template, choose Tools | Templates,
@@ -24,22 +23,20 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author xiaojinghai
  */
-public class TestUserRestController {
+public class TestUserRestController extends BaseTest {
 
     private static final Logger logger = LoggerFactory.getLogger(TestUserRestController.class);
 
-    public static RestTemplate restTemplate = new RestTemplate();
-
     public static final String baseUrl = "http://localhost:8084/server/api/v1/user";
 
-    @Test
+    //@Test
     public void getOneUser() {
         //使用URI模板方式,参数也可使用Map<String, Object> urlVariables = new HashMap< String, Object>();
         User user = restTemplate.getForObject(baseUrl + "/{id}", User.class, "1");
         logger.info(user.toString());
     }
 
-    @Test
+    //@Test
     public void getUsers() {
         //MultiValueMap<String, List<Long>> body = new LinkedMultiValueMap<String, List<Long>>();
         //Map<String, Object> urlVariables = new HashMap< String, Object>();
@@ -49,7 +46,7 @@ public class TestUserRestController {
         logger.info(list.toString());
     }
 
-    @Test
+    //@Test
     public void getUsersForOne() {
         //MultiValueMap<String, List<Long>> body = new LinkedMultiValueMap<String, List<Long>>();
         //Map<String, Object> urlVariables = new HashMap< String, Object>();
@@ -59,7 +56,7 @@ public class TestUserRestController {
         logger.info(list.toString());
     }
 
-    @Test
+    //@Test
     public void update() {
         //直接发送实体，自动转为Json格式提交到服务器
         User u = new User();
@@ -70,9 +67,9 @@ public class TestUserRestController {
         logger.info(u.toString());
     }
 
-    @Test
+    //@Test
     public void uploadForHttpEntity() {
-        CustomResponseErrorHandler errorHandler = new CustomResponseErrorHandler();
+        MyErrorHandler errorHandler = new MyErrorHandler();
         restTemplate.setErrorHandler(errorHandler);
 
         String url = baseUrl + "/upload";
@@ -92,9 +89,9 @@ public class TestUserRestController {
         //restTemplate.postForObject(url, body, String.class);
     }
 
-    @Test
+    //@Test
     public void uploadFor4M() {
-        CustomResponseErrorHandler errorHandler = new CustomResponseErrorHandler();
+        MyErrorHandler errorHandler = new MyErrorHandler();
         restTemplate.setErrorHandler(errorHandler);
         logger.debug(ClassLoader.getSystemResource("4M.JPG").getPath());
         String url = baseUrl + "/upload";
@@ -108,10 +105,10 @@ public class TestUserRestController {
 
     }
 
-    //@Test
+    @Test
     //测试超过5M的文件
     public void uploadFor5M() {
-        CustomResponseErrorHandler errorHandler = new CustomResponseErrorHandler();
+        MyErrorHandler errorHandler = new MyErrorHandler();
         restTemplate.setErrorHandler(errorHandler);
 
         String url = baseUrl + "/upload";
