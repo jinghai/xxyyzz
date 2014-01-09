@@ -43,7 +43,7 @@
     </filter>
     <filter-mapping>
         <filter-name>openEntityManagerInViewFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/api/*</url-pattern>
     </filter-mapping>
 
     <servlet>
@@ -57,11 +57,21 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>springServlet</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
 
     <session-config>
-        <session-timeout>20</session-timeout>
+        <session-timeout>0</session-timeout>
     </session-config>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+    <!-- Tomcat应用程序图标，不是浏览器URL显示图标-->
+    <icon>
+        <small-icon>/favicon.ico</small-icon>
+        <large-icon>/favicon.ico</large-icon>
+    </icon>
 
 </web-app>

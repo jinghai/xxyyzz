@@ -1,11 +1,11 @@
+package com.ipet.server.web.rest.v1;
 
 import com.ipet.server.domain.User;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 import org.slf4j.Logger;
-import static org.slf4j.LoggerFactory.getLogger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -26,7 +26,7 @@ import org.springframework.web.client.RestTemplate;
  */
 public class TestUserRestController {
 
-    private static final Logger logger = getLogger(TestAccountRestController.class);
+    private static final Logger logger = LoggerFactory.getLogger(TestUserRestController.class);
 
     public static RestTemplate restTemplate = new RestTemplate();
 
@@ -72,12 +72,15 @@ public class TestUserRestController {
 
     @Test
     public void uploadForHttpEntity() {
+        CustomResponseErrorHandler errorHandler = new CustomResponseErrorHandler();
+        restTemplate.setErrorHandler(errorHandler);
+
         String url = baseUrl + "/upload";
-        String filePath = "f:/4.JPG";
-        FileSystemResource fsr = new FileSystemResource(filePath);
+
+        FileSystemResource fsr = new FileSystemResource(ClassLoader.getSystemResource("4M.JPG").getPath());
 
         LinkedMultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
-        body.add("name", "1.jpg");
+        body.add("userId", "1");
         body.add("file", fsr);
 
         HttpHeaders requestHeaders = new HttpHeaders();
@@ -93,13 +96,12 @@ public class TestUserRestController {
     public void uploadFor4M() {
         CustomResponseErrorHandler errorHandler = new CustomResponseErrorHandler();
         restTemplate.setErrorHandler(errorHandler);
-
+        logger.debug(ClassLoader.getSystemResource("4M.JPG").getPath());
         String url = baseUrl + "/upload";
-        String filePath = "f:/4M.JPG";
-        FileSystemResource fsr = new FileSystemResource(filePath);
+        FileSystemResource fsr = new FileSystemResource(ClassLoader.getSystemResource("4M.JPG").getPath());
 
         LinkedMultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
-        body.add("name", "1.jpg");
+        body.add("userId", "1");
         body.add("file", fsr);
         String r = restTemplate.postForObject(url, body, String.class);
         logger.info(r);
@@ -107,20 +109,34 @@ public class TestUserRestController {
     }
 
     //@Test
+    //测试超过5M的文件
     public void uploadFor5M() {
         CustomResponseErrorHandler errorHandler = new CustomResponseErrorHandler();
-        restTemplate.setErrorHandler(errorHandler);;
+        restTemplate.setErrorHandler(errorHandler);
 
         String url = baseUrl + "/upload";
-        String filePath = "f:/5M.JPG";
-        FileSystemResource fsr = new FileSystemResource(filePath);
+        FileSystemResource fsr = new FileSystemResource(ClassLoader.getSystemResource("5M.JPG").getPath());
 
         LinkedMultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
-        body.add("name", "1.jpg");
+        body.add("userId", "1");
         body.add("file", fsr);
         String r = restTemplate.postForObject(url, body, String.class);
         logger.info(r);
 
+    }
+
+    //@Test
+    //测试100次上单线程上传性能
+    public void uploadFile100WTime() {
+        // long times = 1000000;//100W
+        long times = 3;
+        long start = System.currentTimeMillis();
+        for (long i = 0; i < times; i++) {
+            uploadFor4M();
+        }
+        long end = System.currentTimeMillis();
+        Long useAV = (end - start) / times;
+        logger.info("平均耗时:" + useAV + " 毫秒");
     }
 
 }

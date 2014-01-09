@@ -23,6 +23,7 @@ public class RestExceptionHandler {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public String handleMaxUploadSizeExceededError(RuntimeException e) {
+        e.printStackTrace();
         return "文件过大";
     }
 
@@ -30,6 +31,17 @@ public class RestExceptionHandler {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public String handleUnexpectedServerError(RuntimeException e) {
-        return e.getMessage();
+        e.printStackTrace();
+        return e.getLocalizedMessage();
     }
+
+    //所有异常
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public String ExceptionError(Exception e) {
+        e.printStackTrace();
+        return e.getLocalizedMessage();
+    }
+
 }

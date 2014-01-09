@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author xiaojinghai
  */
 @Controller
-@RequestMapping(value = "/api/v1/account")
+@RequestMapping(value = "/v1/account")
 public class AccountRestController {
 
     private static final Logger logger = LoggerFactory.getLogger(AccountRestController.class);

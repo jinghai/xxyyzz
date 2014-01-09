@@ -1,3 +1,5 @@
+package com.ipet.server.web.rest.v1;
+
 
 import java.io.IOException;
 import org.apache.commons.io.IOUtils;

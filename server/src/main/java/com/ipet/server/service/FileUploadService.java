@@ -6,6 +6,8 @@
 package com.ipet.server.service;
 
 import com.ipet.server.domain.User;
+import com.ipet.server.domain.UserState;
+import com.ipet.server.repository.UserDao;
 import com.ipet.server.util.ProjectUtil;
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,10 +28,11 @@ import org.springframework.web.multipart.MultipartFile;
  * @author yneos
  */
 @Component
+@Transactional(readOnly = true)
 public class FileUploadService {
 
     @Autowired
-    AccountService accountService;
+    private UserDao userDao;
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -54,6 +58,7 @@ public class FileUploadService {
      * @param file
      * @throws IOException
      */
+    @Transactional(readOnly = false)
     public void uploadAvatar(MultipartFile file, long userId) throws IOException {
         String webAppPath = webApplicationContext.getServletContext().getRealPath("/");
         String originalFilename = file.getOriginalFilename();
@@ -61,23 +66,62 @@ public class FileUploadService {
         if (StringUtils.isEmpty(prefix) || !allowPrefix.contains(prefix)) {
             throw new RuntimeException("被禁止的文件类型");
         }
-        String tempPathAndFile = tempDir + "/" + ProjectUtil.generateShortUUID() + "." + prefix;
-        //相对网站根目录的磁盘路径
-        String avatar32PathAndFile = baseDir + "/" + userId + ProjectUtil.generateShortUUID() + "_32." + prefix;
-        String avatar48PathAndFile = baseDir + "/" + userId + ProjectUtil.generateShortUUID() + "_48." + prefix;
-        uploadFile(webAppPath + tempPathAndFile, file);
+        //临时文件目录
+        String tempDirRealPath = webAppPath + tempDir;
+        ProjectUtil.createDir(tempDirRealPath);
+        //临时文件绝对路径
+        String tempFile = tempDirRealPath + "/" + ProjectUtil.generateShortUUID() + "." + prefix;
+        //上传目录
+        String uploadDirRealPath = webAppPath + baseDir + "/" + userId + "/";
+        ProjectUtil.createDir(uploadDirRealPath);
+        //32*32相对地址
+        String avatar32RelativeFile = baseDir + "/" + userId + "/" + ProjectUtil.generateShortUUID() + "_32." + prefix;
+        //32*32绝对地址
+        String avatar32RealFile = webAppPath + avatar32RelativeFile;
+        //48*48相对地址
+        String avatar48RelativeFile = baseDir + "/" + userId + "/" + ProjectUtil.generateShortUUID() + "_48." + prefix;
+        //48*48绝对地址
+        String avatar48RealFile = webAppPath + avatar48RelativeFile;
+
+        uploadFile(tempFile, file);
+
+        //文件冲突检查,避免shorUUID可能存在重复的bug
+        File avatar32File = new File(avatar32RealFile);
+        File avatar48File = new File(avatar48RealFile);
+        if (avatar32File.exists() || avatar48File.exists()) {
+            throw new RuntimeException("文件已存在");
+        }
+
         /*
          * 若图片横比32小，高比32小，不变
          * 若图片横比32小，高比32大，高缩小到32，图片比例不变
          * 若图片横比32大，高比32小，横缩小到32，图片比例不变
          * 若图片横比32大，高比32大，图片按比例缩小，横为32或高为32
          */
-        Thumbnails.of(webAppPath + tempPathAndFile).size(32, 32).toFile(webAppPath + avatar32PathAndFile);
-        Thumbnails.of(webAppPath + tempPathAndFile).size(48, 48).toFile(webAppPath + avatar48PathAndFile);
-        User user = accountService.getUser(userId);
-        user.setAvatar32(avatar32PathAndFile);
-        user.setAvatar48(avatar48PathAndFile);
-        //todo数据库处理,url处理
+        Thumbnails.of(tempFile).size(32, 32).toFile(avatar32RealFile);
+        Thumbnails.of(tempFile).size(48, 48).toFile(avatar48RealFile);
+
+        //清除缓存
+        File tFile = new File(tempFile);
+        tFile.delete();
+
+        User user = this.getUserDao().findByIdAndUserState(userId, UserState.ENABLE);
+        //删除旧文件
+        String old32 = user.getAvatar32();
+        if (!StringUtils.isEmpty(old32)) {
+            File f = new File(webAppPath + old32);
+            f.delete();
+        }
+        String old48 = user.getAvatar48();
+        if (!StringUtils.isEmpty(old48)) {
+            File f = new File(webAppPath + old48);
+            f.delete();
+        }
+        //更新记录
+        user.setAvatar32(avatar32RelativeFile);
+        user.setAvatar48(avatar48RelativeFile);
+        this.getUserDao().save(user);
+
     }
 
     private void uploadFile(String pathAndName, MultipartFile file) throws IOException {
@@ -96,30 +140,21 @@ public class FileUploadService {
                     + webApplicationContext.getServletContext().getRealPath("/")
                     + tempDir);
         }
-        System.out.println("currentThread:"
-                + Thread.currentThread().getContextClassLoader().getResource(""));
-        System.out.println("getClassLoader:"
-                + FileUploadService.class.getClassLoader().getResource(""));
-        System.out.println("ClassLoader:"
-                + ClassLoader.getSystemResource(""));
-        System.out.println("FileUploadService:"
-                + FileUploadService.class.getResource(""));
-        System.out.println("FileUploadService/:"
-                + FileUploadService.class.getResource("/"));//Class文件所在路径
-        System.out.println("File/:" + new File("/").getAbsolutePath());
-        System.out.println("user.dir:" + System.getProperty("user.dir"));
-        System.out.println("ClassPathResource:" + new ClassPathResource("./").getFile().getAbsolutePath());
-        /* ApplicationContext OK! getWebApplicationContext OK!
-         * getWebApplicationContext:D:\dev\KD\xxyyzz\server\target\server-1.0.0\/files
-         * currentThread:file:/D:/dev/KD/xxyyzz/server/target/server-1.0.0/WEB-INF/classes/
-         * getClassLoader:file:/D:/dev/KD/xxyyzz/server/target/server-1.0.0/WEB-INF/classes/
-         * ClassLoader:null
-         * FileUploadService:file:/D:/dev/KD/xxyyzz/server/target/server-1.0.0/WEB-INF/classes/com/ipet/server/service/
-         * FileUploadService/:file:/D:/dev/KD/xxyyzz/server/target/server-1.0.0/WEB-INF/classes/
-         * File/:E:\ user.dir:E:\RunTime\apache-tomcat-7.0.47\bin
-         * ClassPathResource:D:\dev\KD\xxyyzz\server\target\server-1.0.0\WEB-INF\classes
-         *
-         */
+
+    }
+
+    /**
+     * @return the userDao
+     */
+    public UserDao getUserDao() {
+        return userDao;
+    }
+
+    /**
+     * @param userDao the userDao to set
+     */
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
 
 }

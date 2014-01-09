@@ -27,7 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @author xiaojinbghai
  */
 @Controller
-@RequestMapping(value = "/api/v1/user")
+@RequestMapping(value = "/v1/user")
 public class UserRestController {
 
     private static final Logger logger = LoggerFactory.getLogger(AccountRestController.class);

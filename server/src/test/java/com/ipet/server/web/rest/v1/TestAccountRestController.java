@@ -1,3 +1,5 @@
+package com.ipet.server.web.rest.v1;
+
 
 import com.ipet.server.domain.User;
 import org.junit.Test;
