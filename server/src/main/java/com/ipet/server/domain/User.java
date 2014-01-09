@@ -24,6 +24,9 @@ public class User extends IdEntity implements Serializable {
     @Column(length = 50)
     private String loginName;
 
+    @Column(length = 50)
+    private String displayName;
+
     //登录密码
     @JsonIgnore
     @Column(length = 50)
@@ -179,6 +182,20 @@ public class User extends IdEntity implements Serializable {
      */
     public void setAvatar48(String avatar48) {
         this.avatar48 = avatar48;
+    }
+
+    /**
+     * @return the displayName
+     */
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    /**
+     * @param displayName the displayName to set
+     */
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
 }

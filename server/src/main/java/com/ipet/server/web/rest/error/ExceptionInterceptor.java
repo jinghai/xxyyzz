@@ -5,7 +5,7 @@
  */
 package com.ipet.server.web.rest.error;
 
-import com.ipet.server.service.ServiceException;
+import com.ipet.server.web.rest.exceptions.RestException;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 
@@ -25,7 +25,7 @@ public class ExceptionInterceptor {
         //if (t instanceof KnownException) {
         //    throw (KnownException) t;
         // } else {
-        ServiceException se = new ServiceException(t.getMessage());
+        RestException se = new RestException(t.getMessage());
         se.setStackTrace(t.getStackTrace());
         throw se;
         // }

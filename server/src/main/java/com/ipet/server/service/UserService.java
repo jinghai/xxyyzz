@@ -19,21 +19,21 @@ import com.ipet.server.repository.UserDao;
 @Component
 @Transactional(readOnly = true)
 public class UserService {
-
+    
     private static Logger logger = LoggerFactory.getLogger(UserService.class);
-
+    
     @Autowired
     private UserDao userDao;
-
+    
     public List<User> getAllUser() {
         return (List<User>) getUserDao().findAll();
     }
-
+    
     public User getUserById(Long userId) {
         User user = getUserDao().findByIdAndUserState(userId, UserState.ENABLE);
         return user;
     }
-
+    
     public List<User> getUserByIds(List<Long> ids) {
         List<User> users = getUserDao().findByIdInAndUserState(ids, UserState.ENABLE);
         return users;
@@ -49,6 +49,7 @@ public class UserService {
     @Transactional(readOnly = false)
     public User updateUserInfo(User userUpdate) {
         User user = getUserById(userUpdate.getId());
+        user.setDisplayName(userUpdate.getDisplayName());
         user.setEmail(userUpdate.getEmail());
         user.setPhone(userUpdate.getPhone());
         getUserDao().save(user);
@@ -68,5 +69,5 @@ public class UserService {
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
-
+    
 }
