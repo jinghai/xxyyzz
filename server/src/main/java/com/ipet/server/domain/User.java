@@ -8,6 +8,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
@@ -17,6 +18,9 @@ import org.hibernate.validator.constraints.Email;
 @Entity
 @Table(name = "ipet_user")
 public class User extends IdEntity implements Serializable {
+
+    @JsonUnwrapped
+    private Avatar avatar;
 
     //登录名称
     // JSR303 BeanValidator的校验规则
@@ -196,6 +200,20 @@ public class User extends IdEntity implements Serializable {
      */
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    /**
+     * @return the avatar
+     */
+    public Avatar getAvatar() {
+        return avatar;
+    }
+
+    /**
+     * @param avatar the avatar to set
+     */
+    public void setAvatar(Avatar avatar) {
+        this.avatar = avatar;
     }
 
 }

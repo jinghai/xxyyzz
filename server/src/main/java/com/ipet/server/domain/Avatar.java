@@ -12,7 +12,7 @@ import javax.persistence.Embeddable;
  *
  * @author xiaojinghai
  *
- * Json转换有问题,此类暂时没用
+ * Json转换有问题
  */
 @Embeddable
 public class Avatar implements Serializable {
