@@ -59,5 +59,14 @@
     <string name="register">注册</string>
     <string name="repassword">重复:</string>
     <string name="input_repassword_hint">请重复密码</string>
+    <string name="nickname">昵称</string>
+    <string name="input_nickname_hint">请输入昵称</string>
+    <string name="reg_repassword_error">重复密码不一致</string>
+    <string name="nickname_no_empty">昵称不能为空</string>
+    <string name="reg_loading">正在注册...</string>
+    <string name="reg_failure_other">注册失败</string>
+    <string name="reg_failure_sameAccount">邮箱已被注册了</string>
+    
+    
 
 </resources>
