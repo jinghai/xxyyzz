@@ -8,20 +8,25 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import org.hibernate.validator.constraints.Email;
 
 @Entity
-@Table(name = "ipet_user")
+@Table(name = "ipet_users")
 public class User extends IdEntity implements Serializable {
 
-    @JsonUnwrapped
-    private Avatar avatar;
-
+    // @JsonUnwrapped
+    //private Avatar avatar;
     //登录名称
     // JSR303 BeanValidator的校验规则
     @NotBlank
@@ -67,14 +72,23 @@ public class User extends IdEntity implements Serializable {
     @Column
     private String avatar48;
 
-    /* @JsonIgnore
-     @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-     @JoinColumn(name = "user_profile_id")
-     private UserProfile userProfile;*/
     //明文密码,瞬时属性,加密时使用,不持久化
     @JsonIgnore
     @Transient
     private String plainPassword;
+
+    //@JsonIgnore
+    @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_profile_id")
+    private UserProfile userProfile;
+
+    //@JsonIgnore
+    @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_setting_id")
+    private UserSetting userSetting;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Shop> shops;
 
     public User() {
     }
@@ -200,20 +214,6 @@ public class User extends IdEntity implements Serializable {
      */
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
-    }
-
-    /**
-     * @return the avatar
-     */
-    public Avatar getAvatar() {
-        return avatar;
-    }
-
-    /**
-     * @param avatar the avatar to set
-     */
-    public void setAvatar(Avatar avatar) {
-        this.avatar = avatar;
     }
 
 }
