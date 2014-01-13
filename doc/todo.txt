@@ -9,8 +9,9 @@ RestTemplate 提交Url参数（OK）
 RestTemplate 自定义异常处理(OK)
 SpringMVC Rest上传 OK
 RestTemplate 上传文件 OK
-获取项目测试资源文件?
-获取运行程序的磁盘地址
+Spring注入applicationContext和webApplicationContext OK
+Service层获取网站跟目录磁盘绝对地址OK
+
 缩略图处理
 SpringMVC Etag机制
 RestTemplate Etag处理

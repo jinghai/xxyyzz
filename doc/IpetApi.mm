@@ -7,8 +7,9 @@
 <icon BUILTIN="full-1"/>
 <icon BUILTIN="button_ok"/>
 </node>
-<node CREATED="1387965553668" ID="ID_1910717733" MODIFIED="1388043705230" TEXT="&#x4fee;&#x6539;&#x5bc6;&#x7801;">
+<node CREATED="1387965553668" ID="ID_1910717733" MODIFIED="1389586075618" TEXT="&#x4fee;&#x6539;&#x5bc6;&#x7801;">
 <icon BUILTIN="full-1"/>
+<icon BUILTIN="button_ok"/>
 </node>
 <node CREATED="1387964638003" ID="ID_1627745254" MODIFIED="1388043728044" TEXT="&#x767b;&#x5165;">
 <icon BUILTIN="full-1"/>
@@ -40,8 +41,9 @@
 <icon BUILTIN="full-1"/>
 <icon BUILTIN="button_ok"/>
 </node>
-<node CREATED="1387964171012" ID="ID_105978693" MODIFIED="1388987862898" TEXT="&#x66f4;&#x65b0;&#x7528;&#x6237;&#x5934;&#x50cf;">
+<node CREATED="1387964171012" ID="ID_105978693" MODIFIED="1389586097600" TEXT="&#x66f4;&#x65b0;&#x7528;&#x6237;&#x5934;&#x50cf;">
 <icon BUILTIN="full-1"/>
+<icon BUILTIN="button_ok"/>
 </node>
 <node CREATED="1387964281908" ID="ID_1574429201" MODIFIED="1387964406888" TEXT="&#x7528;&#x6237;&#x8bbe;&#x7f6e;&#xff08;&#x672c;&#x4eba;&#xff09;"/>
 </node>
