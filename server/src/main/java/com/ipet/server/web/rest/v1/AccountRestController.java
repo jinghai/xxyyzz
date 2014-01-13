@@ -28,6 +28,13 @@ public class AccountRestController {
     @Autowired
     private AccountService accountService;
 
+    /**
+     * 注册用户
+     *
+     * @param username
+     * @param password
+     * @return
+     */
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<?> create(String username, String password) {
@@ -38,12 +45,19 @@ public class AccountRestController {
 
         User newUser = new User();
         newUser.setLoginName(username);
+        newUser.setDisplayName(username);
         newUser.setPlainPassword(password);
         //注册
         accountService.registerUser(newUser);
         return new ResponseEntity(newUser, HttpStatus.CREATED);
     }
 
+    /**
+     * 检查用户名是否可用
+     *
+     * @param username
+     * @return
+     */
     @RequestMapping(value = "/availableUsername", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<?> availableUsername(String username) {
@@ -54,6 +68,12 @@ public class AccountRestController {
         return new ResponseEntity(accountService.availableUsername(username), HttpStatus.OK);
     }
 
+    /**
+     * 检查手机是否可用
+     *
+     * @param phone
+     * @return
+     */
     @RequestMapping(value = "/availablePhone", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<?> availablePhone(String phone) {
@@ -63,6 +83,12 @@ public class AccountRestController {
         return new ResponseEntity(accountService.availablePhone(phone), HttpStatus.OK);
     }
 
+    /**
+     * 检查邮箱是否可用
+     *
+     * @param email
+     * @return
+     */
     @RequestMapping(value = "/availableEmail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<?> availableEmail(String email) {
@@ -72,6 +98,12 @@ public class AccountRestController {
         return new ResponseEntity(accountService.availableEmail(email), HttpStatus.OK);
     }
 
+    /**
+     * 检查用户是否是第一次使用系统
+     *
+     * @param userId
+     * @return
+     */
     @RequestMapping(value = "/isNewUser", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<?> isNewUser(Long userId) {
@@ -81,6 +113,14 @@ public class AccountRestController {
         return new ResponseEntity(accountService.isNewUser(userId), HttpStatus.OK);
     }
 
+    /**
+     * 修改密码
+     *
+     * @param userId
+     * @param oldPassword
+     * @param newPassword
+     * @return
+     */
     @RequestMapping(value = "/changePassword", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<?> changePassword(String userId, String oldPassword, String newPassword) {

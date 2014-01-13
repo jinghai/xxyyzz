@@ -48,6 +48,7 @@ class MyHttpRequestInterceptor implements ClientHttpRequestInterceptor {
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
         request.getHeaders().set("Authorization", "Basic " + new String(Base64.encode((username + ":" + password).getBytes(charset)), charset));
         logger.debug(request.getHeaders().toString());
+        logger.debug(body.toString());
         return execution.execute(request, body);
     }
 

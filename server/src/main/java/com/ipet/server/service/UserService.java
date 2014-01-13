@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ipet.server.domain.entity.User;
 import com.ipet.server.domain.UserState;
 import com.ipet.server.repository.UserDao;
+import java.io.IOException;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 用户管理类.
@@ -19,24 +21,36 @@ import com.ipet.server.repository.UserDao;
 @Component
 @Transactional(readOnly = true)
 public class UserService {
-    
+
     private static Logger logger = LoggerFactory.getLogger(UserService.class);
-    
+
     @Autowired
     private UserDao userDao;
-    
+
+    @Autowired
+    private FileUploadService fileUploadService;
+
     public List<User> getAllUser() {
         return (List<User>) getUserDao().findAll();
     }
-    
+
     public User getUserById(Long userId) {
         User user = getUserDao().findByIdAndUserState(userId, UserState.ENABLE);
         return user;
     }
-    
+
     public List<User> getUserByIds(List<Long> ids) {
         List<User> users = getUserDao().findByIdInAndUserState(ids, UserState.ENABLE);
         return users;
+    }
+
+    @Transactional(readOnly = false)
+    public User updateUserAndAvatar(User userUpdate, MultipartFile file) throws IOException {
+        User user = updateUserInfo(userUpdate);
+        if (!file.isEmpty()) {
+            fileUploadService.uploadAvatar(file, userUpdate.getId());
+        }
+        return user;
     }
 
     /**
@@ -69,5 +83,5 @@ public class UserService {
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
-    
+
 }

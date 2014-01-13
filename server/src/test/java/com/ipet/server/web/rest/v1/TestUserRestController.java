@@ -59,22 +59,20 @@ public class TestUserRestController extends BaseTest {
     }
 
     @Test
-    public void update() {
+    public void updateInfo() {
         //直接发送实体，自动转为Json格式提交到服务器
         User u = new User();
         u.setId(1l);
         u.setEmail("test@test.com");
         u.setPhone("111111111");
-        u = restTemplate.postForObject(baseUrl + "/update", u, User.class);
+        u = restTemplate.postForObject(baseUrl + "/updateInfo", u, User.class);
         logger.info(u.toString());
     }
 
     @Test
     public void uploadForHttpEntity() {
-        MyErrorHandler errorHandler = new MyErrorHandler();
-        restTemplate.setErrorHandler(errorHandler);
 
-        String url = baseUrl + "/upload";
+        String url = baseUrl + "/uploadAvatar";
 
         FileSystemResource fsr = new FileSystemResource(ClassLoader.getSystemResource("4M.JPG").getPath());
 
@@ -93,10 +91,9 @@ public class TestUserRestController extends BaseTest {
 
     @Test
     public void uploadFor4M() {
-        MyErrorHandler errorHandler = new MyErrorHandler();
-        restTemplate.setErrorHandler(errorHandler);
+
         logger.debug(ClassLoader.getSystemResource("4M.JPG").getPath());
-        String url = baseUrl + "/upload";
+        String url = baseUrl + "/uploadAvatar";
         FileSystemResource fsr = new FileSystemResource(ClassLoader.getSystemResource("4M.JPG").getPath());
 
         LinkedMultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
@@ -110,10 +107,8 @@ public class TestUserRestController extends BaseTest {
     //@Test
     //测试超过5M的文件
     public void uploadFor5M() {
-        MyErrorHandler errorHandler = new MyErrorHandler();
-        restTemplate.setErrorHandler(errorHandler);
 
-        String url = baseUrl + "/upload";
+        String url = baseUrl + "/uploadAvatar";
         FileSystemResource fsr = new FileSystemResource(ClassLoader.getSystemResource("5M.JPG").getPath());
 
         LinkedMultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();

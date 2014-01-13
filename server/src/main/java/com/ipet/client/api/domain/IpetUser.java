@@ -1,9 +1,12 @@
 package com.ipet.client.api.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class IpetUser {
 
     //登录名称

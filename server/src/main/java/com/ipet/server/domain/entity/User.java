@@ -20,9 +20,12 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;
 
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 @Table(name = "ipet_users")
 public class User extends IdEntity implements Serializable {
 

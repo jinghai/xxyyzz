@@ -6,6 +6,7 @@ package com.ipet.client.api;
 
 import com.ipet.client.api.domain.IpetUser;
 import com.ipet.client.api.domain.IpetUserUpdate;
+import java.io.File;
 
 /**
  *
@@ -17,8 +18,10 @@ public interface UserApi {
 
     public IpetUser getUsers(String ids);
 
-    public IpetUser updateUser(IpetUserUpdate update);
+    public IpetUser updateUserInfo(IpetUserUpdate update);
 
     public IpetUser updateAvatar(IpetUserUpdate update);
+
+    public IpetUser update(IpetUserUpdate update, File avatarFile);
 
 }
