@@ -2,9 +2,11 @@
  * To change this template, choose Tools | Templates,
  * and open the template in the editor.
  */
-package com.ipet.server.domain;
+package com.ipet.server.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.ipet.server.domain.IdEntity;
+import com.ipet.server.domain.Location;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

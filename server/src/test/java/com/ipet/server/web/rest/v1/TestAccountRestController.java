@@ -1,6 +1,7 @@
 package com.ipet.server.web.rest.v1;
 
-import com.ipet.server.domain.User;
+import com.ipet.server.web.rest.base.BaseTest;
+import com.ipet.server.domain.entity.User;
 import org.junit.Test;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.LinkedMultiValueMap;

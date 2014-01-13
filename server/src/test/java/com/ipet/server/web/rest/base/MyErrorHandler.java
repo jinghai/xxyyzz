@@ -1,4 +1,4 @@
-package com.ipet.server.web.rest.v1;
+package com.ipet.server.web.rest.base;
 
 
 import java.io.IOException;

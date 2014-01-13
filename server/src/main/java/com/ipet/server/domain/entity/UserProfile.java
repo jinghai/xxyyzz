@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates,
  * and open the template in the editor.
  */
-package com.ipet.server.domain;
+package com.ipet.server.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ipet.server.domain.IdEntity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,11 +18,11 @@ import javax.persistence.Table;
  * @author xiaojinghai
  */
 @Entity
-@Table(name = "ipet_user_settings")
-public class UserSetting extends IdEntity implements Serializable {
+@Table(name = "ipet_user_profiles")
+public class UserProfile extends IdEntity implements Serializable {
 
     @JsonIgnore
-    @OneToOne(mappedBy = "userSetting", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "userProfile", fetch = FetchType.LAZY)
     private User user;
 
     /**

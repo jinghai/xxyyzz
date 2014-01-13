@@ -1,6 +1,8 @@
 package com.ipet.server.web.rest.v1;
 
-import com.ipet.server.domain.User;
+import com.ipet.server.web.rest.base.MyErrorHandler;
+import com.ipet.server.web.rest.base.BaseTest;
+import com.ipet.server.domain.entity.User;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;

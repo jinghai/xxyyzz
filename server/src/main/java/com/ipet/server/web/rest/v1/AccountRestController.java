@@ -1,6 +1,6 @@
 package com.ipet.server.web.rest.v1;
 
-import com.ipet.server.domain.User;
+import com.ipet.server.domain.entity.User;
 import com.ipet.server.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

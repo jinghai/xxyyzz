@@ -5,7 +5,7 @@
  */
 package com.ipet.server.service;
 
-import com.ipet.server.domain.User;
+import com.ipet.server.domain.entity.User;
 import com.ipet.server.domain.UserState;
 import com.ipet.server.repository.UserDao;
 import com.ipet.server.util.ProjectUtil;

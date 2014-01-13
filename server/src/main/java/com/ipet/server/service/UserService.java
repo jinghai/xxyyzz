@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import com.ipet.server.domain.User;
+import com.ipet.server.domain.entity.User;
 import com.ipet.server.domain.UserState;
 import com.ipet.server.repository.UserDao;
 

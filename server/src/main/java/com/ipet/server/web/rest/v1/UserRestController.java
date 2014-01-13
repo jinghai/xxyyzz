@@ -1,6 +1,6 @@
 package com.ipet.server.web.rest.v1;
 
-import com.ipet.server.domain.User;
+import com.ipet.server.domain.entity.User;
 import com.ipet.server.service.FileUploadService;
 import com.ipet.server.service.UserService;
 import java.io.IOException;

@@ -1,6 +1,6 @@
 package com.ipet.server.repository;
 
-import com.ipet.server.domain.User;
+import com.ipet.server.domain.entity.User;
 import com.ipet.server.domain.UserState;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
