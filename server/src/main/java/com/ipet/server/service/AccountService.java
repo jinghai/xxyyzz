@@ -113,6 +113,25 @@ public class AccountService {
     }
 
     /**
+     * 验证用户凭证
+     *
+     * @param loginName
+     * @param password
+     */
+    public User verifyUserCertificate(String loginName, String password) {
+        User user = this.getUserDao().findByLoginNameAndUserState(loginName, UserState.ENABLE);
+        if (user == null) {
+            throw new RuntimeException("登录名错误");
+        }
+
+        Boolean validOldPassword = this.verifyPassword(password, user.getPassword(), user.getSalt());
+        if (!validOldPassword) {
+            throw new RuntimeException("密码错误");
+        }
+        return user;
+    }
+
+    /**
      * 修改密码
      *
      * @param userId

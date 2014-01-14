@@ -4,48 +4,45 @@
  */
 package com.ipet.client.api.base;
 
-import org.springframework.web.client.RestTemplate;
+import java.net.URI;
+import org.springframework.social.MissingAuthorizationException;
+import org.springframework.social.support.URIBuilder;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 /**
- * API基类, 提供统一RestTemplate对象
+ * API基类, 提供统一RestTemplate对象和一些常用方法
  *
  * @author xiaojinghai
  */
 public class ApiBase {
 
-    private RestTemplate restTemplate;
+    protected ApiContext context;
 
-    private final String fileHost = "http://localhost:8084/server/";
+    private static final LinkedMultiValueMap<String, String> EMPTY_PARAMETERS = new LinkedMultiValueMap<String, String>();
 
-    private final String apiHost = "http://localhost:8084/server/api/v1/";
-
-    public ApiBase(String appKey, String appSecret) {
-        restTemplate = new RestTemplate();
-
-        restTemplate.setErrorHandler(new ApiExceptionHandler());
-
-        restTemplate.getInterceptors().add(new ApiInterceptor(appKey, appSecret));
+    public ApiBase(ApiContext context) {
+        this.context = context;
     }
 
-    /**
-     * @return the restTemplate
-     */
-    public RestTemplate getRestTemplate() {
-        return restTemplate;
+    protected URI buildUri(String path) {
+        return buildUri(path, EMPTY_PARAMETERS);
     }
 
-    /**
-     * @return the fileHost
-     */
-    public String getFileHost() {
-        return fileHost;
+    protected URI buildUri(String path, String parameterName, String parameterValue) {
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+        parameters.set(parameterName, parameterValue);
+        return buildUri(path, parameters);
     }
 
-    /**
-     * @return the apiHost
-     */
-    public String getApiHost() {
-        return apiHost;
+    protected URI buildUri(String path, MultiValueMap<String, String> parameters) {
+        return URIBuilder.fromUri(ApiContext.API_URL_BASE + path).queryParams(parameters).build();
+    }
+
+    protected void requireAuthorization() {
+        if (!context.getIsAuthorized()) {
+            throw new MissingAuthorizationException();
+        }
     }
 
 }

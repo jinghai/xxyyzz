@@ -11,6 +11,8 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
  * 统一定义id的entity基类.
@@ -26,6 +28,8 @@ public abstract class IdEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@JsonSerialize(as = String.class)
+    //@JsonDeserialize(as = Long.class)
     protected Long id;
 
     // 设定JSON序列化时的日期格式

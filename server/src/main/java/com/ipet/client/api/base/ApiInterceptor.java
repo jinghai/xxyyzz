@@ -24,19 +24,19 @@ class ApiInterceptor implements ClientHttpRequestInterceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(ApiInterceptor.class);
 
-    private final String username;
+    private final String appKey;
 
-    private final String password;
+    private final String appSecret;
 
     private final Charset charset;
 
-    public ApiInterceptor(String username, String password) {
-        this(username, password, Charset.forName("UTF-8"));
+    public ApiInterceptor(String appKey, String appSecret) {
+        this(appKey, appSecret, Charset.forName("UTF-8"));
     }
 
-    public ApiInterceptor(String username, String password, Charset charset) {
-        this.username = username;
-        this.password = password;
+    public ApiInterceptor(String appKey, String appSecret, Charset charset) {
+        this.appKey = appKey;
+        this.appSecret = appSecret;
         this.charset = charset;
     }
 
@@ -51,7 +51,7 @@ class ApiInterceptor implements ClientHttpRequestInterceptor {
      */
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
-        request.getHeaders().set("Authorization", "Basic " + new String(Base64.encode((username + ":" + password).getBytes(charset)), charset));
+        request.getHeaders().set("Authorization", "Basic " + new String(Base64.encode((appKey + ":" + appSecret).getBytes(charset)), charset));
         logger.debug(request.getHeaders().toString());
         return execution.execute(request, body);
     }

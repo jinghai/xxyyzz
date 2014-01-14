@@ -1,6 +1,5 @@
 package com.ipet.client.api.base;
 
-import com.ipet.client.api.exceptions.APIException;
 import java.io.IOException;
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.client.ClientHttpResponse;

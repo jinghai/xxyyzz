@@ -34,6 +34,7 @@
         <jersey.version>1.17</jersey.version>
         <mysql.version>5.1.21</mysql.version>
         <thumbnailator.version>0.4.7</thumbnailator.version>
+        <spring.social-version>1.0.3.RELEASE</spring.social-version>
 
         <!-- Plugin的属性定义 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -145,6 +146,23 @@
             <artifactId>spring-jdbc</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-core</artifactId>
+            <version>${spring.social-version}</version>
+            <exclusions>
+                <!-- Exclude in favor of Spring Android RestTemplate -->
+                <exclusion>
+                    <artifactId>spring-web</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <!-- Provided by Android -->
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
         <!-- dbcp connection pool -->
         <dependency>
@@ -168,7 +186,7 @@
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
@@ -179,7 +197,7 @@
             <groupId>net.coobird</groupId>
             <artifactId>thumbnailator</artifactId>
             <version>${thumbnailator.version}</version>
-        </dependency>       
+        </dependency>
 
 
         <dependency>

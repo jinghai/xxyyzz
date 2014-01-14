@@ -4,6 +4,8 @@
  */
 package com.ipet.client.api;
 
+import com.ipet.client.api.domain.IpetUser;
+
 /**
  * IpetApi 门面
  *
@@ -16,13 +18,15 @@ public interface IpetApi {
      *
      * @return AccountApi
      */
-    AccountApi getAccountApi();
+    public AccountApi getAccountApi();
 
     /**
      * 返回用户API.
      *
      * @return UserApi
      */
-    UserApi getUserApi();
+    public UserApi getUserApi();
+
+    public String getCurrUserId();
 
 }

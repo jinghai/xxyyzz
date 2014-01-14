@@ -7,8 +7,10 @@ package com.ipet.client.api.impl;
 
 import com.ipet.client.api.AccountApi;
 import com.ipet.client.api.base.ApiBase;
+import com.ipet.client.api.base.ApiContext;
 import com.ipet.client.api.domain.IpetUser;
-import com.ipet.server.domain.entity.User;
+import java.net.URI;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -19,22 +21,27 @@ import org.springframework.util.MultiValueMap;
  */
 public class AccountApiImpl extends ApiBase implements AccountApi {
 
-    private final org.slf4j.Logger logger = LoggerFactory.getLogger(AccountApiImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(AccountApiImpl.class);
 
-    private final String apiUrl = this.getApiHost() + "account/";
-
-    public AccountApiImpl(String appKey, String appSecret) {
-        super(appKey, appSecret);
+    public AccountApiImpl(ApiContext context) {
+        super(context);
     }
 
     @Override
-    public String login(String loginName, String password) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public IpetUser login(String loginName, String password) {
+        MultiValueMap<String, String> request = new LinkedMultiValueMap<String, String>();
+        request.add("username", loginName);
+        request.add("password", password);
+        IpetUser user = context.getRestTemplate().postForObject(buildUri("account/login"), request, IpetUser.class);
+        context.setIsAuthorized(true);
+        context.setCurrUserId(user.getId());
+        return user;
     }
 
     @Override
     public void logout() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        context.setIsAuthorized(Boolean.FALSE);
+        context.setCurrUserId(null);
     }
 
     @Override
@@ -42,29 +49,43 @@ public class AccountApiImpl extends ApiBase implements AccountApi {
         MultiValueMap<String, String> request = new LinkedMultiValueMap<String, String>();
         request.add("username", loginName);
         request.add("password", password);
-        IpetUser user = this.getRestTemplate().postForObject(apiUrl + "/create", request, IpetUser.class);
-        logger.debug(user.toString());
+        IpetUser user = context.getRestTemplate().postForObject(buildUri("account/create"), request, IpetUser.class);
         return user;
     }
 
     @Override
-    public Boolean checkLoginName(String loginName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Boolean checkLoginName(String userName) {
+        URI uri = buildUri("account/availableUsername", "username", userName);
+        logger.debug(uri.toString());
+        Boolean ret = context.getRestTemplate().getForObject(uri, Boolean.class);
+        return ret;
     }
 
     @Override
     public Boolean checkPhone(String phone) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        URI uri = buildUri("account/availablePhone", "phone", phone);
+        logger.debug(uri.toString());
+        Boolean ret = context.getRestTemplate().getForObject(uri, Boolean.class);
+        return ret;
     }
 
     @Override
     public Boolean checkEmail(String email) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        URI uri = buildUri("account/availableEmail", "email", email);
+        logger.debug(uri.toString());
+        Boolean ret = context.getRestTemplate().getForObject(uri, Boolean.class);
+        return ret;
     }
 
     @Override
     public Boolean changePassword(String oldP, String newP) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        requireAuthorization();
+        MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
+        body.add("userId", context.getCurrUserId());
+        body.add("oldPassword", oldP);
+        body.add("newPassword", newP);
+        Boolean ret = context.getRestTemplate().postForObject(buildUri("account/changePassword"), body, Boolean.class);
+        return ret;
     }
 
 }

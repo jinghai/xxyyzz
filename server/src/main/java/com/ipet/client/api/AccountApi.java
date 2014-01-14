@@ -17,9 +17,9 @@ public interface AccountApi {
      *
      * @param loginName
      * @param password
-     * @return 返回 access_token
+     * @return IpetUser
      */
-    public String login(String loginName, String password);
+    public IpetUser login(String loginName, String password);
 
     /**
      * 登出

@@ -114,13 +114,13 @@ public class UserRestController {
      */
     @RequestMapping(value = "/uploadAvatar", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String upload(String userId, /*@RequestParam*/ MultipartFile file) throws IOException {
+    public User upload(String userId, /*@RequestParam*/ MultipartFile file) throws IOException {
         long uid = Long.parseLong(userId);
         if (file.isEmpty()) {
             throw new RuntimeException("无效参数");
         }
-        uploder.uploadAvatar(file, uid);
-        return "";
+        User user = uploder.uploadAvatar(file, uid);
+        return user;
     }
 
     /*

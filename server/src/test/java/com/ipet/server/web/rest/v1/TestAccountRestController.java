@@ -64,7 +64,7 @@ public class TestAccountRestController extends BaseTest {
         body.add("newPassword", "admin");
         String url = baseUrl + "/changePassword";
         Boolean r = restTemplate.postForObject(url, body, Boolean.class);
-        //logger.debug(r.toString());
+        logger.debug(r.toString());
     }
 
 }

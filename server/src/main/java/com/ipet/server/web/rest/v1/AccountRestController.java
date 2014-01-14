@@ -29,6 +29,22 @@ public class AccountRestController {
     private AccountService accountService;
 
     /**
+     * 用户验证(临时,非安全接口)
+     *
+     * @param username
+     * @param password
+     */
+    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public User login(String username, String password) {
+        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
+            throw new RuntimeException("非法参数");
+        }
+        User user = accountService.verifyUserCertificate(username, password);
+        return user;
+    }
+
+    /**
      * 注册用户
      *
      * @param username
@@ -130,7 +146,7 @@ public class AccountRestController {
         Long userIdValue = Long.parseLong(userId);
         accountService.changePassword(userIdValue, oldPassword, newPassword);
 
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(true, HttpStatus.OK);
     }
 
 
