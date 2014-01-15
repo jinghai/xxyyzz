@@ -38,6 +38,7 @@ public class AccountRestController {
     @ResponseBody
     public User login(String username, String password) {
         if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
+            //IllegalArgumentException
             throw new RuntimeException("非法参数");
         }
         User user = accountService.verifyUserCertificate(username, password);
