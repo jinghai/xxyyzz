@@ -37,7 +37,7 @@ public class TestAccountApi {
     public void register() {
         IpetUser ret = api.register("测试", "test");
         logger.debug(ToStringBuilder.reflectionToString(ret));
-        assertEquals("测试", ret.getName());
+        assertEquals("测试", ret.getLoginName());
     }
 
     @Test

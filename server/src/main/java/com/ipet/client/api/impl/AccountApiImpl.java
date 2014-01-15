@@ -10,8 +10,6 @@ import com.ipet.client.api.base.ApiBase;
 import com.ipet.client.api.base.ApiContext;
 import com.ipet.client.api.domain.IpetUser;
 import java.net.URI;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -20,8 +18,6 @@ import org.springframework.util.MultiValueMap;
  * @author yneos
  */
 public class AccountApiImpl extends ApiBase implements AccountApi {
-
-    private final Logger logger = LoggerFactory.getLogger(AccountApiImpl.class);
 
     public AccountApiImpl(ApiContext context) {
         super(context);
@@ -56,7 +52,6 @@ public class AccountApiImpl extends ApiBase implements AccountApi {
     @Override
     public Boolean checkLoginName(String userName) {
         URI uri = buildUri("account/availableUsername", "username", userName);
-        logger.debug(uri.toString());
         Boolean ret = context.getRestTemplate().getForObject(uri, Boolean.class);
         return ret;
     }
@@ -64,7 +59,6 @@ public class AccountApiImpl extends ApiBase implements AccountApi {
     @Override
     public Boolean checkPhone(String phone) {
         URI uri = buildUri("account/availablePhone", "phone", phone);
-        logger.debug(uri.toString());
         Boolean ret = context.getRestTemplate().getForObject(uri, Boolean.class);
         return ret;
     }
@@ -72,7 +66,6 @@ public class AccountApiImpl extends ApiBase implements AccountApi {
     @Override
     public Boolean checkEmail(String email) {
         URI uri = buildUri("account/availableEmail", "email", email);
-        logger.debug(uri.toString());
         Boolean ret = context.getRestTemplate().getForObject(uri, Boolean.class);
         return ret;
     }

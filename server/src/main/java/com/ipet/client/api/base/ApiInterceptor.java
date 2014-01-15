@@ -7,8 +7,6 @@ package com.ipet.client.api.base;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import org.glassfish.jersey.internal.util.Base64;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
@@ -21,8 +19,6 @@ import org.springframework.http.client.ClientHttpResponse;
  * @author xiaojinghai
  */
 class ApiInterceptor implements ClientHttpRequestInterceptor {
-
-    private static final Logger logger = LoggerFactory.getLogger(ApiInterceptor.class);
 
     private final String appKey;
 
@@ -52,7 +48,7 @@ class ApiInterceptor implements ClientHttpRequestInterceptor {
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
         request.getHeaders().set("Authorization", "Basic " + new String(Base64.encode((appKey + ":" + appSecret).getBytes(charset)), charset));
-        logger.debug(request.getHeaders().toString());
+        //request.getHeaders().setAcceptEncoding(ContentCodingType.IDENTITY);
         return execution.execute(request, body);
     }
 
