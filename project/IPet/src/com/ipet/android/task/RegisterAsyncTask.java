@@ -43,16 +43,16 @@ public class RegisterAsyncTask extends AsyncTask<Integer, Integer, Integer> {
         // TODO Auto-generated method stub
         int result = RESULT_FAILURE_OTHER;
         try {
-            Thread.sleep(1000);
             // 这里进行业务处理
-            result = RESULT_SUCCESS; // 模拟操作成功
+
             Log.v("REG", account + password + user.getDisplayName());
 
             MyApp application = (MyApp) this.activity.getApplication();
-            //application.getApi
-            application.setUser(user);
+            IpetUser u = application.getApi().getAccountApi().register(account, password);
+            application.setUser(u);
+            result = RESULT_SUCCESS; // 操作成功
 
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
