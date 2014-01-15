@@ -4,8 +4,6 @@
  */
 package com.ipet.client.api;
 
-import com.ipet.client.api.domain.IpetUser;
-
 /**
  * IpetApi 门面
  *
