@@ -1,8 +1,6 @@
 package com.ipet.client.api.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class IpetUser {
@@ -38,10 +36,9 @@ public class IpetUser {
     //发表评论数量
     private String commentCount;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
-    private Date createAt;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
-    private Date updateAt;
+    private String createAt;
+
+    private String updateAt;
 
     /**
      * @return the id
@@ -270,28 +267,28 @@ public class IpetUser {
     /**
      * @return the createAt
      */
-    public Date getCreateAt() {
+    public String getCreateAt() {
         return createAt;
     }
 
     /**
      * @param createAt the createAt to set
      */
-    public void setCreateAt(Date createAt) {
+    public void setCreateAt(String createAt) {
         this.createAt = createAt;
     }
 
     /**
      * @return the updateAt
      */
-    public Date getUpdateAt() {
+    public String getUpdateAt() {
         return updateAt;
     }
 
     /**
      * @param updateAt the updateAt to set
      */
-    public void setUpdateAt(Date updateAt) {
+    public void setUpdateAt(String updateAt) {
         this.updateAt = updateAt;
     }
 

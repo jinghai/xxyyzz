@@ -42,7 +42,7 @@ public class TestUserApi {
     public void updateUserInfo() {
         IpetApiImpl.getInstance("1", "1").getAccountApi().login("admin", "admin");
         IpetUserUpdate update = new IpetUserUpdate();
-        update.setName("test");
+        update.setDisplayName("admin->test");
         update.setEmail("neverused@test.com");
         update.setPhone("1234");
         IpetUser ret = api.updateUserInfo(update);
@@ -82,6 +82,7 @@ public class TestUserApi {
             logger.debug(ToStringBuilder.reflectionToString(ret));
         } catch (Exception e) {
             assertTrue(e instanceof APIException);
+            assertTrue(e.getMessage().contains("文件过大"));
             logger.debug(e.getLocalizedMessage());
         }
     }

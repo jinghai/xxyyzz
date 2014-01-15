@@ -105,6 +105,10 @@ public class AccountService {
      */
     @Transactional(readOnly = false)
     public void registerUser(User user) {
+        logger.debug("registerUser:" + user.getLoginName());
+        if (!availableUsername(user.getLoginName())) {
+            throw new RuntimeException("用户名重复");
+        }
         entryptPassword(user);
         user.setUserState(UserState.ENABLE);
         user.setRoles(UserRole.ENDUSER.name());
@@ -119,6 +123,7 @@ public class AccountService {
      * @param password
      */
     public User verifyUserCertificate(String loginName, String password) {
+        logger.debug("verifyUserCertificate:" + loginName + ":" + password);
         User user = this.getUserDao().findByLoginNameAndUserState(loginName, UserState.ENABLE);
         if (user == null) {
             throw new RuntimeException("登录名错误");

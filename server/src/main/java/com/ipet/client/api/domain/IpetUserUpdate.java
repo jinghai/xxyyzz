@@ -5,9 +5,6 @@
  */
 package com.ipet.client.api.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.File;
-
 /**
  *
  * @author yneos
@@ -15,8 +12,7 @@ import java.io.File;
 public class IpetUserUpdate {
 
     private String id;
-    @JsonProperty("displayName")
-    private String name;
+    private String displayName;
     private String email;
     private String phone;
 
@@ -32,20 +28,6 @@ public class IpetUserUpdate {
      */
     public void setId(String id) {
         this.id = id;
-    }
-
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
     }
 
     /**
@@ -74,6 +56,20 @@ public class IpetUserUpdate {
      */
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    /**
+     * @return the displayName
+     */
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    /**
+     * @param displayName the displayName to set
+     */
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
 }

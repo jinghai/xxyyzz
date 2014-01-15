@@ -5,6 +5,7 @@ import com.ipet.server.web.rest.base.BaseTest;
 import com.ipet.server.domain.entity.User;
 import java.util.Arrays;
 import java.util.List;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,14 +32,14 @@ public class TestUserRestController extends BaseTest {
 
     public static final String baseUrl = "http://localhost:8080/server/api/v1/user";
 
-    //@Test
+    @Test
     public void getOneUser() {
         //使用URI模板方式,参数也可使用Map<String, Object> urlVariables = new HashMap< String, Object>();
         User user = restTemplate.getForObject(baseUrl + "/{id}", User.class, "1");
         logger.info(user.toString());
     }
 
-    // @Test
+    @Test
     public void getUsers() {
         //MultiValueMap<String, List<Long>> body = new LinkedMultiValueMap<String, List<Long>>();
         //Map<String, Object> urlVariables = new HashMap< String, Object>();
@@ -48,7 +49,7 @@ public class TestUserRestController extends BaseTest {
         logger.info(list.toString());
     }
 
-    //@Test
+    @Test
     public void getUsersForOne() {
         //MultiValueMap<String, List<Long>> body = new LinkedMultiValueMap<String, List<Long>>();
         //Map<String, Object> urlVariables = new HashMap< String, Object>();
@@ -58,7 +59,7 @@ public class TestUserRestController extends BaseTest {
         logger.info(list.toString());
     }
 
-    //@Test
+    @Test
     public void updateInfo() {
         //直接发送实体，自动转为Json格式提交到服务器
         User u = new User();
@@ -69,7 +70,7 @@ public class TestUserRestController extends BaseTest {
         logger.info(u.toString());
     }
 
-    //@Test
+    @Test
     public void uploadForHttpEntity() {
 
         String url = baseUrl + "/uploadAvatar";
@@ -89,7 +90,7 @@ public class TestUserRestController extends BaseTest {
         //restTemplate.postForObject(url, body, String.class);
     }
 
-    //@Test
+    @Test
     public void uploadFor4M() {
 
         logger.debug(ClassLoader.getSystemResource("4M.JPG").getPath());
@@ -114,8 +115,13 @@ public class TestUserRestController extends BaseTest {
         LinkedMultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
         body.add("userId", "1");
         body.add("file", fsr);
-        String r = restTemplate.postForObject(url, body, String.class);
-        logger.info(r);
+        try {
+            String r = restTemplate.postForObject(url, body, String.class);
+            logger.info(r);
+        } catch (Exception e) {
+            //assertTrue(e instanceof MyErrorHandler);
+            logger.debug(e.getLocalizedMessage());
+        }
 
     }
 

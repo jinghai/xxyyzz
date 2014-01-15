@@ -1,9 +1,11 @@
 package com.ipet.client.api;
 
+import com.ipet.client.api.base.APIException;
 import com.ipet.client.api.domain.IpetUser;
 import com.ipet.client.api.impl.IpetApiImpl;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +40,13 @@ public class TestAccountApi {
         IpetUser ret = api.register("测试", "test");
         logger.debug(ToStringBuilder.reflectionToString(ret));
         assertEquals("测试", ret.getLoginName());
+        try {
+            ret = api.register("测试", "test");
+        } catch (Exception e) {
+            assertTrue(e instanceof APIException);
+            assertTrue(e.getMessage().contains("用户名重复"));
+            logger.debug(e.getLocalizedMessage());
+        }
     }
 
     @Test

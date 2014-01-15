@@ -37,6 +37,7 @@ public class AccountRestController {
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public User login(String username, String password) {
+        logger.debug("login:" + username + ":" + password);
         if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
             //IllegalArgumentException
             throw new RuntimeException("非法参数");
@@ -55,9 +56,9 @@ public class AccountRestController {
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<?> create(String username, String password) {
-        logger.debug("username:" + username);
+        logger.debug("create:" + username + ":" + password);
         if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
-            throw new RuntimeException("用户名或密码为空");
+            throw new RuntimeException("非法参数");
         }
 
         User newUser = new User();
