@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates,
  * and open the template in the editor.
  */
-package com.ipet.client.api.base;
+package com.ipet.android.sdk.base;
 
 import java.net.URI;
 import org.springframework.social.MissingAuthorizationException;

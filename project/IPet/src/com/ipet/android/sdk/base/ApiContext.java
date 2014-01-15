@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates,
  * and open the template in the editor.
  */
-package com.ipet.client.api.base;
+package com.ipet.android.sdk.base;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -53,19 +53,20 @@ public class ApiContext {
         List<ClientHttpRequestInterceptor> interceptors = new ArrayList<ClientHttpRequestInterceptor>();
         interceptors.add(new ApiInterceptor(appKey, appSecret));
         restTemplate.setInterceptors(interceptors);
+        /*
+         if (restTemplate.getRequestFactory() instanceof SimpleClientHttpRequestFactory) {
+         ((SimpleClientHttpRequestFactory) restTemplate
+         .getRequestFactory()).setConnectTimeout(10 * 1000);
+         ((SimpleClientHttpRequestFactory) restTemplate
+         .getRequestFactory()).setReadTimeout(10 * 1000);
+         } else if (restTemplate.getRequestFactory() instanceof HttpComponentsClientHttpRequestFactory) {
 
-        if (restTemplate.getRequestFactory() instanceof SimpleClientHttpRequestFactory) {
-            ((SimpleClientHttpRequestFactory) restTemplate
-                    .getRequestFactory()).setConnectTimeout(10 * 1000);
-            ((SimpleClientHttpRequestFactory) restTemplate
-                    .getRequestFactory()).setReadTimeout(10 * 1000);
-        } else if (restTemplate.getRequestFactory() instanceof HttpComponentsClientHttpRequestFactory) {
-
-            ((HttpComponentsClientHttpRequestFactory) restTemplate
-                    .getRequestFactory()).setReadTimeout(10 * 1000);
-            ((HttpComponentsClientHttpRequestFactory) restTemplate
-                    .getRequestFactory()).setConnectTimeout(10 * 1000);
-        }
+         ((HttpComponentsClientHttpRequestFactory) restTemplate
+         .getRequestFactory()).setReadTimeout(10 * 1000);
+         ((HttpComponentsClientHttpRequestFactory) restTemplate
+         .getRequestFactory()).setConnectTimeout(10 * 1000);
+         }
+         */
     }
 
     public static synchronized ApiContext getInstace(String appKey, String appSecret) {

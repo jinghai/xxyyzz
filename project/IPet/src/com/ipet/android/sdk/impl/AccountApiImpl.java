@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ipet.client.api.impl;
+package com.ipet.android.sdk.impl;
 
-import com.ipet.client.api.AccountApi;
-import com.ipet.client.api.base.ApiBase;
-import com.ipet.client.api.base.ApiContext;
-import com.ipet.client.api.domain.IpetUser;
+import com.ipet.android.sdk.AccountApi;
+import com.ipet.android.sdk.base.ApiBase;
+import com.ipet.android.sdk.base.ApiContext;
+import com.ipet.android.sdk.domain.IpetUser;
 import java.net.URI;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;

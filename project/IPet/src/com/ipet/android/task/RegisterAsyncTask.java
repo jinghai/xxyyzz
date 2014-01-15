@@ -7,7 +7,7 @@ import android.util.Log;
 import com.ipet.R;
 import com.ipet.android.MyApp;
 import com.ipet.android.ui.RegisterActivity;
-import com.ipet.client.api.domain.IpetUser;
+import com.ipet.android.sdk.domain.IpetUser;
 
 public class RegisterAsyncTask extends AsyncTask<Integer, Integer, Integer> {
 

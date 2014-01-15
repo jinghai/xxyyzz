@@ -13,7 +13,7 @@ import com.ipet.android.MyApp;
 import com.ipet.android.ui.common.SimpleTitleBar;
 import com.ipet.android.ui.event.BackAndFinishClick;
 import com.ipet.android.ui.utils.AnimUtils;
-import com.ipet.client.api.domain.IpetUser;
+import com.ipet.android.sdk.domain.IpetUser;
 
 public class SetUserInfoActivity extends Activity {
 

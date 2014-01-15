@@ -3,10 +3,10 @@ package com.ipet.android;
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
-import com.ipet.client.api.IpetApi;
+import com.ipet.android.sdk.IpetApi;
 
-import com.ipet.client.api.domain.IpetUser;
-import com.ipet.client.api.impl.IpetApiImpl;
+import com.ipet.android.sdk.domain.IpetUser;
+import com.ipet.android.sdk.impl.IpetApiImpl;
 
 /**
  * 应用程序类 负责应用程序启动逻辑 常用共享对象的引用

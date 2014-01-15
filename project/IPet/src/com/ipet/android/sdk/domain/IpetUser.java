@@ -1,4 +1,4 @@
-package com.ipet.client.api.domain;
+package com.ipet.android.sdk.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

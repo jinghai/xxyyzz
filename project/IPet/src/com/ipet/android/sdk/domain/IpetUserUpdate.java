@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ipet.client.api.domain;
+package com.ipet.android.sdk.domain;
 
 /**
  *

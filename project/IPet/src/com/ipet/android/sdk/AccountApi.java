@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates,
  * and open the template in the editor.
  */
-package com.ipet.client.api;
+package com.ipet.android.sdk;
 
-import com.ipet.client.api.domain.IpetUser;
+import com.ipet.android.sdk.domain.IpetUser;
 
 /**
  *

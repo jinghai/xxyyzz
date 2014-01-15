@@ -2,12 +2,12 @@
  * To change this template, choose Tools | Templates,
  * and open the template in the editor.
  */
-package com.ipet.client.api.impl;
+package com.ipet.android.sdk.impl;
 
-import com.ipet.client.api.AccountApi;
-import com.ipet.client.api.IpetApi;
-import com.ipet.client.api.UserApi;
-import com.ipet.client.api.base.ApiContext;
+import com.ipet.android.sdk.AccountApi;
+import com.ipet.android.sdk.IpetApi;
+import com.ipet.android.sdk.UserApi;
+import com.ipet.android.sdk.base.ApiContext;
 
 /**
  * API门户，负载组装API组件，对用户提供统一访问接口

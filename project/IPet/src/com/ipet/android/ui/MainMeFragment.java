@@ -16,7 +16,7 @@ import com.ipet.android.MyApp;
 
 import com.ipet.android.ui.utils.AnimUtils;
 import com.ipet.android.ui.utils.BitmapUtils;
-import com.ipet.client.api.domain.IpetUser;
+import com.ipet.android.sdk.domain.IpetUser;
 import com.loopj.android.image.SmartImageTask;
 import com.loopj.android.image.SmartImageView;
 

@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ipet.client.api.impl;
+package com.ipet.android.sdk.impl;
 
-import com.ipet.client.api.UserApi;
-import com.ipet.client.api.base.ApiBase;
-import com.ipet.client.api.base.ApiContext;
-import com.ipet.client.api.domain.IpetUser;
-import com.ipet.client.api.domain.IpetUserUpdate;
+import com.ipet.android.sdk.UserApi;
+import com.ipet.android.sdk.base.ApiBase;
+import com.ipet.android.sdk.base.ApiContext;
+import com.ipet.android.sdk.domain.IpetUser;
+import com.ipet.android.sdk.domain.IpetUserUpdate;
 import java.io.File;
 import java.net.URI;
 import java.util.Arrays;

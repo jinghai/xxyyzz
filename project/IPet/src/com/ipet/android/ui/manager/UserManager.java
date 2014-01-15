@@ -1,6 +1,6 @@
 package com.ipet.android.ui.manager;
 
-import com.ipet.client.api.domain.IpetUser;
+import com.ipet.android.sdk.domain.IpetUser;
 
 public class UserManager {
 
