@@ -51,9 +51,22 @@ public class ApiContext {
         restTemplate.setMessageConverters(messageConverters);
 
         restTemplate.setErrorHandler(new ApiExceptionHandler());
+
         List<ClientHttpRequestInterceptor> interceptors = new ArrayList<ClientHttpRequestInterceptor>();
         interceptors.add(new ApiInterceptor(appKey, appSecret));
         restTemplate.setInterceptors(interceptors);
+        if (restTemplate.getRequestFactory() instanceof SimpleClientHttpRequestFactory) {
+            ((SimpleClientHttpRequestFactory) restTemplate
+                    .getRequestFactory()).setConnectTimeout(10 * 1000);
+            ((SimpleClientHttpRequestFactory) restTemplate
+                    .getRequestFactory()).setReadTimeout(10 * 1000);
+        } else if (restTemplate.getRequestFactory() instanceof HttpComponentsClientHttpRequestFactory) {
+
+            ((HttpComponentsClientHttpRequestFactory) restTemplate
+                    .getRequestFactory()).setReadTimeout(10 * 1000);
+            ((HttpComponentsClientHttpRequestFactory) restTemplate
+                    .getRequestFactory()).setConnectTimeout(10 * 1000);
+        }
     }
 
     public static synchronized ApiContext getInstace(String appKey, String appSecret) {
