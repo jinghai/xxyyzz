@@ -29,7 +29,7 @@ public class TestUserRestController extends BaseTest {
 
     private static final Logger logger = LoggerFactory.getLogger(TestUserRestController.class);
 
-    public static final String baseUrl = "http://localhost:8084/server/api/v1/user";
+    public static final String baseUrl = "http://localhost:8080/server/api/v1/user";
 
     //@Test
     public void getOneUser() {

@@ -20,7 +20,7 @@ public class TestAccountRestController extends BaseTest {
 
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(TestAccountRestController.class);
 
-    public static final String baseUrl = "http://localhost:8084/server/api/v1/account";
+    public static final String baseUrl = "http://localhost:8080/server/api/v1/account";
 
     @Test
     public void create() {
