@@ -11,8 +11,8 @@ import com.ipet.server.domain.entity.User;
 import com.ipet.server.domain.UserRole;
 import com.ipet.server.domain.UserState;
 import com.ipet.server.repository.UserDao;
-import org.springside.modules.security.utils.Digests;
-import org.springside.modules.utils.Encodes;
+import com.ipet.server.util.Digests;
+import com.ipet.server.util.Encodes;
 
 /**
  * 用户管理类.

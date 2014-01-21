@@ -10,7 +10,6 @@
 
     <properties>
         <!-- 主要依赖库的版本定义 -->
-        <springside.version>4.0.0.GA</springside.version>
         <spring.version>4.0.0.RELEASE</spring.version>
         <hibernate.version>4.3.0.Final</hibernate.version>
         <spring-data-jpa.version>1.4.3.RELEASE</spring-data-jpa.version>
@@ -84,13 +83,13 @@
 
     <!-- 依赖项定义 -->
     <dependencies>
-        <!-- SPRINGSIDE -->
-        <dependency>
-            <groupId>org.springside</groupId>
-            <artifactId>springside-core</artifactId>
-            <version>${springside.version}</version>
-        </dependency>
-
+        <!-- SPRINGSIDE 
+                <dependency>
+                    <groupId>org.springside</groupId>
+                    <artifactId>springside-core</artifactId>
+                    <version>${springside.version}</version>
+                </dependency>
+        -->
         <!-- AOP begin -->
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -350,14 +349,14 @@
         </dependency>
         <!-- GENERAL UTILS end -->
 
-        <!-- TEST begin -->
-        <dependency>
-            <groupId>org.springside</groupId>
-            <artifactId>springside-test</artifactId>
-            <version>${springside.version}</version>
-            <scope>test</scope>
-        </dependency>
-
+        <!-- TEST begin 
+                <dependency>
+                    <groupId>org.springside</groupId>
+                    <artifactId>springside-test</artifactId>
+                    <version>${springside.version}</version>
+                    <scope>test</scope>
+                </dependency>
+        -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
