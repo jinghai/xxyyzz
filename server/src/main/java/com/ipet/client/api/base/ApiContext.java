@@ -31,7 +31,7 @@ public class ApiContext {
 
     private String currUserId;
 
-    public static final String API_URL_BASE = "http://10.233.211.2:8080/server/api/v1/";
+    public static final String API_URL_BASE = "http://localhost:8080/server/api/v1/";
 
     private static ApiContext instance;
 

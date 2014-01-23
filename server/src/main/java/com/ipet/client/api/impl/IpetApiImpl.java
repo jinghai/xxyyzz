@@ -5,6 +5,7 @@
 package com.ipet.client.api.impl;
 
 import com.ipet.client.api.AccountApi;
+import com.ipet.client.api.ContactApi;
 import com.ipet.client.api.IpetApi;
 import com.ipet.client.api.UserApi;
 import com.ipet.client.api.base.ApiContext;
@@ -24,10 +25,13 @@ public class IpetApiImpl implements IpetApi {
 
     private final UserApi userApi;
 
+    private final ContactApi contactApi;
+
     private IpetApiImpl(String appKey, String appSecret) {
         context = ApiContext.getInstace(appKey, appSecret);
         accountApi = new AccountApiImpl(context);
         userApi = new UserApiImpl(context);
+        contactApi = new ContactApiImpl(context);
     }
 
     public static synchronized IpetApi getInstance(String appKey, String appSecret) {
@@ -45,6 +49,11 @@ public class IpetApiImpl implements IpetApi {
     @Override
     public UserApi getUserApi() {
         return userApi;
+    }
+
+    @Override
+    public ContactApi getContactApi() {
+        return contactApi;
     }
 
     @Override

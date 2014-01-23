@@ -29,4 +29,5 @@ public interface UserDao extends JpaRepository<User, Long> {
 
     @Query("select user.loginNum from User user where user.id=?1 and user.userState=?2")
     public Long getLoginNumByIdAndUserState(Long userId, UserState state);
+
 }

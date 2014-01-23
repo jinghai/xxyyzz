@@ -25,6 +25,13 @@ public interface IpetApi {
      */
     public UserApi getUserApi();
 
+    /**
+     * 返回用户关系API.
+     *
+     * @return
+     */
+    public ContactApi getContactApi();
+
     public String getCurrUserId();
 
 }

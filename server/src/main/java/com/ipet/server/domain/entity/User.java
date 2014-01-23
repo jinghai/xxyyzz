@@ -98,48 +98,44 @@ public class User extends IdEntity implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private List<Shop> shops;
 
+    @Column
     private Integer shopCount;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private List<App> apps;
 
+    @Column
     private Integer appCount;
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Follower> followers;
-
+    @Column
     private Integer followerCount;
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Friend> friends;
-
+    @Column
     private Integer friendCount;
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Follow> subscibes;
-
+    @Column
     private Integer subscibeCount;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private List<Photo> photos;
 
+    @Column
     private Integer photoCount;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private List<Favor> favors;
 
+    @Column
     private Integer favorCount;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private List<Comment> comments;
 
+    @Column
     private Integer commentCount;
 
     public User() {
@@ -367,20 +363,6 @@ public class User extends IdEntity implements Serializable {
     }
 
     /**
-     * @return the followers
-     */
-    public List<Follower> getFollowers() {
-        return followers;
-    }
-
-    /**
-     * @param followers the followers to set
-     */
-    public void setFollowers(List<Follower> followers) {
-        this.followers = followers;
-    }
-
-    /**
      * @return the followerCount
      */
     public Integer getFollowerCount() {
@@ -395,20 +377,6 @@ public class User extends IdEntity implements Serializable {
     }
 
     /**
-     * @return the friends
-     */
-    public List<Friend> getFriends() {
-        return friends;
-    }
-
-    /**
-     * @param friends the friends to set
-     */
-    public void setFriends(List<Friend> friends) {
-        this.friends = friends;
-    }
-
-    /**
      * @return the friendCount
      */
     public Integer getFriendCount() {
@@ -420,20 +388,6 @@ public class User extends IdEntity implements Serializable {
      */
     public void setFriendCount(Integer friendCount) {
         this.friendCount = friendCount;
-    }
-
-    /**
-     * @return the subscibes
-     */
-    public List<Follow> getSubscibes() {
-        return subscibes;
-    }
-
-    /**
-     * @param subscibes the subscibes to set
-     */
-    public void setSubscibes(List<Follow> subscibes) {
-        this.subscibes = subscibes;
     }
 
     /**
