@@ -18,8 +18,8 @@
     <context:component-scan base-package="com.ipet.server">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
-    
-    <!-- AOP 
+
+    <!-- AOP
     <bean class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator" />-->
 
     <!-- Jpa Entity Manager 配置 -->
@@ -36,11 +36,13 @@
     </bean>
 
     <bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+
         <property name="databasePlatform">
-            <bean factory-method="getDialect" class="org.springside.modules.persistence.Hibernates">
+            <bean factory-method="getDialect" class="com.ipet.server.util.Hibernates">
                 <constructor-arg ref="dataSource"/>
             </bean>
         </property>
+
     </bean>
 
     <!-- Spring Data Jpa配置 -->
