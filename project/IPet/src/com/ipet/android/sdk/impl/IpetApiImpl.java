@@ -5,6 +5,7 @@
 package com.ipet.android.sdk.impl;
 
 import com.ipet.android.sdk.AccountApi;
+import com.ipet.android.sdk.ContactApi;
 import com.ipet.android.sdk.IpetApi;
 import com.ipet.android.sdk.UserApi;
 import com.ipet.android.sdk.base.ApiContext;
@@ -24,10 +25,13 @@ public class IpetApiImpl implements IpetApi {
 
     private final UserApi userApi;
 
+    private final ContactApi contactApi;
+
     private IpetApiImpl(String appKey, String appSecret) {
         context = ApiContext.getInstace(appKey, appSecret);
         accountApi = new AccountApiImpl(context);
         userApi = new UserApiImpl(context);
+        contactApi = new ContactApiImpl(context);
     }
 
     public static synchronized IpetApi getInstance(String appKey, String appSecret) {
@@ -45,6 +49,11 @@ public class IpetApiImpl implements IpetApi {
     @Override
     public UserApi getUserApi() {
         return userApi;
+    }
+
+    @Override
+    public ContactApi getContactApi() {
+        return contactApi;
     }
 
     @Override

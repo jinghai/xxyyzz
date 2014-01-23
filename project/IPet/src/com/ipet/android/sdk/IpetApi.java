@@ -4,6 +4,10 @@
  */
 package com.ipet.android.sdk;
 
+import com.ipet.android.sdk.AccountApi;
+import com.ipet.android.sdk.ContactApi;
+import com.ipet.android.sdk.UserApi;
+
 /**
  * IpetApi 门面
  *
@@ -24,6 +28,13 @@ public interface IpetApi {
      * @return UserApi
      */
     public UserApi getUserApi();
+
+    /**
+     * 返回用户关系API.
+     *
+     * @return
+     */
+    public ContactApi getContactApi();
 
     public String getCurrUserId();
 
