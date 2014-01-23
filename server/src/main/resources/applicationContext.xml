@@ -21,7 +21,7 @@
 
     <!-- AOP
     <bean class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator" />-->
-
+    <bean id="startEventHandler"        class="com.ipet.server.app.StartEventHandler"/>
     <!-- Jpa Entity Manager 配置 -->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
