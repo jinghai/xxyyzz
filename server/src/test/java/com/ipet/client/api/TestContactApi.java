@@ -27,9 +27,17 @@ public class TestContactApi {
     public void test() {
         IpetApi.getAccountApi().login("admin", "admin");
         api.follow("2");
+        IpetUser u = IpetApi.getUserApi().getUser("1");
+        assertEquals("1", u.getFollowCount());
+        assertEquals("0", u.getFollowerCount());
+        assertEquals("0", u.getFriendCount());
 
         IpetApi.getAccountApi().login("user", "user");
         api.follow("1");
+        u = IpetApi.getUserApi().getUser("2");
+        assertEquals("1", u.getFollowCount());
+        assertEquals("1", u.getFollowerCount());
+        assertEquals("1", u.getFriendCount());
 
         List<IpetUser> ret = api.getFollowList();
         assertEquals(1, ret.size());
@@ -41,6 +49,10 @@ public class TestContactApi {
         assertEquals(1, ret.size());
 
         api.unfollow("1");
+        u = IpetApi.getUserApi().getUser("2");
+        assertEquals("0", u.getFollowCount());
+        assertEquals("1", u.getFollowerCount());
+        assertEquals("0", u.getFriendCount());
 
         ret = api.getFollowList();
         assertEquals(0, ret.size());
@@ -53,6 +65,10 @@ public class TestContactApi {
 
         IpetApi.getAccountApi().login("admin", "admin");
         api.unfollow("2");
+        u = IpetApi.getUserApi().getUser("1");
+        assertEquals("0", u.getFollowCount());
+        assertEquals("0", u.getFollowerCount());
+        assertEquals("0", u.getFriendCount());
 
     }
 

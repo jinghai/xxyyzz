@@ -98,44 +98,47 @@ public class User extends IdEntity implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private List<Shop> shops;
 
-    @Column
+    @Column(columnDefinition = "int default 0")
     private Integer shopCount;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private List<App> apps;
 
-    @Column
+    @Column(columnDefinition = "int default 0")
     private Integer appCount;
 
-    @Column
+    //关注数量
+    @Column(columnDefinition = "int default 0")
+    private Integer followCount;
+
+    //粉丝数量
+    @Column(columnDefinition = "int default 0")
     private Integer followerCount;
 
-    @Column
+    //朋友数量
+    @Column(columnDefinition = "int default 0")
     private Integer friendCount;
-
-    @Column
-    private Integer subscibeCount;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private List<Photo> photos;
 
-    @Column
+    @Column(columnDefinition = "int default 0")
     private Integer photoCount;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private List<Favor> favors;
 
-    @Column
+    @Column(columnDefinition = "int default 0")
     private Integer favorCount;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private List<Comment> comments;
 
-    @Column
+    @Column(columnDefinition = "int default 0")
     private Integer commentCount;
 
     public User() {
@@ -391,20 +394,6 @@ public class User extends IdEntity implements Serializable {
     }
 
     /**
-     * @return the subscibeCount
-     */
-    public Integer getSubscibeCount() {
-        return subscibeCount;
-    }
-
-    /**
-     * @param subscibeCount the subscibeCount to set
-     */
-    public void setSubscibeCount(Integer subscibeCount) {
-        this.subscibeCount = subscibeCount;
-    }
-
-    /**
      * @return the photos
      */
     public List<Photo> getPhotos() {
@@ -486,6 +475,20 @@ public class User extends IdEntity implements Serializable {
      */
     public void setCommentCount(Integer commentCount) {
         this.commentCount = commentCount;
+    }
+
+    /**
+     * @return the followCount
+     */
+    public Integer getFollowCount() {
+        return followCount;
+    }
+
+    /**
+     * @param followCount the followCount to set
+     */
+    public void setFollowCount(Integer followCount) {
+        this.followCount = followCount;
     }
 
 }

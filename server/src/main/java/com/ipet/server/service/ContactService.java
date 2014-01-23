@@ -107,6 +107,11 @@ public class ContactService {
         if (userA == null || userB == null) {
             throw new RuntimeException("无效用户");
         }
+        int followCountA = userA.getFollowCount() == null ? 0 : userA.getFollowCount();
+        int friendCountA = userA.getFriendCount() == null ? 0 : userA.getFriendCount();
+        int followerCountB = userB.getFollowerCount() == null ? 0 : userB.getFollowerCount();
+        int friendCountB = userB.getFriendCount() == null ? 0 : userB.getFriendCount();
+
         //A是否关注过B
         boolean aHasFollowdB = getFollowRelationDao().findByUserIdAAndUserIdB(userIdA, userIdB) != null;
         if (aHasFollowdB) {
@@ -118,6 +123,12 @@ public class ContactService {
         follow.setUserIdA(userIdA);
         follow.setUserIdB(userIdB);
         getFollowRelationDao().save(follow);
+        //统计
+        followCountA += 1;
+        userA.setFollowCount(followCountA);
+        followerCountB += 1;
+        userB.setFollowerCount(followerCountB);
+
         //B是否关注过A
         boolean bHasFollowdA = getFollowRelationDao().findByUserIdAAndUserIdB(userIdB, userIdA) != null;
         //如果B关注了A，则建立朋友关系
@@ -130,7 +141,14 @@ public class ContactService {
             friendRB.setUserIdB(userIdA);
             getFriendRelationDao().save(friendRA);
             getFriendRelationDao().save(friendRB);
+            //统计
+            friendCountA += 1;
+            userA.setFriendCount(friendCountA);
+            friendCountB += 1;
+            userB.setFriendCount(friendCountB);
         }
+        getUserDao().save(userA);
+        getUserDao().save(userB);
     }
 
     /**
@@ -146,6 +164,11 @@ public class ContactService {
         if (userA == null || userB == null) {
             throw new RuntimeException("无效用户");
         }
+        int followCountA = userA.getFollowCount() == null ? 0 : userA.getFollowCount();
+        int friendCountA = userA.getFriendCount() == null ? 0 : userA.getFriendCount();
+        int followerCountB = userB.getFollowerCount() == null ? 0 : userB.getFollowerCount();
+        int friendCountB = userB.getFriendCount() == null ? 0 : userB.getFriendCount();
+
         //A与B的关注关系
         FollowRelation followAB = getFollowRelationDao().findByUserIdAAndUserIdB(userIdA, userIdB);
         if (followAB == null) {
@@ -154,17 +177,28 @@ public class ContactService {
         }
         //解除关注关系
         getFollowRelationDao().delete(followAB);
+        //统计
+        followCountA -= 1;
+        userA.setFollowCount(followCountA);
+        followerCountB -= 1;
+        userB.setFollowerCount(followerCountB);
+
         FriendRelation friendRA = getFriendRelationDao().findByUserIdAAndUserIdB(userIdA, userIdB);
         FriendRelation friendRB = getFriendRelationDao().findByUserIdAAndUserIdB(userIdB, userIdA);
 
         //解除朋友关系
         if (friendRA != null) {
             getFriendRelationDao().delete(friendRA);
+            friendCountA -= 1;
+            userA.setFriendCount(friendCountA);
         }
         if (friendRB != null) {
             getFriendRelationDao().delete(friendRB);
+            friendCountB -= 1;
+            userB.setFriendCount(friendCountB);
         }
-
+        getUserDao().save(userA);
+        getUserDao().save(userB);
     }
 
     /**
