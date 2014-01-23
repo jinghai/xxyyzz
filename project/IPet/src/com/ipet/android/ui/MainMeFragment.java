@@ -89,7 +89,7 @@ public class MainMeFragment extends Fragment {
         me_name.setText(user.getDisplayName());
         me_feeds_num.setText(user.getPhotoCount());
         me_followers_num.setText(user.getFollowerCount());
-        me_fans_num.setText(user.getSubscibeCount());
+        me_fans_num.setText(user.getFollowCount());
         me_friends_num.setText(user.getFriendCount());
     }
 

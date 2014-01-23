@@ -28,7 +28,7 @@ public class IpetUser {
     //互粉数量
     private String friendCount;
     //关注数量
-    private String subscibeCount;
+    private String followCount;
     //发布图片的数量
     private String photoCount;
     //赞别人的数量
@@ -209,20 +209,6 @@ public class IpetUser {
     }
 
     /**
-     * @return the subscibeCount
-     */
-    public String getSubscibeCount() {
-        return subscibeCount;
-    }
-
-    /**
-     * @param subscibeCount the subscibeCount to set
-     */
-    public void setSubscibeCount(String subscibeCount) {
-        this.subscibeCount = subscibeCount;
-    }
-
-    /**
      * @return the photoCount
      */
     public String getPhotoCount() {
@@ -290,6 +276,20 @@ public class IpetUser {
      */
     public void setUpdateAt(String updateAt) {
         this.updateAt = updateAt;
+    }
+
+    /**
+     * @return the followCount
+     */
+    public String getFollowCount() {
+        return followCount;
+    }
+
+    /**
+     * @param followCount the followCount to set
+     */
+    public void setFollowCount(String followCount) {
+        this.followCount = followCount;
     }
 
 }

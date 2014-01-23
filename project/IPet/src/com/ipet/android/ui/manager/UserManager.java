@@ -12,7 +12,7 @@ public class UserManager {
         user.setPhotoCount("114");
         user.setFollowerCount("120");
         user.setFriendCount("12");
-        user.setSubscibeCount("11");
+        user.setFollowCount("11");
         user.setPhone("139xxxxxxx7");
         user.setEmail("kcrens@gmail.com");
         user.setDisplayName("天堂龙");
