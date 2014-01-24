@@ -122,6 +122,7 @@ public class AccountService {
      * @param loginName
      * @param password
      */
+    @Transactional(readOnly = false)
     public User verifyUserCertificate(String loginName, String password) {
         logger.debug("verifyUserCertificate:" + loginName + ":" + password);
         User user = this.getUserDao().findByLoginNameAndUserState(loginName, UserState.ENABLE);
@@ -133,6 +134,8 @@ public class AccountService {
         if (!validOldPassword) {
             throw new RuntimeException("密码错误");
         }
+        user.setLoginNum(user.getLoginNum() + 1);
+        getUserDao().save(user);
         return user;
     }
 

@@ -8,14 +8,7 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.ipet.server.domain.IdEntity;
 import com.ipet.server.domain.Location;
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -37,38 +30,13 @@ public class Photo extends IdEntity implements Serializable {
     @JsonUnwrapped
     private Location location;
 
-    //@JsonIgnore
-    @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "forword_id")
-    private Photo forwordFrom;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "photo", fetch = FetchType.LAZY)
-    private List<Comment> comments;
+    private Long forwordFromId;
 
     private Integer commentCount;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "photo", fetch = FetchType.LAZY)
-    private List<Favor> favors;
-
     private Integer favorCount;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    /**
-     * @return the user
-     */
-    public User getUser() {
-        return user;
-    }
-
-    /**
-     * @param user the user to set
-     */
-    public void setUser(User user) {
-        this.user = user;
-    }
+    private Long userId;
 
     /**
      * @return the originalURL
@@ -127,34 +95,6 @@ public class Photo extends IdEntity implements Serializable {
     }
 
     /**
-     * @return the forwordFrom
-     */
-    public Photo getForwordFrom() {
-        return forwordFrom;
-    }
-
-    /**
-     * @param forwordFrom the forwordFrom to set
-     */
-    public void setForwordFrom(Photo forwordFrom) {
-        this.forwordFrom = forwordFrom;
-    }
-
-    /**
-     * @return the comments
-     */
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    /**
-     * @param comments the comments to set
-     */
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
-    /**
      * @return the commentCount
      */
     public Integer getCommentCount() {
@@ -169,20 +109,6 @@ public class Photo extends IdEntity implements Serializable {
     }
 
     /**
-     * @return the favors
-     */
-    public List<Favor> getFavors() {
-        return favors;
-    }
-
-    /**
-     * @param favors the favors to set
-     */
-    public void setFavors(List<Favor> favors) {
-        this.favors = favors;
-    }
-
-    /**
      * @return the favorCount
      */
     public Integer getFavorCount() {
@@ -194,6 +120,34 @@ public class Photo extends IdEntity implements Serializable {
      */
     public void setFavorCount(Integer favorCount) {
         this.favorCount = favorCount;
+    }
+
+    /**
+     * @return the userId
+     */
+    public Long getUserId() {
+        return userId;
+    }
+
+    /**
+     * @param userId the userId to set
+     */
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    /**
+     * @return the forwordFromId
+     */
+    public Long getForwordFromId() {
+        return forwordFromId;
+    }
+
+    /**
+     * @param forwordFromId the forwordFromId to set
+     */
+    public void setForwordFromId(Long forwordFromId) {
+        this.forwordFromId = forwordFromId;
     }
 
 }

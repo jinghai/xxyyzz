@@ -4,10 +4,10 @@
  */
 package com.ipet.client.api.base;
 
-import com.ipet.client.api.domain.IpetUser;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import org.codehaus.jackson.map.DeserializationConfig;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
@@ -50,7 +50,10 @@ public class ApiContext {
         messageConverters.add(new FormHttpMessageConverter());
         messageConverters.add(new StringHttpMessageConverter(charset));
         //messageConverters.add(new MappingJackson2HttpMessageConverter());
-        messageConverters.add(new MappingJacksonHttpMessageConverter());
+
+        MappingJacksonHttpMessageConverter mjm = new MappingJacksonHttpMessageConverter();
+        mjm.getObjectMapper().configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        messageConverters.add(mjm);
 
         restTemplate.setMessageConverters(messageConverters);
 

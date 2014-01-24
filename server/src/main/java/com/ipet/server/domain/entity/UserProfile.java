@@ -21,22 +21,20 @@ import javax.persistence.Table;
 @Table(name = "ipet_user_profiles")
 public class UserProfile extends IdEntity implements Serializable {
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "userProfile", fetch = FetchType.LAZY)
-    private User user;
+    private Long userId;
 
     /**
-     * @return the user
+     * @return the userId
      */
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
     /**
-     * @param user the user to set
+     * @param userId the userId to set
      */
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
 }

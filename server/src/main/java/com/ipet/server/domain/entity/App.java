@@ -11,9 +11,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -36,10 +33,7 @@ public class App extends IdEntity implements Serializable {
 
     private String appSecret;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-
-    private User user;
+    private Long userId;
 
     /**
      * @return the name
@@ -53,20 +47,6 @@ public class App extends IdEntity implements Serializable {
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * @return the user
-     */
-    public User getUser() {
-        return user;
-    }
-
-    /**
-     * @param user the user to set
-     */
-    public void setUser(User user) {
-        this.user = user;
     }
 
     /**
@@ -109,6 +89,20 @@ public class App extends IdEntity implements Serializable {
      */
     public void setAppSecret(String appSecret) {
         this.appSecret = appSecret;
+    }
+
+    /**
+     * @return the userId
+     */
+    public Long getUserId() {
+        return userId;
+    }
+
+    /**
+     * @param userId the userId to set
+     */
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
 }

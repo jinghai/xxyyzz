@@ -7,9 +7,6 @@ package com.ipet.server.domain.entity;
 import com.ipet.server.domain.IdEntity;
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -21,40 +18,36 @@ import javax.persistence.Table;
 @Table(name = "ipet_comments")
 public class Comment extends IdEntity implements Serializable {
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    private Long userId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "photo_id")
-    private Photo photo;
+    private Long photoId;
 
     /**
-     * @return the user
+     * @return the userId
      */
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
     /**
-     * @param user the user to set
+     * @param userId the userId to set
      */
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     /**
-     * @return the photo
+     * @return the photoId
      */
-    public Photo getPhoto() {
-        return photo;
+    public Long getPhotoId() {
+        return photoId;
     }
 
     /**
-     * @param photo the photo to set
+     * @param photoId the photoId to set
      */
-    public void setPhoto(Photo photo) {
-        this.photo = photo;
+    public void setPhotoId(Long photoId) {
+        this.photoId = photoId;
     }
 
 }

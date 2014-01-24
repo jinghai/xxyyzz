@@ -11,15 +11,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ipet.server.domain.IdEntity;
 import com.ipet.server.domain.UserState;
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import org.hibernate.validator.constraints.Email;
 
 @Entity
@@ -79,32 +73,20 @@ public class User extends IdEntity implements Serializable {
     @Transient
     private String plainPassword;
 
-    @JsonIgnore
-    @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "profile_id")
-    private UserProfile userProfile;
+    @Column
+    private Long userProfileId;
 
-    @JsonIgnore
-    @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "setting_id")
-    private UserSetting userSetting;
+    @Column
+    private Long userSettingId;
 
-    @JsonIgnore
-    @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "last_location_id")
-    private LastLocation lastLocation;
+    @Column
+    private Long lastLocationId;
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Shop> shops;
-
+    //商铺数量
     @Column(columnDefinition = "int default 0")
     private Integer shopCount;
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-    private List<App> apps;
-
+    //应用数量
     @Column(columnDefinition = "int default 0")
     private Integer appCount;
 
@@ -120,23 +102,11 @@ public class User extends IdEntity implements Serializable {
     @Column(columnDefinition = "int default 0")
     private Integer friendCount;
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Photo> photos;
-
     @Column(columnDefinition = "int default 0")
     private Integer photoCount;
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Favor> favors;
-
     @Column(columnDefinition = "int default 0")
     private Integer favorCount;
-
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Comment> comments;
 
     @Column(columnDefinition = "int default 0")
     private Integer commentCount;
@@ -268,62 +238,6 @@ public class User extends IdEntity implements Serializable {
     }
 
     /**
-     * @return the userProfile
-     */
-    public UserProfile getUserProfile() {
-        return userProfile;
-    }
-
-    /**
-     * @param userProfile the userProfile to set
-     */
-    public void setUserProfile(UserProfile userProfile) {
-        this.userProfile = userProfile;
-    }
-
-    /**
-     * @return the userSetting
-     */
-    public UserSetting getUserSetting() {
-        return userSetting;
-    }
-
-    /**
-     * @param userSetting the userSetting to set
-     */
-    public void setUserSetting(UserSetting userSetting) {
-        this.userSetting = userSetting;
-    }
-
-    /**
-     * @return the lastLocation
-     */
-    public LastLocation getLastLocation() {
-        return lastLocation;
-    }
-
-    /**
-     * @param lastLocation the lastLocation to set
-     */
-    public void setLastLocation(LastLocation lastLocation) {
-        this.lastLocation = lastLocation;
-    }
-
-    /**
-     * @return the shops
-     */
-    public List<Shop> getShops() {
-        return shops;
-    }
-
-    /**
-     * @param shops the shops to set
-     */
-    public void setShops(List<Shop> shops) {
-        this.shops = shops;
-    }
-
-    /**
      * @return the shopCount
      */
     public Integer getShopCount() {
@@ -335,20 +249,6 @@ public class User extends IdEntity implements Serializable {
      */
     public void setShopCount(Integer shopCount) {
         this.shopCount = shopCount;
-    }
-
-    /**
-     * @return the apps
-     */
-    public List<App> getApps() {
-        return apps;
-    }
-
-    /**
-     * @param apps the apps to set
-     */
-    public void setApps(List<App> apps) {
-        this.apps = apps;
     }
 
     /**
@@ -391,48 +291,6 @@ public class User extends IdEntity implements Serializable {
      */
     public void setFriendCount(Integer friendCount) {
         this.friendCount = friendCount;
-    }
-
-    /**
-     * @return the photos
-     */
-    public List<Photo> getPhotos() {
-        return photos;
-    }
-
-    /**
-     * @param photos the photos to set
-     */
-    public void setPhotos(List<Photo> photos) {
-        this.photos = photos;
-    }
-
-    /**
-     * @return the favors
-     */
-    public List<Favor> getFavors() {
-        return favors;
-    }
-
-    /**
-     * @param favors the favors to set
-     */
-    public void setFavors(List<Favor> favors) {
-        this.favors = favors;
-    }
-
-    /**
-     * @return the comments
-     */
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    /**
-     * @param comments the comments to set
-     */
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
     }
 
     /**
@@ -489,6 +347,48 @@ public class User extends IdEntity implements Serializable {
      */
     public void setFollowCount(Integer followCount) {
         this.followCount = followCount;
+    }
+
+    /**
+     * @return the userProfileId
+     */
+    public Long getUserProfileId() {
+        return userProfileId;
+    }
+
+    /**
+     * @param userProfileId the userProfileId to set
+     */
+    public void setUserProfileId(Long userProfileId) {
+        this.userProfileId = userProfileId;
+    }
+
+    /**
+     * @return the userSettingId
+     */
+    public Long getUserSettingId() {
+        return userSettingId;
+    }
+
+    /**
+     * @param userSettingId the userSettingId to set
+     */
+    public void setUserSettingId(Long userSettingId) {
+        this.userSettingId = userSettingId;
+    }
+
+    /**
+     * @return the lastLocationId
+     */
+    public Long getLastLocationId() {
+        return lastLocationId;
+    }
+
+    /**
+     * @param lastLocationId the lastLocationId to set
+     */
+    public void setLastLocationId(Long lastLocationId) {
+        this.lastLocationId = lastLocationId;
     }
 
 }
