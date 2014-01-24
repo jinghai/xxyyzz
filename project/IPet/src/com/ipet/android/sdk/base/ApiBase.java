@@ -36,7 +36,7 @@ public class ApiBase {
     }
 
     protected URI buildUri(String path, MultiValueMap<String, String> parameters) {
-        return URIBuilder.fromUri(ApiContext.API_URL_BASE + path).queryParams(parameters).build();
+        return URIBuilder.fromUri(ApiContext.API_SERVER_BASE + path).queryParams(parameters).build();
     }
 
     protected void requireAuthorization() {
