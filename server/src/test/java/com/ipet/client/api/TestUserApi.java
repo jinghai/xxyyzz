@@ -63,6 +63,8 @@ public class TestUserApi {
 
         ret = api.updateAvatar(fs);
         logger.debug(ToStringBuilder.reflectionToString(ret));
+        logger.debug(ret.getAvatar32());
+        logger.debug(ret.getAvatar48());
     }
 
     @Test

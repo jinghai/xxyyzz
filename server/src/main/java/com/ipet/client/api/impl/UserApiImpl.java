@@ -29,7 +29,7 @@ public class UserApiImpl extends ApiBase implements UserApi {
 
     @Override
     public IpetUser getUser(String userId) {
-        IpetUser user = context.getRestTemplate().getForObject(ApiContext.API_URL_BASE + "user/{id}", IpetUser.class, userId);
+        IpetUser user = context.getRestTemplate().getForObject(ApiContext.API_SERVER_BASE + "user/{id}", IpetUser.class, userId);
         return user;
     }
 
@@ -45,14 +45,14 @@ public class UserApiImpl extends ApiBase implements UserApi {
     public IpetUser updateUserInfo(IpetUserUpdate update) {
         requireAuthorization();
         update.setId(context.getCurrUserId());
-        IpetUser ret = context.getRestTemplate().postForObject(ApiContext.API_URL_BASE + "user/updateInfo", update, IpetUser.class);
+        IpetUser ret = context.getRestTemplate().postForObject(ApiContext.API_SERVER_BASE + "user/updateInfo", update, IpetUser.class);
         return ret;
     }
 
     @Override
     public IpetUser updateAvatar(FileSystemResource avatarFile) {
         requireAuthorization();
-        String url = ApiContext.API_URL_BASE + "user/uploadAvatar";
+        String url = ApiContext.API_SERVER_BASE + "user/uploadAvatar";
         LinkedMultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
         body.add("userId", context.getCurrUserId());
         body.add("file", avatarFile);

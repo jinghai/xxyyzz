@@ -1,6 +1,7 @@
 package com.ipet.client.api.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ipet.client.api.base.ApiContext;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class IpetUser {
@@ -114,7 +115,7 @@ public class IpetUser {
      * @return the avatar32
      */
     public String getAvatar32() {
-        return avatar32;
+        return ApiContext.FILE_SERVER_BASE + avatar32;
     }
 
     /**
@@ -128,7 +129,7 @@ public class IpetUser {
      * @return the avatar48
      */
     public String getAvatar48() {
-        return avatar48;
+        return ApiContext.FILE_SERVER_BASE + avatar48;
     }
 
     /**
