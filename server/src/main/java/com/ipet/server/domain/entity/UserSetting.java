@@ -21,19 +21,19 @@ import javax.persistence.Table;
 @Table(name = "ipet_user_settings")
 public class UserSetting extends IdEntity implements Serializable {
 
-    private Long userId;
+    private String userId;
 
     /**
      * @return the userId
      */
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
     /**
      * @param userId the userId to set
      */
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

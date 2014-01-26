@@ -18,35 +18,35 @@ import javax.persistence.Table;
 @Table(name = "ipet_comments")
 public class Comment extends IdEntity implements Serializable {
 
-    private Long userId;
+    private String userId;
 
-    private Long photoId;
+    private String photoId;
 
     /**
      * @return the userId
      */
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
     /**
      * @param userId the userId to set
      */
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
     /**
      * @return the photoId
      */
-    public Long getPhotoId() {
+    public String getPhotoId() {
         return photoId;
     }
 
     /**
      * @param photoId the photoId to set
      */
-    public void setPhotoId(Long photoId) {
+    public void setPhotoId(String photoId) {
         this.photoId = photoId;
     }
 

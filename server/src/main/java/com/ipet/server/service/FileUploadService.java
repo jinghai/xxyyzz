@@ -59,7 +59,7 @@ public class FileUploadService {
      * @throws IOException
      */
     @Transactional(readOnly = false)
-    public User uploadAvatar(MultipartFile file, long userId) throws IOException {
+    public User uploadAvatar(MultipartFile file, String userId) throws IOException {
         String webAppPath = webApplicationContext.getServletContext().getRealPath("/");
         String originalFilename = file.getOriginalFilename();
         String prefix = originalFilename.substring(originalFilename.lastIndexOf(".") + 1).toLowerCase();

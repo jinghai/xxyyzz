@@ -41,9 +41,9 @@ public class ContactService {
      * @param userId
      * @return
      */
-    public List<User> getFollowUserList(long userId) {
+    public List<User> getFollowUserList(String userId) {
         List<FollowRelation> frlist = getFollowRelationDao().findByUserIdA(userId);
-        List<Long> ids = new ArrayList<Long>(frlist.size());
+        List<String> ids = new ArrayList<String>(frlist.size());
         if (frlist.size() > 0) {
             for (FollowRelation fr : frlist) {
                 ids.add(fr.getUserIdB());
@@ -60,9 +60,9 @@ public class ContactService {
      * @param userId
      * @return
      */
-    public List<User> getFollowerUserList(long userId) {
+    public List<User> getFollowerUserList(String userId) {
         List<FollowRelation> frlist = getFollowRelationDao().findByUserIdB(userId);
-        List<Long> ids = new ArrayList<Long>(frlist.size());
+        List<String> ids = new ArrayList<String>(frlist.size());
         if (frlist.size() > 0) {
             for (FollowRelation fr : frlist) {
                 ids.add(fr.getUserIdA());
@@ -79,10 +79,10 @@ public class ContactService {
      * @param userId
      * @return
      */
-    public List<User> getFriendUserList(long userId) {
+    public List<User> getFriendUserList(String userId) {
 
         List<FriendRelation> frlist = getFriendRelationDao().findByUserIdA(userId);
-        List<Long> ids = new ArrayList<Long>(frlist.size());
+        List<String> ids = new ArrayList<String>(frlist.size());
         if (frlist.size() > 0) {
             for (FriendRelation fr : frlist) {
                 ids.add(fr.getUserIdB());
@@ -100,7 +100,7 @@ public class ContactService {
      * @param userIdB
      */
     @Transactional(readOnly = false)
-    public void follow(long userIdA, long userIdB) {
+    public void follow(String userIdA, String userIdB) {
 
         User userA = this.getUserDao().findByIdAndUserState(userIdA, UserState.ENABLE);
         User userB = this.getUserDao().findByIdAndUserState(userIdB, UserState.ENABLE);
@@ -158,7 +158,7 @@ public class ContactService {
      * @param userIdB
      */
     @Transactional(readOnly = false)
-    public void unfollow(long userIdA, long userIdB) {
+    public void unfollow(String userIdA, String userIdB) {
         User userA = this.getUserDao().findByIdAndUserState(userIdA, UserState.ENABLE);
         User userB = this.getUserDao().findByIdAndUserState(userIdB, UserState.ENABLE);
         if (userA == null || userB == null) {

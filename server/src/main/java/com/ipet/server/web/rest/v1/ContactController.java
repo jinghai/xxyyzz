@@ -40,8 +40,8 @@ public class ContactController {
         if (StringUtils.isEmpty(uid)) {
             throw new RuntimeException("无效参数");
         }
-        long userId = Long.parseLong(uid);
-        return contactService.getFollowUserList(userId);
+
+        return contactService.getFollowUserList(uid);
     }
 
     /**
@@ -56,8 +56,8 @@ public class ContactController {
         if (StringUtils.isEmpty(uid)) {
             throw new RuntimeException("无效参数");
         }
-        long userId = Long.parseLong(uid);
-        return contactService.getFollowerUserList(userId);
+
+        return contactService.getFollowerUserList(uid);
     }
 
     /**
@@ -72,8 +72,8 @@ public class ContactController {
         if (StringUtils.isEmpty(uid)) {
             throw new RuntimeException("无效参数");
         }
-        long userId = Long.parseLong(uid);
-        return contactService.getFriendUserList(userId);
+
+        return contactService.getFriendUserList(uid);
     }
 
     /**
@@ -89,9 +89,8 @@ public class ContactController {
         if (StringUtils.isEmpty(userIdA) || StringUtils.isEmpty(userIdB)) {
             throw new RuntimeException("无效参数");
         }
-        Long aId = Long.valueOf(userIdA);
-        Long bId = Long.valueOf(userIdB);
-        contactService.follow(aId, bId);
+
+        contactService.follow(userIdA, userIdB);
         return true;
     }
 
@@ -108,9 +107,8 @@ public class ContactController {
         if (StringUtils.isEmpty(userIdA) || StringUtils.isEmpty(userIdB)) {
             throw new RuntimeException("无效参数");
         }
-        Long aId = Long.valueOf(userIdA);
-        Long bId = Long.valueOf(userIdB);
-        contactService.unfollow(aId, bId);
+
+        contactService.unfollow(userIdA, userIdB);
         return true;
     }
 

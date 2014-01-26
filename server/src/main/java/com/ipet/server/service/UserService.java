@@ -34,12 +34,12 @@ public class UserService {
         return (List<User>) getUserDao().findAll();
     }
 
-    public User getUserById(Long userId) {
+    public User getUserById(String userId) {
         User user = getUserDao().findByIdAndUserState(userId, UserState.ENABLE);
         return user;
     }
 
-    public List<User> getUserByIds(List<Long> ids) {
+    public List<User> getUserByIds(List<String> ids) {
         List<User> users = getUserDao().findByIdInAndUserState(ids, UserState.ENABLE);
         return users;
     }

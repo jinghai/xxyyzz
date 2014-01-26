@@ -30,13 +30,13 @@ public class Photo extends IdEntity implements Serializable {
     @JsonUnwrapped
     private Location location;
 
-    private Long forwordFromId;
+    private String forwordFromId;
 
     private Integer commentCount;
 
     private Integer favorCount;
 
-    private Long userId;
+    private String userId;
 
     /**
      * @return the originalURL
@@ -125,28 +125,28 @@ public class Photo extends IdEntity implements Serializable {
     /**
      * @return the userId
      */
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
     /**
      * @param userId the userId to set
      */
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
     /**
      * @return the forwordFromId
      */
-    public Long getForwordFromId() {
+    public String getForwordFromId() {
         return forwordFromId;
     }
 
     /**
      * @param forwordFromId the forwordFromId to set
      */
-    public void setForwordFromId(Long forwordFromId) {
+    public void setForwordFromId(String forwordFromId) {
         this.forwordFromId = forwordFromId;
     }
 

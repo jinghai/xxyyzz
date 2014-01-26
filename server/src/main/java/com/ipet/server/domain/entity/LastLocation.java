@@ -27,7 +27,7 @@ public class LastLocation extends IdEntity implements Serializable {
     @JsonUnwrapped
     private Location location;
 
-    private Long userId;
+    private String userId;
 
     /**
      * @return the location
@@ -46,14 +46,14 @@ public class LastLocation extends IdEntity implements Serializable {
     /**
      * @return the userId
      */
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
     /**
      * @param userId the userId to set
      */
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

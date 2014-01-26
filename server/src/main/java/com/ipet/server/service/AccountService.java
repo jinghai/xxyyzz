@@ -47,7 +47,7 @@ public class AccountService {
      * @param id
      * @return User或null
      */
-    public User getUser(Long id) {
+    public User getUser(String id) {
         return getUserDao().findOne(id);
     }
 
@@ -58,7 +58,7 @@ public class AccountService {
      * @return
      */
     public Boolean availableUsername(String loginName) {
-        Long userId = getUserDao().getUserIdByLoginNameAndUserState(loginName, UserState.ENABLE);
+        String userId = getUserDao().getUserIdByLoginNameAndUserState(loginName, UserState.ENABLE);
         return userId == null;
     }
 
@@ -69,7 +69,7 @@ public class AccountService {
      * @return
      */
     public Boolean availablePhone(String phone) {
-        Long userId = getUserDao().getUserIdByPhoneAndUserState(phone, UserState.ENABLE);
+        String userId = getUserDao().getUserIdByPhoneAndUserState(phone, UserState.ENABLE);
         return userId == null;
     }
 
@@ -80,7 +80,7 @@ public class AccountService {
      * @return
      */
     public Boolean availableEmail(String email) {
-        Long userId = getUserDao().getUserIdByEmailAndUserState(email, UserState.ENABLE);
+        String userId = getUserDao().getUserIdByEmailAndUserState(email, UserState.ENABLE);
         return userId == null;
     }
 
@@ -90,7 +90,7 @@ public class AccountService {
      * @param userId
      * @return
      */
-    public Boolean isNewUser(Long userId) {
+    public Boolean isNewUser(String userId) {
         Long t = getUserDao().getLoginNumByIdAndUserState(userId, UserState.ENABLE);
         if (null == t) {
             return false;
@@ -147,7 +147,7 @@ public class AccountService {
      * @param newPassword 新的明文密码
      */
     @Transactional(readOnly = false)
-    public void changePassword(Long userId, String oldPassword, String newPassword) {
+    public void changePassword(String userId, String oldPassword, String newPassword) {
         User user = getUser(userId);
         if (null == user) {
             throw new RuntimeException("无效参数");
@@ -183,7 +183,7 @@ public class AccountService {
      * @param id
      */
     @Transactional(readOnly = false)
-    public void deleteUser(Long id) {
+    public void deleteUser(String id) {
 
         getUserDao().delete(id);
 

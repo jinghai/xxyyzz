@@ -4,15 +4,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  * 统一定义id的entity基类.
@@ -27,10 +25,11 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 public abstract class IdEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "paymentableGenerator")
+    @GenericGenerator(name = "paymentableGenerator", strategy = "uuid.hex")
     //@JsonSerialize(as = String.class)
     //@JsonDeserialize(as = Long.class)
-    protected Long id;
+    protected String id;
 
     // 设定JSON序列化时的日期格式
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
@@ -43,11 +42,11 @@ public abstract class IdEntity {
     @Column()
     private Date updateAt;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

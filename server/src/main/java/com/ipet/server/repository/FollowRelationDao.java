@@ -4,7 +4,7 @@ import com.ipet.server.domain.entity.FollowRelation;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface FollowRelationDao extends JpaRepository<FollowRelation, Long> {
+public interface FollowRelationDao extends JpaRepository<FollowRelation, String> {
 
     /**
      * 查询A与B的关注关系
@@ -13,11 +13,11 @@ public interface FollowRelationDao extends JpaRepository<FollowRelation, Long> {
      * @param userIdB
      * @return
      */
-    public FollowRelation findByUserIdAAndUserIdB(long userIdA, long userIdB);
+    public FollowRelation findByUserIdAAndUserIdB(String userIdA, String userIdB);
 
-    public List<FollowRelation> findByUserIdA(long userId);
+    public List<FollowRelation> findByUserIdA(String userId);
 
-    public List<FollowRelation> findByUserIdB(long userId);
+    public List<FollowRelation> findByUserIdB(String userId);
 
     /**
      * A是否关注了B
@@ -27,7 +27,7 @@ public interface FollowRelationDao extends JpaRepository<FollowRelation, Long> {
      * @return
      */
     //@Query("select fr.id from FollowRelation fr where fr.userIdA=?1 and fr.userIdB=?2")
-    //public Long isFollowd(long userIdA, long userIdB);
+    //public String isFollowd(long userIdA, long userIdB);
     /**
      * A是否是B的粉丝
      *
@@ -36,5 +36,5 @@ public interface FollowRelationDao extends JpaRepository<FollowRelation, Long> {
      * @return
      */
     //@Query("select fr.id from FollowRelation fr where fr.userIdB=?1 and fr.userIdA=?2")
-    //public Long isFollower(long userIdA, long userIdB);
+    //public String isFollower(long userIdA, long userIdB);
 }

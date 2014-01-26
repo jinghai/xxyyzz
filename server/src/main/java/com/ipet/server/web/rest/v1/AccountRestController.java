@@ -124,7 +124,7 @@ public class AccountRestController {
      */
     @RequestMapping(value = "/isNewUser", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<?> isNewUser(Long userId) {
+    public ResponseEntity<?> isNewUser(String userId) {
         if (null == userId) {
             throw new RuntimeException("无效参数");
         }
@@ -145,8 +145,7 @@ public class AccountRestController {
         if (null == userId || StringUtils.isEmpty(oldPassword) || StringUtils.isEmpty(newPassword)) {
             throw new RuntimeException("无效参数");
         }
-        Long userIdValue = Long.parseLong(userId);
-        accountService.changePassword(userIdValue, oldPassword, newPassword);
+        accountService.changePassword(userId, oldPassword, newPassword);
 
         return new ResponseEntity(true, HttpStatus.OK);
     }

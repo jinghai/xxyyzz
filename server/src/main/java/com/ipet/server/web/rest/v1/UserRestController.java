@@ -57,7 +57,7 @@ public class UserRestController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<?> get(@PathVariable("id") Long id) {
+    public ResponseEntity<?> get(@PathVariable("id") String id) {
         User user = userService.getUserById(id);
         return new ResponseEntity(user, HttpStatus.OK);
     }
@@ -74,14 +74,14 @@ public class UserRestController {
         if (StringUtils.isEmpty(ids)) {
             throw new RuntimeException("无效参数");
         }
-        List<Long> idsArray = new ArrayList<Long>();
+        List<String> idsArray = new ArrayList<String>();
         if (!ids.contains(",")) {
-            idsArray.add(Long.parseLong(ids));
+            idsArray.add(ids);
         } else {
             String[] idsList = StringUtils.split(ids, ",");
             logger.debug("idsList:" + idsList[0]);
             for (int i = 0, len = idsList.length; i < len; i++) {
-                idsArray.add(Long.valueOf(idsList[i]));
+                idsArray.add(idsList[i]);
             }
         }
 
@@ -115,11 +115,11 @@ public class UserRestController {
     @RequestMapping(value = "/uploadAvatar", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public User upload(String userId, /*@RequestParam*/ MultipartFile file) throws IOException {
-        long uid = Long.parseLong(userId);
-        if (file.isEmpty()) {
+
+        if (file.isEmpty() || StringUtils.isEmpty(userId)) {
             throw new RuntimeException("无效参数");
         }
-        User user = uploder.uploadAvatar(file, uid);
+        User user = uploder.uploadAvatar(file, userId);
         return user;
     }
 

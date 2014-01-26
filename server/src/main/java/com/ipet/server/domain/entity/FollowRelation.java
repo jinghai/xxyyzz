@@ -18,34 +18,34 @@ import javax.persistence.Table;
 @Table(name = "ipet_follow_relations")
 public class FollowRelation extends IdEntity implements Serializable {
 
-    private Long userIdA;
-    private Long userIdB;
+    private String userIdA;
+    private String userIdB;
 
     /**
      * @return the userIdA
      */
-    public Long getUserIdA() {
+    public String getUserIdA() {
         return userIdA;
     }
 
     /**
      * @param userIdA the userIdA to set
      */
-    public void setUserIdA(Long userIdA) {
+    public void setUserIdA(String userIdA) {
         this.userIdA = userIdA;
     }
 
     /**
      * @return the userIdB
      */
-    public Long getUserIdB() {
+    public String getUserIdB() {
         return userIdB;
     }
 
     /**
      * @param userIdB the userIdB to set
      */
-    public void setUserIdB(Long userIdB) {
+    public void setUserIdB(String userIdB) {
         this.userIdB = userIdB;
     }
 

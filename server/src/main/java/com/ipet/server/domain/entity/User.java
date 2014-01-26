@@ -114,7 +114,7 @@ public class User extends IdEntity implements Serializable {
     public User() {
     }
 
-    public User(Long id) {
+    public User(String id) {
         this.id = id;
     }
 

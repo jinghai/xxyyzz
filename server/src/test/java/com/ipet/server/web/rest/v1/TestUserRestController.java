@@ -41,8 +41,7 @@ public class TestUserRestController extends BaseTest {
 
     @Test
     public void getUsers() {
-        //MultiValueMap<String, List<Long>> body = new LinkedMultiValueMap<String, List<Long>>();
-        //Map<String, Object> urlVariables = new HashMap< String, Object>();
+
         //URL参数需要构建在URL字符串中
         User[] users = restTemplate.getForObject(baseUrl + "/listByIds?ids=1,2", User[].class);
         List<User> list = Arrays.asList(users);
@@ -51,8 +50,7 @@ public class TestUserRestController extends BaseTest {
 
     @Test
     public void getUsersForOne() {
-        //MultiValueMap<String, List<Long>> body = new LinkedMultiValueMap<String, List<Long>>();
-        //Map<String, Object> urlVariables = new HashMap< String, Object>();
+
         //URL参数需要构建在URL字符串中
         User[] users = restTemplate.getForObject(baseUrl + "/listByIds?ids=1", User[].class);
         List<User> list = Arrays.asList(users);
@@ -63,7 +61,7 @@ public class TestUserRestController extends BaseTest {
     public void updateInfo() {
         //直接发送实体，自动转为Json格式提交到服务器
         User u = new User();
-        u.setId(1l);
+        u.setId("1");
         u.setEmail("test@test.com");
         u.setPhone("111111111");
         u = restTemplate.postForObject(baseUrl + "/updateInfo", u, User.class);
