@@ -22,7 +22,10 @@ import org.hibernate.validator.constraints.Email;
 //@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 @Table(name = "ipet_users", indexes = {
     @Index(name = "ipet_users_createAt", columnList = "createAt"),
-    @Index(name = "ipet_users_updateAt", columnList = "updateAt")
+    @Index(name = "ipet_users_updateAt", columnList = "updateAt"),
+    @Index(name = "ipet_users_userProfileId", columnList = "userProfileId"),
+    @Index(name = "ipet_users_userSettingId", columnList = "userSettingId"),
+    @Index(name = "ipet_users_lastLocationId", columnList = "lastLocationId")
 })
 public class User extends IdEntity implements Serializable {
 

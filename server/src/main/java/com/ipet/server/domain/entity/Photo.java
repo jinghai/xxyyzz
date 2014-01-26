@@ -20,7 +20,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ipet_photos", indexes = {
     @Index(name = "ipet_photos_createAt", columnList = "createAt"),
-    @Index(name = "ipet_photos_updateAt", columnList = "updateAt")
+    @Index(name = "ipet_photos_updateAt", columnList = "updateAt"),
+    @Index(name = "ipet_photos_forwordFromId", columnList = "forwordFromId"),
+    @Index(name = "ipet_photos_userId", columnList = "userId")
 })
 public class Photo extends IdEntity implements Serializable {
 

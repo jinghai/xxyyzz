@@ -7,6 +7,7 @@ package com.ipet.server.domain.entity;
 import com.ipet.server.domain.IdEntity;
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 /**
@@ -15,7 +16,10 @@ import javax.persistence.Table;
  * @author xiaojinghai
  */
 @Entity
-@Table(name = "ipet_comments")
+@Table(name = "ipet_comments", indexes = {
+    @Index(name = "ipet_comments_userId", columnList = "userId"),
+    @Index(name = "ipet_comments_photoId", columnList = "photoId")
+})
 public class Comment extends IdEntity implements Serializable {
 
     private String userId;

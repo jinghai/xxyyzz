@@ -20,7 +20,9 @@ import javax.persistence.Table;
  * @author xiaojinghai
  */
 @Entity
-@Table(name = "ipet_apps")
+@Table(name = "ipet_apps", indexes = {
+    @Index(name = "ipet_apps_userId", columnList = "userId")
+})
 public class App extends IdEntity implements Serializable {
 
     //应用名称

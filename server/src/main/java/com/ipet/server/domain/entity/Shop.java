@@ -9,6 +9,7 @@ import com.ipet.server.domain.IdEntity;
 import com.ipet.server.domain.Location;
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 /**
@@ -17,7 +18,9 @@ import javax.persistence.Table;
  * @author xiaojinghai
  */
 @Entity
-@Table(name = "ipet_shops")
+@Table(name = "ipet_shops", indexes = {
+    @Index(name = "ipet_shops_userId", columnList = "userId")
+})
 public class Shop extends IdEntity implements Serializable {
 
     //店铺名称

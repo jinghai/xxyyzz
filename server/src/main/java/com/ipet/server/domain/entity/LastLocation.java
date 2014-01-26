@@ -11,6 +11,7 @@ import com.ipet.server.domain.Location;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -20,7 +21,9 @@ import javax.persistence.Table;
  * @author xiaojinghai
  */
 @Entity
-@Table(name = "ipet_last_locations")
+@Table(name = "ipet_last_locations", indexes = {
+    @Index(name = "ipet_last_locations_userId", columnList = "userId")
+})
 public class LastLocation extends IdEntity implements Serializable {
 
     //位置
