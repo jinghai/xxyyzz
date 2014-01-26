@@ -1,72 +1,14 @@
---------服务端--------
-技术点----
-SpringMVC Rest(OK)
-SrpingData JPA(OK)
-SpringMVC Rest Json转换（OK）
-RestTemplate Http调用（OK）
-RestTemplate 提交Json数据以及Json自动转换(OK)
-RestTemplate 提交Url参数（OK）
-RestTemplate 自定义异常处理(OK)
-SpringMVC Rest上传 OK
-RestTemplate 上传文件 OK
-Spring注入applicationContext和webApplicationContext OK
-Service层获取网站跟目录磁盘绝对地址OK
-
-缩略图处理
-SpringMVC Etag机制
-RestTemplate Etag处理
-RestTemplate Gzip处理
-附近搜索算法
-Spring Java配置机制
-
-功能----
-帐号接口
-用户接口
-
-测试----
-Rest功能测试(OK)
-持久层测试
-服务层测试
-
-性能----
-增加Ecache等缓存层机制
-
-安全----
-Oauth的basic认证实现
-
-框架----
-flayWay组件
-上传组件
-图片处理组件
-邮件组件
-定时任务组件
-
-架构----
-持久层、业务层、WEB层分层的统一异常机制
-第三方组件的异常转换机制
-分布式消息和缓存机制
-
---------客户端--------
-技术点----
-RestTemplate Http调用
-RestTemplate 提交Json数据以及Json自动转换
-SpringMVC Rest上传
-RestTemplate Etag处理
-RestTemplate Gzip处理
-如何编写android服务
-位置获取
-照相
-网络连接事件侦听
-如何编写android库
-
-测试----
-?
-
-架构----
-API调用机制
-API层缓存机制
-离线工作模式
-
---------代码管理--------
-项目拆分-->api,androidSDK,JavaSDK,admin,portal
-Maven的统一管理
+相机
+离线缓存机制(Etab,SDK缓存)
+离线同步
+匿名操作机制
+服务端分开项目管理（多项目）
+安桌库（SDK）项目分离
+安桌库测试
+位置上报
+附近搜索
+即时通讯
+OAuth或(Base 过滤)
+服务器搭建
+POM整理减肥
+andriod-lib减肥（json）

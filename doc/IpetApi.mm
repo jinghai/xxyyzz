@@ -11,11 +11,13 @@
 <icon BUILTIN="full-1"/>
 <icon BUILTIN="button_ok"/>
 </node>
-<node CREATED="1387964638003" ID="ID_1627745254" MODIFIED="1388043728044" TEXT="&#x767b;&#x5165;">
+<node CREATED="1387964638003" ID="ID_1627745254" MODIFIED="1390723639668" TEXT="&#x767b;&#x5165;">
 <icon BUILTIN="full-1"/>
+<icon BUILTIN="button_ok"/>
 </node>
-<node CREATED="1387964645220" ID="ID_921211827" MODIFIED="1388043725630" TEXT="&#x767b;&#x51fa;">
+<node CREATED="1387964645220" ID="ID_921211827" MODIFIED="1390723650029" TEXT="&#x767b;&#x51fa;">
 <icon BUILTIN="full-1"/>
+<icon BUILTIN="button_ok"/>
 </node>
 <node CREATED="1388767103429" ID="ID_574833778" MODIFIED="1388976698648" TEXT="&#x7528;&#x6237;&#x540d;&#x662f;&#x5426;&#x53ef;&#x7528;/availableUsername(username):Boolean">
 <icon BUILTIN="full-1"/>
