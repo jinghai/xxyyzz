@@ -19,15 +19,16 @@ import org.slf4j.LoggerFactory;
  *
  * @author xiaojinghai
  */
-public class TestUUID {
+public class TestShortUUID {
 
-    private static final Logger logger = LoggerFactory.getLogger(TestUUID.class);
+    private static final Logger logger = LoggerFactory.getLogger(TestShortUUID.class);
     private AccountApi api = IpetApiImpl.getInstance("1", "1").getAccountApi();
 
     //测试短UUID重复的可能性
     @Test
     public void TestShortUUID() {
-        long times = 100 * 10000; //一百万次
+        //long times = 100 * 10000; //一百万次
+        long times = 1000;
         long start = System.currentTimeMillis();
         for (long i = 0; i < times; i++) {
             api.register(ProjectUtil.generateShortUUID(), "test");

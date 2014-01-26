@@ -67,6 +67,13 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+
+        <!-- GroboUtils -->
+        <repository>
+            <id>opensymphony-releases</id>
+            <name>Opensymphony Releases</name>
+            <url>https://oss.sonatype.org/content/repositories/opensymphony-releases</url>
+        </repository>
     </repositories>
 
     <!-- 设定插件仓库 如有Nexus私服, 取消注释并指向正确的服务器地址.
@@ -384,6 +391,13 @@
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+        <!-- MultiThreadedTest-->
+        <dependency>
+            <groupId>net.sourceforge.groboutils</groupId>
+            <artifactId>groboutils-core</artifactId>
+            <version>5</version>
+
         </dependency>
 
         <dependency>
