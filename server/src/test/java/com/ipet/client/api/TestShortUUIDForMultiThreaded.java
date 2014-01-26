@@ -42,7 +42,7 @@ public class TestShortUUIDForMultiThreaded {
 
         @Override
         public void runTest() throws Throwable {
-            long times = 1000;
+            long times = 250;
             long start = System.currentTimeMillis();
             for (long i = 0; i < times; i++) {
                 api.register(ProjectUtil.generateShortUUID(), "test");
@@ -57,7 +57,7 @@ public class TestShortUUIDForMultiThreaded {
 
         @Override
         public void runTest() throws Throwable {
-            long times = 1000;
+            long times = 250;
             long start = System.currentTimeMillis();
             for (long i = 0; i < times; i++) {
                 api.register(ProjectUtil.generateShortUUID(), "test");
@@ -72,7 +72,7 @@ public class TestShortUUIDForMultiThreaded {
 
         @Override
         public void runTest() throws Throwable {
-            long times = 1000;
+            long times = 250;
             long start = System.currentTimeMillis();
             for (long i = 0; i < times; i++) {
                 api.register(ProjectUtil.generateShortUUID(), "test");
@@ -87,7 +87,7 @@ public class TestShortUUIDForMultiThreaded {
 
         @Override
         public void runTest() throws Throwable {
-            long times = 1000;
+            long times = 250;
             long start = System.currentTimeMillis();
             for (long i = 0; i < times; i++) {
                 api.register(ProjectUtil.generateShortUUID(), "test");
