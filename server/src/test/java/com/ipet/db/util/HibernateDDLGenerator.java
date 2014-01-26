@@ -13,6 +13,7 @@ import com.ipet.server.domain.entity.UserProfile;
 import com.ipet.server.domain.entity.UserSetting;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Environment;
+import org.hibernate.cfg.ImprovedNamingStrategy;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 
 /*
@@ -49,6 +50,7 @@ public class HibernateDDLGenerator {
         AnnotationConfiguration configuration = new AnnotationConfiguration();
 
         configuration.setProperty(Environment.DIALECT, dialect.getClassName());
+        configuration.setNamingStrategy(new ImprovedNamingStrategy());
         for (Class<?> entityClass : classes) {
 
             configuration.addAnnotatedClass(entityClass);
@@ -58,7 +60,7 @@ public class HibernateDDLGenerator {
 
         schemaExport.setDelimiter(";");
 
-        schemaExport.setOutputFile(String.format("%s_%s.%s ", new Object[]{"ddl", dialect.name().toLowerCase(), "sql"}));
+        schemaExport.setOutputFile(String.format("%s_%s.%s ", new Object[]{"src/main/resources/sql/mysql/ddl", dialect.name().toLowerCase(), "sql"}));
 
         boolean consolePrint = true;
 
