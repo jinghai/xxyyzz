@@ -397,7 +397,7 @@
             <groupId>net.sourceforge.groboutils</groupId>
             <artifactId>groboutils-core</artifactId>
             <version>5</version>
-
+            <scope>test</scope>
         </dependency>
 
         <dependency>

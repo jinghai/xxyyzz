@@ -26,8 +26,8 @@ import org.hibernate.annotations.GenericGenerator;
 public abstract class IdEntity {
 
     @Id
-    @GeneratedValue(generator = "paymentableGenerator")
-    @GenericGenerator(name = "paymentableGenerator", strategy = "uuid2")
+    @GeneratedValue(generator = "myGenerator")
+    @GenericGenerator(name = "myGenerator", strategy = "uuid2")
     //@JsonSerialize(as = String.class)
     //@JsonDeserialize(as = Long.class)
     protected String id;
