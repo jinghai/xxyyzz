@@ -14,11 +14,16 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Index;
+
 import org.hibernate.validator.constraints.Email;
 
 @Entity
 //@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-@Table(name = "ipet_users")
+@Table(name = "ipet_users", indexes = {
+    @Index(name = "ipet_users_createAt", columnList = "createAt"),
+    @Index(name = "ipet_users_updateAt", columnList = "updateAt")
+})
 public class User extends IdEntity implements Serializable {
 
     // @JsonUnwrapped
@@ -26,7 +31,7 @@ public class User extends IdEntity implements Serializable {
     //登录名称
     // JSR303 BeanValidator的校验规则
     @NotBlank
-    @Column(length = 50)
+    @Column(unique = true, length = 50)
     private String loginName;
 
     @Column(length = 50)

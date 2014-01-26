@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -26,7 +27,7 @@ public abstract class IdEntity {
 
     @Id
     @GeneratedValue(generator = "paymentableGenerator")
-    @GenericGenerator(name = "paymentableGenerator", strategy = "uuid.hex")
+    @GenericGenerator(name = "paymentableGenerator", strategy = "uuid2")
     //@JsonSerialize(as = String.class)
     //@JsonDeserialize(as = Long.class)
     protected String id;

@@ -9,6 +9,7 @@ import com.ipet.server.domain.IdEntity;
 import com.ipet.server.domain.Location;
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 /**
@@ -17,7 +18,10 @@ import javax.persistence.Table;
  * @author xiaojinghai
  */
 @Entity
-@Table(name = "ipet_photos")
+@Table(name = "ipet_photos", indexes = {
+    @Index(name = "ipet_photos_createAt", columnList = "createAt"),
+    @Index(name = "ipet_photos_updateAt", columnList = "updateAt")
+})
 public class Photo extends IdEntity implements Serializable {
 
     private String originalURL;

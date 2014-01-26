@@ -8,6 +8,7 @@ import com.ipet.server.domain.IdEntity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * 用户关注关系表
@@ -15,7 +16,9 @@ import javax.persistence.Table;
  * @author xiaojinghai
  */
 @Entity
-@Table(name = "ipet_friend_relations")
+@Table(name = "ipet_friend_relations", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"userIdA", "userIdB"})
+})
 public class FriendRelation extends IdEntity implements Serializable {
 
     private String userIdA;
