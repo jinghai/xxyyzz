@@ -21,12 +21,12 @@ public class Location implements Serializable {
     /**
      * 精度
      */
-    private long longitude;
+    private Long longitude;
 
     /**
      * 纬度
      */
-    private long latitude;
+    private Long latitude;
 
     /**
      * GEO哈希

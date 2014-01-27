@@ -4,6 +4,7 @@
  */
 package com.ipet.server.app;
 
+import com.ipet.server.util.ProjectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -50,6 +51,7 @@ public class AppConfig {
     public String getUploadDirRealPath() {
         if (StringUtils.isEmpty(uploadDirRealPath)) {
             uploadDirRealPath = getWebContextRealPath() + uploadDir;
+            ProjectUtil.checkDirAndCreateIfNotExists(uploadDirRealPath);
         }
         return uploadDirRealPath;
     }
@@ -62,6 +64,7 @@ public class AppConfig {
     public String getTempDirRealPath() {
         if (StringUtils.isEmpty(tempDirRealPath)) {
             tempDirRealPath = getWebContextRealPath() + tempDir;
+            ProjectUtil.checkDirAndCreateIfNotExists(tempDirRealPath);
         }
         return tempDirRealPath;
     }

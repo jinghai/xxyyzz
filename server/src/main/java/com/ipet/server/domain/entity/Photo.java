@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.ipet.server.domain.IdEntity;
 import com.ipet.server.domain.Location;
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
@@ -38,8 +39,10 @@ public class Photo extends IdEntity implements Serializable {
 
     private String forwordFromId;
 
+    @Column(columnDefinition = "int default 0")
     private Integer commentCount;
 
+    @Column(columnDefinition = "int default 0")
     private Integer favorCount;
 
     private String userId;

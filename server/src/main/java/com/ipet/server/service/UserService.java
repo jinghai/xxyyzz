@@ -86,69 +86,111 @@ public class UserService {
      */
     @Transactional(readOnly = false)
     public User updateAvatar(String userId, MultipartFile file) throws IOException {
+        User user = this.getUserDao().findByIdAndUserState(userId, UserState.ENABLE);
+        if (user == null) {
+            throw new RuntimeException("无效用户");
+        }
+        //旧头像
+        String old32 = user.getAvatar32();
+        String old48 = user.getAvatar48();
+        checkFilePrefix(file);
+        //原始文件
+        File originalFile = new File(appConfig.getTempDirRealPath() + generateTempFileName(file));
+        //32*32相对地址
+        String avatar32RelativeFile = getAvatarrelativePath(generateAvatarFileName(userId, file));
+        //32*32绝对地址
+        String avatar32RealFile = getAvatarRealPath(avatar32RelativeFile);
+        //48*48相对地址
+        String avatar48RelativeFile = getAvatarrelativePath(generateAvatarFileName(userId, file));
+        //48*48绝对地址
+        String avatar48RealFile = getAvatarRealPath(avatar48RelativeFile);
+
+        File avatar32File = new File(avatar32RealFile);
+        File avatar48File = new File(avatar48RealFile);
+        try {
+            //上传原始文件
+            file.transferTo(originalFile);
+            //文件冲突检查,避免shorUUID可能存在重复的bug
+            if (avatar32File.exists() || avatar48File.exists()) {
+                throw new RuntimeException("文件重复");
+            }
+
+            /*
+             * 若图片横比32小，高比32小，不变
+             * 若图片横比32小，高比32大，高缩小到32，图片比例不变
+             * 若图片横比32大，高比32小，横缩小到32，图片比例不变
+             * 若图片横比32大，高比32大，图片按比例缩小，横为32或高为32
+             */
+            Thumbnails.of(originalFile).size(32, 32).toFile(avatar32RealFile);
+            Thumbnails.of(originalFile).size(48, 48).toFile(avatar48RealFile);
+
+            //更新记录
+            user.setAvatar32(avatar32RelativeFile);
+            user.setAvatar48(avatar48RelativeFile);
+            this.getUserDao().save(user);
+
+            //清理
+            deleteOldAvatarFile(old32);
+            deleteOldAvatarFile(old48);
+            return user;
+
+        } catch (Exception e) {
+            if (avatar32File != null && avatar32File.exists()) {
+                avatar32File.delete();
+            }
+            if (avatar48File != null && avatar48File.exists()) {
+                avatar48File.delete();
+            }
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            if (originalFile != null && originalFile.exists()) {
+                originalFile.delete();
+            }
+
+        }
+
+    }
+
+    //检查文件扩展名合法性
+    private void checkFilePrefix(MultipartFile file) {
         String originalFilename = file.getOriginalFilename();
-        String prefix = originalFilename.substring(originalFilename.lastIndexOf(".") + 1).toLowerCase();
+        String prefix = ProjectUtil.getPrefix(originalFilename);
         if (StringUtils.isEmpty(prefix) || !allowPrefix.contains(prefix)) {
             throw new RuntimeException("被禁止的文件类型");
         }
-        //临时文件目录
-        String tempDirRealPath = appConfig.getTempDirRealPath();
-        ProjectUtil.createDir(tempDirRealPath);
-        //临时文件绝对路径
-        String tempFile = tempDirRealPath + ProjectUtil.generateShortUUID() + "." + prefix;
-        //上传目录
-        String uploadDirRealPath = appConfig.getUploadDirRealPath() + userId + "/";
-        ProjectUtil.createDir(uploadDirRealPath);
-        //32*32相对地址
-        String avatar32RelativeFile = appConfig.getUploadDir() + userId + "/" + ProjectUtil.generateShortUUID() + "_32." + prefix;
-        //32*32绝对地址
-        String avatar32RealFile = appConfig.getWebContextRealPath() + avatar32RelativeFile;
-        //48*48相对地址
-        String avatar48RelativeFile = appConfig.getUploadDir() + userId + "/" + ProjectUtil.generateShortUUID() + "_48." + prefix;
-        //48*48绝对地址
-        String avatar48RealFile = appConfig.getWebContextRealPath() + avatar48RelativeFile;
+    }
 
-        //上传原始文件到临时目录
-        File originalFile = new File(tempFile);
-        file.transferTo(originalFile);
+    //生成头像文件相对路径
+    private String generateAvatarFileName(String uid, MultipartFile file) {
+        String prefix = ProjectUtil.getPrefix(file.getOriginalFilename());
+        return uid + "/" + ProjectUtil.generateShortUUID() + "." + prefix;
+    }
 
-        //文件冲突检查,避免shorUUID可能存在重复的bug
-        File avatar32File = new File(avatar32RealFile);
-        File avatar48File = new File(avatar48RealFile);
-        if (avatar32File.exists() || avatar48File.exists()) {
-            throw new RuntimeException("文件已存在");
-        }
+    //生成临时文件相对路径
+    private String generateTempFileName(MultipartFile file) {
+        String prefix = ProjectUtil.getPrefix(file.getOriginalFilename());
+        return ProjectUtil.generateShortUUID() + "." + prefix;
+    }
 
-        /*
-         * 若图片横比32小，高比32小，不变
-         * 若图片横比32小，高比32大，高缩小到32，图片比例不变
-         * 若图片横比32大，高比32小，横缩小到32，图片比例不变
-         * 若图片横比32大，高比32大，图片按比例缩小，横为32或高为32
-         */
-        Thumbnails.of(tempFile).size(32, 32).toFile(avatar32RealFile);
-        Thumbnails.of(tempFile).size(48, 48).toFile(avatar48RealFile);
+    //得到头像相对相对路径
+    private String getAvatarrelativePath(String avatarFileName) {
+        String path = appConfig.getUploadDir() + avatarFileName;
+        return path;
+    }
 
-        //清除缓存
-        File tFile = new File(tempFile);
-        tFile.delete();
+    //得到头像绝对地址
+    private String getAvatarRealPath(String relativePath) {
+        String path = appConfig.getWebContextRealPath() + relativePath;
+        ProjectUtil.checkDirAndCreateIfNotExists(path);
+        return path;
+    }
 
-        User user = this.getUserDao().findByIdAndUserState(userId, UserState.ENABLE);
-        //删除旧文件
-        String old32 = user.getAvatar32();
-        if (!StringUtils.isEmpty(old32)) {
-            File f = new File(appConfig.getWebContextRealPath() + old32);
+    //删除旧头像
+    private void deleteOldAvatarFile(String relativePath) {
+        if (!StringUtils.isEmpty(relativePath)) {
+            File f = new File(getAvatarRealPath(relativePath));
             f.delete();
         }
-        String old48 = user.getAvatar48();
-        if (!StringUtils.isEmpty(old48)) {
-            File f = new File(appConfig.getWebContextRealPath() + old48);
-            f.delete();
-        }
-        //更新记录
-        user.setAvatar32(avatar32RelativeFile);
-        user.setAvatar48(avatar48RelativeFile);
-        this.getUserDao().save(user);
-        return user;
     }
 
     /**

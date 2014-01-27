@@ -49,7 +49,9 @@ public class HibernateDDLGenerator {
 
         AnnotationConfiguration configuration = new AnnotationConfiguration();
 
+        //设置方言
         configuration.setProperty(Environment.DIALECT, dialect.getClassName());
+        //设置命名规则
         configuration.setNamingStrategy(new ImprovedNamingStrategy());
         for (Class<?> entityClass : classes) {
 

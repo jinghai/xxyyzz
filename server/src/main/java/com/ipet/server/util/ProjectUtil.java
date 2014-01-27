@@ -13,12 +13,41 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.EncodedResource;
 import org.springframework.core.io.support.LocalizedResourceHelper;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 
 /**
  *
  * @author xiaojinghai
  */
 public class ProjectUtil {
+
+    /**
+     * 构建分页对象
+     *
+     * @param pageNumber
+     * @param pageSize
+     * @param direction
+     * @param fields
+     * @return
+     */
+    public static PageRequest buildPageRequest(Integer pageNumber, Integer pageSize, Direction direction, String... fields) {
+        Direction d = Sort.Direction.ASC;
+        int number = 1;
+        int size = 20;
+        if (pageNumber != null) {
+            number = pageNumber;
+        }
+        if (pageSize != null) {
+            size = pageSize;
+        }
+        if (direction != null) {
+            d = direction;
+        }
+        Sort sort = new Sort(d, fields);
+        return new PageRequest(number - 1, size, sort);
+    }
 
     /**
      * 生成13位短UUID (13 characters)
@@ -49,15 +78,30 @@ public class ProjectUtil {
     }
 
     /**
-     * 创建目录
+     * 检查一个路径是否存在，若不存在则创建
      *
      * @param filePath
      */
-    public static void createDir(String filePath) {
+    public static void checkDirAndCreateIfNotExists(String filePath) {
         File myFile = new File(filePath);
+        //String path = myFile.getPath();
+        if (!myFile.isDirectory()) {
+            myFile = new File(myFile.getParent());
+        }
+
         if (!myFile.exists()) {
             myFile.mkdirs();
         }
+    }
+
+    /**
+     * 得到文件扩展名（返回小写）
+     *
+     * @param fileName
+     * @return
+     */
+    public static String getPrefix(String fileName) {
+        return fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
     }
 
     public static void LocaleResourceTest() {

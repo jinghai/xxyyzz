@@ -30,6 +30,7 @@ public abstract class IdEntity {
     @GenericGenerator(name = "myGenerator", strategy = "uuid2")
     //@JsonSerialize(as = String.class)
     //@JsonDeserialize(as = Long.class)
+    @Column(length = 40)
     protected String id;
 
     // 设定JSON序列化时的日期格式

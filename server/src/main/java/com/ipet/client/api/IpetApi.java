@@ -32,6 +32,18 @@ public interface IpetApi {
      */
     public ContactApi getContactApi();
 
+    /**
+     * 返回图片API
+     *
+     * @return
+     */
+    public PhotoApi getPhotoApi();
+
+    /**
+     * 获取当前用户Id
+     *
+     * @return
+     */
     public String getCurrUserId();
 
 }
