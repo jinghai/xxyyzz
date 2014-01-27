@@ -7,6 +7,7 @@ package com.ipet.android.sdk.impl;
 import com.ipet.android.sdk.AccountApi;
 import com.ipet.android.sdk.ContactApi;
 import com.ipet.android.sdk.IpetApi;
+import com.ipet.android.sdk.PhotoApi;
 import com.ipet.android.sdk.UserApi;
 import com.ipet.android.sdk.base.ApiContext;
 
@@ -27,11 +28,14 @@ public class IpetApiImpl implements IpetApi {
 
     private final ContactApi contactApi;
 
+    private final PhotoApi photoApi;
+
     private IpetApiImpl(String appKey, String appSecret) {
         context = ApiContext.getInstace(appKey, appSecret);
         accountApi = new AccountApiImpl(context);
         userApi = new UserApiImpl(context);
         contactApi = new ContactApiImpl(context);
+        photoApi = new PhotoApiImpl(context);
     }
 
     public static synchronized IpetApi getInstance(String appKey, String appSecret) {
@@ -59,6 +63,10 @@ public class IpetApiImpl implements IpetApi {
     @Override
     public String getCurrUserId() {
         return context.getCurrUserId();
+    }
+
+    public PhotoApi getPhotoApi() {
+        return photoApi;
     }
 
 }
