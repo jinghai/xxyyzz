@@ -68,4 +68,14 @@ public class FindGridAdapter extends BaseAdapter {
 		}
 		return convertView;
 	}
+
+	public void prependList(List<Feed> list) {
+		this.list.addAll(0, list);
+		this.notifyDataSetChanged();
+	}
+
+	public void appendList(List<Feed> list) {
+		this.list.addAll(list);
+		this.notifyDataSetChanged();
+	}
 }
