@@ -1,0 +1,5 @@
+Maven based Apache Thrift Tutorial. The source code from the Apache Thrift tutorial (different locations for keystores - stores dir)
+To run the server code from the command line
+	mvn exec:java -Dexec.mainClass=tutorial.JavaServer
+To run the client code from the command line
+	mvn exec:java -Dexec.mainClass=tutorial.JavaClient -Dexec.args=simple or secure
