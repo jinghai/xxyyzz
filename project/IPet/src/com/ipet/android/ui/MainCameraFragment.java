@@ -1,12 +1,12 @@
 package com.ipet.android.ui;
 
 import java.io.File;
-import java.io.FileOutputStream;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.ipet.R;
+import com.ipet.android.task.FeedAddAsyncTask;
 import com.ipet.android.ui.utils.DeviceUtils;
 import com.ipet.android.ui.utils.PathUtils;
 
@@ -66,73 +67,61 @@ public class MainCameraFragment extends Fragment {
 			// TODO Auto-generated method stub
 			mImageName = (System.currentTimeMillis() + ".jpg");
 			DeviceUtils.chooserSysPics(MainCameraFragment.this);
+
 		}
 	};
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+		super.onActivityResult(requestCode, resultCode, data);
 		Log.i("Photo", "finish");
 		Log.i("Photo", "requestCode" + requestCode);
 		Log.i("Photo", "resultCode" + resultCode);
+
+		String path = PathUtils.getCarmerDir() + this.mImageName;
+		File picture = new File(path);
+		Uri pathUri = Uri.fromFile(picture);
 
 		if (requestCode == DeviceUtils.REQUEST_CODE_PICK_IMAGE) {
 			if (resultCode == FragmentActivity.RESULT_OK) {
 				Uri uri = data.getData();
 				Log.i("Photo", "finish" + uri);
-				startPhotoZoom(uri);
+				startPhotoZoom(uri, pathUri);
 			}
 		}
 
 		if (requestCode == DeviceUtils.REQUEST_CODE_TAKE_IMAGE) {
 			if (resultCode == FragmentActivity.RESULT_OK) {
-				String path = PathUtils.getCarmerDir() + this.mImageName;
-				File picture = new File(path);
 				Log.i("Photo", "finish" + picture);
-				startPhotoZoom(Uri.fromFile(picture));
+				startPhotoZoom(Uri.fromFile(picture), pathUri);
 			}
 		}
 
 		if (requestCode == REQUEST_CODE_PHOTORESOULT) {
-			try {
-				Bundle extras = data.getExtras();
-				if (extras != null) {
-
-					Bitmap photo = extras.getParcelable("data");
-
-					String path = PathUtils.getCarmerDir() + this.mImageName;
-					Log.i("photo", path);
-
-					File picture = new File(path);
-					FileOutputStream out;
-					out = new FileOutputStream(picture);
-					photo.compress(Bitmap.CompressFormat.JPEG, 100, out);
-
-					out.flush();
-					out.close();
-
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				Log.e("IO", e.getStackTrace().toString());
-			}
+			Log.i("Photo", "crop" + pathUri);
+			new FeedAddAsyncTask(this, pathUri).execute();
 		}
-		super.onActivityResult(requestCode, resultCode, data);
 
 	}
 
-	public void startPhotoZoom(Uri uri) {
+	public void startPhotoZoom(Uri uri, Uri photoUri) {
 		Intent intent = new Intent("com.android.camera.action.CROP");
 		intent.setDataAndType(uri, "image/*");
 		intent.putExtra("crop", "true");
-
 		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
-
-		intent.putExtra("outputX", 450);
-		intent.putExtra("outputY", 450);
-		intent.putExtra("return-data", true);
+		intent.putExtra("outputX", 480);
+		intent.putExtra("outputY", 480);
+		intent.putExtra("noFaceDetection", true);
+		intent.putExtra("scale", true);
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+		intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+		intent.putExtra("return-data", false);
 		startActivityForResult(intent, REQUEST_CODE_PHOTORESOULT);
+	}
+
+	public void backToFeed() {
+		((MainActivity) this.activity).setTab(0);
 	}
 
 }

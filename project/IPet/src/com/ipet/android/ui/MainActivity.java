@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.Toast;
 
@@ -22,15 +23,16 @@ public class MainActivity extends FragmentActivity {
 	private long mExitTime;
 	// 定义FragmentTabHost对象
 	private FragmentTabHost mTabHost;
+
 	private LayoutInflater layoutInflater;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
 		ActivityManager.getInstance().addActivity(this);
-		
+
 		initView();
 	}
 
@@ -48,7 +50,25 @@ public class MainActivity extends FragmentActivity {
 
 		mTabHost.setCurrentTab(0);
 
+		mTabHost.setOnTabChangedListener(myTabChangeListener);
+
 	}
+
+	public void setTab(int tabIndex) {
+		mTabHost.setCurrentTab(tabIndex);
+	}
+
+	private final TabHost.OnTabChangeListener myTabChangeListener = new TabHost.OnTabChangeListener() {
+		@Override
+		public void onTabChanged(String tabId) {
+			// TODO Auto-generated method stub
+			if (TAG_CAMERA == tabId) {
+				// Toast.makeText(MainActivity.this, "text",
+				// Toast.LENGTH_LONG).show();
+			}
+		}
+
+	};
 
 	private void addTab(String tag, int resId, int resImgId, Class<?> classname) {
 		TabSpec tabSpec = mTabHost.newTabSpec(tag).setIndicator(getTabHostBtn(resId, resImgId));
@@ -64,6 +84,7 @@ public class MainActivity extends FragmentActivity {
 		return view;
 	}
 
+	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			if ((System.currentTimeMillis() - mExitTime) > 2000) {
@@ -71,7 +92,7 @@ public class MainActivity extends FragmentActivity {
 				mExitTime = System.currentTimeMillis();
 			} else {
 				ActivityManager.getInstance().exit();
-				// moveTaskToBack(true);                
+				// moveTaskToBack(true);
 			}
 			return true;
 		}

@@ -7,14 +7,18 @@ import com.ipet.android.vo.Feed;
 
 public class FeedManager {
 
+	public static List<Feed> list = null;
+
 	public static List<Feed> load() {
-		List<Feed> list = new ArrayList<Feed>();
-		for (int i = 0; i < 15; i++) {
-			Feed feed = new Feed();
-			feed.setCreate_by("zhangsan" + i);
-			feed.setCreate_at("下午 " + i + ":00");
-			feed.setContent("context" + i);
-			list.add(feed);
+		if (list == null) {
+			list = new ArrayList<Feed>();
+			for (int i = 0; i < 15; i++) {
+				Feed feed = new Feed();
+				feed.setCreate_by("zhangsan" + i);
+				feed.setCreate_at("下午 " + i + ":00");
+				feed.setContent("context" + i);
+				list.add(feed);
+			}
 		}
 		return list;
 	}
