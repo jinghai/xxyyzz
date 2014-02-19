@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,10 +82,6 @@ public class ListFeedAdapter extends BaseAdapter implements PinnedHeaderAdapter,
 			ps.width = width;
 			ps.height = width;
 			holder.content_image.setLayoutParams(ps);
-
-			// holder.content = (TextView) view.findViewById(R.id.feed_content);
-			// holder.content_image.set
-
 			view.setTag(holder);
 		} else {
 			view = convertView;
@@ -98,6 +95,11 @@ public class ListFeedAdapter extends BaseAdapter implements PinnedHeaderAdapter,
 
 		if (!StringUtils.isEmpty(imageURI)) {
 			holder.content_image.setImageURI(Uri.parse(imageURI));
+			Log.i("img", "newImg");
+		} else {
+			holder.content_image.setImageResource(R.drawable.xf1);
+			Log.i("img", "oldImg");
+
 		}
 		// holder.content_image
 
