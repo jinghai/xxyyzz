@@ -40,9 +40,9 @@ public class JavaClient {
 
         try {
             TTransport transport;
-            if (false) {
+            if (true) {
                 //if (args[0].contains("simple")) {
-                transport = new TSocket("localhost", 9091);
+                transport = new TSocket("172.16.80.250", 9090);
                 transport.open();
             } else {
                 /*
