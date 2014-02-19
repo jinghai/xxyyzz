@@ -17,6 +17,7 @@ public class FeedManager {
 				feed.setCreate_by("zhangsan" + i);
 				feed.setCreate_at("下午 " + i + ":00");
 				feed.setContent("context" + i);
+				feed.setContent_image("");
 				list.add(feed);
 			}
 		}
