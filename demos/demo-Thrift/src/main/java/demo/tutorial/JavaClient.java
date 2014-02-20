@@ -19,6 +19,11 @@
 // Generated code
 package demo.tutorial;
 
+import gen.shared.SharedStruct;
+import gen.tutorial.Calculator;
+import gen.tutorial.InvalidOperation;
+import gen.tutorial.Operation;
+import gen.tutorial.Work;
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
@@ -26,8 +31,6 @@ import org.apache.thrift.transport.TSSLTransportFactory;
 import org.apache.thrift.transport.TSSLTransportFactory.TSSLTransportParameters;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
-
-import shared.SharedStruct;
 
 public class JavaClient {
 
