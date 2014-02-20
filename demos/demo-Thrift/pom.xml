@@ -13,7 +13,7 @@
                 <version>0.1.11</version>
                 <configuration>
                     <thriftExecutable>bin/thrift</thriftExecutable>
-                    <outputDirectory>target/generated-sources/gen</outputDirectory>
+                    <outputDirectory>target/generated-sources/thrift</outputDirectory>
                     <thriftSourceRoot>src/main/thrift</thriftSourceRoot>
                 </configuration>
                 <executions>
