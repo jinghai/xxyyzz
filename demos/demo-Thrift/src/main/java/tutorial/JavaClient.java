@@ -35,14 +35,13 @@ public class JavaClient {
 
         if (args.length != 1) {
             System.out.println("Please enter 'simple' or 'secure'");
-            //System.exit(0);
+            System.exit(0);
         }
 
         try {
             TTransport transport;
-            if (true) {
-                //if (args[0].contains("simple")) {
-                transport = new TSocket("172.16.80.250", 9090);
+            if (args[0].contains("simple")) {
+                transport = new TSocket("localhost", 9091);
                 transport.open();
             } else {
                 /*
