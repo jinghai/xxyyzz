@@ -13,7 +13,7 @@
                 <version>0.1.11</version>
                 <configuration>
                     <thriftExecutable>bin/thrift</thriftExecutable>
-                    <outputDirectory>src/main/java/gen</outputDirectory>
+                    <outputDirectory>src/main/gen</outputDirectory>
                 </configuration>
                 <executions>
                     <execution>

@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package tutorial;
+package demo.tutorial;
 
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TServer.Args;

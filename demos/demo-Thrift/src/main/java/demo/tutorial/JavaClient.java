@@ -17,7 +17,7 @@
  * under the License.
  */
 // Generated code
-package tutorial;
+package demo.tutorial;
 
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
@@ -35,12 +35,13 @@ public class JavaClient {
 
         if (args.length != 1) {
             System.out.println("Please enter 'simple' or 'secure'");
-            System.exit(0);
+            //System.exit(0);
         }
 
         try {
             TTransport transport;
-            if (args[0].contains("simple")) {
+            if (true) {
+                //if (args[0].contains("simple")) {
                 transport = new TSocket("localhost", 9091);
                 transport.open();
             } else {

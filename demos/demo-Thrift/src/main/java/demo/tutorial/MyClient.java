@@ -1,4 +1,4 @@
-package tutorial;
+package demo.tutorial;
 
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;

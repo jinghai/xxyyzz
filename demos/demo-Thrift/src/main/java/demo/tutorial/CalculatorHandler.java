@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package tutorial;
+package demo.tutorial;
 
 import java.util.HashMap;
 
