@@ -1,6 +1,6 @@
-package demo.tutorial;
+package demo.my;
 
-import gen.tutorial.Calculator;
+import gen.my.MyDemo;
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
@@ -13,10 +13,15 @@ public class MyClient {
     public static void main(String[] args) throws TTransportException, TException {
 
         TTransport transport;
-        transport = new TSocket("172.16.80.250", 9090);
+        transport = new TSocket("localhost", 9091);
         transport.open();
         TProtocol protocol = new TBinaryProtocol(transport);
-        Calculator.Client client = new Calculator.Client(protocol);
-        client.ping();
+        MyDemo.Client client = new MyDemo.Client(protocol);
+
+        client.setText("aaa");
+        System.out.println("setText:aaa");
+        System.out.println("getText:" + client.getText());
+
+        transport.close();
     }
 }

@@ -45,7 +45,7 @@ public class JavaClient {
             TTransport transport;
             if (true) {
                 //if (args[0].contains("simple")) {
-                transport = new TSocket("localhost", 9091);
+                transport = new TSocket("localhost", 9090);
                 transport.open();
             } else {
                 /*
