@@ -32,6 +32,7 @@ public class MyDemoHandler implements MyDemo.Iface {
 
     @Override
     public ByteBuffer getFile(String file_name) throws TException {
+        //http://www.pin5i.com/showtopic-27202.html
         FileInputStream fis = null;
         FileChannel fc = null;
         ByteBuffer bf = null;
