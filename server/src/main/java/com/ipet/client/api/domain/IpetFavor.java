@@ -2,24 +2,19 @@
  * To change this template, choose Tools | Templates,
  * and open the template in the editor.
  */
-package com.ipet.server.domain.entity;
+package com.ipet.client.api.domain;
 
-import com.ipet.server.domain.IdEntity;
-import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.Index;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * 图片赞
  *
  * @author xiaojinghai
  */
-@Entity
-@Table(name = "ipet_favors", indexes = {
-    @Index(name = "ipet_favors_userId", columnList = "userId"),
-    @Index(name = "ipet_favors_photoId", columnList = "photoId"),})
-public class Favor extends IdEntity implements Serializable {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class IpetFavor {
+
+    private String id;
 
     //攒的话
     private String text;
@@ -29,6 +24,8 @@ public class Favor extends IdEntity implements Serializable {
     private String userName;
     //攒什么
     private String photoId;
+
+    private String createAt;
 
     /**
      * @return the userId
@@ -42,6 +39,20 @@ public class Favor extends IdEntity implements Serializable {
      */
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    /**
+     * @return the userName
+     */
+    public String getUserName() {
+        return userName;
+    }
+
+    /**
+     * @param userName the userName to set
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     /**
@@ -59,17 +70,31 @@ public class Favor extends IdEntity implements Serializable {
     }
 
     /**
-     * @return the userName
+     * @return the createAt
      */
-    public String getUserName() {
-        return userName;
+    public String getCreateAt() {
+        return createAt;
     }
 
     /**
-     * @param userName the userName to set
+     * @param createAt the createAt to set
      */
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setCreateAt(String createAt) {
+        this.createAt = createAt;
+    }
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**

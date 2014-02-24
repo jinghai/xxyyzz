@@ -67,8 +67,8 @@ public class User extends IdEntity implements Serializable {
     private UserState userState;
 
     //登录次数
-    @Column()
-    private Long loginNum;
+    @Column(columnDefinition = "bigint default 0")
+    private Long loginNum = 0l;
 
     @Column
     private String avatar32;
@@ -92,32 +92,32 @@ public class User extends IdEntity implements Serializable {
 
     //商铺数量
     @Column(columnDefinition = "int default 0")
-    private Integer shopCount;
+    private Integer shopCount = 0;
 
     //应用数量
     @Column(columnDefinition = "int default 0")
-    private Integer appCount;
+    private Integer appCount = 0;
 
     //关注数量
     @Column(columnDefinition = "int default 0")
-    private Integer followCount;
+    private Integer followCount = 0;
 
     //粉丝数量
     @Column(columnDefinition = "int default 0")
-    private Integer followerCount;
+    private Integer followerCount = 0;
 
     //朋友数量
     @Column(columnDefinition = "int default 0")
-    private Integer friendCount;
+    private Integer friendCount = 0;
 
     @Column(columnDefinition = "int default 0")
-    private Integer photoCount;
+    private Integer photoCount = 0;
 
     @Column(columnDefinition = "int default 0")
-    private Integer favorCount;
+    private Integer favorCount = 0;
 
     @Column(columnDefinition = "int default 0")
-    private Integer commentCount;
+    private Integer commentCount = 0;
 
     public User() {
     }

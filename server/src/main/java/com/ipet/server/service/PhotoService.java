@@ -83,7 +83,7 @@ public class PhotoService {
             followIds.add(r.getUserIdB());
         }
 
-        Page<Photo> ret = getPhotoDao().findByCreateAtAfterAndUserIdIn(date, followIds, pageR);
+        Page<Photo> ret = getPhotoDao().findByCreateAtBeforeAndUserIdIn(date, followIds, pageR);
         return ret.getContent();
     }
 

@@ -3,6 +3,8 @@ package com.ipet.client.api;
 import com.ipet.client.api.domain.IpetPhoto;
 import com.ipet.client.api.impl.IpetApiImpl;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import static org.junit.Assert.assertEquals;
@@ -34,17 +36,18 @@ public class TestPhotoApi {
     }
 
     @Test
-    public void listFollow() {
+    public void listFollow() throws InterruptedException {
         IpetApiImpl.getInstance("1", "1").getAccountApi().login("admin", "admin");
         for (int i = 0; i < 9; i++) {
             publishPhoto();
         }
-        List<IpetPhoto> ret = api.listFollowd("2014-01-01 01:00:00", "1", "4");
+        Thread.sleep(1000);
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateStr = dateformat.format(new Date());
+        List<IpetPhoto> ret = api.listFollowd(dateStr, "1", "4");
         assertEquals(4, ret.size());
-        ret = api.listFollowd("2014-01-01 01:00:00", "2", "4");
+        ret = api.listFollowd(dateStr, "2", "4");
         assertEquals(4, ret.size());
-        ret = api.listFollowd("2014-01-01 01:00:00", "3", "4");
-        assertEquals(1, ret.size());
     }
 
 }

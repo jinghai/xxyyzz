@@ -42,7 +42,7 @@ public class TestUserApi {
     public void updateUserInfo() {
         IpetApiImpl.getInstance("1", "1").getAccountApi().login("admin", "admin");
         IpetUserUpdate update = new IpetUserUpdate();
-        update.setDisplayName("admin->test");
+        update.setDisplayName("admin->测试");
         update.setEmail("neverused@test.com");
         update.setPhone("1234");
         IpetUser ret = api.updateUserInfo(update);

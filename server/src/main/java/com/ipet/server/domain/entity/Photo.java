@@ -40,10 +40,10 @@ public class Photo extends IdEntity implements Serializable {
     private String forwordFromId;
 
     @Column(columnDefinition = "int default 0")
-    private Integer commentCount;
+    private Integer commentCount = 0;
 
     @Column(columnDefinition = "int default 0")
-    private Integer favorCount;
+    private Integer favorCount = 0;
 
     private String userId;
 
