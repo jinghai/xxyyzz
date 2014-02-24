@@ -35,8 +35,8 @@ struct Response {
 
 service MyDemo  {
     string getText(),
-    binary getFile(1:string file_name),
-    Response setFile(1:string file_name, 2:binary write_buffer),
+    binary downloadFile(1:string file_name),
+    Response uploadFile(1:string file_name, 2:binary write_buffer),
     Response setText(1:string text)
 }
 

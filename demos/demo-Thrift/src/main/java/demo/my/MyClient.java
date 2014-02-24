@@ -2,8 +2,6 @@ package demo.my;
 
 import gen.my.MyDemo;
 import gen.my.Response;
-import gen.my.RetCode;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -34,33 +32,33 @@ public class MyClient {
         System.out.println("getText:" + client.getText());
 
         //---------上传文件---------
-        //二进制文件
-        String rpcUploadFile = "/maven-2.0.7-bin.zip";
-        String uploadFileName = "rpcUploadFile-bin.zip";
+        String rpcUploadFile = "/apache-ant-1.8.4-bin.tar.gz";//上传的二进制文件1M
+        //String rpcUploadFile = "/M200M.zip";//上传的二进制文件1M
+        //String rpcUploadFile = "/5GFile.zip";//二进制超大文件
+        //String rpcUploadFile = "/log.log";//文件文件含中文
 
-        //二进制超大文件
-        //String rpcUploadFile = "/maven-2.0.7-bin.zip";
-        //String uploadFileName = "rpcUploadFile-bin.zip";
-        //文件文件含中文
-        //String rpcUploadFile = "/log.log";
-        //String uploadFileName = "rpcUploadFile.log";
-        Response res = client.setFile(uploadFileName, getByteBufferFromFile(rpcUploadFile));
+        //上传位置
+        String uploadFilePath = "/rpcUploadFile.zip";
+        //下载位置
+        String downloadFilePath = "/rpcDownloadFile.zip";
+
+        Response res = client.uploadFile(uploadFilePath, getByteBufferFromFile(rpcUploadFile));
         System.out.println("上传文件：" + res.ret_msg);
 
         //---------下载文件---------
-        ByteBuffer bf = client.getFile(uploadFileName);
-        String downloadFileName = "/rpcDownloadFile.zip";
-        readByteBuufferToFile(bf, downloadFileName);
-        System.out.println("下载文件：OK");
+        ByteBuffer bf = client.downloadFile(uploadFilePath);
 
+        readByteBuufferToFile(bf, downloadFilePath);
+        System.out.println("下载文件：OK");
+        //关闭连接
         transport.close();
     }
 
-    public static void readByteBuufferToFile(ByteBuffer bf, String downloadFileName) {
+    public static void readByteBuufferToFile(ByteBuffer bf, String downloadFilePath) {
         FileOutputStream fos = null;
-        Response ret = new Response(RetCode.Success, "成功");
+
         try {
-            fos = new FileOutputStream(downloadFileName);
+            fos = new FileOutputStream(downloadFilePath);
             // 得到文件通道
             FileChannel fc = fos.getChannel();
             //write_buffer.flip();
@@ -86,14 +84,17 @@ public class MyClient {
         FileInputStream fis = null;
         FileChannel fc = null;
         ByteBuffer bf = null;
-
+//LongBuffer
         try {
             fis = new FileInputStream(filePath);
+
             // 得到文件通道
             fc = fis.getChannel();
-            // 指定大小为 1024 的缓冲区
-            bf = ByteBuffer.allocate((int) fc.size());
 
+            // 指定缓冲区大小
+            bf = ByteBuffer.allocate((int) fc.size());//不能传输超过int范围的文件
+            bf.capacity();
+            System.out.println((int) fc.size());
             //读取文件内容到缓冲区
             fc.read(bf);
             //恢复指针位置，这句很重要
