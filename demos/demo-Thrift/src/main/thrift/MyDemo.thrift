@@ -29,14 +29,14 @@ enum RetCode {
 
 struct Response {
     1:RetCode ret_code,
-    2:string err_msg
+    2:string ret_msg
 }
 
 
 service MyDemo  {
     string getText(),
     binary getFile(1:string file_name),
-    Response setFile(1:string file_name, 3:binary write_buffer, 4:i32 length),
+    Response setFile(1:string file_name, 2:binary write_buffer),
     Response setText(1:string text)
 }
 

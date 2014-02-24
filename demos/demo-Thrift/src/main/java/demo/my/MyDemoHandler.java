@@ -43,7 +43,10 @@ public class MyDemoHandler implements MyDemo.Iface {
             fc = fis.getChannel();
             // 指定大小为 1024 的缓冲区
             bf = ByteBuffer.allocate((int) fc.size());
-
+            //读取文件内容到缓冲区
+            fc.read(bf);
+            //恢复指针位置，这句很重要
+            bf.rewind();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(MyDemoHandler.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -59,13 +62,14 @@ public class MyDemoHandler implements MyDemo.Iface {
     }
 
     @Override
-    public Response setFile(String file_name, ByteBuffer write_buffer, int length) throws TException {
+    public Response setFile(String file_name, ByteBuffer write_buffer) throws TException {
         FileOutputStream fos = null;
         Response ret = new Response(RetCode.Success, "成功");
         try {
             fos = new FileOutputStream("/" + file_name);
             // 得到文件通道
             FileChannel fc = fos.getChannel();
+            //write_buffer.flip();
             // 缓冲区数据写入到文件中，会把缓冲区中从 position 到 limit 之间的数据写入文件
             fc.write(write_buffer);
             fc.close(); //关闭文件通道
