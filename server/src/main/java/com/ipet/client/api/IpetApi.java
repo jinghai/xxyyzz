@@ -12,6 +12,27 @@ package com.ipet.client.api;
 public interface IpetApi {
 
     /**
+     * 评论API
+     *
+     * @return
+     */
+    public CommentApi getCommentApi();
+
+    /**
+     * 攒API
+     *
+     * @return
+     */
+    public FavorApi getFavorApi();
+
+    /**
+     * 发现API
+     *
+     * @return
+     */
+    public DiscoverApi getDiscoverApi();
+
+    /**
      * 返回帐号API.
      *
      * @return AccountApi

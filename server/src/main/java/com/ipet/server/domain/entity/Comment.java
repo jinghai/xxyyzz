@@ -22,8 +22,16 @@ import javax.persistence.Table;
 })
 public class Comment extends IdEntity implements Serializable {
 
+    //评论内容
+    private String text;
+
+    //谁评论的
     private String userId;
 
+    //谁评论的
+    private String userName;
+
+    //被评论的图片
     private String photoId;
 
     /**
@@ -52,6 +60,34 @@ public class Comment extends IdEntity implements Serializable {
      */
     public void setPhotoId(String photoId) {
         this.photoId = photoId;
+    }
+
+    /**
+     * @return the text
+     */
+    public String getText() {
+        return text;
+    }
+
+    /**
+     * @param text the text to set
+     */
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    /**
+     * @return the userName
+     */
+    public String getUserName() {
+        return userName;
+    }
+
+    /**
+     * @param userName the userName to set
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
 }

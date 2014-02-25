@@ -5,7 +5,10 @@
 package com.ipet.android.sdk.impl;
 
 import com.ipet.android.sdk.AccountApi;
+import com.ipet.android.sdk.CommentApi;
 import com.ipet.android.sdk.ContactApi;
+import com.ipet.android.sdk.DiscoverApi;
+import com.ipet.android.sdk.FavorApi;
 import com.ipet.android.sdk.IpetApi;
 import com.ipet.android.sdk.PhotoApi;
 import com.ipet.android.sdk.UserApi;
@@ -30,12 +33,21 @@ public class IpetApiImpl implements IpetApi {
 
     private final PhotoApi photoApi;
 
+    private final DiscoverApi discoverApi;
+
+    private final FavorApi favorApi;
+
+    private final CommentApi commentApi;
+
     private IpetApiImpl(String appKey, String appSecret) {
         context = ApiContext.getInstace(appKey, appSecret);
         accountApi = new AccountApiImpl(context);
         userApi = new UserApiImpl(context);
         contactApi = new ContactApiImpl(context);
         photoApi = new PhotoApiImpl(context);
+        discoverApi = new DiscoverApiImpl(context);
+        favorApi = new FavorApiImpl(context);
+        commentApi = new CommentApiImpl(context);
     }
 
     public static synchronized IpetApi getInstance(String appKey, String appSecret) {
@@ -67,6 +79,21 @@ public class IpetApiImpl implements IpetApi {
 
     public PhotoApi getPhotoApi() {
         return photoApi;
+    }
+
+    @Override
+    public DiscoverApi getDiscoverApi() {
+        return discoverApi;
+    }
+
+    @Override
+    public CommentApi getCommentApi() {
+        return commentApi;
+    }
+
+    @Override
+    public FavorApi getFavorApi() {
+        return favorApi;
     }
 
 }

@@ -36,6 +36,7 @@ public class CaughtExceptionHandler {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public String handleRuntimeExceptionError(RuntimeException e) {
+        e.printStackTrace();
         logger.error(e.getLocalizedMessage());
         return e.getLocalizedMessage();
     }
@@ -44,6 +45,7 @@ public class CaughtExceptionHandler {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public String ExceptionError(Exception e) {
+        e.printStackTrace();
         logger.error(e.getLocalizedMessage());
         return e.getLocalizedMessage();
     }
@@ -53,6 +55,7 @@ public class CaughtExceptionHandler {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public String handleThrowableError(Throwable e) {
+        e.printStackTrace();
         logger.error(e.getLocalizedMessage());
         return e.getLocalizedMessage();
     }

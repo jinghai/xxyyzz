@@ -9,9 +9,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PhotoDao extends JpaRepository<Photo, String> {
 
-    public Page<Photo> findByCreateAtAfter(Date date, Pageable pageRequest);
+    //查找发布日期之后的图片
+    public Page<Photo> findByCreateAtBefore(Date date, Pageable pageRequest);
 
-    public Page<Photo> findByCreateAtAfterAndUserId(Date date, String userId, Pageable pageRequest);
+    //查找某用户某时间点之后的图片
+    public Page<Photo> findByCreateAtBeforeAndUserId(Date date, String userId, Pageable pageRequest);
 
-    public Page<Photo> findByCreateAtAfterAndUserIdIn(Date date, List<String> ids, Pageable pageRequest);
+    //查找某发布时间点之后并且限定发布用户范围
+    public Page<Photo> findByCreateAtBeforeAndUserIdIn(Date date, List<String> ids, Pageable pageRequest);
 }

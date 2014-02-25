@@ -5,7 +5,10 @@
 package com.ipet.client.api.impl;
 
 import com.ipet.client.api.AccountApi;
+import com.ipet.client.api.CommentApi;
 import com.ipet.client.api.ContactApi;
+import com.ipet.client.api.DiscoverApi;
+import com.ipet.client.api.FavorApi;
 import com.ipet.client.api.IpetApi;
 import com.ipet.client.api.PhotoApi;
 import com.ipet.client.api.UserApi;
@@ -30,12 +33,21 @@ public class IpetApiImpl implements IpetApi {
 
     private final PhotoApi photoApi;
 
+    private final DiscoverApi discoverApi;
+
+    private final FavorApi favorApi;
+
+    private final CommentApi commentApi;
+
     private IpetApiImpl(String appKey, String appSecret) {
         context = ApiContext.getInstace(appKey, appSecret);
         accountApi = new AccountApiImpl(context);
         userApi = new UserApiImpl(context);
         contactApi = new ContactApiImpl(context);
         photoApi = new PhotoApiImpl(context);
+        discoverApi = new DiscoverApiImpl(context);
+        favorApi = new FavorApiImpl(context);
+        commentApi = new CommentApiImpl(context);
     }
 
     public static synchronized IpetApi getInstance(String appKey, String appSecret) {
@@ -68,6 +80,21 @@ public class IpetApiImpl implements IpetApi {
     @Override
     public PhotoApi getPhotoApi() {
         return photoApi;
+    }
+
+    @Override
+    public DiscoverApi getDiscoverApi() {
+        return discoverApi;
+    }
+
+    @Override
+    public CommentApi getCommentApi() {
+        return commentApi;
+    }
+
+    @Override
+    public FavorApi getFavorApi() {
+        return favorApi;
     }
 
 }

@@ -4,14 +4,17 @@
  */
 package com.ipet.android.sdk.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ipet.android.sdk.base.ApiContext;
 
 /**
  *
  * @author xiaojinghai
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class IpetPhoto {
 
+    private String id;
     //原图
     private String originalURL;
     //缩略图
@@ -26,6 +29,8 @@ public class IpetPhoto {
     private String favorCount;
     //所属用户
     private String userId;
+
+    private String createAt;
 
     /**
      * @return the originalURL
@@ -123,5 +128,33 @@ public class IpetPhoto {
      */
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the createAt
+     */
+    public String getCreateAt() {
+        return createAt;
+    }
+
+    /**
+     * @param createAt the createAt to set
+     */
+    public void setCreateAt(String createAt) {
+        this.createAt = createAt;
     }
 }

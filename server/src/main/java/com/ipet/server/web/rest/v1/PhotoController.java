@@ -50,6 +50,7 @@ public class PhotoController {
         if (StringUtils.isEmpty(uid)) {
             throw new RuntimeException("非法参数");
         }
+        //String text = new String(context.getBytes("GBK"), "UTF-8");
         return photoService.publishPhoto(uid, context, file);
     }
 

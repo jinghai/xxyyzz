@@ -63,8 +63,8 @@ public class PhotoApiImpl extends ApiBase implements PhotoApi {
         parameters.set("pageSize", pageSize);
 
         URI uri = buildUri("photo/listFollow", parameters);
-        IpetPhoto[] users = context.getRestTemplate().getForObject(uri, IpetPhoto[].class);
-        List<IpetPhoto> list = Arrays.asList(users);
+        IpetPhoto[] ret = context.getRestTemplate().getForObject(uri, IpetPhoto[].class);
+        List<IpetPhoto> list = Arrays.asList(ret);
         return list;
     }
 
