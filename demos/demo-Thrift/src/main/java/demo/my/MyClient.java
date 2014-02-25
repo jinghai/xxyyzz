@@ -22,7 +22,7 @@ public class MyClient {
     public static void main(String[] args) throws TTransportException, TException {
 
         TTransport transport;
-        transport = new TSocket("localhost", 9091);
+        transport = new TSocket("172.16.80.249", 9090);
         transport.open();
         TProtocol protocol = new TBinaryProtocol(transport);
         MyDemo.Client client = new MyDemo.Client(protocol);
@@ -32,15 +32,19 @@ public class MyClient {
         System.out.println("getText:" + client.getText());
 
         //---------上传文件---------
-        String rpcUploadFile = "/apache-ant-1.8.4-bin.tar.gz";//上传的二进制文件1M
+        String rpcUploadFile = "/apache-ant-1.8.4-bin.tar.gz";//上传的二进制文件5M
+        //String rpcUploadFile = "/Git-1.8.0-preview20121022.exe";//上传的二进制文件14M
+        //String rpcUploadFile = "/LdapAdminToolProfessional-6.2.x-win-x86-Setup.msi";//上传的二进制文件40M
+        //String rpcUploadFile = "/mongodb-win32-i386-2.4.8.zip";//上传的二进制文件80M
+        //String rpcUploadFile = "/100M.zip";//上传的二进制文件100M
+
         //String rpcUploadFile = "/M200M.zip";//上传的二进制文件1M
         //String rpcUploadFile = "/5GFile.zip";//二进制超大文件
         //String rpcUploadFile = "/log.log";//文件文件含中文
-
         //上传位置
-        String uploadFilePath = "/rpcUploadFile.zip";
+        String uploadFilePath = "/rpcUploadFilebin.tar.gz";
         //下载位置
-        String downloadFilePath = "/rpcDownloadFile.zip";
+        String downloadFilePath = "/rpcDownloadFilebin.tar.gz";
 
         Response res = client.uploadFile(uploadFilePath, getByteBufferFromFile(rpcUploadFile));
         System.out.println("上传文件：" + res.ret_msg);

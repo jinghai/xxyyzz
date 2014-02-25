@@ -12,7 +12,7 @@
                 <artifactId>maven-thrift-plugin</artifactId>
                 <version>0.1.11</version>
                 <configuration>
-                    <thriftExecutable>bin/thrift</thriftExecutable>
+                    <thriftExecutable>bin/thrift-0.9.1</thriftExecutable>
                     <outputDirectory>target/generated-sources/thrift</outputDirectory>
                     <thriftSourceRoot>src/main/thrift</thriftSourceRoot>
                 </configuration>
