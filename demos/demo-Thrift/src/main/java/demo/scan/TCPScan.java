@@ -16,6 +16,7 @@ import java.net.UnknownHostException;
  * @author xiaojinghai
  */
 public class TCPScan {
+//多线程描述参考:http://blog.csdn.net/zhangzhaokun/article/details/6615454
 
     public static void main(String args[]) {
         long startTime = System.currentTimeMillis();
@@ -40,7 +41,7 @@ public class TCPScan {
 
                 SocketAddress socketAddress = new InetSocketAddress(fullIp, Integer.valueOf(port)); //获取sockaddress对象
 
-                theTcpSocket.connect(socketAddress, 100);
+                theTcpSocket.connect(socketAddress, 100);//连接并指定超时时间
 
                 System.out.println("扫描到目标端口：" + fullIp + ":" + port);
                 theTcpSocket.close();
