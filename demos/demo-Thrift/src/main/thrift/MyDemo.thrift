@@ -32,11 +32,21 @@ struct Response {
     2:string ret_msg
 }
 
+struct FileScahma{
+    1:string filePath,
+    2:i64 fileSize,
+    3:i32 bufferSize,
+    4:binary data
+}
 
 service MyDemo  {
     string getText(),
-    binary downloadFile(1:string file_name),
+    Response setText(1:string text),
+
     Response uploadFile(1:string file_name, 2:binary write_buffer),
-    Response setText(1:string text)
+    binary downloadFile(1:string file_name),
+
+    Response uploadBigFile(1:FileScahma fileScahma),
+    FileScahma downloadBigFile(1:string filePath)
 }
 
