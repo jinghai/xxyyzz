@@ -69,8 +69,9 @@ public class SplashActivity extends Activity {
 	// 转向主界面
 	protected void goMain() {
 		Log.i("SPLASH", "to Main");
-		Intent intent = new Intent(SplashActivity.this, WelcomeRegisterOrLoginActivity.class);
-		// Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+		// Intent intent = new Intent(SplashActivity.this,
+		// WelcomeRegisterOrLoginActivity.class);
+		Intent intent = new Intent(SplashActivity.this, MainActivity.class);
 		startActivity(intent);
 		finish();
 	}

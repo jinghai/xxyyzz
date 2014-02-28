@@ -12,5 +12,7 @@
  	    android:layout_height="match_parent"
  	    android:scaleType="fitXY"
  	    android:src="@drawable/xf1" />
+ 	
+ 	<include layout="@layout/list_feed_item_feedback" />
 
 </LinearLayout>
