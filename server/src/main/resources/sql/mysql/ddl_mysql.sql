@@ -22,7 +22,7 @@
     drop table if exists ipet_users;
 
     create table ipet_apps (
-        id varchar(255) not null,
+        id varchar(40) not null,
         create_at datetime,
         update_at datetime,
         app_key varchar(255),
@@ -34,25 +34,29 @@
     ) ENGINE=InnoDB;
 
     create table ipet_comments (
-        id varchar(255) not null,
+        id varchar(40) not null,
         create_at datetime,
         update_at datetime,
         photo_id varchar(255),
+        text varchar(255),
         user_id varchar(255),
+        user_name varchar(255),
         primary key (id)
     ) ENGINE=InnoDB;
 
     create table ipet_favors (
-        id varchar(255) not null,
+        id varchar(40) not null,
         create_at datetime,
         update_at datetime,
         photo_id varchar(255),
+        text varchar(255),
         user_id varchar(255),
+        user_name varchar(255),
         primary key (id)
     ) ENGINE=InnoDB;
 
     create table ipet_follow_relations (
-        id varchar(255) not null,
+        id varchar(40) not null,
         create_at datetime,
         update_at datetime,
         user_ida varchar(255),
@@ -61,7 +65,7 @@
     ) ENGINE=InnoDB;
 
     create table ipet_friend_relations (
-        id varchar(255) not null,
+        id varchar(40) not null,
         create_at datetime,
         update_at datetime,
         user_ida varchar(255),
@@ -70,28 +74,28 @@
     ) ENGINE=InnoDB;
 
     create table ipet_last_locations (
-        id varchar(255) not null,
+        id varchar(40) not null,
         create_at datetime,
         update_at datetime,
         address varchar(255),
         geo_hash varchar(255),
-        latitude bigint not null,
-        longitude bigint not null,
+        latitude bigint,
+        longitude bigint,
         user_id varchar(255),
         primary key (id)
     ) ENGINE=InnoDB;
 
     create table ipet_photos (
-        id varchar(255) not null,
+        id varchar(40) not null,
         create_at datetime,
         update_at datetime,
-        comment_count integer,
-        favor_count integer,
+        comment_count int default 0,
+        favor_count int default 0,
         forword_from_id varchar(255),
         address varchar(255),
         geo_hash varchar(255),
-        latitude bigint not null,
-        longitude bigint not null,
+        latitude bigint,
+        longitude bigint,
         originalurl varchar(255),
         smallurl varchar(255),
         text varchar(255),
@@ -100,20 +104,20 @@
     ) ENGINE=InnoDB;
 
     create table ipet_shops (
-        id varchar(255) not null,
+        id varchar(40) not null,
         create_at datetime,
         update_at datetime,
         address varchar(255),
         geo_hash varchar(255),
-        latitude bigint not null,
-        longitude bigint not null,
+        latitude bigint,
+        longitude bigint,
         name varchar(255),
         user_id varchar(255),
         primary key (id)
     ) ENGINE=InnoDB;
 
     create table ipet_user_profiles (
-        id varchar(255) not null,
+        id varchar(40) not null,
         create_at datetime,
         update_at datetime,
         user_id varchar(255),
@@ -121,7 +125,7 @@
     ) ENGINE=InnoDB;
 
     create table ipet_user_settings (
-        id varchar(255) not null,
+        id varchar(40) not null,
         create_at datetime,
         update_at datetime,
         user_id varchar(255),
@@ -129,7 +133,7 @@
     ) ENGINE=InnoDB;
 
     create table ipet_users (
-        id varchar(255) not null,
+        id varchar(40) not null,
         create_at datetime,
         update_at datetime,
         app_count int default 0,
@@ -144,7 +148,7 @@
         friend_count int default 0,
         last_location_id bigint,
         login_name varchar(50),
-        login_num bigint,
+        login_num bigint default 0,
         password varchar(50),
         phone varchar(15),
         photo_count int default 0,

@@ -80,6 +80,21 @@ grep -q "export M2_HOME" /etc/profile &&{
 sleep 1
 source /etc/profile
 
+
+#####安装Tomcat
+if [ ! -f "/download/apache-tomcat-7.0.52.tar.gz" ]; then 
+    wget -P /download  "http://mirror.bit.edu.cn/apache/tomcat/tomcat-7/v7.0.52/bin/apache-tomcat-7.0.52.tar.gz" 
+fi
+echo "正在安装Tomcat..."
+tar zxf /download/apache-tomcat-7.0.52.tar.gz -C /opt
+
+catalina_home=/opt/apache-tomcat-7.0.52
+
+rm -rf ${catalina_home}/webapps/ROOT/*
+rm -rf ${catalina_home}/webapps/docs
+rm -rf ${catalina_home}/webapps/examples
+
+
 #####安装MySQL
 if [ ! -f "/download/mysql-5.6.16-linux-glibc2.5-x86_64.tar.gz" ]; then 
     wget -P /download  "http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.16-linux-glibc2.5-x86_64.tar.gz" 
