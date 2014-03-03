@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.ipet</groupId>
     <artifactId>server</artifactId>
-    <version>1.0.0</version>
+    <version>0.0.1</version>
     <packaging>war</packaging>
     <name>IPet-Server</name>
 
@@ -530,6 +530,41 @@
 
     <build>
         <plugins>
+            <!-- 数据库迁移插件 -->
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>3.0.7</version>
+                <configuration>      
+                    <propertyFile>src/main/resources/liquibase.properties</propertyFile>      
+                </configuration>                
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <tag>${project.version}</tag>
+                            <rollbackTag>${project.version}</rollbackTag>
+                            <outputFileEncoding>utf-8</outputFileEncoding>
+                            <!--<diffTypes>tables, views, columns, indexes, foreignkeys, primarykeys, uniqueconstraints, data</diffTypes>-->
+                            <diffChangeLogFile>src/main/resources/database/db-changelog-diff-${project.version}.xml</diffChangeLogFile>
+                            <outputChangeLogFile>src/main/resources/database/db-changelog-${project.version}.xml</outputChangeLogFile>
+                            <skip>false</skip>
+                        </configuration>
+                        <goals>
+                            <goal>update</goal>
+                            <!--
+                            <goal>dropAll</goal>
+                            <goal>update</goal>
+                            <goal>tag</goal>
+                            <goal>rollback</goal>
+                            <goal>changelogSync</goal>
+                            <goal>generateChangeLog</goal>
+                            -->
+                            
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin> 
             <!-- compiler插件, 设定JDK版本 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

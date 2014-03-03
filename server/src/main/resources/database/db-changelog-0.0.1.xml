@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?><databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+    <changeSet author="yneos (generated)" id="1393872791199-1">
+        <createTable catalogName="ipet" tableName="ipet_apps">
+            <column name="id" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_at" type="datetime"/>
+            <column name="update_at" type="datetime"/>
+            <column name="app_key" type="VARCHAR(255)"/>
+            <column name="app_secret" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="type" type="INT(10)"/>
+            <column name="user_id" type="VARCHAR(255)"/> 
+        </createTable>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-2">
+        <createTable catalogName="ipet" tableName="ipet_comments">
+            <column name="id" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_at" type="datetime"/>
+            <column name="update_at" type="datetime"/>
+            <column name="photo_id" type="VARCHAR(255)"/>
+            <column name="text" type="VARCHAR(255)"/>
+            <column name="user_id" type="VARCHAR(255)"/>
+            <column name="user_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-3">
+        <createTable catalogName="ipet" tableName="ipet_favors">
+            <column name="id" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_at" type="datetime"/>
+            <column name="update_at" type="datetime"/>
+            <column name="photo_id" type="VARCHAR(255)"/>
+            <column name="text" type="VARCHAR(255)"/>
+            <column name="user_id" type="VARCHAR(255)"/>
+            <column name="user_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-4">
+        <createTable catalogName="ipet" tableName="ipet_follow_relations">
+            <column name="id" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_at" type="datetime"/>
+            <column name="update_at" type="datetime"/>
+            <column name="user_ida" type="VARCHAR(255)"/>
+            <column name="user_idb" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-5">
+        <createTable catalogName="ipet" tableName="ipet_friend_relations">
+            <column name="id" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_at" type="datetime"/>
+            <column name="update_at" type="datetime"/>
+            <column name="user_ida" type="VARCHAR(255)"/>
+            <column name="user_idb" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-6">
+        <createTable catalogName="ipet" tableName="ipet_last_locations">
+            <column name="id" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_at" type="datetime"/>
+            <column name="update_at" type="datetime"/>
+            <column name="address" type="VARCHAR(255)"/>
+            <column name="geo_hash" type="VARCHAR(255)"/>
+            <column name="latitude" type="BIGINT(19)"/>
+            <column name="longitude" type="BIGINT(19)"/>
+            <column name="user_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-7">
+        <createTable catalogName="ipet" tableName="ipet_photos">
+            <column name="id" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_at" type="datetime"/>
+            <column name="update_at" type="datetime"/>
+            <column defaultValueNumeric="0" name="comment_count" type="INT(10)"/>
+            <column defaultValueNumeric="0" name="favor_count" type="INT(10)"/>
+            <column name="forword_from_id" type="VARCHAR(255)"/>
+            <column name="address" type="VARCHAR(255)"/>
+            <column name="geo_hash" type="VARCHAR(255)"/>
+            <column name="latitude" type="BIGINT(19)"/>
+            <column name="longitude" type="BIGINT(19)"/>
+            <column name="originalurl" type="VARCHAR(255)"/>
+            <column name="smallurl" type="VARCHAR(255)"/>
+            <column name="text" type="VARCHAR(255)"/>
+            <column name="user_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-8">
+        <createTable catalogName="ipet" tableName="ipet_shops">
+            <column name="id" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_at" type="datetime"/>
+            <column name="update_at" type="datetime"/>
+            <column name="address" type="VARCHAR(255)"/>
+            <column name="geo_hash" type="VARCHAR(255)"/>
+            <column name="latitude" type="BIGINT(19)"/>
+            <column name="longitude" type="BIGINT(19)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="user_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-9">
+        <createTable catalogName="ipet" tableName="ipet_user_profiles">
+            <column name="id" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_at" type="datetime"/>
+            <column name="update_at" type="datetime"/>
+            <column name="user_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-10">
+        <createTable catalogName="ipet" tableName="ipet_user_settings">
+            <column name="id" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_at" type="datetime"/>
+            <column name="update_at" type="datetime"/>
+            <column name="user_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-11">
+        <createTable catalogName="ipet" tableName="ipet_users">
+            <column name="id" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_at" type="datetime"/>
+            <column name="update_at" type="datetime"/>
+            <column defaultValueNumeric="0" name="app_count" type="INT(10)"/>
+            <column name="avatar32" type="VARCHAR(255)"/>
+            <column name="avatar48" type="VARCHAR(255)"/>
+            <column defaultValueNumeric="0" name="comment_count" type="INT(10)"/>
+            <column name="display_name" type="VARCHAR(50)"/>
+            <column name="email" type="VARCHAR(50)"/>
+            <column defaultValueNumeric="0" name="favor_count" type="INT(10)"/>
+            <column defaultValueNumeric="0" name="follow_count" type="INT(10)"/>
+            <column defaultValueNumeric="0" name="follower_count" type="INT(10)"/>
+            <column defaultValueNumeric="0" name="friend_count" type="INT(10)"/>
+            <column name="last_location_id" type="BIGINT(19)"/>
+            <column name="login_name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="login_num" type="BIGINT(19)"/>
+            <column name="password" type="VARCHAR(50)"/>
+            <column name="phone" type="VARCHAR(15)"/>
+            <column defaultValueNumeric="0" name="photo_count" type="INT(10)"/>
+            <column name="roles" type="VARCHAR(255)"/>
+            <column name="salt" type="VARCHAR(50)"/>
+            <column defaultValueNumeric="0" name="shop_count" type="INT(10)"/>
+            <column name="user_profile_id" type="BIGINT(19)"/>
+            <column name="user_setting_id" type="BIGINT(19)"/>
+            <column name="user_state" type="INT(10)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-12">
+        <addPrimaryKey catalogName="ipet" columnNames="id" constraintName="PRIMARY" tableName="ipet_apps"/>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-13">
+        <addPrimaryKey catalogName="ipet" columnNames="id" constraintName="PRIMARY" tableName="ipet_comments"/>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-14">
+        <addPrimaryKey catalogName="ipet" columnNames="id" constraintName="PRIMARY" tableName="ipet_favors"/>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-15">
+        <addPrimaryKey catalogName="ipet" columnNames="id" constraintName="PRIMARY" tableName="ipet_follow_relations"/>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-16">
+        <addPrimaryKey catalogName="ipet" columnNames="id" constraintName="PRIMARY" tableName="ipet_friend_relations"/>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-17">
+        <addPrimaryKey catalogName="ipet" columnNames="id" constraintName="PRIMARY" tableName="ipet_last_locations"/>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-18">
+        <addPrimaryKey catalogName="ipet" columnNames="id" constraintName="PRIMARY" tableName="ipet_photos"/>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-19">
+        <addPrimaryKey catalogName="ipet" columnNames="id" constraintName="PRIMARY" tableName="ipet_shops"/>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-20">
+        <addPrimaryKey catalogName="ipet" columnNames="id" constraintName="PRIMARY" tableName="ipet_user_profiles"/>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-21">
+        <addPrimaryKey catalogName="ipet" columnNames="id" constraintName="PRIMARY" tableName="ipet_user_settings"/>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-22">
+        <addPrimaryKey catalogName="ipet" columnNames="id" constraintName="PRIMARY" tableName="ipet_users"/>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-23">
+        <addUniqueConstraint catalogName="ipet" columnNames="user_ida, user_idb" constraintName="UK_4jdvsegda2r1jnct3iv3wcjvn" deferrable="false" disabled="false" initiallyDeferred="false" tableName="ipet_friend_relations"/>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-24">
+        <addUniqueConstraint catalogName="ipet" columnNames="user_ida, user_idb" constraintName="UK_5val2n14c08yjy92eytji7v4a" deferrable="false" disabled="false" initiallyDeferred="false" tableName="ipet_follow_relations"/>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-25">
+        <addUniqueConstraint catalogName="ipet" columnNames="email" constraintName="UK_dnwtfsjk7ueifg64j25i6vvb2" deferrable="false" disabled="false" initiallyDeferred="false" tableName="ipet_users"/>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-26">
+        <addUniqueConstraint catalogName="ipet" columnNames="login_name" constraintName="UK_ltr9wv46rty0dy3py0f6g8g7g" deferrable="false" disabled="false" initiallyDeferred="false" tableName="ipet_users"/>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-27">
+        <addUniqueConstraint catalogName="ipet" columnNames="app_key" constraintName="UK_n3db6ibibxrvdkuvfeggqp1p3" deferrable="false" disabled="false" initiallyDeferred="false" tableName="ipet_apps"/>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-28">
+        <addUniqueConstraint catalogName="ipet" columnNames="phone" constraintName="UK_rrlm55vyyb0hvm29w1ifl7ilp" deferrable="false" disabled="false" initiallyDeferred="false" tableName="ipet_users"/>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-29">
+        <createIndex catalogName="ipet" indexName="ipet_apps_userid" tableName="ipet_apps" unique="false">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-30">
+        <createIndex catalogName="ipet" indexName="ipet_comments_photoid" tableName="ipet_comments" unique="false">
+            <column name="photo_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-31">
+        <createIndex catalogName="ipet" indexName="ipet_comments_userid" tableName="ipet_comments" unique="false">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-32">
+        <createIndex catalogName="ipet" indexName="ipet_favors_photoid" tableName="ipet_favors" unique="false">
+            <column name="photo_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-33">
+        <createIndex catalogName="ipet" indexName="ipet_favors_userid" tableName="ipet_favors" unique="false">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-34">
+        <createIndex catalogName="ipet" indexName="ipet_last_locations_userid" tableName="ipet_last_locations" unique="false">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-35">
+        <createIndex catalogName="ipet" indexName="ipet_photos_createat" tableName="ipet_photos" unique="false">
+            <column name="create_at"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-36">
+        <createIndex catalogName="ipet" indexName="ipet_photos_forwordfromid" tableName="ipet_photos" unique="false">
+            <column name="forword_from_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-37">
+        <createIndex catalogName="ipet" indexName="ipet_photos_updateat" tableName="ipet_photos" unique="false">
+            <column name="update_at"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-38">
+        <createIndex catalogName="ipet" indexName="ipet_photos_userid" tableName="ipet_photos" unique="false">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-39">
+        <createIndex catalogName="ipet" indexName="ipet_shops_userid" tableName="ipet_shops" unique="false">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-40">
+        <createIndex catalogName="ipet" indexName="ipet_user_profiles_userid" tableName="ipet_user_profiles" unique="false">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-41">
+        <createIndex catalogName="ipet" indexName="ipet_user_settings_userid" tableName="ipet_user_settings" unique="false">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-42">
+        <createIndex catalogName="ipet" indexName="ipet_users_createat" tableName="ipet_users" unique="false">
+            <column name="create_at"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-43">
+        <createIndex catalogName="ipet" indexName="ipet_users_lastlocationid" tableName="ipet_users" unique="false">
+            <column name="last_location_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-44">
+        <createIndex catalogName="ipet" indexName="ipet_users_updateat" tableName="ipet_users" unique="false">
+            <column name="update_at"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-45">
+        <createIndex catalogName="ipet" indexName="ipet_users_userprofileid" tableName="ipet_users" unique="false">
+            <column name="user_profile_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="yneos (generated)" id="1393872791199-46">
+        <createIndex catalogName="ipet" indexName="ipet_users_usersettingid" tableName="ipet_users" unique="false">
+            <column name="user_setting_id"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
