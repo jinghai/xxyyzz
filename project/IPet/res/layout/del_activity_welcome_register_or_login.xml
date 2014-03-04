@@ -1,0 +1,119 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:contentDescription="11"
+    android:orientation="vertical" >
+
+   <LinearLayout
+       android:layout_width="fill_parent"
+       android:layout_height="0.0dip"
+       android:layout_weight="1.0"
+       android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/welcome" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/welcome_login_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30.0dip"
+        android:layout_marginRight="30.0dip"
+        android:layout_marginTop="25.0dip"
+        android:background="@drawable/welcome_login_btn"
+        android:gravity="center"
+        android:text="@string/login_btn"
+        android:textColor="@color/font_white"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/welcome_reg_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30.0dip"
+        android:layout_marginRight="30.0dip"
+        android:layout_marginTop="10.0dip"
+        android:background="@drawable/welcome_reg_btn"
+        android:gravity="center"
+        android:text="@string/login_register"
+        android:textColor="@color/font_black"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40.0dip"
+        android:layout_marginRight="40.0dip"
+        android:layout_marginTop="20.0dip"
+        android:baselineAligned="false"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:gravity="left|center"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/welcome_weibo_login"/>
+
+            <TextView
+                android:id="@+id/login_connect_sina"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:duplicateParentState="true"
+                android:gravity="left|center"
+                android:text="@string/login_connect_sina"
+                android:textColor="@color/font_welcome_blue"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:gravity="right|center"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/welcome_qq_login"/>
+
+            <TextView
+                android:id="@+id/login_connect_qq"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:duplicateParentState="true"
+                android:gravity="right|center"
+                android:text="@string/qq_login"
+                android:textColor="@color/font_welcome_blue"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/version_info"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20.0dip"
+        android:layout_marginTop="16dip"
+        android:gravity="bottom|center"
+        android:text="@string/app_version"
+        android:textColor="@color/font_gray"
+        android:textSize="12sp" />
+
+</LinearLayout>

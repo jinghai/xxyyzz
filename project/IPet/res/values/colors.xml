@@ -18,5 +18,19 @@
 	
 	<color name="font_welcome_blue">#ff3399ff</color>
 	
+	
+	<!-- path -->
+	<color name="button_shadow_white_grey">#ffe3e0de</color>
+    <color name="button_text_dark">#ff313131</color>
+    <color name="welcome_black_shadow">#ff000000</color>
+    <color name="welcome_catchphrase">#ffdddddd</color>
+    <color name="welcome_title">#ffffffff</color>
+    <color name="invite_button_red">#ffc83122</color>
+    <color name="med_gray">#ff999999</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    
+	
+	
 
 </resources>

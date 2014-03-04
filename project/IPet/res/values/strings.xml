@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_version">v%1sBeta</string>
     <string name="app_name">IPet</string>
     <string name="action_settings">设置</string>
     <string name="splash_desc">启动界面</string>
@@ -12,8 +11,7 @@
     <string name="guide_btn_enter">立即体验</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_welcome_register_or_login">WelcomeRegisterOrLoginActivity</string>
-    <string name="login_btn">登录</string>
-    <string name="login_register">注册</string>
+
     <string name="login_connect_sina">微博账号登录</string>
     <string name="qq_login">QQ账号登录</string>
     <string name="title_login">登录</string>
@@ -67,6 +65,11 @@
     <string name="reg_failure_other">注册失败</string>
     <string name="reg_failure_sameAccount">邮箱已被注册了</string>
     
+    
+    <!-- path -->
+    <string name="login_btn">登录</string>
+    <string name="login_register">注册</string>
+    <string name="app_version">v%1sBeta</string>
     
 
 </resources>
