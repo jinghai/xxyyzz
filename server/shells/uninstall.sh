@@ -6,23 +6,23 @@
 
 yum -y remove wget git
 
-sed "/ulimit -n 102400/d" /etc/rc.d/rc.local > /tmp/t.t
+sed -i "/ulimit -n 102400/d" /etc/rc.d/rc.local > /tmp/t.t
 \cp /tmp/t.t /etc/rc.d/rc.local
 chmod +x /etc/rc.d/rc.local
 
-sed "/ulimit -n 102400/d" /root/.bash_profile > /tmp/t.t
+sed -i "/ulimit -n 102400/d" /root/.bash_profile > /tmp/t.t
 \cp /tmp/t.t /root/.bash_profile
 chmod +x /root/.bash_profile
 
 #####卸载JDK
-sed "/AUTO_GEN_JDK/d" /etc/profile > /tmp/t.t
+sed -i "/AUTO_GEN_JDK/d" /etc/profile > /tmp/t.t
 \cp /tmp/t.t /etc/profile
 sleep 1
 source /etc/profile
 rm -rf /opt/jdk1.7.0_15
 
 #####卸载Maven
-sed "/AUTO_GEN_Maven/d" /etc/profile > /tmp/t.t
+sed -i "/AUTO_GEN_Maven/d" /etc/profile > /tmp/t.t
 \cp /tmp/t.t /etc/profile
 sleep 1
 source /etc/profile

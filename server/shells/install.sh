@@ -94,6 +94,10 @@ rm -rf ${catalina_home}/webapps/ROOT/*
 rm -rf ${catalina_home}/webapps/docs
 rm -rf ${catalina_home}/webapps/examples
 
+sed -i  "/stringKey/a\ $replace4" $path
+sed -i  "/stringKey.*/a\ $replace4" $path
+
+
 
 #####安装MySQL
 if [ ! -f "/download/mysql-5.6.16-linux-glibc2.5-x86_64.tar.gz" ]; then 
