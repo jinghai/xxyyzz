@@ -311,6 +311,13 @@
         </dependency>
         <!-- rest api end -->
 
+        <!-- JSR303  BeanValidator -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
+        </dependency>
+
         <!-- JSON begin -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -541,12 +548,14 @@
                             <!--<diffTypes>tables, views, columns, indexes, foreignkeys, primarykeys, uniqueconstraints, data</diffTypes>-->
                             <diffChangeLogFile>src/main/resources/database/db-changelog-diff-${project.version}.xml</diffChangeLogFile>
                             <outputChangeLogFile>src/main/resources/database/db-changelog-${project.version}.xml</outputChangeLogFile>
-                            <skip>true</skip>
+                            <skip>false</skip>
                         </configuration>
                         <goals>
+
                             <goal>update</goal>
                             <goal>changelogSync</goal>
                             <goal>tag</goal>
+
                             <!--
                             <goal>dropAll</goal>
                             <goal>update</goal>
@@ -638,7 +647,7 @@
                 </configuration>
             </plugin>
 
-            
+
 
             <!-- resource插件 -->
             <plugin>
