@@ -1,4 +1,4 @@
-package com.ipet.server.web.rest.v1;
+package com.ipet.web.rest.v1;
 
 import com.ipet.server.domain.entity.Favor;
 import com.ipet.server.service.FavorService;

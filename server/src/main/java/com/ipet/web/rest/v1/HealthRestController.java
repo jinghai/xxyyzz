@@ -1,4 +1,4 @@
-package com.ipet.server.web.rest.v1;
+package com.ipet.web.rest.v1;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

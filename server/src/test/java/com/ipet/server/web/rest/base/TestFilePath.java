@@ -1,6 +1,6 @@
 package com.ipet.server.web.rest.base;
 
-import com.ipet.server.web.rest.v1.AccountRestController;
+import com.ipet.web.rest.v1.AccountRestController;
 import java.io.File;
 import java.io.IOException;
 import org.junit.Test;

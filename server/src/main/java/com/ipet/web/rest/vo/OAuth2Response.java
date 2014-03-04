@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ipet.server.web.rest.vo;
+package com.ipet.web.rest.vo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

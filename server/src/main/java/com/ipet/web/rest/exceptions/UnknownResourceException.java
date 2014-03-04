@@ -1,4 +1,4 @@
-package com.ipet.server.web.rest.exceptions;
+package com.ipet.web.rest.exceptions;
 
 /**
  * Simulated business-logic exception indicating a desired business entity or record cannot be found.

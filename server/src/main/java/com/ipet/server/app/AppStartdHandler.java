@@ -4,7 +4,6 @@
  */
 package com.ipet.server.app;
 
-import com.ipet.server.web.rest.v1.AccountRestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
