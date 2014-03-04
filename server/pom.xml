@@ -530,14 +530,14 @@
 
     <build>
         <plugins>
-            <!-- 数据库迁移插件 -->
+            <!-- 数据库版本管理插件 -->
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>3.0.7</version>
-                <configuration>      
-                    <propertyFile>src/main/resources/liquibase.properties</propertyFile>      
-                </configuration>                
+                <configuration>
+                    <propertyFile>src/main/resources/liquibase.properties</propertyFile>
+                </configuration>
                 <executions>
                     <execution>
                         <phase>process-resources</phase>
@@ -552,6 +552,8 @@
                         </configuration>
                         <goals>
                             <goal>update</goal>
+                            <goal>changelogSync</goal>
+                            <goal>tag</goal>
                             <!--
                             <goal>dropAll</goal>
                             <goal>update</goal>
@@ -560,11 +562,11 @@
                             <goal>changelogSync</goal>
                             <goal>generateChangeLog</goal>
                             -->
-                            
+
                         </goals>
                     </execution>
                 </executions>
-            </plugin> 
+            </plugin>
             <!-- compiler插件, 设定JDK版本 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
