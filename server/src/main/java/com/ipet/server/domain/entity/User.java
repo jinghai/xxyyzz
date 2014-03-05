@@ -5,7 +5,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ipet.server.domain.IdEntity;
@@ -15,8 +14,6 @@ import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Index;
-
-import org.hibernate.validator.constraints.Email;
 
 @Entity
 //@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
@@ -33,7 +30,6 @@ public class User extends IdEntity implements Serializable {
     //private Avatar avatar;
     //登录名称
     // JSR303 BeanValidator的校验规则
-    @NotBlank
     @Column(unique = true, length = 50)
     private String loginName;
 
@@ -46,7 +42,7 @@ public class User extends IdEntity implements Serializable {
     private String password;
 
     @Column(unique = true, length = 50)
-    @Email()
+
     private String email;
 
     @Column(unique = true, length = 15)

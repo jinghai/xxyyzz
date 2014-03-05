@@ -1,4 +1,4 @@
-package com.ipet.server.web.rest.exceptions;
+package com.ipet.web.rest.exceptions;
 
 /**
  * Service层公用的Exception.

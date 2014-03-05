@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ipet.server.web.rest.error;
+package com.ipet.web.rest.error;
 
-import com.ipet.server.web.rest.exceptions.RestException;
+import com.ipet.web.rest.exceptions.RestException;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 

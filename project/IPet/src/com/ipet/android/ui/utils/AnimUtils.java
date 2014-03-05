@@ -14,9 +14,18 @@ public class AnimUtils {
 		activity.overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
 	}
 
-	public static void backAndFinish(Activity activity) {
+	public static void fadeInToOut(Activity activity) {
+		activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+	}
+
+	public static void fadeInToOutFinish(Activity activity) {
+		fadeInToOut(activity);
 		activity.finish();
+	}
+
+	public static void backAndFinish(Activity activity) {
 		pushRightToLeft(activity);
+		activity.finish();
 	}
 
 	public static int dip2px(Context context, float dpValue) {
@@ -28,4 +37,5 @@ public class AnimUtils {
 		final float scale = context.getResources().getDisplayMetrics().density;
 		return (int) (pxValue / scale + 0.5f);
 	}
+
 }
