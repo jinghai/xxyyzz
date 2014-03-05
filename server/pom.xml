@@ -548,7 +548,7 @@
                             <!--<diffTypes>tables, views, columns, indexes, foreignkeys, primarykeys, uniqueconstraints, data</diffTypes>-->
                             <diffChangeLogFile>src/main/resources/database/db-changelog-diff-${project.version}.xml</diffChangeLogFile>
                             <outputChangeLogFile>src/main/resources/database/db-changelog-${project.version}.xml</outputChangeLogFile>
-                            <skip>false</skip>
+                            <skip>true</skip>
                         </configuration>
                         <goals>
                             <goal>update</goal>
