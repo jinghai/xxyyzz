@@ -1,3 +1,27 @@
+[代码管理]
+Maven项目切分（service[jar],IpetJavaSDK[jar],api[war],admin[war]）----小肖
+Andriod统一成Maven项目(ipet[Andriod应用],ipetSDK[Andriod类库])，目的是实现自动编译和发布----小肖
+Andriod应用和Andriod类库如何编写测试代码
+
+[服务器搭建]
+基础安装配置脚本（git,nginx,jdk,tomcat/jetty,mysql）----小肖
+自动发布脚本（自动更新代码编译发布/升级脚本）----小肖
+
+[预研]
+Andriod获取系统已有账号（方便注册）
+OpenId如何使用（以第三方系统账号登录并注册我们的系统，与Oauth方式有何区别？）
+Andriod端Spring Social（可登录并调用weibo,renren,dropbox等所有提供restApi的第三方系统,weixin?）
+Java服务端Spring Social----小肖
+相机界面和滤镜的实现----华仔
+
+[方案]
+设计第三方系统账号登录/注册方案（根据预研结果评估）
+设计分享到第三方系统的实现方案（根据预研结果评估）
+
+
+
+
+------以前遗留-----
 相机
 离线缓存机制(Etab,SDK缓存)
 离线同步
