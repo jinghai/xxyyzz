@@ -62,7 +62,7 @@ grep -q "export JAVA_HOME" /etc/profile &&{
 	echo "export JRE_HOME=\$JAVA_HOME/jre #AUTO_GEN_JDK" >>/etc/profile
 }
 sleep 1
-source /etc/profile
+. /etc/profile
 
 #####安装Maven
 if [ ! -f "/download/apache-maven-3.2.1-bin.tar.gz" ]; then
@@ -78,7 +78,7 @@ grep -q "export M2_HOME" /etc/profile &&{
 	echo "export PATH=\$PATH:\$M2_HOME/bin #AUTO_GEN_Maven" >>/etc/profile
 }
 sleep 1
-source /etc/profile
+. /etc/profile
 
 
 #####安装Tomcat
@@ -86,33 +86,36 @@ if [ ! -f "/download/apache-tomcat-7.0.52.tar.gz" ]; then
     wget -P /download  "http://mirror.bit.edu.cn/apache/tomcat/tomcat-7/v7.0.52/bin/apache-tomcat-7.0.52.tar.gz"
 fi
 echo "正在安装Tomcat..."
-tar zxf /download/apache-tomcat-7.0.52.tar.gz -C /opt
+#tar zxf /download/apache-tomcat-7.0.52.tar.gz -C /opt
 
-catalina_home=/opt/apache-tomcat-7.0.52
+#catalina_home=/opt/apache-tomcat-7.0.52
 
-rm -rf ${catalina_home}/webapps/ROOT/*
-rm -rf ${catalina_home}/webapps/docs
-rm -rf ${catalina_home}/webapps/examples
+#rm -rf ${catalina_home}/webapps/ROOT/*
+#rm -rf ${catalina_home}/webapps/docs
+#rm -rf ${catalina_home}/webapps/examples
 
-sed -i  "/stringKey/a\ $replace4" $path
-sed -i  "/stringKey.*/a\ $replace4" $path
+#sed -i  "/stringKey/a\ $replace4" $path
+#sed -i  "/stringKey.*/a\ $replace4" $path
 
 #####安装Jetty
-sudo wget http://download.eclipse.org/jetty/9.1.0.v20131115/dist/jetty-distribution-9.1.0.v20131115.tar.gz -O jetty.tar.gz
-tar -xf jetty.tar.gz
+if [ ! -f "/download/jetty-distribution-9.1.2.v20140210.tar.gz" ]; then
+    wget -P /download  "http://eclipse.org/downloads/download.php?file=/jetty/stable-9/dist/jetty-distribution-9.1.2.v20140210.tar.gz"
+fi
+#sudo wget  -O jetty.tar.gz
+#tar -xf jetty.tar.gz
 
-rm -rf jetty.tar.gz
-mv jetty-* jetty
+#rm -rf jetty.tar.gz
+#mv jetty-* jetty
 
-sudo /usr/sbin/useradd jetty
-sudo mv jetty /srv/
+#sudo /usr/sbin/useradd jetty
+#sudo mv jetty /srv/
 
-sudo chown -R jetty:jetty /srv/jetty
-sudo ln -s /srv/jetty/bin/jetty.sh /etc/init.d/jetty
-sudo /sbin/chkconfig --add jetty
-sudo /sbin/chkconfig jetty on
+#sudo chown -R jetty:jetty /srv/jetty
+#sudo ln -s /srv/jetty/bin/jetty.sh /etc/init.d/jetty
+#sudo /sbin/chkconfig --add jetty
+#sudo /sbin/chkconfig jetty on
 
-sudo vi /etc/init.d/jetty
+#sudo vi /etc/init.d/jetty
 
 #add after comments
 #JETTY_HOME=/srv/jetty
@@ -122,13 +125,13 @@ sudo vi /etc/init.d/jetty
 #sudo mkdir -p /srv/logs
 #sudo chown -R jetty:jetty /srv/logs
 
-sudo /sbin/service jetty start
+#sudo /sbin/service jetty start
 #curl http://localhost:8080
 #sudo /sbin/iptables -t nat -I PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
 
 #####安装Nginx
-yum -y install nginx
-chkconfig nginx on
+#yum -y install nginx
+#chkconfig nginx on
 
 #####安装MySQL
 if [ ! -f "/download/mysql-5.6.16-linux-glibc2.5-x86_64.tar.gz" ]; then
@@ -184,7 +187,7 @@ grep -q "AUTO_GEN_MYSQL" /etc/profile &&{
 	echo "export PATH=\$PATH:/opt/mysql-5.6.16-linux-glibc2.5-x86_64/bin #AUTO_GEN_MYSQL" >>/etc/profile
 }
 sleep 1
-source /etc/profile
+. /etc/profile
 
 ${installPath}/bin/mysqladmin -S${sockFile} -uroot password "${password}"
 ${installPath}/bin/mysql -S${sockFile} -uroot -p${password} -e "GRANT all on *.* to '$remoteUser'@'%' identified by \"${password}\";"
