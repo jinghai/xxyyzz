@@ -40,7 +40,6 @@ public class MainHomeFragment extends Fragment {
 		adapter = new ListFeedAdapter(activity, list);
 		listView.setAdapter(adapter);
 		listView.setOnScrollListener(adapter);
-		listView.setPinnedHeaderView(activity.getLayoutInflater().inflate(R.layout.list_feed_item_header, listView, false));
 
 		View emptyView = activity.findViewById(R.id.empty);
 		listView.setEmptyView(emptyView);

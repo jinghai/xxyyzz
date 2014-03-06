@@ -41,6 +41,7 @@ grep -q "ulimit -n 102400" /root/.bash_profile &&{
 chmod +x /root/.bash_profile
 
 #####安装工具
+
 yum install wget git ntp -y
 
 

@@ -18,15 +18,12 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.ipet.R;
-import com.ipet.android.ui.common.FeedListView;
-import com.ipet.android.ui.common.FeedListView.PinnedHeaderAdapter;
 import com.ipet.android.ui.utils.StringUtils;
 import com.ipet.android.vo.Feed;
 
-public class ListFeedAdapter extends BaseAdapter implements PinnedHeaderAdapter, OnScrollListener {
+public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 	private final List<Feed> list;
 	private final LayoutInflater inflater;
-	private int lastItemPosition = 0;
 	private final Context context;
 
 	public ListFeedAdapter(Context context, List<Feed> list) {
@@ -103,48 +100,7 @@ public class ListFeedAdapter extends BaseAdapter implements PinnedHeaderAdapter,
 		}
 		// holder.content_image
 
-		// 数据pos获取的0 实际显示的位置是1
-		if (lastItemPosition == position + 1) {
-			holder.header.setVisibility(View.INVISIBLE);
-		} else {
-			holder.header.setVisibility(View.VISIBLE);
-		}
 		return view;
-	}
-
-	@Override
-	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-		// TODO Auto-generated method stub
-		if (view instanceof FeedListView) {
-			((FeedListView) view).configureHeaderView(firstVisibleItem);
-		}
-	}
-
-	@Override
-	public void onScrollStateChanged(AbsListView view, int scrollState) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public int getPinnedHeaderState(int position) {
-		// TODO Auto-generated method stub
-		return PINNED_HEADER_PUSHED_UP;
-	}
-
-	@Override
-	public void configurePinnedHeader(View header, int position, int alpha) {
-		if (lastItemPosition != position) {
-			notifyDataSetChanged();
-		}
-
-		if (position > 0) {
-			// TODO Auto-generated method stub
-			// 数据pos获取的1 实际显示的数组的位置是0
-			((TextView) header.findViewById(R.id.feed_created_by)).setText(list.get(position - 1).getCreate_by());
-			((TextView) header.findViewById(R.id.feed_created_at)).setText(list.get(position - 1).getCreate_at());
-		}
-		lastItemPosition = position;
 	}
 
 	public void prependList(List<Feed> list) {
@@ -162,6 +118,18 @@ public class ListFeedAdapter extends BaseAdapter implements PinnedHeaderAdapter,
 		// TODO Auto-generated method stub
 		this.list.clear();
 		this.appendList(list);
+	}
+
+	@Override
+	public void onScrollStateChanged(AbsListView view, int scrollState) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

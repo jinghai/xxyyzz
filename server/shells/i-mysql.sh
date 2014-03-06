@@ -57,7 +57,9 @@ grep -q "AUTO_GEN_MYSQL" /etc/profile &&{
 }
 sleep 1
 . /etc/profile
+
 sleep 5
+
 ${installPath}/bin/mysqladmin -S${sockFile} -uroot password "${password}"
 ${installPath}/bin/mysql -S${sockFile} -uroot -p${password} -e "GRANT all on *.* to '$remoteUser'@'%' identified by \"${password}\";"
 ${installPath}/bin/mysql -S${sockFile} -uroot -p${password} -e "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%' identified by 'repl';"
@@ -68,6 +70,7 @@ ${installPath}/bin/mysql -S${sockFile} -uroot -p${password}  -e "flush privilege
 #${installPath}/bin/mysql -S${sockFile} -uroot -p${password}  -e "drop database if exists ipet;create database ipet;"
 #${installPath}/bin/mysql -S${sockFile} -uroot -p${password} -e "INSTALL PLUGIN rpl_semi_sync_master SONAME 'semisync_master.so';"
 #${installPath}/bin/mysql -S${sockFile} -uroot -p${password} -e "INSTALL PLUGIN rpl_semi_sync_slave SONAME 'semisync_slave.so';"
+
 #service ${serviceName} restart
 
 echo "===========MySQL ok==========="

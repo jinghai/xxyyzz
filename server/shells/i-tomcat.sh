@@ -21,6 +21,11 @@ CATALINA_HOME=/opt/apache-tomcat-7.0.52
 sed -i "/^CATALINA_HOME=/c\CATALINA_HOME=$CATALINA_HOME" /etc/init.d/tomcat
 chmod +x /etc/init.d/tomcat
 
+#sed -i "1 a # chkconfig: 3 99 99" /opt/apache-tomcat-7.0.52/bin/catalina.sh
+#sed -i "2 a # description: Tomcat 7 webserver" /opt/apache-tomcat-7.0.52/bin/catalina.sh
+#sed -i '4 a JAVA_OPTS="-server -Xms2048m -Xmx2048m -XX:MaxNewSize=512m -XX:PermSize=128M -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/opt/apache-tomcat-7.0.52/logs/"' /opt/apache-tomcat-7.0.52/bin/catalina.sh
+#sed -i '5 a CATALINA_PID="/opt/apache-tomcat-7.0.52/tomcat.pid"' /opt/apache-tomcat-7.0.52/bin/catalina.sh
+
 chkconfig --add tomcat
 chkconfig tomcat on
 
@@ -40,5 +45,4 @@ rm -rf ${CATALINA_HOME}/webapps/examples
 
 
 service tomcat start
-
 echo "===========Tomcat ok==========="

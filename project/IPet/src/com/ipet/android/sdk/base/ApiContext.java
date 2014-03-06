@@ -32,10 +32,10 @@ public class ApiContext {
     private String currUserId;
 
     //文件服务器地址
-    public static final String FILE_SERVER_BASE = "http://localhost:8080/server/";
+    public static final String FILE_SERVER_BASE = "http://10.233.211.2:8080/server/";
 
     //API服务器地址
-    public static final String API_SERVER_BASE = "http://localhost:8080/server/api/v1/";
+    public static final String API_SERVER_BASE = "http://10.233.211.2:8080/server/api/v1/";
 
     private static ApiContext instance;
 
