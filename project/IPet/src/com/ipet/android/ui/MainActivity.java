@@ -1,103 +1,93 @@
 package com.ipet.android.ui;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTabHost;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TabHost;
-import android.widget.TabHost.TabSpec;
-import android.widget.Toast;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 
 import com.ipet.R;
-import com.ipet.android.ui.manager.ActivityManager;
 
 public class MainActivity extends FragmentActivity {
-	private static String TAG_INDEX = "0";
-	private static String TAG_FIND = "1";
-	private static String TAG_CAMERA = "2";
-	private static String TAG_MESSAGE = "3";
-	private static String TAG_ME = "4";
-	private long mExitTime;
-	// 定义FragmentTabHost对象
-	private FragmentTabHost mTabHost;
-
-	private LayoutInflater layoutInflater;
+	private ArrayList<Fragment> fragmentsList;
+	private ViewPager viewPager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		ActivityManager.getInstance().addActivity(this);
-
-		initView();
+		// 初始化页面
+		initViews();
 	}
 
-	private void initView() {
-		layoutInflater = LayoutInflater.from(this);
-		// 实例化TabHost对象，得到TabHost
-		mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
-		mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
+	private void initViews() {
 
-		this.addTab(TAG_INDEX, R.string.main_home_title, R.drawable.tab_icon_home, MainHomeFragment.class);
-		this.addTab(TAG_FIND, R.string.main_find_title, R.drawable.tab_icon_find, MainFindFragment.class);
-		this.addTab(TAG_CAMERA, R.string.main_camera_title, R.drawable.tab_icon_camera, MainCameraFragment.class);
-		this.addTab(TAG_MESSAGE, R.string.main_conversation_title, R.drawable.tab_icon_conversation, MainConversationFragment.class);
-		this.addTab(TAG_ME, R.string.main_me_title, R.drawable.tab_icon_me, MainMeFragment.class);
+		fragmentsList = new ArrayList<Fragment>();
 
-		mTabHost.setCurrentTab(0);
+		Fragment mainHomeFragment = new MainHomeFragment();
+		Fragment mainConversationFragment = new MainConversationFragment();
 
-		mTabHost.setOnTabChangedListener(myTabChangeListener);
+		fragmentsList.add(mainHomeFragment);
+		fragmentsList.add(mainConversationFragment);
 
+		viewPager = (ViewPager) findViewById(R.id.tabpager);
+		viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), fragmentsList));
+		viewPager.setOnPageChangeListener(myPageChangeListener);
 	}
 
-	public void setTab(int tabIndex) {
-		mTabHost.setCurrentTab(tabIndex);
-	}
+	public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
+		private ArrayList<Fragment> fragmentsList;
 
-	private final TabHost.OnTabChangeListener myTabChangeListener = new TabHost.OnTabChangeListener() {
+		public MyFragmentPagerAdapter(FragmentManager fm) {
+			super(fm);
+		}
+
+		public MyFragmentPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
+			super(fm);
+			this.fragmentsList = fragments;
+		}
+
 		@Override
-		public void onTabChanged(String tabId) {
+		public int getCount() {
+			return fragmentsList.size();
+		}
+
+		@Override
+		public Fragment getItem(int arg0) {
+			return fragmentsList.get(arg0);
+		}
+
+		@Override
+		public int getItemPosition(Object object) {
+			return super.getItemPosition(object);
+		}
+
+	}
+
+	private final OnPageChangeListener myPageChangeListener = new OnPageChangeListener() {
+
+		@Override
+		public void onPageScrollStateChanged(int arg0) {
 			// TODO Auto-generated method stub
-			if (TAG_CAMERA == tabId) {
-				// Toast.makeText(MainActivity.this, "text",
-				// Toast.LENGTH_LONG).show();
-			}
+
+		}
+
+		@Override
+		public void onPageScrolled(int arg0, float arg1, int arg2) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onPageSelected(int arg0) {
+			// TODO Auto-generated method stub
+
 		}
 
 	};
-
-	private void addTab(String tag, int resId, int resImgId, Class<?> classname) {
-		TabSpec tabSpec = mTabHost.newTabSpec(tag).setIndicator(getTabHostBtn(resId, resImgId));
-		mTabHost.addTab(tabSpec, classname, null);
-	}
-
-	private View getTabHostBtn(int resId, int resImgId) {
-		View view = layoutInflater.inflate(R.layout.tab_item_view, null);
-		ImageView imageView = (ImageView) view.findViewById(R.id.imageview);
-		imageView.setImageResource(resImgId);
-		view.setBackgroundResource(R.drawable.tab_background);
-		// String str = (String) this.getResources().getText(resId);
-		return view;
-	}
-
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if ((System.currentTimeMillis() - mExitTime) > 2000) {
-				Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-				mExitTime = System.currentTimeMillis();
-			} else {
-				ActivityManager.getInstance().exit();
-				// moveTaskToBack(true);
-			}
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
-
-	}
 
 }

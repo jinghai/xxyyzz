@@ -121,7 +121,7 @@ public class MainCameraFragment extends Fragment {
 	}
 
 	public void backToFeed() {
-		((MainActivity) this.activity).setTab(0);
+		// ((MainActivity) this.activity).setTab(0);
 	}
 
 }
