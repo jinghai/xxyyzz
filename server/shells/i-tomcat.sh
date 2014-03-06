@@ -32,9 +32,10 @@ chkconfig tomcat on
 sed -i '/<Context>/c\<Context allowLinking="true">' $CATALINA_HOME/conf/context.xml
 sed -i '/<Connector port="8080"/a\ enableLookups="false" ' $CATALINA_HOME/conf/server.xml
 sed -i '/<Connector port="8080"/a\ maxThreads="1024" ' $CATALINA_HOME/conf/server.xml
+sed -i '/<Connector port="8080"/a\ URIEncoding="UTF-8" ' $CATALINA_HOME/conf/server.xml
 sed -i '/unpackWARs="true" autoDeploy="true"/c\unpackWARs="false" autoDeploy="false">' $CATALINA_HOME/conf/server.xml
 
-
+ 
 
 
 rm -rf ${CATALINA_HOME}/webapps/ROOT/*
