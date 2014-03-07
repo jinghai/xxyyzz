@@ -4,7 +4,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 
-import com.ipet.android.ui.MainCameraFragment;
+import com.ipet.android.ui.MainHomeFragment;
 import com.ipet.android.ui.manager.FeedManager;
 import com.ipet.android.vo.Feed;
 
@@ -38,6 +38,6 @@ public class FeedAddAsyncTask extends AsyncTask<String, String, String> {
 		feed.setContent_image(uri.toString());
 		FeedManager.list.add(0, feed);
 
-		((MainCameraFragment) fragment).backToFeed();
+		((MainHomeFragment) fragment).backToFeed();
 	}
 }

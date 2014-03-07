@@ -28,6 +28,9 @@
     <color name="invite_button_red">#ffc83122</color>
     <color name="med_gray">#ff999999</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="black">#ff000000</color>
+    
+    <color name="transparent">#00000000</color>
     
     
 	

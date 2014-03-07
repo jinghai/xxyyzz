@@ -18,6 +18,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.ipet.R;
+import com.ipet.android.ui.utils.BitmapUtils;
 import com.ipet.android.ui.utils.StringUtils;
 import com.ipet.android.vo.Feed;
 
@@ -51,6 +52,7 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 	}
 
 	public class ViewHolder {
+		public ImageView avator;
 		public TextView create_by;
 		public TextView content;
 		public ImageView content_image;
@@ -68,6 +70,7 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 			view = inflater.inflate(R.layout.list_feed_item, null);
 			holder = new ViewHolder();
 			holder.header = view.findViewById(R.id.inc_feed_header);
+			holder.avator = (ImageView) view.findViewById(R.id.feed_avatar);
 			holder.create_by = (TextView) view.findViewById(R.id.feed_created_by);
 			holder.create_at = (TextView) view.findViewById(R.id.feed_created_at);
 
@@ -98,6 +101,8 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 			Log.i("img", "oldImg");
 
 		}
+
+		BitmapUtils.setRoundedCornerImageView(holder.avator);
 		// holder.content_image
 
 		return view;
