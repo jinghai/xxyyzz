@@ -47,6 +47,7 @@ class ApiInterceptor implements ClientHttpRequestInterceptor {
      */
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
+        //request.getHeaders().set("Accept-Charset", "utf-8");
         request.getHeaders().set("Authorization", "Basic " + new String(Base64.encode((appKey + ":" + appSecret).getBytes(charset)), charset));
         //request.getHeaders().setAcceptEncoding(ContentCodingType.GZIP);
         return execution.execute(request, body);

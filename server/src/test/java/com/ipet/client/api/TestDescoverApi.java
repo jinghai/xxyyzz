@@ -2,6 +2,7 @@ package com.ipet.client.api;
 
 import com.ipet.client.api.domain.IpetPhoto;
 import com.ipet.client.api.impl.IpetApiImpl;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -27,9 +28,10 @@ public class TestDescoverApi {
     private final DiscoverApi discoverApi = IpetApiImpl.getInstance("1", "1").getDiscoverApi();
 
     @Test
-    public void comment() throws InterruptedException {
+    public void comment() throws InterruptedException, UnsupportedEncodingException {
         accountApi.login("admin", "admin");
-        FileSystemResource fsr = new FileSystemResource(ClassLoader.getSystemResource("4M.JPG").getPath());
+        String filePath = java.net.URLDecoder.decode(ClassLoader.getSystemResource("四兆.JPG").getPath(), "UTF-8");
+        FileSystemResource fsr = new FileSystemResource(filePath);
         IpetPhoto photo = photoApi.publish("测试", fsr);
         logger.debug(photo.getText());
         Thread.sleep(1000);

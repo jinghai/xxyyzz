@@ -12,6 +12,15 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
         <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
     </context:component-scan>
+    
+    <!-- 拦截器 -->
+    <mvc:interceptors>
+        <!-- 多个拦截器,顺序执行 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**" /><!-- 如果不配置或/**,将拦截所有的Controller -->
+            <bean class=" com.ipet.web.rest.interceptor.SpringMVCInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <!-- Spring文件上传支持 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

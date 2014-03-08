@@ -3,6 +3,7 @@ package com.ipet.client.api;
 import com.ipet.client.api.domain.IpetFavor;
 import com.ipet.client.api.domain.IpetPhoto;
 import com.ipet.client.api.impl.IpetApiImpl;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
@@ -26,9 +27,10 @@ public class TestFavorApi {
     private final FavorApi favorApi = IpetApiImpl.getInstance("1", "1").getFavorApi();
 
     @Test()
-    public void favor() {
+    public void favor() throws UnsupportedEncodingException {
         accountApi.login("admin", "admin");
-        FileSystemResource fsr = new FileSystemResource(ClassLoader.getSystemResource("4M.JPG").getPath());
+        String filePath = java.net.URLDecoder.decode(ClassLoader.getSystemResource("四兆.JPG").getPath(), "UTF-8");
+        FileSystemResource fsr = new FileSystemResource(filePath);
         IpetPhoto photo = photoApi.publish("测试", fsr);
         favorApi.favor(photo.getId(), "喜欢");
         List<IpetFavor> comm = favorApi.list(photo.getId());

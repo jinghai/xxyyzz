@@ -7,7 +7,10 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +53,52 @@ public class PhotoController {
         if (StringUtils.isEmpty(uid)) {
             throw new RuntimeException("非法参数");
         }
+        /*
+         String s1 = new String(context.getBytes("UTF-8"), "ISO-8859-1");
+         String s2 = new String(s1.getBytes("ISO-8859-1"), "UTF-8");
+         logger.debug("s1:" + s1);
+         logger.debug("s2:" + s2);
+
+         String s3 = new String(context.getBytes("UTF-8"), "UTF-8");
+         String s4 = new String(s3.getBytes("ISO-8859-1"), "UTF-8");
+         logger.debug("s1:" + s1);
+         logger.debug("s2:" + s2);
+
+         String s5 = new String(context.getBytes("UTF-8"), "UTF-8");
+         String s6 = new String(s5.getBytes("UTF-8"), "ISO-8859-1");
+         logger.debug("s1:" + s1);
+         logger.debug("s2:" + s2);
+
+         logger.debug("context:" + context);
+         logger.debug("context:" + java.net.URLDecoder.decode(context));
+         logger.debug("context()-->UTF-8：" + new String(context.getBytes(), "UTF-8"));
+         logger.debug("context(ISO-8859-1)-->UTF-8：" + new String(context.getBytes("ISO-8859-1"), "UTF-8"));
+         logger.debug("context(UTF-8)-->UTF-8：" + new String(context.getBytes("UTF-8"), "UTF-8"));
+         logger.debug("context(GBK)-->UTF-8：" + new String(context.getBytes("GBK"), "UTF-8"));
+         logger.debug("context(GB2312)-->UTF-8：" + new String(context.getBytes("GB2312"), "UTF-8"));
+         logger.debug("context()-->ISO-8859-1：" + new String(context.getBytes(), "ISO-8859-1"));
+         logger.debug("context()-->GBK：" + new String(context.getBytes(), "GBK"));
+         logger.debug("context()-->GB2312：" + new String(context.getBytes(), "GB2312"));
+         logger.debug("context()-->ISO-8859-1：" + new String(context.getBytes(), "ISO-8859-1"));
+         String fname = file.getOriginalFilename();
+         logger.debug("fname:" + fname);
+         logger.debug("fname:" + java.net.URLDecoder.decode(fname));
+         logger.debug("fname()-->UTF-8：" + new String(fname.getBytes(), "UTF-8"));
+         logger.debug("fname(ISO-8859-1)-->UTF-8：" + new String(fname.getBytes("ISO-8859-1"), "UTF-8"));
+         logger.debug("fname(UTF-8)-->UTF-8：" + new String(fname.getBytes("UTF-8"), "UTF-8"));
+         logger.debug("fname(GBK)-->UTF-8：" + new String(fname.getBytes("GBK"), "UTF-8"));
+         logger.debug("fname(GB2312)-->UTF-8：" + new String(fname.getBytes("GB2312"), "UTF-8"));
+         logger.debug("fname()-->ISO-8859-1：" + new String(fname.getBytes(), "ISO-8859-1"));
+         logger.debug("fname()-->GBK：" + new String(fname.getBytes(), "GBK"));
+         logger.debug("fname()-->GB2312：" + new String(fname.getBytes(), "GB2312"));
+         logger.debug("fname()-->ISO-8859-1：" + new String(fname.getBytes(), "ISO-8859-1"));
+         */
+        //String text = new String(context.getBytes(), "UTF-8");
+        //String text = new String(context.getBytes("ISO-8859-1"), "UTF-8");
+        //String text = new String(context.getBytes("UTF-8"), "UTF-8");
         //String text = new String(context.getBytes("GBK"), "UTF-8");
+        //String text = new String(context.getBytes("GB2312"), "UTF-8");
+
         return photoService.publishPhoto(uid, context, file);
     }
 

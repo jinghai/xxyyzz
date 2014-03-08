@@ -5,6 +5,7 @@ import com.ipet.client.api.domain.IpetUserUpdate;
 import com.ipet.client.api.base.APIException;
 import com.ipet.client.api.impl.IpetApiImpl;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import static org.junit.Assert.assertTrue;
@@ -50,18 +51,18 @@ public class TestUserApi {
     }
 
     @Test
-    public void updateAvatar() {
+    public void updateAvatar() throws UnsupportedEncodingException {
         IpetApiImpl.getInstance("1", "1").getAccountApi().login("admin", "admin");
-        String fs = ClassLoader.getSystemResource("4M.JPG").getPath();
-        File f = new File(ClassLoader.getSystemResource("4M.JPG").getPath());
-        FileSystemResource fsr = new FileSystemResource(ClassLoader.getSystemResource("4M.JPG").getPath());
+        String filePath = java.net.URLDecoder.decode(ClassLoader.getSystemResource("四兆.JPG").getPath(), "UTF-8");
+        File f = new File(filePath);
+        FileSystemResource fsr = new FileSystemResource(filePath);
         IpetUser ret = api.updateAvatar(fsr);
         logger.debug(ToStringBuilder.reflectionToString(ret));
 
         ret = api.updateAvatar(f);
         logger.debug(ToStringBuilder.reflectionToString(ret));
 
-        ret = api.updateAvatar(fs);
+        ret = api.updateAvatar(filePath);
         logger.debug(ToStringBuilder.reflectionToString(ret));
         logger.debug(ret.getAvatar32());
         logger.debug(ret.getAvatar48());

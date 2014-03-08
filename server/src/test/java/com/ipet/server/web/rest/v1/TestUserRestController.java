@@ -3,6 +3,7 @@ package com.ipet.server.web.rest.v1;
 import com.ipet.server.web.rest.base.MyErrorHandler;
 import com.ipet.server.web.rest.base.BaseTest;
 import com.ipet.server.domain.entity.User;
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.List;
 import static org.junit.Assert.assertTrue;
@@ -69,11 +70,12 @@ public class TestUserRestController extends BaseTest {
     }
 
     @Test
-    public void uploadForHttpEntity() {
+    public void uploadForHttpEntity() throws UnsupportedEncodingException {
 
         String url = baseUrl + "/uploadAvatar";
 
-        FileSystemResource fsr = new FileSystemResource(ClassLoader.getSystemResource("4M.JPG").getPath());
+        String filePath = java.net.URLDecoder.decode(ClassLoader.getSystemResource("四兆.JPG").getPath(), "UTF-8");
+        FileSystemResource fsr = new FileSystemResource(filePath);
 
         LinkedMultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
         body.add("userId", "1");
@@ -89,11 +91,12 @@ public class TestUserRestController extends BaseTest {
     }
 
     @Test
-    public void uploadFor4M() {
+    public void uploadFor4M() throws UnsupportedEncodingException {
 
-        logger.debug(ClassLoader.getSystemResource("4M.JPG").getPath());
+        logger.debug(ClassLoader.getSystemResource("四兆.JPG").getPath());
         String url = baseUrl + "/uploadAvatar";
-        FileSystemResource fsr = new FileSystemResource(ClassLoader.getSystemResource("4M.JPG").getPath());
+        String filePath = java.net.URLDecoder.decode(ClassLoader.getSystemResource("四兆.JPG").getPath(), "UTF-8");
+        FileSystemResource fsr = new FileSystemResource(filePath);
 
         LinkedMultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
         body.add("userId", "1");
@@ -125,7 +128,7 @@ public class TestUserRestController extends BaseTest {
 
     //@Test
     //测试100次上单线程上传性能
-    public void uploadFile100WTime() {
+    public void uploadFile100WTime() throws UnsupportedEncodingException {
         // long times = 1000000;//100W
         long times = 3;
         long start = System.currentTimeMillis();
