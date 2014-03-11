@@ -75,15 +75,28 @@ public class PhotoService {
     public List<Photo> getPhotosByTimeAndFollowForPage(String uid, Date date, Integer pageNumber, Integer pageSize) {
 
         PageRequest pageR = ProjectUtil.buildPageRequest(pageNumber, pageSize, Sort.Direction.DESC, "createAt");
-
+        //寻找关注关系，含自己
         List<FollowRelation> idsR = getFollowRelationDao().findByUserIdA(uid);
         List<String> followIds = new ArrayList<String>();
         followIds.add(uid);
         for (FollowRelation r : idsR) {
             followIds.add(r.getUserIdB());
         }
-
+        //取出所有图片
         Page<Photo> ret = getPhotoDao().findByCreateAtBeforeAndUserIdIn(date, followIds, pageR);
+
+        /*
+         //填充图片发布者信息
+         List<Photo> photos = ret.getContent();
+         List<String> userIds = new ArrayList<String>(ret.getSize());
+         for (Photo phtoto : photos) {
+         userIds.add(phtoto.getUserId());
+         }
+         List<User> users = this.getUserDao().findByUserIdIn(userIds);
+         for (int i = 0, len = photos.size(); i < len; i++) {
+         photos.get(i).setAvatar48(users.get(i).getAvatar48());
+         photos.get(i).setUserName(users.get(i).getDisplayName());
+         }*/
         return ret.getContent();
     }
 
@@ -132,10 +145,14 @@ public class PhotoService {
             photo.setOriginalURL(originalRelativeFile);
             photo.setSmallURL(smallRelativeFile);
             photo.setUserId(uid);
+            photo.setAvatar48(user.getAvatar48());
+            photo.setUserName(user.getDisplayName());
+            //更新统计
             user.setPhotoCount(user.getPhotoCount() + 1);
-            //更新记录
+
             this.getPhotoDao().save(photo);
             this.getUserDao().save(user);
+
             return photo;
 
         } catch (Exception e) {

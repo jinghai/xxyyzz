@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * 图片
@@ -46,6 +47,12 @@ public class Photo extends IdEntity implements Serializable {
     private Integer favorCount = 0;
 
     private String userId;
+
+    //@Transient
+    private String userName;
+
+    //@Transient
+    private String avatar48;
 
     /**
      * @return the originalURL
@@ -157,6 +164,34 @@ public class Photo extends IdEntity implements Serializable {
      */
     public void setForwordFromId(String forwordFromId) {
         this.forwordFromId = forwordFromId;
+    }
+
+    /**
+     * @return the userName
+     */
+    public String getUserName() {
+        return userName;
+    }
+
+    /**
+     * @param userName the userName to set
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    /**
+     * @return the avatar48
+     */
+    public String getAvatar48() {
+        return avatar48;
+    }
+
+    /**
+     * @param avatar48 the avatar48 to set
+     */
+    public void setAvatar48(String avatar48) {
+        this.avatar48 = avatar48;
     }
 
 }
