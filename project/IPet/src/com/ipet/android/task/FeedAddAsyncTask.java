@@ -1,43 +1,59 @@
 package com.ipet.android.task;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
+import android.util.Log;
 
+import com.ipet.android.MyApp;
+import com.ipet.android.sdk.domain.IpetPhoto;
+import com.ipet.android.sdk.domain.IpetUser;
 import com.ipet.android.ui.MainHomeFragment;
-import com.ipet.android.ui.manager.FeedManager;
-import com.ipet.android.vo.Feed;
 
-public class FeedAddAsyncTask extends AsyncTask<String, String, String> {
+public class FeedAddAsyncTask extends AsyncTask<String, String, IpetPhoto> {
 	private final Uri uri;
-	private final Fragment fragment;
+	private final MainHomeFragment fragment;
+	private final File picture;
 
-	public FeedAddAsyncTask(Fragment fragment, Uri uri) {
+	public FeedAddAsyncTask(MainHomeFragment fragment, File picture, Uri uri) {
 		this.uri = uri;
 		this.fragment = fragment;
+		this.picture = picture;
 	}
 
 	@Override
-	protected String doInBackground(String... params) {
+	protected IpetPhoto doInBackground(String... params) {
 		// TODO Auto-generated method stub
+		Log.i("uploadFile", "pictrue-->" + picture);
+		IpetPhoto ipetPhoto = null;
 		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+			Thread.sleep(500);
+			MyApp application = (MyApp) this.fragment.getActivity().getApplication();
+			IpetUser user = application.getUser();
+			String path = picture.getPath();
+			Log.i("uploadFile", "path-->" + picture);
+			ipetPhoto = application.getApi().getPhotoApi().publish("", path);
+			Log.i("uploadFile", "SmallURL-->" + ipetPhoto.getSmallURL());
+			ipetPhoto.setAvatar48(user.getAvatar48());
+			ipetPhoto.setUserName(user.getDisplayName());
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "";
+
+		return ipetPhoto;
 	}
 
 	@Override
-	protected void onPostExecute(String result) {
-		Feed feed = new Feed();
-		feed.setCreate_by("kongchun");
-		feed.setCreate_at("11:11");
-		feed.setContent("");
-		feed.setContent_image(uri.toString());
-		FeedManager.list.add(0, feed);
+	protected void onPostExecute(IpetPhoto ipetPhoto) {
+		if (ipetPhoto == null) {
+			return;
+		}
 
-		((MainHomeFragment) fragment).backToFeed();
+		List<IpetPhoto> list = new ArrayList<IpetPhoto>(0);
+		list.add(ipetPhoto);
+		this.fragment.getAdapter().prependList(list);
 	}
 }

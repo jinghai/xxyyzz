@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.ipet.R;
 import com.ipet.android.MyApp;
+import com.ipet.android.sdk.domain.IpetUser;
 import com.ipet.android.ui.LoginActivity;
 
 public class LoginAsyncTask extends AsyncTask<Integer, Integer, Integer> {
@@ -41,8 +42,8 @@ public class LoginAsyncTask extends AsyncTask<Integer, Integer, Integer> {
 		int result = RESULT_FAILURE_OTHER;
 		try {
 			MyApp application = (MyApp) this.activity.getApplication();
-			// IpetUser u = application.getApi().getAccountApi().login(account,
-			// password);
+			IpetUser u = application.getApi().getAccountApi().login(account, password);
+			application.setUser(u);
 			result = RESULT_SUCCESS;
 			/*
 			 * Thread.sleep(1000);

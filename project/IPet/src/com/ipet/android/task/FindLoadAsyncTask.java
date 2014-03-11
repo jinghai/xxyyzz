@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.widget.GridView;
 
 import com.ipet.android.ui.adapter.FindGridAdapter;
-import com.ipet.android.ui.manager.FeedManager;
 
 public class FindLoadAsyncTask extends AsyncTask<String, String, String> {
 	private final GridView gridView;
@@ -29,7 +28,7 @@ public class FindLoadAsyncTask extends AsyncTask<String, String, String> {
 
 	@Override
 	protected void onPostExecute(String result) {
-		adapter.appendList(FeedManager.load());
+		// adapter.appendList(FeedManager.load());
 		super.onPostExecute(result);
 	}
 

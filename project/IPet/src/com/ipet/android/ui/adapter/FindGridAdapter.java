@@ -11,11 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ipet.R;
-import com.ipet.android.vo.Feed;
+import com.ipet.android.sdk.domain.IpetPhoto;
 
 public class FindGridAdapter extends BaseAdapter {
 	private final Context context;
-	private List<Feed> list;
+	private List<IpetPhoto> list;
 	private final LayoutInflater mInflater;
 
 	public FindGridAdapter(Context context) {
@@ -24,7 +24,7 @@ public class FindGridAdapter extends BaseAdapter {
 		this.mInflater = LayoutInflater.from(context);
 	}
 
-	public void setList(List<Feed> list) {
+	public void setList(List<IpetPhoto> list) {
 		this.list = list;
 	}
 
@@ -61,20 +61,20 @@ public class FindGridAdapter extends BaseAdapter {
 		} else {
 			holder = (GridHolder) convertView.getTag();
 		}
-		Feed feed = list.get(index);
+		IpetPhoto feed = list.get(index);
 		if (feed != null) {
 			// holder.findImageView.setId(id)
-			holder.findTextView.setText(feed.getCreate_by());
+			holder.findTextView.setText(feed.getUserName());
 		}
 		return convertView;
 	}
 
-	public void prependList(List<Feed> list) {
+	public void prependList(List<IpetPhoto> list) {
 		this.list.addAll(0, list);
 		this.notifyDataSetChanged();
 	}
 
-	public void appendList(List<Feed> list) {
+	public void appendList(List<IpetPhoto> list) {
 		this.list.addAll(list);
 		this.notifyDataSetChanged();
 	}

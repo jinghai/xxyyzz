@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ipet.R;
+import com.ipet.android.sdk.domain.IpetPhoto;
 import com.ipet.android.task.FeedAddAsyncTask;
 import com.ipet.android.task.FeedLoadAsyncTask;
 import com.ipet.android.task.FeedLoadMoreAsyncTask;
@@ -31,13 +32,13 @@ import com.ipet.android.ui.manager.FeedManager;
 import com.ipet.android.ui.utils.DeviceUtils;
 import com.ipet.android.ui.utils.DialogUtils;
 import com.ipet.android.ui.utils.PathUtils;
-import com.ipet.android.vo.Feed;
 import com.ipet.android.widget.PullToRefreshListView.OnRefreshListener;
 
 public class MainHomeFragment extends Fragment {
 	private static final int REQUEST_CODE_PHOTORESOULT = 20;
 	private Activity activity;
-	private final ArrayList<Feed> list = new ArrayList<Feed>(0);
+
+	private final ArrayList<IpetPhoto> list = new ArrayList<IpetPhoto>(0);
 	private FeedListView listView;
 	private ListFeedAdapter adapter;
 	private ImageView camera;
@@ -47,6 +48,10 @@ public class MainHomeFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.main_tab_home, container, false);
+	}
+
+	public ListFeedAdapter getAdapter() {
+		return adapter;
 	}
 
 	@Override
@@ -59,7 +64,7 @@ public class MainHomeFragment extends Fragment {
 		camera.setOnClickListener(cameraClick);
 
 		listView = (FeedListView) activity.findViewById(R.id.main_home_listView);
-		adapter = new ListFeedAdapter(activity, list);
+		adapter = new ListFeedAdapter(activity, listView, list);
 		listView.setAdapter(adapter);
 		listView.setOnScrollListener(adapter);
 
@@ -151,7 +156,7 @@ public class MainHomeFragment extends Fragment {
 
 		if (requestCode == REQUEST_CODE_PHOTORESOULT) {
 			Log.i("Photo", "crop" + pathUri);
-			new FeedAddAsyncTask(this, pathUri).execute();
+			new FeedAddAsyncTask(this, picture, pathUri).execute();
 		}
 
 	}
@@ -175,6 +180,6 @@ public class MainHomeFragment extends Fragment {
 	public void backToFeed() {
 		// TODO Auto-generated method stub
 		adapter.loadList(FeedManager.load());
-		listView.setSelection(1);
+
 	}
 }

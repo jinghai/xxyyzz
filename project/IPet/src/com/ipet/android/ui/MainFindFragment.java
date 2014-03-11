@@ -12,14 +12,14 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 
 import com.ipet.R;
+import com.ipet.android.sdk.domain.IpetPhoto;
 import com.ipet.android.task.FindLoadAsyncTask;
 import com.ipet.android.ui.adapter.FindGridAdapter;
-import com.ipet.android.vo.Feed;
 
 public class MainFindFragment extends Fragment {
 	private Activity activity;
 	private GridView gridview;
-	private final List<Feed> list = new ArrayList<Feed>(0);
+	private final List<IpetPhoto> list = new ArrayList<IpetPhoto>(0);
 	private FindGridAdapter adapter;
 
 	@Override

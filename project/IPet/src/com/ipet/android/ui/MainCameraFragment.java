@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.ipet.R;
-import com.ipet.android.task.FeedAddAsyncTask;
 import com.ipet.android.ui.utils.DeviceUtils;
 import com.ipet.android.ui.utils.PathUtils;
 
@@ -99,7 +98,7 @@ public class MainCameraFragment extends Fragment {
 
 		if (requestCode == REQUEST_CODE_PHOTORESOULT) {
 			Log.i("Photo", "crop" + pathUri);
-			new FeedAddAsyncTask(this, pathUri).execute();
+			// new FeedAddAsyncTask(this, picture, pathUri).execute();
 		}
 
 	}

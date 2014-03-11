@@ -1,11 +1,9 @@
 package com.ipet.android.task;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.ipet.android.ui.adapter.ListFeedAdapter;
 import com.ipet.android.ui.common.FeedListView;
-import com.ipet.android.ui.manager.FeedManager;
 
 public class FeedLoadAsyncTask extends AsyncTask<String, String, String> {
 	private final FeedListView listView;
@@ -30,8 +28,8 @@ public class FeedLoadAsyncTask extends AsyncTask<String, String, String> {
 
 	@Override
 	protected void onPostExecute(String result) {
-		Log.i("FeedLoad", "FeedLoad" + FeedManager.load().size());
-		adapter.loadList(FeedManager.load());
+		// Log.i("FeedLoad", "FeedLoad" + FeedManager.load().size());
+		// adapter.loadList(FeedManager.load());
 		listView.setLastUpdated("更新于:12-10 10:10");
 		listView.onRefreshComplete();
 		super.onPostExecute(result);

@@ -6,7 +6,7 @@
 
  	<include layout="@layout/list_feed_item_header"  android:id="@+id/inc_feed_header"/>
 
- 	<ImageView
+ 	<com.loopj.android.image.SmartImageView
  	    android:id="@+id/feed_content_image"
  	    android:layout_width="match_parent"
  	    android:layout_height="match_parent"
