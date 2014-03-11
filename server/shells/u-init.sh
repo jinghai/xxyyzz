@@ -4,7 +4,7 @@
 # 反初始化
 echo "正在反初始化..."
 
-yum -y remove wget git ntp
+yum -y remove wget git ntp zip unzip
 
 sed -i "/ulimit -n 102400/d" /etc/rc.d/rc.local 
 chmod +x /etc/rc.d/rc.local

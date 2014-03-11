@@ -42,7 +42,7 @@ chmod +x /root/.bash_profile
 
 #####安装工具
 
-yum install wget git ntp -y
+yum install wget git ntp zip unzip -y
 
 
 grep -q "SYNC_HWCLOCK=yes" /etc/sysconfig/ntpd &&{
