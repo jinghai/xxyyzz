@@ -30,6 +30,10 @@ public class IpetPhoto {
     //所属用户
     private String userId;
 
+    private String userName;
+
+    private String avatar48;
+
     private String createAt;
 
     /**
@@ -156,5 +160,33 @@ public class IpetPhoto {
      */
     public void setCreateAt(String createAt) {
         this.createAt = createAt;
+    }
+
+    /**
+     * @return the userName
+     */
+    public String getUserName() {
+        return userName;
+    }
+
+    /**
+     * @param userName the userName to set
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    /**
+     * @return the avatar48
+     */
+    public String getAvatar48() {
+        return ApiContext.FILE_SERVER_BASE + avatar48;
+    }
+
+    /**
+     * @param avatar48 the avatar48 to set
+     */
+    public void setAvatar48(String avatar48) {
+        this.avatar48 = avatar48;
     }
 }
