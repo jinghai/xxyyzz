@@ -32,10 +32,10 @@ public class ApiContext {
     private String currUserId;
 
     //文件服务器地址
-    public static final String FILE_SERVER_BASE = "http://10.233.211.3:8080/server/";
+    public static final String FILE_SERVER_BASE = "http://localhost:8080/server/";
 
     //API服务器地址
-    public static final String API_SERVER_BASE = "http://10.233.211.3:8080/server/api/v1/";
+    public static final String API_SERVER_BASE = "http://localhost:8080/server/api/v1/";
 
     private static ApiContext instance;
 
@@ -44,11 +44,13 @@ public class ApiContext {
         Charset charset = Charset.forName("UTF-8");
 
         restTemplate = new RestTemplate();
-        //避免HttpURLConnection的http.keepAlive Bug
-        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
-        factory.setConnectTimeout(10 * 1000);
-        factory.setReadTimeout(30 * 1000);
-        restTemplate.setRequestFactory(factory);
+        /**
+         * 只能在Android端使用 //避免HttpURLConnection的http.keepAlive Bug
+         * HttpComponentsClientHttpRequestFactory factory = new
+         * HttpComponentsClientHttpRequestFactory();
+         * factory.setConnectTimeout(10 * 1000); factory.setReadTimeout(30 *
+         * 1000); restTemplate.setRequestFactory(factory);
+         */
 
         List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
         messageConverters.add(new ByteArrayHttpMessageConverter());
