@@ -44,6 +44,11 @@ public class ApiContext {
         Charset charset = Charset.forName("UTF-8");
 
         restTemplate = new RestTemplate();
+        //避免HttpURLConnection的http.keepAlive Bug
+        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
+        factory.setConnectTimeout(10 * 1000);
+        factory.setReadTimeout(30 * 1000);
+        restTemplate.setRequestFactory(factory);
 
         List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
         messageConverters.add(new ByteArrayHttpMessageConverter());
