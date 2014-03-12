@@ -24,7 +24,7 @@ sed -i "/^jdbc.username=/c\jdbc.username=admin" $tomcat_home/webapps/server/WEB-
 sed -i "/^jdbc.password=/c\jdbc.password=itserver" $tomcat_home/webapps/server/WEB-INF/classes/application.properties
 
 mkdir -p /home/data/files
-
+rm -rm /home/data/files/*
 ln -sf /home/data/files $tomcat_home/webapps/server
 
 service tomcat start
