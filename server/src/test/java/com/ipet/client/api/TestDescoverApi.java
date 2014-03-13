@@ -38,7 +38,7 @@ public class TestDescoverApi {
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateStr = dateformat.format(new Date());
         logger.debug(dateStr);
-        List<IpetPhoto> list = discoverApi.listPage(dateStr, "1", "20");
+        List<IpetPhoto> list = discoverApi.listPage(dateStr, "0", "20");
         assertEquals("测试", list.get(0).getText());
     }
 

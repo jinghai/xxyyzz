@@ -34,7 +34,7 @@ public class ProjectUtil {
      */
     public static PageRequest buildPageRequest(Integer pageNumber, Integer pageSize, Direction direction, String... fields) {
         Direction d = Sort.Direction.ASC;
-        int number = 1;
+        int number = 0;
         int size = 20;
         if (pageNumber != null) {
             number = pageNumber;
@@ -46,7 +46,7 @@ public class ProjectUtil {
             d = direction;
         }
         Sort sort = new Sort(d, fields);
-        return new PageRequest(number - 1, size, sort);
+        return new PageRequest(number, size, sort);
     }
 
     /**

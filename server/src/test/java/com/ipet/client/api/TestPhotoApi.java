@@ -44,9 +44,7 @@ public class TestPhotoApi {
         Thread.sleep(1000);
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateStr = dateformat.format(new Date());
-        List<IpetPhoto> ret = api.listFollowd(dateStr, "1", "4");
-        assertEquals(4, ret.size());
-        ret = api.listFollowd(dateStr, "2", "4");
+        List<IpetPhoto> ret = api.listFollowd(dateStr, "0", "4");
         assertEquals(4, ret.size());
     }
 

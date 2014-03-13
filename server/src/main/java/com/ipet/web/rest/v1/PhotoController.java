@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * 人脉rest
+ * 图片分享
  *
  * @author xiaojinghai
  */
