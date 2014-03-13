@@ -71,7 +71,7 @@ public class MainHomeFragment extends Fragment {
 		View emptyView = activity.findViewById(R.id.empty);
 		listView.setEmptyView(emptyView);
 
-		new FeedLoadAsyncTask(listView, adapter).execute();
+		new FeedLoadAsyncTask(this, listView, adapter).execute();
 
 		listView.setOnRefreshListener(new OnRefreshListener() {
 			@Override

@@ -5,7 +5,6 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -104,12 +103,6 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 		 */
 		if (!StringUtils.isEmpty(imageURL)) {
 			holder.content_image.setImageUrl(imageURL);
-			// holder.content_image.setImageURI(Uri.parse(imageURI));
-			Log.i("img", "newImg");
-		} else {
-			holder.content_image.setImageResource(R.drawable.xf1);
-			Log.i("img", "oldImg");
-
 		}
 
 		// BitmapUtils.setRoundedCornerImageView(holder.avator);

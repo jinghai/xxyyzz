@@ -8,7 +8,7 @@
 	    android:layout_width="100dp"
 	    android:layout_height="100dp"
 	    android:layout_centerHorizontal="true"
-	    android:src="@drawable/xf1" >
+	    android:src="@drawable/list_feed_image_default" >
 
 	</ImageView>
 

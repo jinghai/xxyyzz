@@ -11,7 +11,7 @@
  	    android:layout_width="match_parent"
  	    android:layout_height="match_parent"
  	    android:scaleType="fitXY"
- 	    android:src="@drawable/xf1" />
+ 	    android:src="@drawable/list_feed_image_default" />
  	
  	<include layout="@layout/list_feed_item_feedback" />
 

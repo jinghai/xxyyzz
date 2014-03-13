@@ -1,38 +1,43 @@
 package com.ipet.android.task;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.os.AsyncTask;
 
+import com.ipet.android.MyApp;
+import com.ipet.android.sdk.domain.IpetPhoto;
+import com.ipet.android.ui.MainHomeFragment;
 import com.ipet.android.ui.adapter.ListFeedAdapter;
 import com.ipet.android.ui.common.FeedListView;
+import com.ipet.android.ui.utils.DateTimeUtils;
 
-public class FeedLoadAsyncTask extends AsyncTask<String, String, String> {
+public class FeedLoadAsyncTask extends AsyncTask<String, String, List<IpetPhoto>> {
 	private final FeedListView listView;
 	private final ListFeedAdapter adapter;
+	private final MainHomeFragment fragment;
 
-	public FeedLoadAsyncTask(FeedListView listView, ListFeedAdapter adapter) {
+	public FeedLoadAsyncTask(MainHomeFragment fragment, FeedListView listView, ListFeedAdapter adapter) {
 		this.listView = listView;
 		this.adapter = adapter;
+		this.fragment = fragment;
 	}
 
 	@Override
-	protected String doInBackground(String... params) {
+	protected List<IpetPhoto> doInBackground(String... params) {
 		// TODO Auto-generated method stub
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "";
+		MyApp application = (MyApp) this.fragment.getActivity().getApplication();
+		List<IpetPhoto> list = new ArrayList<IpetPhoto>(0);
+		// application.getApi().getPhotoApi().listFollowd(DateTimeUtils.getNowDateTime(),
+		// "0", "10");
+		return list;
 	}
 
 	@Override
-	protected void onPostExecute(String result) {
-		// Log.i("FeedLoad", "FeedLoad" + FeedManager.load().size());
-		// adapter.loadList(FeedManager.load());
-		listView.setLastUpdated("更新于:12-10 10:10");
+	protected void onPostExecute(List<IpetPhoto> list) {
+		listView.setLastUpdated("更新于:" + DateTimeUtils.getNowDateTime());
 		listView.onRefreshComplete();
-		super.onPostExecute(result);
+		super.onPostExecute(list);
 	}
 
 }
