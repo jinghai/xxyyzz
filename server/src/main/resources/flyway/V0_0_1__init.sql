@@ -31,7 +31,7 @@
         type integer,
         user_id varchar(255),
         primary key (id)
-    ) ENGINE=InnoDB;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     create table ipet_comments (
         id varchar(40) not null,
@@ -42,7 +42,7 @@
         user_id varchar(255),
         user_name varchar(255),
         primary key (id)
-    ) ENGINE=InnoDB;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     create table ipet_favors (
         id varchar(40) not null,
@@ -53,7 +53,7 @@
         user_id varchar(255),
         user_name varchar(255),
         primary key (id)
-    ) ENGINE=InnoDB;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     create table ipet_follow_relations (
         id varchar(40) not null,
@@ -62,7 +62,7 @@
         user_ida varchar(255),
         user_idb varchar(255),
         primary key (id)
-    ) ENGINE=InnoDB;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     create table ipet_friend_relations (
         id varchar(40) not null,
@@ -71,7 +71,7 @@
         user_ida varchar(255),
         user_idb varchar(255),
         primary key (id)
-    ) ENGINE=InnoDB;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     create table ipet_last_locations (
         id varchar(40) not null,
@@ -83,7 +83,7 @@
         longitude bigint,
         user_id varchar(255),
         primary key (id)
-    ) ENGINE=InnoDB;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     create table ipet_photos (
         id varchar(40) not null,
@@ -103,7 +103,7 @@
         user_id varchar(255),
         user_name varchar(255),
         primary key (id)
-    ) ENGINE=InnoDB;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     create table ipet_shops (
         id varchar(40) not null,
@@ -116,7 +116,7 @@
         name varchar(255),
         user_id varchar(255),
         primary key (id)
-    ) ENGINE=InnoDB;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     create table ipet_user_profiles (
         id varchar(40) not null,
@@ -124,7 +124,7 @@
         update_at datetime,
         user_id varchar(255),
         primary key (id)
-    ) ENGINE=InnoDB;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     create table ipet_user_settings (
         id varchar(40) not null,
@@ -132,7 +132,7 @@
         update_at datetime,
         user_id varchar(255),
         primary key (id)
-    ) ENGINE=InnoDB;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     create table ipet_users (
         id varchar(40) not null,
@@ -161,9 +161,9 @@
         user_setting_id bigint,
         user_state integer,
         primary key (id)
-    ) ENGINE=InnoDB;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-    alter table ipet_apps 
+    alter table ipet_apps
         add constraint UK_n3db6ibibxrvdkuvfeggqp1p3  unique (app_key);
 
     create index ipet_apps_userId on ipet_apps (user_id);
@@ -176,10 +176,10 @@
 
     create index ipet_favors_photoId on ipet_favors (photo_id);
 
-    alter table ipet_follow_relations 
+    alter table ipet_follow_relations
         add constraint UK_5val2n14c08yjy92eytji7v4a  unique (user_ida, user_idb);
 
-    alter table ipet_friend_relations 
+    alter table ipet_friend_relations
         add constraint UK_4jdvsegda2r1jnct3iv3wcjvn  unique (user_ida, user_idb);
 
     create index ipet_last_locations_userId on ipet_last_locations (user_id);
@@ -198,13 +198,13 @@
 
     create index ipet_user_settings_userId on ipet_user_settings (user_id);
 
-    alter table ipet_users 
+    alter table ipet_users
         add constraint UK_dnwtfsjk7ueifg64j25i6vvb2  unique (email);
 
-    alter table ipet_users 
+    alter table ipet_users
         add constraint UK_ltr9wv46rty0dy3py0f6g8g7g  unique (login_name);
 
-    alter table ipet_users 
+    alter table ipet_users
         add constraint UK_rrlm55vyyb0hvm29w1ifl7ilp  unique (phone);
 
     create index ipet_users_createAt on ipet_users (create_at);
