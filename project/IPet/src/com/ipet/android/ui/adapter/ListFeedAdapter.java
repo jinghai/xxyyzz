@@ -91,7 +91,7 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 		IpetPhoto feed = list.get(position);
 		holder.create_by.setText(feed.getUserName());
 		holder.create_at.setText(feed.getCreateAt());
-		// holder.content.setText(feed.getContent());
+		// holder.content.setText(feed.getText());
 		String imageURL = feed.getSmallURL();
 
 		holder.avator.setImageUrl(feed.getAvatar48(), R.drawable.list_default_avatar_boy);
@@ -106,7 +106,7 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 	public void prependList(List<IpetPhoto> list) {
 		this.list.addAll(0, list);
 		this.notifyDataSetChanged();
-		// listView.setSelection(1);
+		listView.setSelection(1);
 	}
 
 	public void appendList(List<IpetPhoto> list) {
@@ -119,6 +119,7 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 		// TODO Auto-generated method stub
 		this.list.clear();
 		this.appendList(list);
+		listView.setSelection(1);
 	}
 
 	@Override

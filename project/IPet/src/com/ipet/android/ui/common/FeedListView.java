@@ -17,7 +17,6 @@ package com.ipet.android.ui.common;
  */
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
@@ -117,11 +116,17 @@ public class FeedListView extends PullToRefreshListView implements OnScrollListe
 		MORE_LOAD_PROCESS = false;
 	}
 
+	public void hideMoveView() {
+		mMoreView.setVisibility(GONE);
+	}
+
+	public void showMoveView() {
+		mMoreView.setVisibility(VISIBLE);
+	}
+
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 		super.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
-
-		Log.i("TT", "T" + visibleItemCount);
 
 		if (firstVisibleItem > 0 && visibleItemCount + firstVisibleItem == totalItemCount && !MORE_LOAD_PROCESS) {
 			if (mMoreView.getVisibility() != View.GONE) {

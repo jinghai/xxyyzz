@@ -23,12 +23,11 @@ import com.ipet.R;
 import com.ipet.android.sdk.domain.IpetPhoto;
 import com.ipet.android.task.FeedAddAsyncTask;
 import com.ipet.android.task.FeedLoadAsyncTask;
-import com.ipet.android.task.FeedLoadMoreAsyncTask;
-import com.ipet.android.task.FeedLoadNewAsyncTask;
 import com.ipet.android.ui.adapter.ListFeedAdapter;
 import com.ipet.android.ui.common.FeedListView;
 import com.ipet.android.ui.common.FeedListView.OnLoadMoreListener;
 import com.ipet.android.ui.manager.FeedManager;
+import com.ipet.android.ui.utils.DateTimeUtils;
 import com.ipet.android.ui.utils.DeviceUtils;
 import com.ipet.android.ui.utils.DialogUtils;
 import com.ipet.android.ui.utils.PathUtils;
@@ -36,6 +35,10 @@ import com.ipet.android.widget.PullToRefreshListView.OnRefreshListener;
 
 public class MainHomeFragment extends Fragment {
 	private static final int REQUEST_CODE_PHOTORESOULT = 20;
+	public static final int TYPE_CODE_LOAD = 10;
+	public static final int TYPE_CODE_MORE = 20;
+	public static final int LIST_SIZE = 10;
+
 	private Activity activity;
 
 	private final ArrayList<IpetPhoto> list = new ArrayList<IpetPhoto>(0);
@@ -44,6 +47,9 @@ public class MainHomeFragment extends Fragment {
 	private ImageView camera;
 	private Dialog dialog;
 	private String mImageName;
+
+	private String timeline;
+	private int page;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,13 +77,17 @@ public class MainHomeFragment extends Fragment {
 		View emptyView = activity.findViewById(R.id.empty);
 		listView.setEmptyView(emptyView);
 
-		new FeedLoadAsyncTask(this, listView, adapter).execute();
+		timeline = DateTimeUtils.getNowDateTime();
+		page = 0;
+
+		new FeedLoadAsyncTask(this, listView, adapter, MainHomeFragment.TYPE_CODE_LOAD).execute(timeline, String.valueOf(page));
 
 		listView.setOnRefreshListener(new OnRefreshListener() {
 			@Override
 			public void onRefresh() {
 				// Do work to refresh the list here.
-				new FeedLoadNewAsyncTask(listView, adapter).execute();
+				timeline = DateTimeUtils.getNowDateTime();
+				new FeedLoadAsyncTask(MainHomeFragment.this, listView, adapter, MainHomeFragment.TYPE_CODE_LOAD).execute(timeline, "0");
 			}
 		});
 
@@ -86,7 +96,8 @@ public class MainHomeFragment extends Fragment {
 			@Override
 			public void LoadMore() {
 				// TODO Auto-generated method stub
-				new FeedLoadMoreAsyncTask(listView, adapter).execute();
+				MainHomeFragment.this.page++;
+				new FeedLoadAsyncTask(MainHomeFragment.this, listView, adapter, MainHomeFragment.TYPE_CODE_MORE).execute(timeline, String.valueOf(page));
 			}
 
 		});

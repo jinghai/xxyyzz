@@ -10,6 +10,7 @@
         android:layout_marginTop="5.0dip"
         android:layout_marginStart="10.0dip"
         android:layout_marginBottom="10dp"
+        android:visibility="gone"
         >
         <ImageView android:id="@+id/row_feed_photo_textview_comments_glyph" 
             android:paddingTop="2.5dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/stream_photo_activity_glyph_comments" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" />
