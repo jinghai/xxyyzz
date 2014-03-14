@@ -23,7 +23,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="15dip"
-            android:text="@string/drop_to_more_load_label"
+            android:text="@string/empty"
             android:textSize="22sp"
             android:visibility="gone" />
 

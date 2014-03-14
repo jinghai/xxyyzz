@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">IPet</string>
+    <string name="app_name">iPet</string>
     <string name="action_settings">设置</string>
     <string name="splash_desc">启动界面</string>
     <string name="title_activity_guide">GuideActivity</string>
@@ -64,6 +64,7 @@
     <string name="reg_loading">正在注册...</string>
     <string name="reg_failure_other">注册失败</string>
     <string name="reg_failure_sameAccount">邮箱已被注册了</string>
+    <string name="empty">无数据</string>
     
     
     <!-- path -->

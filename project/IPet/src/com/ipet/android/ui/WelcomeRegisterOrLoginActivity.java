@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ipet.R;
+import com.ipet.android.ui.manager.ActivityManager;
 import com.ipet.android.ui.utils.AnimUtils;
 import com.ipet.android.ui.utils.AppUtils;
 
@@ -37,7 +38,7 @@ public class WelcomeRegisterOrLoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_welcome_register_or_login);
-
+		ActivityManager.getInstance().addActivity(this);
 		// 初始化页面
 		initViews();
 		// 初始化小圆点

@@ -93,20 +93,12 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 		holder.create_at.setText(feed.getCreateAt());
 		// holder.content.setText(feed.getContent());
 		String imageURL = feed.getSmallURL();
-		/*
-		 * holder.avator.setImageUrl(feed.getAvatar48(),
-		 * R.drawable.list_default_avatar_boy, new
-		 * SmartImageTask.OnCompleteListener() {
-		 * 
-		 * @Override public void onComplete() { // TODO Auto-generated method
-		 * stub BitmapUtils.setRoundedCornerImageView(holder.avator); } });
-		 */
+
+		holder.avator.setImageUrl(feed.getAvatar48(), R.drawable.list_default_avatar_boy);
+
 		if (!StringUtils.isEmpty(imageURL)) {
 			holder.content_image.setImageUrl(imageURL);
 		}
-
-		// BitmapUtils.setRoundedCornerImageView(holder.avator);
-		// holder.content_image
 
 		return view;
 	}

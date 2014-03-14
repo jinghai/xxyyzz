@@ -9,12 +9,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.ipet.R;
+import com.ipet.android.ui.manager.ActivityManager;
 
 public class MainActivity extends FragmentActivity {
 	private ArrayList<Fragment> fragmentsList;
 	private ViewPager viewPager;
+	private long mExitTime;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -89,5 +93,21 @@ public class MainActivity extends FragmentActivity {
 		}
 
 	};
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if ((System.currentTimeMillis() - mExitTime) > 2000) {
+				Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+				mExitTime = System.currentTimeMillis();
+			} else {
+				ActivityManager.getInstance().exit();
+				// moveTaskToBack(true);
+			}
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+
+	}
 
 }
