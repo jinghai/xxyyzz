@@ -29,8 +29,6 @@
         <property name="locations" value="flyway" />
         <property name="encoding" value="UTF-8" />
         <property name="initOnMigrate" value="true" />
-
-        <!--<property name="baseDir" value="src/main/resources/flyway"/>-->
     </bean>
 
     <!-- Jpa Entity Manager 配置 -->
