@@ -1,9 +1,12 @@
 #!/bin/sh
 #
 #
-#获取最新源码
+#
+
+cur_dir=$(cd "$(dirname "$0")"; pwd)
 
 mkdir -p /src
-rm -rf /src/*
 cd /src
-git pull https://github.com/jinghai/xxyyzz master
+git pull https://github.com/jinghai/xxyyzz.git master
+
+cd ${cur_dir}
