@@ -4,9 +4,9 @@
 # 
 echo "正在卸载Android SDK..."
 
-sed -i "/AUTO_Android_SDK/d" /etc/profile 
+sed -i "/AUTO_GEN_ANDROID/d" /etc/profile 
 sleep 1
 . /etc/profile
-rm -rf /opt/android-sdk-linux
+rm -rf /opt/adt-bundle-linux-x86_64-20131030
 
 echo "===========卸载Android SDK ok===========" 

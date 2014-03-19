@@ -5,10 +5,6 @@
 cur_dir=$(cd "$(dirname "$0")"; pwd)
 tomcat_home=/opt/apache-tomcat-7.0.52
 
-mkdir -p /src
-rm -rf /src/*
-cd /src
-git clone https://github.com/jinghai/xxyyzz
 cd /src/xxyyzz/server
 mvn clean package 
 
@@ -24,7 +20,6 @@ sed -i "/^jdbc.username=/c\jdbc.username=admin" $tomcat_home/webapps/server/WEB-
 sed -i "/^jdbc.password=/c\jdbc.password=itserver" $tomcat_home/webapps/server/WEB-INF/classes/application.properties
 
 mkdir -p /home/data/files
-rm -rm /home/data/files/*
 ln -sf /home/data/files $tomcat_home/webapps/server
 
 service tomcat start
