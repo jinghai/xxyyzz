@@ -6,7 +6,7 @@ cur_dir=$(cd "$(dirname "$0")"; pwd)
 tomcat_home=/opt/apache-tomcat-7.0.52
 
 cd /src/xxyyzz/server
-mvn clean package 
+mvn clean package -DskipTests=true 
 
 service tomcat stop
 
