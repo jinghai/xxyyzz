@@ -21,7 +21,7 @@ public class FeedbackApiImpl extends ApiBase implements FeedbackApi {
 		body.add("title", feedback.getTitle());
 		body.add("content", feedback.getContent());
 		body.add("contact", feedback.getContact());
-		body.add("userId", context.getCurrUserId());
+		body.add("createdBy", context.getCurrUserId());
 		Boolean result = context.getRestTemplate().postForObject(uri, body, Boolean.class);
 		return result;
 	}
