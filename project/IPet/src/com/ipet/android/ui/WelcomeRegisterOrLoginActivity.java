@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.ipet.R;
 import com.ipet.android.ui.manager.ActivityManager;
-import com.ipet.android.ui.utils.AnimUtils;
 import com.ipet.android.ui.utils.AppUtils;
 
 public class WelcomeRegisterOrLoginActivity extends Activity {
@@ -162,14 +161,14 @@ public class WelcomeRegisterOrLoginActivity extends Activity {
 			case R.id.welcome_login_button: {
 				Intent intent = new Intent(WelcomeRegisterOrLoginActivity.this, LoginActivity.class);
 				startActivity(intent);
-				AnimUtils.pushLeftToRight(WelcomeRegisterOrLoginActivity.this);
+
 				break;
 			}
 
 			case R.id.welcome_register_button: {
 				Intent intent = new Intent(WelcomeRegisterOrLoginActivity.this, RegisterActivity.class);
 				startActivity(intent);
-				AnimUtils.pushLeftToRight(WelcomeRegisterOrLoginActivity.this);
+
 				break;
 			}
 			}

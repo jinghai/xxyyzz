@@ -3,7 +3,6 @@ package com.ipet.android.ui.common;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -75,7 +74,7 @@ public class SimpleTitleBar extends LinearLayout {
 		if (Constant.TITLE_TYPE_IMAGE == (resType)) {
 			leftImage.setVisibility(VISIBLE);
 			leftText.setVisibility(GONE);
-			leftImageBtn = this.setImageBtn(type, R.id.titlebar_left_btn, R.styleable.TitleBar_title_left_image);
+			leftImageBtn = this.setImageBtn(type, R.id.titlebar_left_btn, R.styleable.TitleBar_title_left_image, R.drawable.common_tb_back);
 		} else {
 			leftImage.setVisibility(GONE);
 			leftText.setVisibility(VISIBLE);
@@ -83,11 +82,10 @@ public class SimpleTitleBar extends LinearLayout {
 		}
 	}
 
-
-	//设置图标
-	private ImageView setImageBtn(TypedArray type, int resId, int styleableAttrId) {
+	// 设置图标
+	private ImageView setImageBtn(TypedArray type, int resId, int styleableAttrId, int imgResId) {
 		ImageView imageBtn = (ImageView) findViewById(resId);
-		int attrImage = type.getResourceId(styleableAttrId, R.drawable.common_tb_back);
+		int attrImage = type.getResourceId(styleableAttrId, imgResId);
 		imageBtn.setImageResource(attrImage);
 		return imageBtn;
 	}
@@ -107,7 +105,7 @@ public class SimpleTitleBar extends LinearLayout {
 		if (Constant.TITLE_TYPE_IMAGE == (resType)) {
 			rightImage.setVisibility(VISIBLE);
 			rightText.setVisibility(GONE);
-			rightImageBtn = this.setImageBtn(type, R.id.titlebar_right_btn, R.styleable.TitleBar_title_right_image);
+			rightImageBtn = this.setImageBtn(type, R.id.titlebar_right_btn, R.styleable.TitleBar_title_right_image, R.drawable.actionbar_main_menu_selector);
 		} else {
 			rightImage.setVisibility(GONE);
 			rightText.setVisibility(VISIBLE);
@@ -148,16 +146,16 @@ public class SimpleTitleBar extends LinearLayout {
 	public void setLeftViewClick(OnClickListener l) {
 		this.getLeftView().setOnClickListener(l);
 	}
-	
-	public View getRightView(){
+
+	public View getRightView() {
 		if (Constant.TITLE_TYPE_IMAGE == (resRightType)) {
 			return this.rightImageBtn;
-		}else{
+		} else {
 			return this.rightTextBtn;
 		}
-		
+
 	}
-	
+
 	// 设置名称与返回按钮界面
 	public void setRightViewClick(OnClickListener l) {
 		this.getRightView().setOnClickListener(l);

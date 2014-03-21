@@ -12,7 +12,6 @@ import com.ipet.R;
 import com.ipet.android.MyApp;
 import com.ipet.android.ui.common.SimpleTitleBar;
 import com.ipet.android.ui.event.BackAndFinishClick;
-import com.ipet.android.ui.utils.AnimUtils;
 import com.ipet.android.ui.utils.StringUtils;
 
 public class SetUserNickNameActivity extends Activity {
@@ -50,7 +49,7 @@ public class SetUserNickNameActivity extends Activity {
 			}
 
 			application.getUser().setDisplayName(nickname);
-			AnimUtils.backAndFinish(SetUserNickNameActivity.this);
+
 		}
 	};
 
@@ -62,7 +61,7 @@ public class SetUserNickNameActivity extends Activity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			AnimUtils.backAndFinish(this);
+			finish();
 			return true;
 		}
 		return true;

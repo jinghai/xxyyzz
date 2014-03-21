@@ -11,7 +11,6 @@
     <string name="guide_btn_enter">立即体验</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_welcome_register_or_login">WelcomeRegisterOrLoginActivity</string>
-
     <string name="login_connect_sina">微博账号登录</string>
     <string name="qq_login">QQ账号登录</string>
     <string name="title_login">登录</string>
@@ -65,16 +64,26 @@
     <string name="reg_failure_other">注册失败</string>
     <string name="reg_failure_sameAccount">邮箱已被注册了</string>
     <string name="empty">无数据</string>
-    
-    
+
     <!-- path -->
     <string name="login_btn">登录</string>
     <string name="login_register">注册</string>
     <string name="app_version">v%1sBeta</string>
-    
     <string name="take_picture">拍照</string>
     <string name="choose_gallery">从手机相册选择</string>
     <string name="cancel">取消</string>
-     <string name="camera_title">请选择</string>
+    <string name="camera_title">请选择</string>
+    <string name="title_activity_main_pop_dialog">MainPopDialog</string>
+    <string name="menu_logout">注销</string>
+    <string name="menu_feedback">意见反馈</string>
+    <string name="title_activity_feed_back">FeedBackActivity</string>
+    <string name="feedback">意见反馈</string>
+    <string name="submit">提交</string>
+    <string name="submit_loading">提交中...</string>
+    <string name="feedback_no_empty">意见内容不能为空</string>
+    <string name="feedback_success">意见提交成功</string>
+    <string name="feedback_failure">意见提交失败</string>
+    
+    
 
 </resources>

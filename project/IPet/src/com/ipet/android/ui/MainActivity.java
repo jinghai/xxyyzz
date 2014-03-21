@@ -2,6 +2,7 @@ package com.ipet.android.ui;
 
 import java.util.ArrayList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -10,9 +11,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 import com.ipet.R;
+import com.ipet.android.ui.common.SimpleTitleBar;
 import com.ipet.android.ui.manager.ActivityManager;
 
 public class MainActivity extends FragmentActivity {
@@ -29,6 +33,9 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	private void initViews() {
+
+		SimpleTitleBar titleBar = (SimpleTitleBar) findViewById(R.id.main_home_titlebar);
+		titleBar.setRightViewClick(popMenuOnClick);
 
 		fragmentsList = new ArrayList<Fragment>();
 
@@ -92,6 +99,14 @@ public class MainActivity extends FragmentActivity {
 
 		}
 
+	};
+
+	public OnClickListener popMenuOnClick = new OnClickListener() {
+		@Override
+		public void onClick(View arg0) {
+			Intent intent = new Intent(MainActivity.this, MainPopDialog.class);
+			startActivity(intent);
+		}
 	};
 
 	@Override

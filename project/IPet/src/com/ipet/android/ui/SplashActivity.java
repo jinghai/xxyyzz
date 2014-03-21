@@ -12,7 +12,6 @@ import com.ipet.android.Constant;
 import com.ipet.android.MyApp;
 import com.ipet.android.ui.manager.LoginManager;
 import com.ipet.android.ui.manager.UserManager;
-import com.ipet.android.ui.utils.AnimUtils;
 
 public class SplashActivity extends Activity {
 	boolean isLogin = false;
@@ -58,6 +57,7 @@ public class SplashActivity extends Activity {
 				goWelcome();
 				break;
 			}
+			finish();
 			super.handleMessage(msg);
 		}
 	};
@@ -67,7 +67,7 @@ public class SplashActivity extends Activity {
 		Log.i("SPLASH", "to Main");
 		Intent intent = new Intent(SplashActivity.this, MainActivity.class);
 		startActivity(intent);
-		AnimUtils.fadeInToOutFinish(this);
+
 	}
 
 	// 转向引导界面
@@ -75,7 +75,6 @@ public class SplashActivity extends Activity {
 		Log.i("SPLASH", "to Welcome");
 		Intent intent = new Intent(SplashActivity.this, WelcomeRegisterOrLoginActivity.class);
 		startActivity(intent);
-		AnimUtils.fadeInToOutFinish(this);
 	}
 
 }

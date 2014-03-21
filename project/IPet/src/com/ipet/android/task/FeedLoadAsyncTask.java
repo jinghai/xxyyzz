@@ -4,7 +4,6 @@ import java.util.List;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.ipet.android.MyApp;
 import com.ipet.android.sdk.domain.IpetPhoto;
@@ -30,7 +29,8 @@ public class FeedLoadAsyncTask extends AsyncTask<String, String, List<IpetPhoto>
 	@Override
 	protected void onPreExecute() {
 		// TODO Auto-generated method stub
-		Toast.makeText(fragment.getActivity(), "加载中...", Toast.LENGTH_LONG).show();
+		// Toast.makeText(fragment.getActivity(), "加载中...",
+		// Toast.LENGTH_LONG).show();
 		super.onPreExecute();
 	}
 
@@ -49,7 +49,8 @@ public class FeedLoadAsyncTask extends AsyncTask<String, String, List<IpetPhoto>
 	@Override
 	protected void onPostExecute(List<IpetPhoto> list) {
 		if (list != null) {
-			Toast.makeText(fragment.getActivity(), "加载完成", Toast.LENGTH_SHORT).show();
+			// Toast.makeText(fragment.getActivity(), "加载完成",
+			// Toast.LENGTH_SHORT).show();
 			if (type == MainHomeFragment.TYPE_CODE_LOAD) {
 				this.adapter.loadList(list);
 				listView.setLastUpdated("更新于:" + DateTimeUtils.getNowDateTime());

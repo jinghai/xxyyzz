@@ -78,7 +78,8 @@
 		            android:id="@+id/titlebar_right_btn"
 		            android:layout_width="40dp"
 		            android:layout_height="wrap_content"
-		            android:layout_gravity="center" />
+		            android:layout_gravity="center" 
+		            android:src="@drawable/actionbar_main_menu_selector"/>
 	        </RelativeLayout>
 
         	<RelativeLayout

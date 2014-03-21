@@ -8,19 +8,26 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" >
+    </uses-permission>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
-    
-    <uses-feature android:name="android.hardware.camera" />  
- 	<uses-feature android:name="android.hardware.autofocus"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" >
+    </uses-permission>
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.autofocus" />
 
     <application
         android:name="com.ipet.android.MyApp"
@@ -72,6 +79,17 @@
             android:name="com.ipet.android.ui.RegisterActivity"
             android:label="@string/title_activity_register"
             android:theme="@style/IPetTheme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.ipet.android.ui.MainPopDialog"
+            android:label="@string/title_activity_main_pop_dialog"
+            android:theme="@style/MainPopDialog" >
+        </activity>
+        <activity
+            android:name="com.ipet.android.ui.FeedbackActivity"
+            android:theme="@style/IPetTheme.NoTitleBar" 
+            android:label="@string/title_activity_feed_back"  >
+                     
         </activity>
     </application>
 

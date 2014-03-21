@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res/com.ipet"
+    tools:context=".FeedbackActivity" >
+
+      <com.ipet.android.ui.common.SimpleTitleBar
+        android:id="@+id/feedback_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/feedback"
+        app:title_left_res_visibility="visible"
+        app:title_right_res_type="text"
+        app:title_right_res_visibility="invisible"/>
+
+    <LinearLayout
+        android:id="@+id/feedback_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/feedback_titlebar"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:padding="5dp"
+        android:orientation="vertical" 
+		android:background="@drawable/setting_list_single_bg">
+		
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_gravity="top"
+            android:background="@null"
+            android:ems="10"
+            android:gravity="top|center_vertical"
+            android:inputType="textMultiLine"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical" >
+
+            <requestFocus />
+        </EditText>
+
+    </LinearLayout>
+    
+   <TextView
+       android:id="@+id/feedback_btn"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:layout_alignParentRight="true"
+       android:layout_below="@+id/feedback_linearLayout"
+       android:layout_marginLeft="10dp"
+       android:layout_marginRight="10dp"
+       android:layout_marginTop="10dp"
+       android:background="@drawable/welcome_reg_btn"
+       android:gravity="center"
+       android:text="@string/submit"
+       android:textColor="@drawable/font_black_pressed_white"
+       android:textSize="18sp" />
+
+</RelativeLayout>

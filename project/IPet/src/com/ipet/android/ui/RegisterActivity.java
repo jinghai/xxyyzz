@@ -15,7 +15,6 @@ import com.ipet.android.task.RegisterAsyncTask;
 import com.ipet.android.ui.common.SimpleTitleBar;
 import com.ipet.android.ui.event.BackAndFinishClick;
 import com.ipet.android.ui.manager.ActivityManager;
-import com.ipet.android.ui.utils.AnimUtils;
 import com.ipet.android.ui.utils.StringUtils;
 
 public class RegisterActivity extends Activity {
@@ -112,7 +111,7 @@ public class RegisterActivity extends Activity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			AnimUtils.backAndFinish(this);
+			finish();
 			return true;
 		}
 		return true;
@@ -121,7 +120,6 @@ public class RegisterActivity extends Activity {
 	public void goMain() {
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
-		AnimUtils.pushLeftToRight(this);
 	}
 
 	public String getAccount() {
