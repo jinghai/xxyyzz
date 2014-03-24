@@ -7,12 +7,14 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ipet.R;
 import com.ipet.android.ui.manager.ActivityManager;
@@ -32,6 +34,7 @@ public class WelcomeRegisterOrLoginActivity extends Activity {
 	private TextView loginBtn = null;
 	private TextView regBtn = null;
 	private TextView version = null;
+	private long mExitTime;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -176,4 +179,20 @@ public class WelcomeRegisterOrLoginActivity extends Activity {
 		}
 
 	};
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if ((System.currentTimeMillis() - mExitTime) > 2000) {
+				Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+				mExitTime = System.currentTimeMillis();
+			} else {
+				ActivityManager.getInstance().exit();
+				// moveTaskToBack(true);
+			}
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+
+	}
 }

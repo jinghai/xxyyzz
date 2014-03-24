@@ -6,7 +6,7 @@ public class Constant {
 	public static final String SP_SETTING_FIRST_RUN_KEY = "SOFT_IS_FIRST_RUN";
 
 	// splash
-	public static final long SPLASH_DELAY_MILLIS = 3000;
+	public static final long SPLASH_DELAY_MILLIS = 2000;
 
 	// TitleBar
 	public static final int TITLE_VISIBILITY_VISIBLE = 0;

@@ -2,6 +2,7 @@ package com.ipet.android.ui;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,16 +19,20 @@ import android.widget.Toast;
 import com.ipet.R;
 import com.ipet.android.ui.common.SimpleTitleBar;
 import com.ipet.android.ui.manager.ActivityManager;
+import com.ipet.android.ui.manager.LoginManager;
+import com.ipet.android.ui.utils.AnimUtils;
 
 public class MainActivity extends FragmentActivity {
 	private ArrayList<Fragment> fragmentsList;
 	private ViewPager viewPager;
 	private long mExitTime;
+	public static int POP_INTENT_REQUEST = 999;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		ActivityManager.getInstance().addActivity(this);
 		// 初始化页面
 		initViews();
 	}
@@ -105,7 +110,7 @@ public class MainActivity extends FragmentActivity {
 		@Override
 		public void onClick(View arg0) {
 			Intent intent = new Intent(MainActivity.this, MainPopDialog.class);
-			startActivity(intent);
+			startActivityForResult(intent, POP_INTENT_REQUEST);
 		}
 	};
 
@@ -123,6 +128,24 @@ public class MainActivity extends FragmentActivity {
 		}
 		return super.onKeyDown(keyCode, event);
 
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == POP_INTENT_REQUEST) {
+			if (resultCode == Activity.RESULT_OK) {
+				toLogout();
+			}
+		}
+	}
+
+	private void toLogout() {
+		// TODO Auto-generated method stub
+		LoginManager.logout(MainActivity.this);
+		Intent intent = new Intent(this, LoginActivity.class);
+		startActivity(intent);
+		AnimUtils.backAndFinish(this);
 	}
 
 }

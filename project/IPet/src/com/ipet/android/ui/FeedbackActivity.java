@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import com.ipet.R;
 import com.ipet.android.task.FeedbackAsyncTask;
+import com.ipet.android.ui.common.SimpleTitleBar;
+import com.ipet.android.ui.event.BackAndFinishClick;
 import com.ipet.android.ui.utils.StringUtils;
 
 public class FeedbackActivity extends Activity {
@@ -20,6 +22,9 @@ public class FeedbackActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_feedback);
+
+		SimpleTitleBar titleBar = (SimpleTitleBar) findViewById(R.id.feedback_titlebar);
+		titleBar.setLeftViewClick(new BackAndFinishClick(this));
 
 		feedback_btn = this.findViewById(R.id.feedback_btn);
 		edit = (EditText) this.findViewById(R.id.editText);

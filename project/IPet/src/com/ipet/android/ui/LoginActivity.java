@@ -19,6 +19,7 @@ import com.ipet.android.task.LoginAsyncTask;
 import com.ipet.android.ui.common.SimpleTitleBar;
 import com.ipet.android.ui.event.BackAndFinishClick;
 import com.ipet.android.ui.manager.ActivityManager;
+import com.ipet.android.ui.utils.AnimUtils;
 import com.ipet.android.ui.utils.StringUtils;
 
 public class LoginActivity extends Activity {
@@ -131,8 +132,9 @@ public class LoginActivity extends Activity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			// AnimUtils.backAndFinish(this);
-			finish();
+			Intent intent = new Intent(this, WelcomeRegisterOrLoginActivity.class);
+			startActivity(intent);
+			AnimUtils.backAndFinish(this);
 			return true;
 		}
 		return true;
@@ -141,7 +143,7 @@ public class LoginActivity extends Activity {
 	public void goMain() {
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
-		// AnimUtils.pushLeftToRight(this);
+		finish();
 	}
 
 }

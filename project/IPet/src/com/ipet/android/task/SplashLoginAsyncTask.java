@@ -1,28 +1,27 @@
 package com.ipet.android.task;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.ipet.R;
 import com.ipet.android.MyApp;
 import com.ipet.android.sdk.domain.IpetUser;
-import com.ipet.android.ui.LoginActivity;
-import com.ipet.android.ui.manager.LoginManager;
+import com.ipet.android.ui.SplashActivity;
 
-public class LoginAsyncTask extends AsyncTask<Integer, Integer, Integer> {
+public class SplashLoginAsyncTask extends AsyncTask<Integer, Integer, Integer> {
 
 	public final static int RESULT_SUCCESS = 0;
 	public final static int RESULT_FAILURE_NETWORK = 1;
 	public final static int RESULT_FAILURE_AUTH = 2;
 	public final static int RESULT_FAILURE_OTHER = 3;
 
-	private final LoginActivity activity;
+	private final SplashActivity activity;
 	private final String account;
 	private final String password;
-	private ProgressDialog progress;
 
-	public LoginAsyncTask(LoginActivity activity, String account, String password) {
+	// private ProgressDialog progress;
+
+	public SplashLoginAsyncTask(SplashActivity activity, String account, String password) {
 		this.activity = activity;
 		this.account = account;
 		this.password = password;
@@ -34,7 +33,7 @@ public class LoginAsyncTask extends AsyncTask<Integer, Integer, Integer> {
 		super.onPreExecute();
 		Log.i("LoginAsyncTask", "开始执行异步线程");
 		String str = this.activity.getResources().getString(R.string.login_loading);
-		this.progress = ProgressDialog.show(this.activity, null, str);
+		// this.progress = ProgressDialog.show(this.activity, null, str);
 	}
 
 	@Override
@@ -57,7 +56,7 @@ public class LoginAsyncTask extends AsyncTask<Integer, Integer, Integer> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.progress.dismiss();
+		// this.progress.dismiss();
 		return result;
 	}
 
@@ -65,23 +64,12 @@ public class LoginAsyncTask extends AsyncTask<Integer, Integer, Integer> {
 	protected void onPostExecute(Integer result) {
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
-
-		switch (result.intValue()) {
-		case RESULT_SUCCESS: {
-			LoginManager.saveAccountAndPassword(activity, account, password);
+		if (result.intValue() == RESULT_SUCCESS) {
 			this.activity.goMain();
-			break;
-		}
-		case RESULT_FAILURE_AUTH: {
-			this.activity.showError(R.string.login_failure_auth);
-			break;
-		}
-		case RESULT_FAILURE_OTHER: {
-			this.activity.showError(R.string.login_failure_other);
-			break;
+		} else {
+			this.activity.goWelcome();
 		}
 
-		}
 	}
 
 	@Override

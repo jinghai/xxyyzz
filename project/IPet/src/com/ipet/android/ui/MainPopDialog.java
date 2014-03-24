@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.ipet.R;
 import com.ipet.android.MyApp;
 import com.ipet.android.sdk.domain.IpetUser;
+import com.ipet.android.ui.manager.ActivityManager;
 import com.loopj.android.image.SmartImageView;
 
 public class MainPopDialog extends Activity {
@@ -22,10 +23,13 @@ public class MainPopDialog extends Activity {
 	private SmartImageView avator;
 	private TextView username;
 
+	public static int POP_INTENT_RESPONSE = 0;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_pop_dialog);
+		ActivityManager.getInstance().addActivity(this);
 
 		logout = this.findViewById(R.id.menu_logout_layout);
 		feedback = this.findViewById(R.id.menu_feedback_layout);
@@ -61,7 +65,19 @@ public class MainPopDialog extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			Toast.makeText(MainPopDialog.this, "尚未实现", Toast.LENGTH_SHORT).show();
+			// Toast.makeText(MainPopDialog.this, "尚未实现",
+			// Toast.LENGTH_SHORT).show();
+
+			Intent intent = new Intent();
+			setResult(Activity.RESULT_OK, intent);
+			finish();
+
+			// Intent intent = new Intent(MainPopDialog.this,
+			// LoginActivity.class);
+			// startActivity(intent);
+			// finish();
+			// ActivityManager.getInstance().finish();
+
 		}
 
 	};
