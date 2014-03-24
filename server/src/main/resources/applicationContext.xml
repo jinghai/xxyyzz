@@ -6,9 +6,7 @@
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-	<description>Spring公共配置 </description>
-
-	<context:property-placeholder ignore-unresolvable="true" location="classpath:/application.properties" />
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:/jdbc.properties" />
 
 	<import resource="classpath:/applicationContext-datasource.xml" />
 	<import resource="classpath:/applicationContext-flyway.xml" />

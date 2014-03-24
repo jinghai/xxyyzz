@@ -2,7 +2,6 @@ package com.ipet.client.api;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -22,11 +21,6 @@ public class AllApiTest {
 	@AfterClass
 	public static void teardown() throws Exception {
 		JettyServer.stop();
-	}
-
-	@Test
-	public void test() {
-		System.out.println("ok");
 	}
 
 }

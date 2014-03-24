@@ -38,6 +38,7 @@ public class JettyServer {
 	public static void stop() throws Exception {
 		if (server != null) {
 			server.stop();
+			server = null;
 		}
 	}
 
