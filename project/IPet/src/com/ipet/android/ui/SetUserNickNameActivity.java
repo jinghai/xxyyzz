@@ -6,10 +6,12 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.ipet.R;
 import com.ipet.android.MyApp;
+import com.ipet.android.sdk.domain.IpetUser;
+import com.ipet.android.sdk.domain.IpetUserUpdate;
+import com.ipet.android.task.UserInfoAsyncTask;
 import com.ipet.android.ui.common.SimpleTitleBar;
 import com.ipet.android.ui.event.BackAndFinishClick;
 import com.ipet.android.ui.utils.StringUtils;
@@ -18,6 +20,7 @@ public class SetUserNickNameActivity extends Activity {
 
 	private EditText nicknameView = null;
 	private MyApp application = null;
+	private IpetUser user;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,13 @@ public class SetUserNickNameActivity extends Activity {
 
 	}
 
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		user = ((MyApp) this.getApplication()).getUser();
+	}
+
 	private final OnClickListener saveClick = new OnClickListener() {
 
 		@Override
@@ -48,14 +58,19 @@ public class SetUserNickNameActivity extends Activity {
 				return;
 			}
 
-			application.getUser().setDisplayName(nickname);
+			IpetUserUpdate updateUser = new IpetUserUpdate();
+			updateUser.setId(user.getId());
+			updateUser.setDisplayName(nickname);
+			updateUser.setEmail(user.getEmail());
+			updateUser.setPhone(user.getPhone());
+			new UserInfoAsyncTask(SetUserNickNameActivity.this, updateUser).execute();
 
 		}
 	};
 
 	public void showError(int resId) {
 		// TODO Auto-generated method stub
-		Toast.makeText(this, resId, Toast.LENGTH_LONG).show();
+		// Toast.makeText(this, resId, Toast.LENGTH_LONG).show();
 	}
 
 	@Override

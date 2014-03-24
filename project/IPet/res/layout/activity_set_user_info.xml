@@ -15,6 +15,7 @@
         app:title_right_res_visibility="invisible" />
     
     <RelativeLayout
+        android:id="@+id/me_info_avator_layout"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="5dp"
@@ -35,7 +36,7 @@
         	            android:scaleType="matrix"
         	            android:src="@drawable/mm_submenu" />
 
-        	        <ImageView
+        	        <com.loopj.android.image.SmartImageView
         	            android:id="@+id/imageMyHead"
         	            android:layout_width="50dp"
         	            android:layout_height="50dp"
@@ -82,6 +83,7 @@
                 android:textSize="@dimen/text_size_16" />
 
             <TextView
+                android:id="@+id/account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -92,7 +94,6 @@
                 android:ellipsize="middle"
                 android:padding="8dp"
                 android:singleLine="true"
-                android:text="kcrens@gmail.com"
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/text_size_16" />
 

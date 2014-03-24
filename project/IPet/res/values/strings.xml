@@ -83,6 +83,9 @@
     <string name="feedback_no_empty">意见内容不能为空</string>
     <string name="feedback_success">意见提交成功</string>
     <string name="feedback_failure">意见提交失败</string>
+    <string name="upload_loading">正在上传</string>
+    <string name="save_loading">正在保存...</string>
+    
     
     
 

@@ -7,7 +7,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ipet.R;
 import com.ipet.android.MyApp;
@@ -46,7 +45,7 @@ public class MainPopDialog extends Activity {
 		avator.setImageUrl(user.getAvatar48(), R.drawable.menu_person);
 
 		username = (TextView) this.findViewById(R.id.username);
-		username.setText(user.getLoginName());
+		username.setText(user.getDisplayName());
 
 	}
 
@@ -55,7 +54,11 @@ public class MainPopDialog extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			Toast.makeText(MainPopDialog.this, "尚未实现", Toast.LENGTH_SHORT).show();
+			// Toast.makeText(MainPopDialog.this, "尚未实现",
+			// Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(MainPopDialog.this, SetUserInfoActivity.class);
+			startActivity(intent);
+			finish();
 		}
 
 	};
