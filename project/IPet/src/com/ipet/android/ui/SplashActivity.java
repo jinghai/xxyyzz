@@ -50,9 +50,9 @@ public class SplashActivity extends Activity {
             // Constant.SPLASH_DELAY_MILLIS);
             // mHandler.sendEmptyMessageDelayed(GO_GUIDE,Constant.SPLASH_DELAY_MILLIS);
             String[] u = LoginManager.getAccount(SplashActivity.this);
-            //new SplashLoginAsyncTask(SplashActivity.this, u[0], u[1]).execute();
+            new SplashLoginAsyncTask(SplashActivity.this, u[0], u[1]).execute();
         } else {
-            //mHandler.sendEmptyMessageDelayed(GO_WELCOME, Constant.SPLASH_DELAY_MILLIS);
+            mHandler.sendEmptyMessageDelayed(GO_WELCOME, Constant.SPLASH_DELAY_MILLIS);
         }
 
     }
