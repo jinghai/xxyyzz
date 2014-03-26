@@ -9,6 +9,7 @@ JAVA_OPTS="-server -Xms512m -Xmx1024m \
 	-XX:MaxNewSize=512m -XX:PermSize=128M -XX:MaxPermSize=512m \
 	-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/opt/apache-tomcat-7.0.52/logs/ \
 	-Dcom.sun.management.jmxremote.port=2099 -Dcom.sun.management.jmxremote.ssl=false \
+	-Djava.rmi.server.hostname=10.233.211.3 \
 	-Dcom.sun.management.jmxremote.authenticate=false"
 
 
