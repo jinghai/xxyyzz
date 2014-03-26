@@ -129,9 +129,9 @@ public class UserService {
             user.setAvatar48(avatar48RelativeFile);
             this.getUserDao().save(user);
 
-            //清理
-            deleteOldAvatarFile(old32);
-            deleteOldAvatarFile(old48);
+            //清理，保留以前上传过的头像
+            //deleteOldAvatarFile(old32);
+            //deleteOldAvatarFile(old48);
             return user;
 
         } catch (Exception e) {
