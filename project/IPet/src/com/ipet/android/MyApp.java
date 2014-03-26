@@ -19,8 +19,8 @@ public class MyApp extends Application {
 
     private static Context context;
     private IpetApi ipetApi;
-    public static final String APP_ID = "1";
-    public static final String APP_SECRET = "1";
+    public static final String APP_ID = "ipet";
+    public static final String APP_SECRET = "ipet";
     private IpetUser user;
 
     public static Context getContext() {

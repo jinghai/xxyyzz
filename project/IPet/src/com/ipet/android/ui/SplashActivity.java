@@ -1,5 +1,7 @@
 package com.ipet.android.ui;
 
+import java.util.concurrent.CountDownLatch;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.util.Log;
 import com.ipet.R;
 import com.ipet.android.Constant;
 import com.ipet.android.MyApp;
+import com.ipet.android.sdk.domain.IpetAppUpdate;
 import com.ipet.android.task.SplashLoginAsyncTask;
 import com.ipet.android.ui.manager.LoginManager;
 import com.ipet.android.ui.manager.UpdateManager;
@@ -32,9 +35,6 @@ public class SplashActivity extends Activity {
 
     // 开始初始化
     private void init() {
-        // 检查软件更新
-        UpdateManager manager = new UpdateManager(SplashActivity.this);
-        //manager.checkUpdate();
 
         // 初始化模拟用户数据
         MyApp application = (MyApp) this.getApplication();

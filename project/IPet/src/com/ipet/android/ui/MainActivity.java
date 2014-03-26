@@ -20,132 +20,138 @@ import com.ipet.R;
 import com.ipet.android.ui.common.SimpleTitleBar;
 import com.ipet.android.ui.manager.ActivityManager;
 import com.ipet.android.ui.manager.LoginManager;
+import com.ipet.android.ui.manager.UpdateManager;
 import com.ipet.android.ui.utils.AnimUtils;
 
 public class MainActivity extends FragmentActivity {
-	private ArrayList<Fragment> fragmentsList;
-	private ViewPager viewPager;
-	private long mExitTime;
-	public static int POP_INTENT_REQUEST = 999;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		ActivityManager.getInstance().addActivity(this);
-		// 初始化页面
-		initViews();
-	}
+    private ArrayList<Fragment> fragmentsList;
+    private ViewPager viewPager;
+    private long mExitTime;
+    public static int POP_INTENT_REQUEST = 999;
 
-	private void initViews() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ActivityManager.getInstance().addActivity(this);
+        // 初始化页面
+        initViews();
+        // 检查软件更新
+        UpdateManager manager = new UpdateManager(MainActivity.this);
+        manager.checkUpdate();
+    }
 
-		SimpleTitleBar titleBar = (SimpleTitleBar) findViewById(R.id.main_home_titlebar);
-		titleBar.setRightViewClick(popMenuOnClick);
+    private void initViews() {
 
-		fragmentsList = new ArrayList<Fragment>();
+        SimpleTitleBar titleBar = (SimpleTitleBar) findViewById(R.id.main_home_titlebar);
+        titleBar.setRightViewClick(popMenuOnClick);
 
-		Fragment mainHomeFragment = new MainHomeFragment();
-		Fragment mainConversationFragment = new MainConversationFragment();
+        fragmentsList = new ArrayList<Fragment>();
 
-		fragmentsList.add(mainHomeFragment);
-		fragmentsList.add(mainConversationFragment);
+        Fragment mainHomeFragment = new MainHomeFragment();
+        Fragment mainConversationFragment = new MainConversationFragment();
 
-		viewPager = (ViewPager) findViewById(R.id.tabpager);
-		viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), fragmentsList));
-		viewPager.setOnPageChangeListener(myPageChangeListener);
-	}
+        fragmentsList.add(mainHomeFragment);
+        fragmentsList.add(mainConversationFragment);
 
-	public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
-		private ArrayList<Fragment> fragmentsList;
+        viewPager = (ViewPager) findViewById(R.id.tabpager);
+        viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), fragmentsList));
+        viewPager.setOnPageChangeListener(myPageChangeListener);
+    }
 
-		public MyFragmentPagerAdapter(FragmentManager fm) {
-			super(fm);
-		}
+    public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
-		public MyFragmentPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
-			super(fm);
-			this.fragmentsList = fragments;
-		}
+        private ArrayList<Fragment> fragmentsList;
 
-		@Override
-		public int getCount() {
-			return fragmentsList.size();
-		}
+        public MyFragmentPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
 
-		@Override
-		public Fragment getItem(int arg0) {
-			return fragmentsList.get(arg0);
-		}
+        public MyFragmentPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
+            super(fm);
+            this.fragmentsList = fragments;
+        }
 
-		@Override
-		public int getItemPosition(Object object) {
-			return super.getItemPosition(object);
-		}
+        @Override
+        public int getCount() {
+            return fragmentsList.size();
+        }
 
-	}
+        @Override
+        public Fragment getItem(int arg0) {
+            return fragmentsList.get(arg0);
+        }
 
-	private final OnPageChangeListener myPageChangeListener = new OnPageChangeListener() {
+        @Override
+        public int getItemPosition(Object object) {
+            return super.getItemPosition(object);
+        }
 
-		@Override
-		public void onPageScrollStateChanged(int arg0) {
-			// TODO Auto-generated method stub
+    }
 
-		}
+    private final OnPageChangeListener myPageChangeListener = new OnPageChangeListener() {
 
-		@Override
-		public void onPageScrolled(int arg0, float arg1, int arg2) {
-			// TODO Auto-generated method stub
+        @Override
+        public void onPageScrollStateChanged(int arg0) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-		@Override
-		public void onPageSelected(int arg0) {
-			// TODO Auto-generated method stub
+        @Override
+        public void onPageScrolled(int arg0, float arg1, int arg2) {
+            // TODO Auto-generated method stub
 
-		}
+        }
 
-	};
+        @Override
+        public void onPageSelected(int arg0) {
+            // TODO Auto-generated method stub
 
-	public OnClickListener popMenuOnClick = new OnClickListener() {
-		@Override
-		public void onClick(View arg0) {
-			Intent intent = new Intent(MainActivity.this, MainPopDialog.class);
-			startActivityForResult(intent, POP_INTENT_REQUEST);
-		}
-	};
+        }
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if ((System.currentTimeMillis() - mExitTime) > 2000) {
-				Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-				mExitTime = System.currentTimeMillis();
-			} else {
-				ActivityManager.getInstance().exit();
-				// moveTaskToBack(true);
-			}
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
+    };
 
-	}
+    public OnClickListener popMenuOnClick = new OnClickListener() {
+        @Override
+        public void onClick(View arg0) {
+            Intent intent = new Intent(MainActivity.this, MainPopDialog.class);
+            startActivityForResult(intent, POP_INTENT_REQUEST);
+        }
+    };
 
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode == POP_INTENT_REQUEST) {
-			if (resultCode == Activity.RESULT_OK) {
-				toLogout();
-			}
-		}
-	}
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                mExitTime = System.currentTimeMillis();
+            } else {
+                ActivityManager.getInstance().exit();
+                // moveTaskToBack(true);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
 
-	private void toLogout() {
-		// TODO Auto-generated method stub
-		LoginManager.logout(MainActivity.this);
-		Intent intent = new Intent(this, LoginActivity.class);
-		startActivity(intent);
-		AnimUtils.backAndFinish(this);
-	}
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == POP_INTENT_REQUEST) {
+            if (resultCode == Activity.RESULT_OK) {
+                toLogout();
+            }
+        }
+    }
+
+    private void toLogout() {
+        // TODO Auto-generated method stub
+        LoginManager.logout(MainActivity.this);
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        AnimUtils.backAndFinish(this);
+    }
 
 }

@@ -25,12 +25,10 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.ipet.R;
 import com.ipet.android.MyApp;
 import com.ipet.android.sdk.domain.IpetAppUpdate;
-
 
 public class UpdateManager {
     /* 下载中 */
@@ -38,11 +36,13 @@ public class UpdateManager {
     private static final int DOWNLOAD = 1;
     /* 下载结束 */
     private static final int DOWNLOAD_FINISH = 2;
-
+    /* 下载地址 */
     private String downloadUrl;
     /* 下载保存路径 */
     private String mSavePath;
-
+    /* 下载文件名 */
+    private String mFileName = "ipet.apk";
+    /* 最新版本 */
     private Integer mRemotVerson;
 
     /* 记录进度条数量 */
@@ -50,13 +50,14 @@ public class UpdateManager {
     /* 是否取消更新 */
     private boolean cancelUpdate = false;
 
-    private Activity mContext;
+    private final Activity mContext;
 
     /* 更新进度条 */
     private ProgressBar mProgress;
     private Dialog mDownloadDialog;
 
-    private Handler mHandler = new Handler() {
+    private final Handler mHandler = new Handler() {
+        @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 // 正在下载
@@ -87,8 +88,6 @@ public class UpdateManager {
         if (isUpdate()) {
             // 显示提示对话框
             showNoticeDialog();
-        } else {
-            Toast.makeText(mContext, R.string.soft_update_no, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -104,7 +103,7 @@ public class UpdateManager {
             @Override
             public void run() {
                 MyApp application = (MyApp) mContext.getApplication();
-                IpetAppUpdate updateInfo = application.getApi().getAppApi().checkAppVersion("ipet");
+                IpetAppUpdate updateInfo = application.getApi().getAppApi().checkAppVersion(application.APP_ID);
                 downloadUrl = updateInfo.getAppDownloadUrl();
                 mRemotVerson = updateInfo.getVersionCode();
                 latch.countDown();
@@ -235,7 +234,7 @@ public class UpdateManager {
                     if (!file.exists()) {
                         file.mkdir();
                     }
-                    File apkFile = new File(mSavePath, "ipet.apk");
+                    File apkFile = new File(mSavePath, mFileName);
                     FileOutputStream fos = new FileOutputStream(apkFile);
                     int count = 0;
                     // 缓存
@@ -273,7 +272,7 @@ public class UpdateManager {
      * 安装APK文件
      */
     private void installApk() {
-        File apkfile = new File(mSavePath, "ipet.apk");
+        File apkfile = new File(mSavePath, mFileName);
         if (!apkfile.exists()) {
             return;
         }
