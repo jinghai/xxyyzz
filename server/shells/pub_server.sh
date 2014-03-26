@@ -16,8 +16,8 @@ rm -rf $tomcat_home/work/*
 
 unzip -oq /src/xxyyzz/server/target/server.war -d $tomcat_home/webapps/server
 
-sed -i "/^jdbc.username=/c\jdbc.username=admin" $tomcat_home/webapps/server/WEB-INF/classes/application.properties
-sed -i "/^jdbc.password=/c\jdbc.password=itserver" $tomcat_home/webapps/server/WEB-INF/classes/application.properties
+sed -i "/^jdbc.username=/c\jdbc.username=admin" $tomcat_home/webapps/server/WEB-INF/classes/jdbc.properties
+sed -i "/^jdbc.password=/c\jdbc.password=itserver" $tomcat_home/webapps/server/WEB-INF/classes/jdbc.properties
 
 mkdir -p /home/data/files
 ln -sf /home/data/files $tomcat_home/webapps/server
