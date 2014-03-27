@@ -1,43 +1,33 @@
-/*
- * To change this template, choose Tools | Templates,
- * and open the template in the editor.
- */
 package com.ipet.server.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ipet.server.domain.IdEntity;
 import java.io.Serializable;
+
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Index;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.ipet.server.domain.IdEntity;
 
 /**
  * 用户档案
- *
+ * 
  * @author xiaojinghai
  */
 @Entity
-@Table(name = "ipet_user_settings", indexes = {
-    @Index(name = "ipet_user_settings_userId", columnList = "userId")
-})
+@Table(name = "ipet_user_settings", indexes = { @Index(name = "ipet_user_settings_userId", columnList = "userId") })
 public class UserSetting extends IdEntity implements Serializable {
 
-    private String userId;
+	/** serialVersionUID */
+	private static final long serialVersionUID = -2246972647734766782L;
 
-    /**
-     * @return the userId
-     */
-    public String getUserId() {
-        return userId;
-    }
+	private String userId;
 
-    /**
-     * @param userId the userId to set
-     */
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 }

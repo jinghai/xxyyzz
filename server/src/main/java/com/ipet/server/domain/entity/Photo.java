@@ -1,197 +1,135 @@
-/*
- * To change this template, choose Tools | Templates,
- * and open the template in the editor.
- */
 package com.ipet.server.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import com.ipet.server.domain.IdEntity;
-import com.ipet.server.domain.Location;
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.ipet.server.domain.IdEntity;
+import com.ipet.server.domain.Location;
 
 /**
  * 图片
- *
+ * 
  * @author xiaojinghai
  */
 @Entity
-@Table(name = "ipet_photos", indexes = {
-    @Index(name = "ipet_photos_createAt", columnList = "createAt"),
-    @Index(name = "ipet_photos_updateAt", columnList = "updateAt"),
-    @Index(name = "ipet_photos_forwordFromId", columnList = "forwordFromId"),
-    @Index(name = "ipet_photos_userId", columnList = "userId")
-})
+@Table(name = "ipet_photos", indexes = { @Index(name = "ipet_photos_createAt", columnList = "createAt"),
+		@Index(name = "ipet_photos_updateAt", columnList = "updateAt"),
+		@Index(name = "ipet_photos_forwordFromId", columnList = "forwordFromId"),
+		@Index(name = "ipet_photos_userId", columnList = "userId") })
 public class Photo extends IdEntity implements Serializable {
 
-    private String originalURL;
+	/** serialVersionUID */
+	private static final long serialVersionUID = -4218596589941666668L;
 
-    private String smallURL;
+	private String originalURL;
 
-    private String text;
+	private String smallURL;
 
-    //位置
-    @JsonUnwrapped
-    private Location location;
+	private String text;
 
-    private String forwordFromId;
+	// 位置
+	@JsonUnwrapped
+	private Location location;
 
-    @Column(columnDefinition = "int default 0")
-    private Integer commentCount = 0;
+	private String forwordFromId;
 
-    @Column(columnDefinition = "int default 0")
-    private Integer favorCount = 0;
+	@Column(columnDefinition = "int default 0")
+	private Integer commentCount = 0;
 
-    private String userId;
+	@Column(columnDefinition = "int default 0")
+	private Integer favorCount = 0;
 
-    //@Transient
-    private String userName;
+	private String userId;
 
-    //@Transient
-    private String avatar48;
+	// @Transient
+	private String userName;
 
-    /**
-     * @return the originalURL
-     */
-    public String getOriginalURL() {
-        return originalURL;
-    }
+	// @Transient
+	private String avatar48;
 
-    /**
-     * @param originalURL the originalURL to set
-     */
-    public void setOriginalURL(String originalURL) {
-        this.originalURL = originalURL;
-    }
+	public String getOriginalURL() {
+		return originalURL;
+	}
 
-    /**
-     * @return the smallURL
-     */
-    public String getSmallURL() {
-        return smallURL;
-    }
+	public void setOriginalURL(String originalURL) {
+		this.originalURL = originalURL;
+	}
 
-    /**
-     * @param smallURL the smallURL to set
-     */
-    public void setSmallURL(String smallURL) {
-        this.smallURL = smallURL;
-    }
+	public String getSmallURL() {
+		return smallURL;
+	}
 
-    /**
-     * @return the text
-     */
-    public String getText() {
-        return text;
-    }
+	public void setSmallURL(String smallURL) {
+		this.smallURL = smallURL;
+	}
 
-    /**
-     * @param text the text to set
-     */
-    public void setText(String text) {
-        this.text = text;
-    }
+	public String getText() {
+		return text;
+	}
 
-    /**
-     * @return the location
-     */
-    public Location getLocation() {
-        return location;
-    }
+	public void setText(String text) {
+		this.text = text;
+	}
 
-    /**
-     * @param location the location to set
-     */
-    public void setLocation(Location location) {
-        this.location = location;
-    }
+	public Location getLocation() {
+		return location;
+	}
 
-    /**
-     * @return the commentCount
-     */
-    public Integer getCommentCount() {
-        return commentCount;
-    }
+	public void setLocation(Location location) {
+		this.location = location;
+	}
 
-    /**
-     * @param commentCount the commentCount to set
-     */
-    public void setCommentCount(Integer commentCount) {
-        this.commentCount = commentCount;
-    }
+	public Integer getCommentCount() {
+		return commentCount;
+	}
 
-    /**
-     * @return the favorCount
-     */
-    public Integer getFavorCount() {
-        return favorCount;
-    }
+	public void setCommentCount(Integer commentCount) {
+		this.commentCount = commentCount;
+	}
 
-    /**
-     * @param favorCount the favorCount to set
-     */
-    public void setFavorCount(Integer favorCount) {
-        this.favorCount = favorCount;
-    }
+	public Integer getFavorCount() {
+		return favorCount;
+	}
 
-    /**
-     * @return the userId
-     */
-    public String getUserId() {
-        return userId;
-    }
+	public void setFavorCount(Integer favorCount) {
+		this.favorCount = favorCount;
+	}
 
-    /**
-     * @param userId the userId to set
-     */
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+	public String getUserId() {
+		return userId;
+	}
 
-    /**
-     * @return the forwordFromId
-     */
-    public String getForwordFromId() {
-        return forwordFromId;
-    }
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-    /**
-     * @param forwordFromId the forwordFromId to set
-     */
-    public void setForwordFromId(String forwordFromId) {
-        this.forwordFromId = forwordFromId;
-    }
+	public String getForwordFromId() {
+		return forwordFromId;
+	}
 
-    /**
-     * @return the userName
-     */
-    public String getUserName() {
-        return userName;
-    }
+	public void setForwordFromId(String forwordFromId) {
+		this.forwordFromId = forwordFromId;
+	}
 
-    /**
-     * @param userName the userName to set
-     */
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	public String getUserName() {
+		return userName;
+	}
 
-    /**
-     * @return the avatar48
-     */
-    public String getAvatar48() {
-        return avatar48;
-    }
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
-    /**
-     * @param avatar48 the avatar48 to set
-     */
-    public void setAvatar48(String avatar48) {
-        this.avatar48 = avatar48;
-    }
+	public String getAvatar48() {
+		return avatar48;
+	}
+
+	public void setAvatar48(String avatar48) {
+		this.avatar48 = avatar48;
+	}
 
 }

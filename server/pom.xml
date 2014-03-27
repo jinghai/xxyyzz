@@ -48,7 +48,7 @@
 			Nexus Repository</name> <url>http://localhost:8081/nexus/content/groups/public</url> 
 			</repository> -->
 		<repository>
-			<id>central</id>
+			<id>Central</id>
 			<name>Central Repository</name>
 			<url>http://repo.maven.apache.org/maven2</url>
 			<snapshots>

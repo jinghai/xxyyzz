@@ -1,6 +1,5 @@
 package com.ipet.android.sdk;
 
-
 /**
  * 意见反馈API
  * 

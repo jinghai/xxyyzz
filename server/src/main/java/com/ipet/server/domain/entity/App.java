@@ -1,12 +1,7 @@
-/*
- * To change this template, choose Tools | Templates,
- * and open the template in the editor.
- */
 package com.ipet.server.domain.entity;
 
-import com.ipet.server.domain.AppType;
-import com.ipet.server.domain.IdEntity;
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,166 +9,116 @@ import javax.persistence.Enumerated;
 import javax.persistence.Index;
 import javax.persistence.Table;
 
+import com.ipet.server.domain.AppType;
+import com.ipet.server.domain.IdEntity;
+
 /**
  * 应用
- *
+ * 
  * @author xiaojinghai
  */
 @Entity
-@Table(name = "ipet_apps", indexes = {
-    @Index(name = "ipet_apps_userId", columnList = "userId")
-})
+@Table(name = "ipet_apps", indexes = { @Index(name = "ipet_apps_userId", columnList = "userId") })
 public class App extends IdEntity implements Serializable {
 
-    //应用名称
-    private String name;
+	/** serialVersionUID */
+	private static final long serialVersionUID = -1594512026639172536L;
 
-    @Enumerated(EnumType.ORDINAL)
-    private AppType type;
+	// 应用名称
+	private String name;
 
-    @Column(unique = true)
-    private String appKey;
+	@Enumerated(EnumType.ORDINAL)
+	private AppType type;
 
-    private String appSecret;
+	@Column(unique = true)
+	private String appKey;
 
-    private String userId;
+	private String appSecret;
 
-    private String userName;
+	private String userId;
 
-    //数值版本号,用于版本更新比较
-    private Integer versionCode;
+	private String userName;
 
-    //字符串版本号，呈现给用户界面
-    private String versionName;
+	// 数值版本号,用于版本更新比较
+	private Integer versionCode;
 
-    //app下载地址（完整路径）
-    @Column(length = 500)
-    private String appDownloadUrl;
+	// 字符串版本号，呈现给用户界面
+	private String versionName;
 
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
+	// app下载地址（完整路径）
+	@Column(length = 500)
+	private String appDownloadUrl;
 
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    /**
-     * @return the type
-     */
-    public AppType getType() {
-        return type;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    /**
-     * @param type the type to set
-     */
-    public void setType(AppType type) {
-        this.type = type;
-    }
+	public AppType getType() {
+		return type;
+	}
 
-    /**
-     * @return the appKey
-     */
-    public String getAppKey() {
-        return appKey;
-    }
+	public void setType(AppType type) {
+		this.type = type;
+	}
 
-    /**
-     * @param appKey the appKey to set
-     */
-    public void setAppKey(String appKey) {
-        this.appKey = appKey;
-    }
+	public String getAppKey() {
+		return appKey;
+	}
 
-    /**
-     * @return the appSecret
-     */
-    public String getAppSecret() {
-        return appSecret;
-    }
+	public void setAppKey(String appKey) {
+		this.appKey = appKey;
+	}
 
-    /**
-     * @param appSecret the appSecret to set
-     */
-    public void setAppSecret(String appSecret) {
-        this.appSecret = appSecret;
-    }
+	public String getAppSecret() {
+		return appSecret;
+	}
 
-    /**
-     * @return the userId
-     */
-    public String getUserId() {
-        return userId;
-    }
+	public void setAppSecret(String appSecret) {
+		this.appSecret = appSecret;
+	}
 
-    /**
-     * @param userId the userId to set
-     */
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+	public String getUserId() {
+		return userId;
+	}
 
-    /**
-     * @return the userName
-     */
-    public String getUserName() {
-        return userName;
-    }
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-    /**
-     * @param userName the userName to set
-     */
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	public String getUserName() {
+		return userName;
+	}
 
-    /**
-     * @return the versionCode
-     */
-    public Integer getVersionCode() {
-        return versionCode;
-    }
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
-    /**
-     * @param versionCode the versionCode to set
-     */
-    public void setVersionCode(Integer versionCode) {
-        this.versionCode = versionCode;
-    }
+	public Integer getVersionCode() {
+		return versionCode;
+	}
 
-    /**
-     * @return the versionName
-     */
-    public String getVersionName() {
-        return versionName;
-    }
+	public void setVersionCode(Integer versionCode) {
+		this.versionCode = versionCode;
+	}
 
-    /**
-     * @param versionName the versionName to set
-     */
-    public void setVersionName(String versionName) {
-        this.versionName = versionName;
-    }
+	public String getVersionName() {
+		return versionName;
+	}
 
-    /**
-     * @return the appDownloadUrl
-     */
-    public String getAppDownloadUrl() {
-        return appDownloadUrl;
-    }
+	public void setVersionName(String versionName) {
+		this.versionName = versionName;
+	}
 
-    /**
-     * @param appDownloadUrl the appDownloadUrl to set
-     */
-    public void setAppDownloadUrl(String appDownloadUrl) {
-        this.appDownloadUrl = appDownloadUrl;
-    }
+	public String getAppDownloadUrl() {
+		return appDownloadUrl;
+	}
+
+	public void setAppDownloadUrl(String appDownloadUrl) {
+		this.appDownloadUrl = appDownloadUrl;
+	}
 
 }

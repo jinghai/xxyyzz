@@ -2,18 +2,28 @@ package com.ipet.android.sdk.base;
 
 /**
  * Service层公用的Exception.
- *
+ * 
  * 继承自RuntimeException, 从由Spring管理事务的函数中抛出时会触发事务回滚.
- *
- * @author calvin
  */
 public class APIException extends RuntimeException {
 
-    public APIException() {
-        super();
-    }
+	/** serialVersionUID */
+	private static final long serialVersionUID = 15055364153750405L;
 
-    public APIException(String message) {
-        super(message);
-    }
+	public APIException() {
+		super();
+	}
+
+	public APIException(String message) {
+		super(message);
+	}
+
+	public APIException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public APIException(Throwable cause) {
+		super(cause);
+	}
+
 }

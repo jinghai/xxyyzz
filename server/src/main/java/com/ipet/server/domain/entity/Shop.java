@@ -1,77 +1,58 @@
-/*
- * To change this template, choose Tools | Templates,
- * and open the template in the editor.
- */
 package com.ipet.server.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import com.ipet.server.domain.IdEntity;
-import com.ipet.server.domain.Location;
 import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.ipet.server.domain.IdEntity;
+import com.ipet.server.domain.Location;
+
 /**
  * 店铺
- *
+ * 
  * @author xiaojinghai
  */
 @Entity
-@Table(name = "ipet_shops", indexes = {
-    @Index(name = "ipet_shops_userId", columnList = "userId")
-})
+@Table(name = "ipet_shops", indexes = { @Index(name = "ipet_shops_userId", columnList = "userId") })
 public class Shop extends IdEntity implements Serializable {
 
-    //店铺名称
-    private String name;
+	/** serialVersionUID */
+	private static final long serialVersionUID = -1885870057214599215L;
 
-    //位置
-    @JsonUnwrapped
-    private Location location;
+	// 店铺名称
+	private String name;
 
-    private String userId;
+	// 位置
+	@JsonUnwrapped
+	private Location location;
 
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
+	private String userId;
 
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    /**
-     * @return the location
-     */
-    public Location getLocation() {
-        return location;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    /**
-     * @param location the location to set
-     */
-    public void setLocation(Location location) {
-        this.location = location;
-    }
+	public Location getLocation() {
+		return location;
+	}
 
-    /**
-     * @return the userId
-     */
-    public String getUserId() {
-        return userId;
-    }
+	public void setLocation(Location location) {
+		this.location = location;
+	}
 
-    /**
-     * @param userId the userId to set
-     */
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 }

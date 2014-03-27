@@ -4,17 +4,14 @@ import com.ipet.client.api.domain.IpetAppUpdate;
 
 /**
  * 应用API
- *
- * @author luocanfeng
+ * 
+ * @author xiaojinghai
  */
 public interface AppApi {
 
-    /**
-     * 检查应用版本信息
-     *
-     * @param appKey
-     * @return
-     */
-    public IpetAppUpdate checkAppVersion(String appKey);
+	/**
+	 * 检查应用版本信息
+	 */
+	public IpetAppUpdate checkAppVersion(String appKey);
 
 }

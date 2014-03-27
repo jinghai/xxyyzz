@@ -1,93 +1,68 @@
-/*
- * To change this template, choose Tools | Templates,
- * and open the template in the editor.
- */
 package com.ipet.server.domain.entity;
 
-import com.ipet.server.domain.IdEntity;
 import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
 
+import com.ipet.server.domain.IdEntity;
+
 /**
  * 图片评论
- *
+ * 
  * @author xiaojinghai
  */
 @Entity
-@Table(name = "ipet_comments", indexes = {
-    @Index(name = "ipet_comments_userId", columnList = "userId"),
-    @Index(name = "ipet_comments_photoId", columnList = "photoId")
-})
+@Table(name = "ipet_comments", indexes = { @Index(name = "ipet_comments_userId", columnList = "userId"),
+		@Index(name = "ipet_comments_photoId", columnList = "photoId") })
 public class Comment extends IdEntity implements Serializable {
 
-    //评论内容
-    private String text;
+	/** serialVersionUID */
+	private static final long serialVersionUID = -3121944297979914043L;
 
-    //谁评论的
-    private String userId;
+	// 评论内容
+	private String text;
 
-    //谁评论的
-    private String userName;
+	// 谁评论的
+	private String userId;
 
-    //被评论的图片
-    private String photoId;
+	// 谁评论的
+	private String userName;
 
-    /**
-     * @return the userId
-     */
-    public String getUserId() {
-        return userId;
-    }
+	// 被评论的图片
+	private String photoId;
 
-    /**
-     * @param userId the userId to set
-     */
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+	public String getUserId() {
+		return userId;
+	}
 
-    /**
-     * @return the photoId
-     */
-    public String getPhotoId() {
-        return photoId;
-    }
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-    /**
-     * @param photoId the photoId to set
-     */
-    public void setPhotoId(String photoId) {
-        this.photoId = photoId;
-    }
+	public String getPhotoId() {
+		return photoId;
+	}
 
-    /**
-     * @return the text
-     */
-    public String getText() {
-        return text;
-    }
+	public void setPhotoId(String photoId) {
+		this.photoId = photoId;
+	}
 
-    /**
-     * @param text the text to set
-     */
-    public void setText(String text) {
-        this.text = text;
-    }
+	public String getText() {
+		return text;
+	}
 
-    /**
-     * @return the userName
-     */
-    public String getUserName() {
-        return userName;
-    }
+	public void setText(String text) {
+		this.text = text;
+	}
 
-    /**
-     * @param userName the userName to set
-     */
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
 }

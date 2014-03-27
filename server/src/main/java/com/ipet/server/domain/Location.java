@@ -1,97 +1,64 @@
-/*
- * To change this template, choose Tools | Templates,
- * and open the template in the editor.
- */
 package com.ipet.server.domain;
 
 import java.io.Serializable;
-import javax.persistence.Column;
+
 import javax.persistence.Embeddable;
 
 /**
- *
+ * 
  * 位置
- *
+ * 
  * @author xiaojinghai
- *
+ * 
  */
 @Embeddable
 public class Location implements Serializable {
 
-    /**
-     * 精度
-     */
-    private Long longitude;
+	/** serialVersionUID */
+	private static final long serialVersionUID = 176908795583707170L;
 
-    /**
-     * 纬度
-     */
-    private Long latitude;
+	/** 精度 */
+	private Long longitude;
 
-    /**
-     * GEO哈希
-     */
-    private String geoHash;
+	/** 纬度 */
+	private Long latitude;
 
-    /**
-     * 文本地址
-     */
-    private String address;
+	/** GEO哈希 */
+	private String geoHash;
 
-    /**
-     * @return the longitude
-     */
-    public long getLongitude() {
-        return longitude;
-    }
+	/** 文本地址 */
+	private String address;
 
-    /**
-     * @param longitude the longitude to set
-     */
-    public void setLongitude(long longitude) {
-        this.longitude = longitude;
-    }
+	public long getLongitude() {
+		return longitude;
+	}
 
-    /**
-     * @return the latitude
-     */
-    public long getLatitude() {
-        return latitude;
-    }
+	public void setLongitude(long longitude) {
+		this.longitude = longitude;
+	}
 
-    /**
-     * @param latitude the latitude to set
-     */
-    public void setLatitude(long latitude) {
-        this.latitude = latitude;
-    }
+	public long getLatitude() {
+		return latitude;
+	}
 
-    /**
-     * @return the geoHash
-     */
-    public String getGeoHash() {
-        return geoHash;
-    }
+	public void setLatitude(long latitude) {
+		this.latitude = latitude;
+	}
 
-    /**
-     * @param geoHash the geoHash to set
-     */
-    public void setGeoHash(String geoHash) {
-        this.geoHash = geoHash;
-    }
+	public String getGeoHash() {
+		return geoHash;
+	}
 
-    /**
-     * @return the address
-     */
-    public String getAddress() {
-        return address;
-    }
+	public void setGeoHash(String geoHash) {
+		this.geoHash = geoHash;
+	}
 
-    /**
-     * @param address the address to set
-     */
-    public void setAddress(String address) {
-        this.address = address;
-    }
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
 }
