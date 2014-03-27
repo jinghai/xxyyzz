@@ -1,14 +1,12 @@
 package com.ipet.client.api;
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.ipet.client.api.impl.IpetApiImpl;
+import com.ipet.test.BaseTest;
 
-public class FeedbackApiTest {
+public class FeedbackApiTest extends BaseTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(FeedbackApiTest.class);
 	private final AccountApi accountApi = IpetApiImpl.getInstance("1", "1").getAccountApi();
 	private final FeedbackApi feedbackApi = IpetApiImpl.getInstance("1", "1").getFeedbackApi();
 

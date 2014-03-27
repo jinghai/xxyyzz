@@ -32,7 +32,6 @@ public class HibernateDDLGenerator {
 	}
 
 	private void execute(Dialect dialect, Class<?>... classes) {
-
 		AnnotationConfiguration configuration = new AnnotationConfiguration();
 
 		// 设置方言
@@ -45,17 +44,12 @@ public class HibernateDDLGenerator {
 		}
 
 		SchemaExport schemaExport = new SchemaExport(configuration);
-
 		schemaExport.setDelimiter(";");
-
 		schemaExport.setOutputFile(String.format("%s_%s.%s ", new Object[] { "src/main/resources/sql/mysql/ddl",
 				dialect.name().toLowerCase(), "sql" }));
-
 		boolean consolePrint = true;
-
 		boolean exportInDatabase = false;
-
 		schemaExport.create(consolePrint, exportInDatabase);
-
 	}
+
 }
