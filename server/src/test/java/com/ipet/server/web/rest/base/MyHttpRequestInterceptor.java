@@ -3,7 +3,7 @@ package com.ipet.server.web.rest.base;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-import org.glassfish.jersey.internal.util.Base64;
+import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpRequest;
@@ -23,6 +23,8 @@ import org.springframework.http.client.ClientHttpResponse;
 class MyHttpRequestInterceptor implements ClientHttpRequestInterceptor {
 
 	private static final Logger logger = LoggerFactory.getLogger(MyHttpRequestInterceptor.class);
+
+	private static final Base64 base64 = new Base64();
 
 	private final String username;
 
@@ -44,7 +46,7 @@ class MyHttpRequestInterceptor implements ClientHttpRequestInterceptor {
 	public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
 			throws IOException {
 		request.getHeaders().set("Authorization",
-				"Basic " + new String(Base64.encode((username + ":" + password).getBytes(charset)), charset));
+				"Basic " + new String(base64.encode((username + ":" + password).getBytes(charset)), charset));
 		logger.debug(request.getHeaders().toString());
 		logger.debug(body.toString());
 		return execution.execute(request, body);

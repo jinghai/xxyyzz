@@ -20,13 +20,12 @@ import com.ipet.jetty.JettyServer;
 import com.ipet.server.web.rest.base.TestFilePath;
 import com.ipet.server.web.rest.v1.TestAccountRestController;
 import com.ipet.server.web.rest.v1.TestUserRestController;
-import com.ipet.server.web.rest.v1.UpdateAppTool;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ AppApiTest.class, FeedbackApiTest.class, TestAccountApi.class, TestCommentApi.class,
 		TestContactApi.class, TestDescoverApi.class, TestFavorApi.class, TestPhotoApi.class, TestShortUUID.class,
 		TestShortUUIDForMultiThreaded.class, TestUserApi.class, TestFilePath.class, TestAccountRestController.class,
-		TestUserRestController.class, UpdateAppTool.class })
+		TestUserRestController.class })
 public class AllTest {
 
 	@BeforeClass

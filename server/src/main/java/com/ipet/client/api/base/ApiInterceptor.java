@@ -3,7 +3,7 @@ package com.ipet.client.api.base;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-import org.glassfish.jersey.internal.util.Base64;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
@@ -14,7 +14,9 @@ import org.springframework.http.client.ClientHttpResponse;
  * 
  * @author xiaojinghai
  */
-class ApiInterceptor implements ClientHttpRequestInterceptor {
+public class ApiInterceptor implements ClientHttpRequestInterceptor {
+
+	private static final Base64 base64 = new Base64();
 
 	private final String appKey;
 
@@ -40,7 +42,7 @@ class ApiInterceptor implements ClientHttpRequestInterceptor {
 			throws IOException {
 		// request.getHeaders().set("Accept-Charset", "utf-8");
 		request.getHeaders().set("Authorization",
-				"Basic " + new String(Base64.encode((appKey + ":" + appSecret).getBytes(charset)), charset));
+				"Basic " + new String(base64.encode((appKey + ":" + appSecret).getBytes(charset)), charset));
 		// request.getHeaders().setAcceptEncoding(ContentCodingType.GZIP);
 		return execution.execute(request, body);
 	}
