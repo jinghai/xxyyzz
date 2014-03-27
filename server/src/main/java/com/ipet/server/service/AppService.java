@@ -1,9 +1,8 @@
 package com.ipet.server.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ipet.server.domain.entity.App;
@@ -14,17 +13,18 @@ import com.ipet.server.repository.AppDao;
  * 
  * @author xiaojinghai
  */
-@Component
+@Service
 @Transactional(readOnly = true)
-public class AppService {
+public class AppService extends BaseService {
 
-	private static final Logger logger = LoggerFactory.getLogger(AppService.class);
-
-	@Autowired
+	@Resource
 	private AppDao AppDao;
 
+	/**
+	 * 新增一个版本
+	 */
 	@Transactional(readOnly = false)
-	public void updateApp(String appKey, Integer versionCode, String versionName, String downloadUrl) {
+	public void newVersion(String appKey, Integer versionCode, String versionName, String downloadUrl) {
 		App app = getAppDao().findByAppKey(appKey);
 		if (app == null) {
 			app = new App();
@@ -37,7 +37,10 @@ public class AppService {
 		getAppDao().save(app);
 	}
 
-	public App checkAppUpdate(String appKey) {
+	/**
+	 * 检查更新
+	 */
+	public App checkForUpdate(String appKey) {
 		App app = getAppDao().findByAppKey(appKey);
 		if (app == null) {
 			throw new RuntimeException("无效AppKey");

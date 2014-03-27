@@ -2,10 +2,9 @@ package com.ipet.server.service;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ipet.server.domain.UserState;
@@ -21,20 +20,18 @@ import com.ipet.server.repository.UserDao;
  * 
  * @author xiaojinghai
  */
-@Component
+@Service
 @Transactional(readOnly = true)
-public class FavorService {
+public class FavorService extends BaseService {
 
-	private static Logger logger = LoggerFactory.getLogger(FavorService.class);
-
-	@Autowired
+	@Resource
 	private UserDao userDao;
-	@Autowired
+	@Resource
 	private FavorDao favorDao;
-	@Autowired
+	@Resource
 	private PhotoDao photoDao;
 
-	public List<Favor> getFavorList(String photoId) {
+	public List<Favor> listFavors(String photoId) {
 		return getFavorDao().findByPhotoId(photoId);
 	}
 

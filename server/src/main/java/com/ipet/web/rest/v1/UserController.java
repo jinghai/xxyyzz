@@ -4,9 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,11 +27,9 @@ import com.ipet.server.service.UserService;
  */
 @Controller
 @RequestMapping(value = "/v1/user")
-public class UserRestController {
+public class UserController extends BaseController {
 
-	private static final Logger logger = LoggerFactory.getLogger(AccountRestController.class);
-
-	@Autowired
+	@Resource
 	private UserService userService;
 
 	/**
@@ -110,6 +107,7 @@ public class UserRestController {
 	 * = MediaType.APPLICATION_JSON_VALUE)
 	 * 
 	 * @ResponseBody public User update2(@RequestParam User user,
+	 * 
 	 * @RequestParam(required = false) MultipartFile file) throws IOException {
 	 * if (null == user.getId()) { throw new RuntimeException("无效参数"); }
 	 * logger.debug("user:" + user.toString()); return

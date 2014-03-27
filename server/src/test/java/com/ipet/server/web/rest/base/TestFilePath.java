@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.FileSystemResource;
 
-import com.ipet.web.rest.v1.AccountRestController;
+import com.ipet.web.rest.v1.AccountController;
 
 /**
  * 
@@ -16,7 +16,7 @@ import com.ipet.web.rest.v1.AccountRestController;
  */
 public class TestFilePath {
 
-	private static final Logger logger = LoggerFactory.getLogger(AccountRestController.class);
+	private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
 
 	@Test
 	public void Test() throws IOException {

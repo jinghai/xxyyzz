@@ -3,10 +3,9 @@ package com.ipet.server.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ipet.server.domain.UserState;
@@ -22,25 +21,23 @@ import com.ipet.server.repository.UserDao;
  * 
  * @author xiaojinghai
  */
-@Component
+@Service
 @Transactional(readOnly = true)
-public class ContactService {
+public class ContactService extends BaseService {
 
-	private static Logger logger = LoggerFactory.getLogger(ContactService.class);
-
-	@Autowired
+	@Resource
 	private UserDao userDao;
 
-	@Autowired
+	@Resource
 	private FollowRelationDao followRelationDao;
 
-	@Autowired
+	@Resource
 	private FriendRelationDao friendRelationDao;
 
 	/**
-	 * 获取关注列表
+	 * 获取关注用户列表
 	 */
-	public List<User> getFollowUserList(String userId) {
+	public List<User> listGuys(String userId) {
 		List<FollowRelation> frlist = getFollowRelationDao().findByUserIdA(userId);
 		List<String> ids = new ArrayList<String>(frlist.size());
 		if (frlist.size() > 0) {
@@ -56,7 +53,7 @@ public class ContactService {
 	/**
 	 * 获取粉丝列表
 	 */
-	public List<User> getFollowerUserList(String userId) {
+	public List<User> listFans(String userId) {
 		List<FollowRelation> frlist = getFollowRelationDao().findByUserIdB(userId);
 		List<String> ids = new ArrayList<String>(frlist.size());
 		if (frlist.size() > 0) {
@@ -72,8 +69,7 @@ public class ContactService {
 	/**
 	 * 获取朋友列表
 	 */
-	public List<User> getFriendUserList(String userId) {
-
+	public List<User> listFriends(String userId) {
 		List<FriendRelation> frlist = getFriendRelationDao().findByUserIdA(userId);
 		List<String> ids = new ArrayList<String>(frlist.size());
 		if (frlist.size() > 0) {
@@ -91,7 +87,6 @@ public class ContactService {
 	 */
 	@Transactional(readOnly = false)
 	public void follow(String userIdA, String userIdB) {
-
 		User userA = this.getUserDao().findByIdAndUserState(userIdA, UserState.ENABLE);
 		User userB = this.getUserDao().findByIdAndUserState(userIdB, UserState.ENABLE);
 		if (userA == null || userB == null) {

@@ -2,9 +2,8 @@ package com.ipet.web.rest.v1;
 
 import java.io.IOException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -22,11 +21,9 @@ import com.ipet.server.service.FeedbackService;
  */
 @Controller
 @RequestMapping(value = "/v1/feedback")
-public class FeedbackController {
+public class FeedbackController extends BaseController {
 
-	private static final Logger logger = LoggerFactory.getLogger(FeedbackController.class);
-
-	@Autowired
+	@Resource
 	private FeedbackService feedbackService;
 
 	@RequestMapping(value = "feedback", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

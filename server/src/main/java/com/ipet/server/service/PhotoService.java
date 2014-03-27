@@ -6,15 +6,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import net.coobird.thumbnailator.Thumbnails;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,22 +33,20 @@ import com.ipet.server.util.ProjectUtil;
  * 
  * @author xiaojinghai
  */
-@Component
+@Service
 @Transactional(readOnly = true)
-public class PhotoService {
+public class PhotoService extends BaseService {
 
-	private static final Logger logger = LoggerFactory.getLogger(PhotoService.class);
-
-	@Autowired
+	@Resource
 	private UserDao userDao;
 
-	@Autowired
+	@Resource
 	private FollowRelationDao followRelationDao;
 
-	@Autowired
+	@Resource
 	private PhotoDao photoDao;
 
-	@Autowired
+	@Resource
 	private AppConfig appConfig;
 
 	private final int smallWith = 480;
@@ -59,13 +56,13 @@ public class PhotoService {
 	private final int originalHeigth = 600;
 
 	// 允许上传的头像文件扩展名
-	private final List<String> allowPrefix = new ArrayList<String>() {
-		{
-			add("jpg");
-			add("gif");
-			add("png");
-		}
-	};
+	private static final List<String> allowPrefix = new ArrayList<String>();
+
+	static {
+		allowPrefix.add("jpg");
+		allowPrefix.add("gif");
+		allowPrefix.add("png");
+	}
 
 	/**
 	 * 按时间和关注分页获取图片
@@ -142,7 +139,6 @@ public class PhotoService {
 			this.getUserDao().save(user);
 
 			return photo;
-
 		} catch (Exception e) {
 			if (originalFile != null && originalFile.exists()) {
 				originalFile.delete();
@@ -155,7 +151,6 @@ public class PhotoService {
 			if (tempFile != null && tempFile.exists()) {
 				tempFile.delete();
 			}
-
 		}
 	}
 

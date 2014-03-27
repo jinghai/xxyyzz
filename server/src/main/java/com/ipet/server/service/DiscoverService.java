@@ -3,13 +3,12 @@ package com.ipet.server.service;
 import java.util.Date;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ipet.server.domain.entity.Photo;
@@ -21,22 +20,18 @@ import com.ipet.server.util.ProjectUtil;
  * 
  * @author xiaojinghai
  */
-@Component
+@Service
 @Transactional(readOnly = true)
-public class DiscoverService {
+public class DiscoverService extends BaseService {
 
-	private static final Logger logger = LoggerFactory.getLogger(DiscoverService.class);
-
-	@Autowired
+	@Resource
 	private PhotoDao photoDao;
 
 	/**
 	 * 分页获取时间点之后最新的图片（发现）
 	 */
-	public List<Photo> getNewerPhotoForPage(Date date, Integer pageNumber, Integer pageSize) {
-
+	public List<Photo> listNewerPhotosForPage(Date date, Integer pageNumber, Integer pageSize) {
 		PageRequest pageR = ProjectUtil.buildPageRequest(pageNumber, pageSize, Sort.Direction.DESC, "createAt");
-
 		Page<Photo> ret = getPhotoDao().findByCreateAtBefore(date, pageR);
 		return ret.getContent();
 	}

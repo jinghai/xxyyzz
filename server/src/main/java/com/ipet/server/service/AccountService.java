@@ -2,10 +2,9 @@ package com.ipet.server.service;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ipet.server.domain.UserRole;
@@ -20,37 +19,35 @@ import com.ipet.server.util.Encodes;
  * 
  * @author xiaojinghai
  */
-@Component
+@Service
 @Transactional(readOnly = true)
-public class AccountService {
+public class AccountService extends BaseService {
 
 	public static final String HASH_ALGORITHM = "SHA-1";
 	public static final int HASH_INTERATIONS = 1024;
 	private static final int SALT_SIZE = 8;
 
-	private static Logger logger = LoggerFactory.getLogger(AccountService.class);
-
-	@Autowired
+	@Resource
 	private UserDao userDao;
 
 	/**
 	 * 获取所有用户
 	 */
-	public List<User> getAllUser() {
+	public List<User> listAll() {
 		return (List<User>) getUserDao().findAll();
 	}
 
 	/**
 	 * 按ID获取用户
 	 */
-	public User getUser(String id) {
+	public User getById(String id) {
 		return getUserDao().findOne(id);
 	}
 
 	/**
 	 * 用户名是否已存在
 	 */
-	public Boolean availableUsername(String loginName) {
+	public Boolean validUsername(String loginName) {
 		String userId = getUserDao().getUserIdByLoginNameAndUserState(loginName, UserState.ENABLE);
 		return userId == null;
 	}
@@ -58,7 +55,7 @@ public class AccountService {
 	/**
 	 * 电话号码是否已存在
 	 */
-	public Boolean availablePhone(String phone) {
+	public Boolean validPhone(String phone) {
 		String userId = getUserDao().getUserIdByPhoneAndUserState(phone, UserState.ENABLE);
 		return userId == null;
 	}
@@ -66,7 +63,7 @@ public class AccountService {
 	/**
 	 * 验证Email是否已存在
 	 */
-	public Boolean availableEmail(String email) {
+	public Boolean validEmail(String email) {
 		String userId = getUserDao().getUserIdByEmailAndUserState(email, UserState.ENABLE);
 		return userId == null;
 	}
@@ -86,9 +83,9 @@ public class AccountService {
 	 * 注册终端用户
 	 */
 	@Transactional(readOnly = false)
-	public void registerUser(User user) {
+	public void register(User user) {
 		logger.debug("registerUser:" + user.getLoginName());
-		if (!availableUsername(user.getLoginName())) {
+		if (!validUsername(user.getLoginName())) {
 			throw new RuntimeException("用户名重复");
 		}
 		entryptPassword(user);
@@ -128,7 +125,7 @@ public class AccountService {
 	 */
 	@Transactional(readOnly = false)
 	public void changePassword(String userId, String oldPassword, String newPassword) {
-		User user = getUser(userId);
+		User user = getById(userId);
 		if (null == user) {
 			throw new RuntimeException("无效参数");
 		}
@@ -144,14 +141,13 @@ public class AccountService {
 		user.setPlainPassword(newPassword);
 		this.entryptPassword(user);
 		this.getUserDao().save(user);
-
 	}
 
 	/**
 	 * 更新用户信息
 	 */
 	@Transactional(readOnly = false)
-	public void updateUser(User user) {
+	public void update(User user) {
 		getUserDao().save(user);
 	}
 
@@ -159,10 +155,8 @@ public class AccountService {
 	 * 物理删除用户
 	 */
 	@Transactional(readOnly = false)
-	public void deleteUser(String id) {
-
+	public void delete(String id) {
 		getUserDao().delete(id);
-
 	}
 
 	/**

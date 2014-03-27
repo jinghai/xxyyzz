@@ -7,9 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -29,11 +28,9 @@ import com.ipet.server.service.PhotoService;
  */
 @Controller
 @RequestMapping(value = "/v1/photo")
-public class PhotoController {
+public class PhotoController extends BaseController {
 
-	private static final Logger logger = LoggerFactory.getLogger(PhotoController.class);
-
-	@Autowired
+	@Resource
 	private PhotoService photoService;
 
 	/**

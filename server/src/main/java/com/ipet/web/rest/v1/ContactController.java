@@ -2,9 +2,8 @@ package com.ipet.web.rest.v1;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -22,11 +21,9 @@ import com.ipet.server.service.ContactService;
  */
 @Controller
 @RequestMapping(value = "/v1/contact")
-public class ContactController {
+public class ContactController extends BaseController {
 
-	private static final Logger logger = LoggerFactory.getLogger(ContactController.class);
-
-	@Autowired
+	@Resource
 	private ContactService contactService;
 
 	/**
@@ -39,7 +36,7 @@ public class ContactController {
 			throw new RuntimeException("无效参数");
 		}
 
-		return contactService.getFollowUserList(uid);
+		return contactService.listGuys(uid);
 	}
 
 	/**
@@ -52,7 +49,7 @@ public class ContactController {
 			throw new RuntimeException("无效参数");
 		}
 
-		return contactService.getFollowerUserList(uid);
+		return contactService.listFans(uid);
 	}
 
 	/**
@@ -65,7 +62,7 @@ public class ContactController {
 			throw new RuntimeException("无效参数");
 		}
 
-		return contactService.getFriendUserList(uid);
+		return contactService.listFriends(uid);
 	}
 
 	/**

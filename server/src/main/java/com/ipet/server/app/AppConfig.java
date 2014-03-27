@@ -1,6 +1,7 @@
 package com.ipet.server.app;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.WebApplicationContext;
@@ -15,7 +16,7 @@ import com.ipet.server.util.ProjectUtil;
 @Component
 public class AppConfig {
 
-	@Autowired
+	@Resource
 	private WebApplicationContext webApplicationContext;
 
 	// 网站根目录下上传文件的基础目录

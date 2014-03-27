@@ -1,8 +1,7 @@
 package com.ipet.web.rest.v1;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +20,9 @@ import com.ipet.server.service.AccountService;
  */
 @Controller
 @RequestMapping(value = "/v1/account")
-public class AccountRestController {
+public class AccountController extends BaseController {
 
-	private static final Logger logger = LoggerFactory.getLogger(AccountRestController.class);
-
-	@Autowired
+	@Resource
 	private AccountService accountService;
 
 	/**
@@ -59,7 +56,7 @@ public class AccountRestController {
 		newUser.setDisplayName(username);
 		newUser.setPlainPassword(password);
 		// 注册
-		accountService.registerUser(newUser);
+		accountService.register(newUser);
 		return new ResponseEntity(newUser, HttpStatus.CREATED);
 	}
 
@@ -73,7 +70,7 @@ public class AccountRestController {
 		if (StringUtils.isEmpty(username)) {
 			throw new RuntimeException("无效参数");
 		}
-		return new ResponseEntity(accountService.availableUsername(username), HttpStatus.OK);
+		return new ResponseEntity(accountService.validUsername(username), HttpStatus.OK);
 	}
 
 	/**
@@ -85,7 +82,7 @@ public class AccountRestController {
 		if (StringUtils.isEmpty(phone)) {
 			throw new RuntimeException("无效参数");
 		}
-		return new ResponseEntity(accountService.availablePhone(phone), HttpStatus.OK);
+		return new ResponseEntity(accountService.validPhone(phone), HttpStatus.OK);
 	}
 
 	/**
@@ -97,7 +94,7 @@ public class AccountRestController {
 		if (StringUtils.isEmpty(email)) {
 			throw new RuntimeException("无效参数");
 		}
-		return new ResponseEntity(accountService.availableEmail(email), HttpStatus.OK);
+		return new ResponseEntity(accountService.validEmail(email), HttpStatus.OK);
 	}
 
 	/**
@@ -150,6 +147,7 @@ public class AccountRestController {
 	 * 
 	 * @ResponseBody public ResponseEntity<?>
 	 * createRequestParam(@RequestParam("username") String username,
+	 * 
 	 * @RequestParam("password") String password) {
 	 * logger.debug("createRequestParam");
 	 * 

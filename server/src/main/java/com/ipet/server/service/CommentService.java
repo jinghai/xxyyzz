@@ -2,13 +2,12 @@ package com.ipet.server.service;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ipet.server.domain.UserState;
@@ -25,17 +24,15 @@ import com.ipet.server.util.ProjectUtil;
  * 
  * @author xiaojinghai
  */
-@Component
+@Service
 @Transactional(readOnly = true)
-public class CommentService {
+public class CommentService extends BaseService {
 
-	private static Logger logger = LoggerFactory.getLogger(CommentService.class);
-
-	@Autowired
+	@Resource
 	private UserDao userDao;
-	@Autowired
+	@Resource
 	private CommentDao commentDao;
-	@Autowired
+	@Resource
 	private PhotoDao photoDao;
 
 	public List<Comment> getCommentList(String photoId, Integer pageNumber, Integer pageSize) {

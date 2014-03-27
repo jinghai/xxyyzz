@@ -5,12 +5,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import net.coobird.thumbnailator.Thumbnails;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,26 +25,24 @@ import com.ipet.server.util.ProjectUtil;
  * 
  * @author xiaojinghai
  */
-@Component
+@Service
 @Transactional(readOnly = true)
-public class UserService {
+public class UserService extends BaseService {
 
-	private static Logger logger = LoggerFactory.getLogger(UserService.class);
-
-	@Autowired
+	@Resource
 	private UserDao userDao;
 
-	@Autowired
+	@Resource
 	private AppConfig appConfig;
 
 	// 允许上传的头像文件扩展名
-	private final List<String> allowPrefix = new ArrayList<String>() {
-		{
-			add("jpg");
-			add("gif");
-			add("png");
-		}
-	};
+	private static final List<String> allowPrefix = new ArrayList<String>();
+
+	static {
+		allowPrefix.add("jpg");
+		allowPrefix.add("gif");
+		allowPrefix.add("png");
+	}
 
 	/**
 	 * 获取所有用户，仅限测试使用
