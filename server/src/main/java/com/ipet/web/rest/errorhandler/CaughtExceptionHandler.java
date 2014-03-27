@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 /**
  * 捕获并处理所有Controller异常
  * 
- * @author yneos
+ * @author xiaojinghai
  */
 @ControllerAdvice
 public class CaughtExceptionHandler {

@@ -12,7 +12,7 @@ import com.ipet.web.rest.v1.AccountRestController;
 
 /**
  * 
- * @author yneos
+ * @author xiaojinghai
  */
 public class TestFilePath {
 

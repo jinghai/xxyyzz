@@ -16,7 +16,7 @@ import com.ipet.android.sdk.domain.IpetPhoto;
 
 /**
  * 
- * @author yneos
+ * @author xiaojinghai
  */
 public class PhotoApiImpl extends ApiBase implements PhotoApi {
 

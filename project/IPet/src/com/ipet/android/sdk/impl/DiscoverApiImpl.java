@@ -14,7 +14,7 @@ import com.ipet.android.sdk.domain.IpetPhoto;
 
 /**
  * 
- * @author yneos
+ * @author xiaojinghai
  */
 public class DiscoverApiImpl extends ApiBase implements DiscoverApi {
 

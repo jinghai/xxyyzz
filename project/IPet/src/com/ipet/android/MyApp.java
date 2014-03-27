@@ -11,7 +11,7 @@ import com.ipet.android.sdk.impl.IpetApiImpl;
 /**
  * 应用程序类 负责应用程序启动逻辑 常用共享对象的引用
  *
- * @author yneos
+ * @author xiaojinghai
  */
 public class MyApp extends Application {
 

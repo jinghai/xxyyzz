@@ -16,7 +16,7 @@ import com.ipet.client.api.domain.IpetUserUpdate;
 
 /**
  * 
- * @author yneos
+ * @author xiaojinghai
  */
 public class UserApiImpl extends ApiBase implements UserApi {
 

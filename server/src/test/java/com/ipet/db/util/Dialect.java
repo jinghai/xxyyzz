@@ -2,7 +2,7 @@ package com.ipet.db.util;
 
 /**
  * 
- * @author yneos
+ * @author xiaojinghai
  */
 enum Dialect {
 

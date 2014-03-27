@@ -13,7 +13,7 @@ import com.ipet.android.sdk.domain.IpetUser;
 
 /**
  * 
- * @author yneos
+ * @author xiaojinghai
  */
 public class ContactApiImpl extends ApiBase implements ContactApi {
 

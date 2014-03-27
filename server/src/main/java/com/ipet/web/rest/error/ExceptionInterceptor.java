@@ -6,7 +6,7 @@ import com.ipet.web.rest.exceptions.RestException;
 
 /**
  * 
- * @author yneos
+ * @author xiaojinghai
  */
 // @Aspect
 public class ExceptionInterceptor {

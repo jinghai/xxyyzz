@@ -6,7 +6,7 @@ import org.springframework.web.context.request.WebRequestInterceptor;
 
 /**
  * 
- * @author yneos
+ * @author xiaojinghai
  * 
  *         WebRequestInterceptor
  *         中也定义了三个方法，我们也是通过这三个方法来实现拦截的。这三个方法都传递了同一个参数WebRequest ，那么这个WebRequest

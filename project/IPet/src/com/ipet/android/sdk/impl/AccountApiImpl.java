@@ -12,7 +12,7 @@ import com.ipet.android.sdk.domain.IpetUser;
 
 /**
  * 
- * @author yneos
+ * @author xiaojinghai
  */
 public class AccountApiImpl extends ApiBase implements AccountApi {
 

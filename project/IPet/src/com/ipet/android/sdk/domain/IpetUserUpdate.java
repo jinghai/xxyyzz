@@ -2,7 +2,7 @@ package com.ipet.android.sdk.domain;
 
 /**
  * 
- * @author yneos
+ * @author xiaojinghai
  */
 public class IpetUserUpdate {
 

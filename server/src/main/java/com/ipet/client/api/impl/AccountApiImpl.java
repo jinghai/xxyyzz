@@ -12,7 +12,7 @@ import com.ipet.client.api.domain.IpetUser;
 
 /**
  * 
- * @author yneos
+ * @author xiaojinghai
  */
 public class AccountApiImpl extends ApiBase implements AccountApi {
 

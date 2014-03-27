@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * 
- * @author yneos
+ * @author xiaojinghai
  */
 public class OAuth2Response {
 

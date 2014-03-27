@@ -12,7 +12,7 @@ import com.ipet.server.repository.AppDao;
 /**
  * 应用服务类
  * 
- * @author luocanfeng
+ * @author xiaojinghai
  */
 @Component
 @Transactional(readOnly = true)

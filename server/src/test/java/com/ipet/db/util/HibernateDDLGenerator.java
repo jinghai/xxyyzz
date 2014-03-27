@@ -20,7 +20,7 @@ import com.ipet.server.domain.entity.UserSetting;
 /**
  * DDL生成,需先构建项目再执行
  * 
- * @author yneos
+ * @author xiaojinghai
  */
 public class HibernateDDLGenerator {
 

@@ -16,7 +16,7 @@ import com.ipet.client.api.domain.IpetPhoto;
 
 /**
  * 
- * @author yneos
+ * @author xiaojinghai
  */
 public class PhotoApiImpl extends ApiBase implements PhotoApi {
 

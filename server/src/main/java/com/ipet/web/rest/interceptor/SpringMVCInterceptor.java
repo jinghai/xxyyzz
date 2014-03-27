@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 
- * @author yneos SpringMVC 中的Interceptor 拦截请求是通过HandlerInterceptor
+ * @author xiaojinghai SpringMVC 中的Interceptor 拦截请求是通过HandlerInterceptor
  *         来实现的。在SpringMVC 中定义一个Interceptor
  *         非常简单，主要有两种方式，第一种方式是要定义的Interceptor类要实现了Spring 的HandlerInterceptor
  *         接口，或者是这个类继承实现了HandlerInterceptor 接口的类，比如Spring

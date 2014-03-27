@@ -14,7 +14,7 @@ import com.ipet.client.api.domain.IpetComment;
 
 /**
  * 
- * @author yneos
+ * @author xiaojinghai
  */
 public class CommentApiImpl extends ApiBase implements CommentApi {
 

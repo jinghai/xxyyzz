@@ -13,7 +13,7 @@ import com.ipet.android.sdk.domain.IpetFavor;
 
 /**
  * 
- * @author yneos
+ * @author xiaojinghai
  */
 public class FavorApiImpl extends ApiBase implements FavorApi {
 
