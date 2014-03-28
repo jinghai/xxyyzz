@@ -18,7 +18,7 @@ import com.ipet.server.domain.IdEntity;
  * @author xiaojinghai
  */
 @Entity
-@Table(name = "ipet_apps", indexes = { @Index(name = "ipet_apps_userId", columnList = "userId") })
+@Table(name = "app", indexes = { @Index(name = "ipet_apps_userId", columnList = "userId") })
 public class App extends IdEntity implements Serializable {
 
 	/** serialVersionUID */

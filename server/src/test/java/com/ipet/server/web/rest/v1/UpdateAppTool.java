@@ -1,9 +1,12 @@
 package com.ipet.server.web.rest.v1;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import com.ipet.jetty.JettyServer;
 import com.ipet.server.domain.entity.User;
 import com.ipet.server.web.rest.base.BaseTest;
 
@@ -17,6 +20,16 @@ public class UpdateAppTool extends BaseTest {
 
 	// public static final String baseUrl =
 	// "http://jinghai.imblog.in:8080/server/api/v1/app";
+
+	@Before
+	public void setUp() throws Exception {
+		JettyServer.start();
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		JettyServer.stop();
+	}
 
 	@Test
 	public void update() {

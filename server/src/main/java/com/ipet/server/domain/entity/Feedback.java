@@ -16,7 +16,7 @@ import javax.persistence.Table;
  * @author luocanfeng
  */
 @Entity
-@Table(name = "ipet_feedbacks")
+@Table(name = "feedback")
 public class Feedback implements Serializable {
 
 	private static final long serialVersionUID = 7647784943930313535L;

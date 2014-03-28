@@ -17,7 +17,7 @@ import com.ipet.server.domain.Location;
  * @author xiaojinghai
  */
 @Entity
-@Table(name = "ipet_photos", indexes = { @Index(name = "ipet_photos_createAt", columnList = "createAt"),
+@Table(name = "photo", indexes = { @Index(name = "ipet_photos_createAt", columnList = "createAt"),
 		@Index(name = "ipet_photos_updateAt", columnList = "updateAt"),
 		@Index(name = "ipet_photos_forwordFromId", columnList = "forwordFromId"),
 		@Index(name = "ipet_photos_userId", columnList = "userId") })

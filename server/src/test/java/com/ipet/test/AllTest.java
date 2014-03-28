@@ -5,16 +5,16 @@ import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import com.ipet.client.api.AppApiTest;
-import com.ipet.client.api.FeedbackApiTest;
 import com.ipet.client.api.AccountApiTest;
+import com.ipet.client.api.AppApiTest;
 import com.ipet.client.api.CommentApiTest;
 import com.ipet.client.api.ContactApiTest;
 import com.ipet.client.api.DescoverApiTest;
 import com.ipet.client.api.FavorApiTest;
+import com.ipet.client.api.FeedbackApiTest;
 import com.ipet.client.api.PhotoApiTest;
-import com.ipet.client.api.ShortUUIDTest;
 import com.ipet.client.api.ShortUUIDForMultiThreadedTest;
+import com.ipet.client.api.ShortUUIDTest;
 import com.ipet.client.api.UserApiTest;
 import com.ipet.jetty.JettyServer;
 import com.ipet.server.web.rest.base.FilePathTest;
@@ -34,7 +34,7 @@ public class AllTest {
 	}
 
 	@AfterClass
-	public static void teardown() throws Exception {
+	public static void tearDown() throws Exception {
 		JettyServer.stop();
 	}
 

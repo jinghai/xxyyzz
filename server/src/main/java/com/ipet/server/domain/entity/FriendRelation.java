@@ -14,7 +14,7 @@ import com.ipet.server.domain.IdEntity;
  * @author xiaojinghai
  */
 @Entity
-@Table(name = "ipet_friend_relations", uniqueConstraints = { @UniqueConstraint(columnNames = { "userIdA", "userIdB" }) })
+@Table(name = "user_friend", uniqueConstraints = { @UniqueConstraint(columnNames = { "userIdA", "userIdB" }) })
 public class FriendRelation extends IdEntity implements Serializable {
 
 	/** serialVersionUID */

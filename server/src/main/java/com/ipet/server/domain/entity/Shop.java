@@ -16,7 +16,7 @@ import com.ipet.server.domain.Location;
  * @author xiaojinghai
  */
 @Entity
-@Table(name = "ipet_shops", indexes = { @Index(name = "ipet_shops_userId", columnList = "userId") })
+@Table(name = "shop", indexes = { @Index(name = "ipet_shops_userId", columnList = "userId") })
 public class Shop extends IdEntity implements Serializable {
 
 	/** serialVersionUID */

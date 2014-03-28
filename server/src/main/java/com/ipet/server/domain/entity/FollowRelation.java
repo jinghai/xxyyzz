@@ -14,7 +14,7 @@ import com.ipet.server.domain.IdEntity;
  * @author xiaojinghai
  */
 @Entity
-@Table(name = "ipet_follow_relations", uniqueConstraints = { @UniqueConstraint(columnNames = { "userIdA", "userIdB" }) })
+@Table(name = "user_relation", uniqueConstraints = { @UniqueConstraint(columnNames = { "userIdA", "userIdB" }) })
 public class FollowRelation extends IdEntity implements Serializable {
 
 	/** serialVersionUID */

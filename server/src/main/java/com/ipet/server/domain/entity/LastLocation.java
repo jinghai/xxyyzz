@@ -16,7 +16,7 @@ import com.ipet.server.domain.Location;
  * @author xiaojinghai
  */
 @Entity
-@Table(name = "ipet_last_locations", indexes = { @Index(name = "ipet_last_locations_userId", columnList = "userId") })
+@Table(name = "user_last_location", indexes = { @Index(name = "ipet_last_locations_userId", columnList = "userId") })
 public class LastLocation extends IdEntity implements Serializable {
 
 	/** serialVersionUID */

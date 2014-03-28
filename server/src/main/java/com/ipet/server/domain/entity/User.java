@@ -18,7 +18,7 @@ import com.ipet.server.domain.UserState;
 
 @Entity
 // @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-@Table(name = "ipet_users", indexes = { @Index(name = "ipet_users_createAt", columnList = "createAt"),
+@Table(name = "users", indexes = { @Index(name = "ipet_users_createAt", columnList = "createAt"),
 		@Index(name = "ipet_users_updateAt", columnList = "updateAt"),
 		@Index(name = "ipet_users_userProfileId", columnList = "userProfileId"),
 		@Index(name = "ipet_users_userSettingId", columnList = "userSettingId"),

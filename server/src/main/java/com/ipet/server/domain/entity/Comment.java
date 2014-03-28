@@ -14,7 +14,7 @@ import com.ipet.server.domain.IdEntity;
  * @author xiaojinghai
  */
 @Entity
-@Table(name = "ipet_comments", indexes = { @Index(name = "ipet_comments_userId", columnList = "userId"),
+@Table(name = "comment", indexes = { @Index(name = "ipet_comments_userId", columnList = "userId"),
 		@Index(name = "ipet_comments_photoId", columnList = "photoId") })
 public class Comment extends IdEntity implements Serializable {
 

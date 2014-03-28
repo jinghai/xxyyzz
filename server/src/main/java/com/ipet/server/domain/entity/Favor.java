@@ -14,7 +14,7 @@ import com.ipet.server.domain.IdEntity;
  * @author xiaojinghai
  */
 @Entity
-@Table(name = "ipet_favors", indexes = { @Index(name = "ipet_favors_userId", columnList = "userId"),
+@Table(name = "favor", indexes = { @Index(name = "ipet_favors_userId", columnList = "userId"),
 		@Index(name = "ipet_favors_photoId", columnList = "photoId") })
 public class Favor extends IdEntity implements Serializable {
 
