@@ -26,15 +26,16 @@ import com.ipet.server.web.rest.v1.UserControllerTest;
 		ContactApiTest.class, DescoverApiTest.class, FavorApiTest.class, PhotoApiTest.class, ShortUUIDTest.class,
 		ShortUUIDForMultiThreadedTest.class, UserApiTest.class, FilePathTest.class, AccountControllerTest.class,
 		UserControllerTest.class })
-public class AllTest {
+public class AllTest extends BaseTestWithDBUnit {
 
 	@BeforeClass
-	public static void setUp() throws Exception {
+	public static void setUpBeforeClass() throws Exception {
+		BaseTestWithDBUnit.setUpBeforeClass();
 		JettyServer.start();
 	}
 
 	@AfterClass
-	public static void tearDown() throws Exception {
+	public static void tearDownAfterClass() throws Exception {
 		JettyServer.stop();
 	}
 
