@@ -7,11 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ipet.R;
 import com.ipet.android.sdk.domain.IpetPhoto;
+import com.ipet.android.ui.utils.StringUtils;
+import com.loopj.android.image.SmartImageView;
 
 public class FindGridAdapter extends BaseAdapter {
 	private final Context context;
@@ -45,7 +46,7 @@ public class FindGridAdapter extends BaseAdapter {
 	}
 
 	private class GridHolder {
-		ImageView findImageView;
+		SmartImageView findImageView;
 		TextView findTextView;
 	}
 
@@ -55,15 +56,19 @@ public class FindGridAdapter extends BaseAdapter {
 		if (convertView == null) {
 			convertView = mInflater.inflate(R.layout.list_find_item, null);
 			holder = new GridHolder();
-			holder.findImageView = (ImageView) convertView.findViewById(R.id.itemImage);
+			holder.findImageView = (SmartImageView) convertView.findViewById(R.id.itemImage);
 			holder.findTextView = (TextView) convertView.findViewById(R.id.itemText);
 			convertView.setTag(holder);
 		} else {
 			holder = (GridHolder) convertView.getTag();
 		}
 		IpetPhoto feed = list.get(index);
+		String imageURL = feed.getSmallURL();
+
 		if (feed != null) {
-			// holder.findImageView.setId(id)
+			if (!StringUtils.isEmpty(imageURL)) {
+				holder.findImageView.setImageUrl(imageURL);
+			}
 			holder.findTextView.setText(feed.getUserName());
 		}
 		return convertView;
@@ -76,6 +81,13 @@ public class FindGridAdapter extends BaseAdapter {
 
 	public void appendList(List<IpetPhoto> list) {
 		this.list.addAll(list);
+		this.notifyDataSetChanged();
+	}
+
+	public void loadList(List<IpetPhoto> list) {
+		// TODO Auto-generated method stub
+		this.list.clear();
+		this.appendList(list);
 		this.notifyDataSetChanged();
 	}
 }

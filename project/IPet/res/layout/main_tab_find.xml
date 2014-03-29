@@ -4,14 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <com.ipet.android.ui.common.SimpleTitleBar
-        android:id="@+id/main_find_titlebar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:title="@string/main_find_title"
-        app:title_left_res_visibility="invisible"
-        app:title_right_res_visibility="invisible" />
     
 	<GridView
 	    android:id="@+id/gridview"

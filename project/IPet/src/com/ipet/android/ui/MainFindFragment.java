@@ -15,12 +15,18 @@ import com.ipet.R;
 import com.ipet.android.sdk.domain.IpetPhoto;
 import com.ipet.android.task.FindLoadAsyncTask;
 import com.ipet.android.ui.adapter.FindGridAdapter;
+import com.ipet.android.ui.utils.DateTimeUtils;
 
 public class MainFindFragment extends Fragment {
+	public static final int TYPE_CODE_LOAD = 10;
+	public static final int TYPE_CODE_MORE = 20;
+	public static final int LIST_SIZE = 24;
 	private Activity activity;
 	private GridView gridview;
 	private final List<IpetPhoto> list = new ArrayList<IpetPhoto>(0);
 	private FindGridAdapter adapter;
+	private String timeline;
+	private int page;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,9 +42,15 @@ public class MainFindFragment extends Fragment {
 		adapter.setList(list);
 		gridview.setAdapter(adapter);
 
-		// list = FeedManager.load();
-		// adapter.appendList(list);
-
-		new FindLoadAsyncTask(gridview, adapter).execute();
 	}
+
+	@Override
+	public void onStart() {
+		// TODO Auto-generated method stub
+		timeline = DateTimeUtils.getNowDateTime();
+		page = 0;
+		new FindLoadAsyncTask(this, gridview, adapter, MainFindFragment.TYPE_CODE_LOAD).execute(timeline, String.valueOf(page));
+		super.onStart();
+	}
+
 }

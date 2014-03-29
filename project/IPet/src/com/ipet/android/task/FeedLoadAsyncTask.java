@@ -3,7 +3,6 @@ package com.ipet.android.task;
 import java.util.List;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.ipet.android.MyApp;
 import com.ipet.android.sdk.domain.IpetPhoto;
@@ -40,10 +39,7 @@ public class FeedLoadAsyncTask extends AsyncTask<String, String, List<IpetPhoto>
 		String page = params[1];
 		// TODO Auto-generated method stub
 		MyApp application = (MyApp) this.fragment.getActivity().getApplication();
-		Log.i("Load", "tL->" + timeline);
-		Log.i("Load", "pg->" + page);
-
-		List<IpetPhoto> list = application.getApi().getDiscoverApi().listPage(timeline, page, String.valueOf(MainHomeFragment.LIST_SIZE));
+		List<IpetPhoto> list = application.getApi().getPhotoApi().listFollowd(timeline, page, String.valueOf(MainHomeFragment.LIST_SIZE));
 		// List<IpetPhoto> list =
 		// application.getApi().getPhotoApi().listFollowd(timeline, page,
 		// String.valueOf(MainHomeFragment.LIST_SIZE));
