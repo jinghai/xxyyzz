@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.ipet.R;
 import com.ipet.android.Constant;
@@ -13,9 +14,11 @@ import com.ipet.android.MyApp;
 import com.ipet.android.task.SplashLoginAsyncTask;
 import com.ipet.android.ui.manager.LoginManager;
 import com.ipet.android.ui.manager.UserManager;
+import com.ipet.android.ui.utils.AppUtils;
 
 public class SplashActivity extends Activity {
 	boolean isLogin = false;
+	private TextView version = null;
 
 	private static final int GO_MAIN = 1000;
 	private static final int GO_WELCOME = 1001;
@@ -30,6 +33,10 @@ public class SplashActivity extends Activity {
 
 	// 开始初始化
 	private void init() {
+		version = (TextView) this.findViewById(R.id.version_info);
+		String verStr = getResources().getString(R.string.app_version);
+		String v = String.format(verStr, AppUtils.getAppVersionName(this));
+		version.setText(v);
 		// 初始化模拟用户数据
 		MyApp application = (MyApp) this.getApplication();
 		if (application.getUser() == null) {
