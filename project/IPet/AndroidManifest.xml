@@ -87,9 +87,13 @@
         </activity>
         <activity
             android:name="com.ipet.android.ui.FeedbackActivity"
-            android:theme="@style/IPetTheme.NoTitleBar" 
-            android:label="@string/title_activity_feed_back"  >
-                     
+            android:label="@string/title_activity_feed_back"
+            android:theme="@style/IPetTheme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.ipet.android.ui.PhotoViewActivity"
+            android:label="@string/title_activity_photo_view"
+            android:theme="@style/IPetTheme.NoTitleBar" >
         </activity>
     </application>
 

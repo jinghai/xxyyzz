@@ -43,7 +43,7 @@ public class FindGridAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int index) {
+	public IpetPhoto getItem(int index) {
 		return list.get(index);
 	}
 

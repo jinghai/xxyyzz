@@ -24,7 +24,7 @@ public class SimpleTitleBar extends LinearLayout {
 
 	private int resLeftType = Constant.TITLE_TYPE_IMAGE;
 	private int resRightType = Constant.TITLE_TYPE_IMAGE;
-	
+
 	public SimpleTitleBar(Context context) {
 		super(context);
 		// TODO Auto-generated constructor stub
@@ -54,6 +54,18 @@ public class SimpleTitleBar extends LinearLayout {
 		title = (TextView) findViewById(R.id.titlebar_title);
 		title.setText(type.getString(R.styleable.TitleBar_title));
 
+	}
+
+	public void setTitle(String title) {
+		this.getTitle().setText(title);
+	}
+
+	public TextView getTitle() {
+		return title;
+	}
+
+	public void setTitle(TextView title) {
+		this.title = title;
 	}
 
 	// left区域

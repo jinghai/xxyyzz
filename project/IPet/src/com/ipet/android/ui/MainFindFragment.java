@@ -1,14 +1,18 @@
 package com.ipet.android.ui;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
 import com.ipet.R;
@@ -38,10 +42,26 @@ public class MainFindFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		this.activity = getActivity();
 		gridview = (GridView) this.activity.findViewById(R.id.gridview);
-		adapter = new FindGridAdapter(this.activity,gridview);
+		adapter = new FindGridAdapter(this.activity, gridview);
 		adapter.setList(list);
 		gridview.setAdapter(adapter);
+		gridview.setOnItemClickListener(myclick);
 	}
+
+	private OnItemClickListener myclick = new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			// TODO Auto-generated method stub
+			IpetPhoto feed = adapter.getItem(position);
+			Intent intent = new Intent(MainFindFragment.this.activity, PhotoViewActivity.class);
+			Bundle mBundle = new Bundle();
+			mBundle.putSerializable("FEED", (Serializable) feed);
+			intent.putExtras(mBundle);
+			startActivity(intent);
+		}
+
+	};
 
 	@Override
 	public void onStart() {

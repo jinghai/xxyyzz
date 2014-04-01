@@ -1,5 +1,7 @@
 package com.ipet.android.sdk.domain;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ipet.android.sdk.base.ApiContext;
 
@@ -8,8 +10,9 @@ import com.ipet.android.sdk.base.ApiContext;
  * @author xiaojinghai
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class IpetPhoto {
+public class IpetPhoto implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private String id;
 	// 原图
 	private String originalURL;
