@@ -28,7 +28,7 @@ public class FeedbackController extends BaseController {
 
 	@RequestMapping(value = "feedback", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public boolean feedback(String title, String content, String contact, String createdBy) throws IOException {
+	public boolean feedback(String title, String content, String contact, String userId) throws IOException {
 		if (StringUtils.isEmpty(content)) {
 			throw new RuntimeException("非法参数");
 		}
@@ -36,7 +36,7 @@ public class FeedbackController extends BaseController {
 		feedback.setTitle(title);
 		feedback.setContent(content);
 		feedback.setContact(contact);
-		feedback.setCreatedBy(createdBy);
+		feedback.setCreatedBy(userId);
 		return feedbackService.feedback(feedback);
 	}
 
