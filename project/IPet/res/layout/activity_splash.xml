@@ -12,5 +12,28 @@
         android:contentDescription="@string/splash_desc"
         android:scaleType="fitXY"
         android:src="@drawable/splash" />
+ 	<FrameLayout  android:layout_width="fill_parent" android:layout_height="wrap_content" >
+      <ImageView android:id="@+id/welcome_ipet_logo" 
+      android:layout_width="fill_parent" 
+      android:layout_height="wrap_content" 
+      android:layout_marginTop="50dp" 
+      android:src="@drawable/welcome_ipet" 
+      android:layout_alignParentTop="true" 
+      android:layout_centerHorizontal="true" />
+   </FrameLayout> 
+   
+   <FrameLayout android:id="@+id/welcome_branding_bar" android:background="@drawable/welcome_branding_gradient" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true">
 
+        <TextView
+            android:id="@+id/version_info"
+            style="@style/version_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawablePadding="6.0dip"
+            android:gravity="bottom"
+            android:text="@string/app_version"
+            android:textSize="@dimen/text_size_12" />
+
+   </FrameLayout>
 </RelativeLayout>

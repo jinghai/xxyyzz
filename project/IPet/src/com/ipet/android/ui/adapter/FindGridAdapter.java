@@ -2,15 +2,20 @@ package com.ipet.android.ui.adapter;
 
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.ipet.R;
 import com.ipet.android.sdk.domain.IpetPhoto;
+import com.ipet.android.ui.utils.AnimUtils;
 import com.ipet.android.ui.utils.StringUtils;
 import com.loopj.android.image.SmartImageView;
 
@@ -18,10 +23,12 @@ public class FindGridAdapter extends BaseAdapter {
 	private final Context context;
 	private List<IpetPhoto> list;
 	private final LayoutInflater mInflater;
+	private GridView gridview;
 
-	public FindGridAdapter(Context context) {
+	public FindGridAdapter(Context context, GridView gridview) {
 		super();
 		this.context = context;
+		this.gridview = gridview;
 		this.mInflater = LayoutInflater.from(context);
 	}
 
@@ -55,8 +62,15 @@ public class FindGridAdapter extends BaseAdapter {
 		GridHolder holder;
 		if (convertView == null) {
 			convertView = mInflater.inflate(R.layout.list_find_item, null);
+
 			holder = new GridHolder();
 			holder.findImageView = (SmartImageView) convertView.findViewById(R.id.itemImage);
+			LayoutParams ps = (LayoutParams) holder.findImageView.getLayoutParams();
+			DisplayMetrics dm = new DisplayMetrics();
+			((Activity) this.context).getWindowManager().getDefaultDisplay().getMetrics(dm);
+			int width = dm.widthPixels / 3 - AnimUtils.dip2px(context, 5);
+			ps.height = width;
+			holder.findImageView.setLayoutParams(ps);
 			holder.findTextView = (TextView) convertView.findViewById(R.id.itemText);
 			convertView.setTag(holder);
 		} else {

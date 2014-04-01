@@ -45,6 +45,7 @@ public class SplashLoginAsyncTask extends AsyncTask<Integer, Integer, Integer> {
 			IpetUser u = application.getApi().getAccountApi().login(account, password);
 			application.setUser(u);
 			result = RESULT_SUCCESS;
+			Thread.sleep(1000);
 			/*
 			 * Thread.sleep(1000);
 			 * 

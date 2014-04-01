@@ -38,10 +38,9 @@ public class MainFindFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		this.activity = getActivity();
 		gridview = (GridView) this.activity.findViewById(R.id.gridview);
-		adapter = new FindGridAdapter(this.activity);
+		adapter = new FindGridAdapter(this.activity,gridview);
 		adapter.setList(list);
 		gridview.setAdapter(adapter);
-
 	}
 
 	@Override
