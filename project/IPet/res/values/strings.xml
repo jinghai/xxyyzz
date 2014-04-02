@@ -95,5 +95,10 @@
     <string name="soft_updating">正在更新</string>
     <string name="soft_update_cancel">取消</string>
     <string name="title_activity_photo_view">PhotoViewActivity</string>
+    <string name="title_activity_publish_feed">PublishFeedActivity</string>
+    <string name="title_publish">发布照片</string>
+    <string name="publish">发布</string>
+     <string name="publish_loading">发布中...</string>
+    
 
 </resources>

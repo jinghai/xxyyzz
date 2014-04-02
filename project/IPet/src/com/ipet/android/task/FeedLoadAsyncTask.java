@@ -40,9 +40,6 @@ public class FeedLoadAsyncTask extends AsyncTask<String, String, List<IpetPhoto>
 		// TODO Auto-generated method stub
 		MyApp application = (MyApp) this.fragment.getActivity().getApplication();
 		List<IpetPhoto> list = application.getApi().getPhotoApi().listFollowd(timeline, page, String.valueOf(MainHomeFragment.LIST_SIZE));
-		// List<IpetPhoto> list =
-		// application.getApi().getPhotoApi().listFollowd(timeline, page,
-		// String.valueOf(MainHomeFragment.LIST_SIZE));
 		return list;
 	}
 

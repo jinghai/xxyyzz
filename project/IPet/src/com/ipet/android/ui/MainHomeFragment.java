@@ -20,13 +20,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ipet.R;
+import com.ipet.android.MyApp;
 import com.ipet.android.sdk.domain.IpetPhoto;
-import com.ipet.android.task.FeedAddAsyncTask;
 import com.ipet.android.task.FeedLoadAsyncTask;
 import com.ipet.android.ui.adapter.ListFeedAdapter;
 import com.ipet.android.ui.common.FeedListView;
 import com.ipet.android.ui.common.FeedListView.OnLoadMoreListener;
-import com.ipet.android.ui.manager.FeedManager;
 import com.ipet.android.ui.utils.DateTimeUtils;
 import com.ipet.android.ui.utils.DeviceUtils;
 import com.ipet.android.ui.utils.DialogUtils;
@@ -64,6 +63,11 @@ public class MainHomeFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
+		Log.i("MainHomeFragment", "onActivityCreated");
+		MyApp application = (MyApp) this.getActivity().getApplication();
+		// Log.i("User", application.getUser().getId());
+		Log.i("API CurrUserId", application.getApi().getCurrUserId());
+
 		this.activity = getActivity();
 
 		camera = (ImageView) activity.findViewById(R.id.composer_buttons_show_hide_button);
@@ -76,11 +80,6 @@ public class MainHomeFragment extends Fragment {
 
 		View emptyView = activity.findViewById(R.id.empty);
 		listView.setEmptyView(emptyView);
-
-		timeline = DateTimeUtils.getNowDateTime();
-		page = 0;
-
-		new FeedLoadAsyncTask(this, listView, adapter, MainHomeFragment.TYPE_CODE_LOAD).execute(timeline, String.valueOf(page));
 
 		listView.setOnRefreshListener(new OnRefreshListener() {
 			@Override
@@ -102,6 +101,23 @@ public class MainHomeFragment extends Fragment {
 
 		});
 
+		timeline = DateTimeUtils.getNowDateTime();
+		page = 0;
+
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		Log.i("MainHomeFragment", "onStart");
+		new FeedLoadAsyncTask(this, listView, adapter, MainHomeFragment.TYPE_CODE_LOAD).execute(timeline, String.valueOf(page));
+	}
+
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		Log.i("MainHomeFragment", "onResume");
+		super.onResume();
 	}
 
 	private final OnClickListener cameraClick = new OnClickListener() {
@@ -167,7 +183,12 @@ public class MainHomeFragment extends Fragment {
 
 		if (requestCode == REQUEST_CODE_PHOTORESOULT) {
 			Log.i("Photo", "crop" + pathUri);
-			new FeedAddAsyncTask(this, picture, pathUri).execute();
+			// new FeedAddAsyncTask(this, picture, pathUri).execute();
+			Intent intent = new Intent(MainHomeFragment.this.getActivity(), PublishFeedActivity.class);
+			Bundle bundle = new Bundle();// 该类用作携带数据
+			bundle.putString("PATH", picture.getPath());
+			intent.putExtras(bundle);
+			startActivity(intent);
 		}
 
 	}
@@ -188,9 +209,4 @@ public class MainHomeFragment extends Fragment {
 		startActivityForResult(intent, REQUEST_CODE_PHOTORESOULT);
 	}
 
-	public void backToFeed() {
-		// TODO Auto-generated method stub
-		adapter.loadList(FeedManager.load());
-
-	}
 }

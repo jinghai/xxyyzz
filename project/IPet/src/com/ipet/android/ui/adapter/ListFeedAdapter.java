@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
@@ -54,10 +55,12 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 	public class ViewHolder {
 		public SmartImageView avator;
 		public TextView create_by;
-		public TextView content;
+		public TextView text;
 		public SmartImageView content_image;
 		public View header;
 		public TextView create_at;
+		public View comments_group;
+		public LinearLayout layout;
 	}
 
 	public ViewHolder holder;
@@ -70,10 +73,13 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 		if (convertView == null) {
 			view = inflater.inflate(R.layout.list_feed_item, null);
 			holder = new ViewHolder();
+			holder.layout = (LinearLayout) view.findViewById(R.id.feed_item_layout);
 			holder.header = view.findViewById(R.id.inc_feed_header);
 			holder.avator = (SmartImageView) view.findViewById(R.id.feed_avatar);
 			holder.create_by = (TextView) view.findViewById(R.id.feed_created_by);
 			holder.create_at = (TextView) view.findViewById(R.id.feed_created_at);
+			holder.text = (TextView) view.findViewById(R.id.row_feed_photo_textview_comments);
+			holder.comments_group = view.findViewById(R.id.row_feed_photo_comments_group);
 
 			DisplayMetrics dm = new DisplayMetrics();
 			((Activity) this.context).getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -91,7 +97,9 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 		IpetPhoto feed = list.get(position);
 		holder.create_by.setText(feed.getUserName());
 		holder.create_at.setText(feed.getCreateAt());
-		// holder.content.setText(feed.getText());
+
+		String text = feed.getText();
+
 		String imageURL = feed.getSmallURL();
 
 		holder.avator.setImageUrl(feed.getAvatar48(), R.drawable.list_default_avatar_boy);
@@ -100,8 +108,24 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 			holder.content_image.setImageUrl(imageURL);
 		}
 
+		if (!StringUtils.isEmpty(text)) {
+			holder.comments_group.setVisibility(View.VISIBLE);
+			holder.text.setText(text);
+		} else {
+			holder.comments_group.setVisibility(View.GONE);
+		}
+
+		// holder.layout.addView(add());
 		return view;
 	}
+
+	// private LinearLayout add() {
+	// LinearLayout layout1 = (LinearLayout)
+	// LayoutInflater.from(context).inflate(R.layout.list_feed_item_feedback_add,
+	// null);
+	// return layout1;
+
+	// }
 
 	public void prependList(List<IpetPhoto> list) {
 		this.list.addAll(0, list);

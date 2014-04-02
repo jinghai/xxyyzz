@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge
-  xmlns:android="http://schemas.android.com/apk/res/android">
+
   
-    <RelativeLayout android:id="@+id/row_feed_photo_comments_group" 
+    <LinearLayout 
+         xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/row_feed_photo_comments_group" 
         android:paddingLeft="8dp" 
         android:paddingRight="8dp" 
         android:layout_width="fill_parent" 
@@ -23,6 +24,5 @@
             android:text="123123"
             android:textColor="#ff222222"
             android:textColorLink="#ff222222" />
-    </RelativeLayout>
+    </LinearLayout>
     
-</merge>
