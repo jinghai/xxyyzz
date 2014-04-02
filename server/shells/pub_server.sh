@@ -10,7 +10,7 @@ lock_file=$backup_dir/pub_server.lock
 
 
 if [ -f "$lock_file" ]; then
-    echo "this operate was lockd,please run pub_server_commit.sh first."
+    echo "this operate was locked,please run pub_server_unlock.sh first."
     exit  0
 fi
 
