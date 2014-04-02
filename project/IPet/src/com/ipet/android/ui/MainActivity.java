@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,17 +39,17 @@ public class MainActivity extends FragmentActivity {
 	private int two;
 	private int three;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ActivityManager.getInstance().addActivity(this);
-        // 初始化页面
-        initViews();
-        // 检查软件更新
-        UpdateManager manager = new UpdateManager(MainActivity.this);
-        manager.checkUpdate();
-    }
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		ActivityManager.getInstance().addActivity(this);
+		// 初始化页面
+		initViews();
+		// 检查软件更新
+		UpdateManager manager = new UpdateManager(MainActivity.this);
+		manager.checkUpdate();
+	}
 
 	private void initViews() {
 
@@ -81,7 +80,6 @@ public class MainActivity extends FragmentActivity {
 		one = displayWidth;
 		two = one * 2;
 
-	
 	}
 
 	public class TabClickListener implements OnClickListener {

@@ -95,6 +95,11 @@
             android:label="@string/title_activity_photo_view"
             android:theme="@style/IPetTheme.NoTitleBar" >
         </activity>
+        <activity
+            android:name="com.ipet.android.ui.PublishFeedActivity"
+            android:label="@string/title_activity_publish_feed" 
+            android:theme="@style/IPetTheme.NoTitleBar">
+        </activity>
     </application>
 
 </manifest>
