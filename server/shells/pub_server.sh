@@ -1,14 +1,28 @@
 #!/bin/sh
 #
 #
-#发布开发/连调版本
+#发布Server API
 cur_dir=$(cd "$(dirname "$0")"; pwd)
 tomcat_home=/opt/apache-tomcat-7.0.52
+backup_dir=/home/backup/server
+mkdir -p $backup_dir
+lock_file=$backup_dir/pub_server.lock
+
+
+if [ -f "$lock_file" ]; then
+    echo "this operate was lockd,please run pub_server_commit.sh first."
+    exit  0
+fi
+
+service tomcat stop
+
+echo "" >$lock_file
+
+./pub_server_backup.sh
 
 cd /src/xxyyzz/server
 mvn clean package -DskipTests=true 
 
-service tomcat stop
 
 rm -rf $tomcat_home/webapps/server
 rm -rf $tomcat_home/logs/*
@@ -21,6 +35,8 @@ sed -i "/^jdbc.password=/c\jdbc.password=itserver" $tomcat_home/webapps/server/W
 
 mkdir -p /home/data/files
 ln -sf /home/data/files $tomcat_home/webapps/server
+
+mysql -pitserver -e "create database if not exists ipet default charset utf8;"
 
 service tomcat start
 
