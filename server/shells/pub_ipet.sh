@@ -9,7 +9,7 @@ file_path=/home/data/files/update/android
 
 mkdir -p $file_path
 
-ant -f /src/xxyyzz/project/IPet -Dkey.alias=ipet.alias -Dkey.store.password=xiaojinghai -Dkey.alias.password=xiaojinghai -Dkey.store=$cur_dir/ipet.keystore clean release
+ant -f /src/xxyyzz/project/IPet -Dkey.alias=ipetty.alias -Dkey.store.password=ipetty.keystore -Dkey.alias.password=ipetty.alias -Dkey.store=$cur_dir/ipetty.keystore clean release
 
 
 \cp -a /src/xxyyzz/project/IPet/bin/IPet-release.apk $file_path
