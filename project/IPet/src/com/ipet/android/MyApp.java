@@ -35,6 +35,8 @@ public class MyApp extends Application {
     public void onCreate() {
         Log.d(TAG, TAG + ":onCreate:" + APP_ID + "," + APP_SECRET);
         super.onCreate();
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(this);
         context = getApplicationContext();
         this.ipetApi = IpetApiImpl.getInstance(APP_ID, APP_SECRET);
     }
