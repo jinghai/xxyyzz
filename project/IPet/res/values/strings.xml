@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">iPet</string>
+    <string name="app_name">爱宠</string>
     <string name="action_settings">设置</string>
     <string name="splash_desc">启动界面</string>
     <string name="title_activity_guide">GuideActivity</string>
@@ -94,7 +94,6 @@
     <string name="soft_update_later">稍后更新</string>
     <string name="soft_updating">正在更新</string>
     <string name="soft_update_cancel">取消</string>
-
-
+    <string name="title_activity_photo_view">PhotoViewActivity</string>
 
 </resources>
