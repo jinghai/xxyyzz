@@ -50,6 +50,20 @@ public class PhotoApiImpl extends ApiBase implements PhotoApi {
 		return ret;
 	}
 
+	/** 为了解决发布文字乱码问题而临时提供的一个接口 */
+	@Override
+	@Deprecated
+	public IpetPhoto publishText(String id, String text) {
+		requireAuthorization();
+		URI uri = buildUri("photo/publishText");
+		LinkedMultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
+		body.add("uid", context.getCurrUserId());
+		body.add("id", id);
+		body.add("context", text);
+		IpetPhoto result = context.getRestTemplate().postForObject(uri, body, IpetPhoto.class);
+		return result;
+	}
+
 	@Override
 	public List<IpetPhoto> listFollowd(String date, String pageNumber, String pageSize) {
 		requireAuthorization();

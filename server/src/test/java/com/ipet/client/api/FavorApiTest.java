@@ -26,7 +26,7 @@ public class FavorApiTest extends BaseTest {
 	@Test()
 	public void favor() throws UnsupportedEncodingException {
 		accountApi.login("admin", "admin");
-		String filePath = java.net.URLDecoder.decode(ClassLoader.getSystemResource("test.jpg").getPath(), "UTF-8");
+		String filePath = super.getTestPhotoPath();
 		FileSystemResource fsr = new FileSystemResource(filePath);
 		IpetPhoto photo = photoApi.publish("测试", fsr);
 		favorApi.favor(photo.getId(), "喜欢");

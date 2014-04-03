@@ -56,7 +56,7 @@ public class UserControllerTest extends BaseTest {
 	public void uploadForHttpEntity() throws UnsupportedEncodingException {
 		String url = baseUrl + "/uploadAvatar";
 
-		String filePath = java.net.URLDecoder.decode(ClassLoader.getSystemResource("test.jpg").getPath(), "UTF-8");
+		String filePath = super.getTestPhotoPath();
 		FileSystemResource fsr = new FileSystemResource(filePath);
 
 		LinkedMultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
@@ -77,7 +77,7 @@ public class UserControllerTest extends BaseTest {
 	public void uploadAvatar() throws UnsupportedEncodingException {
 		logger.debug(ClassLoader.getSystemResource("test.jpg").getPath());
 		String url = baseUrl + "/uploadAvatar";
-		String filePath = java.net.URLDecoder.decode(ClassLoader.getSystemResource("test.jpg").getPath(), "UTF-8");
+		String filePath = super.getTestPhotoPath();
 		FileSystemResource fsr = new FileSystemResource(filePath);
 
 		LinkedMultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();

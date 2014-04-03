@@ -101,6 +101,18 @@ public class PhotoController extends BaseController {
 		return photoService.publishPhoto(uid, context, file);
 	}
 
+	/** 为了解决发布文字乱码问题而临时提供的一个接口 */
+	@Deprecated
+	@RequestMapping(value = "publishText", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Photo publishText(String uid, String id, String context) throws IOException {
+		if (StringUtils.isEmpty(uid) || StringUtils.isEmpty(id)) {
+			throw new RuntimeException("非法参数");
+		}
+
+		return photoService.publishText(uid, id, context);
+	}
+
 	@RequestMapping(value = "listFollow", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<Photo> getFollowForPage(String uid, String date, String pageNumber, String pageSize)

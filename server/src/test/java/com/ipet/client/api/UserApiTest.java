@@ -50,7 +50,7 @@ public class UserApiTest extends BaseTest {
 	@Test
 	public void updateAvatar() throws UnsupportedEncodingException {
 		IpetApiImpl.getInstance("1", "1").getAccountApi().login("admin", "admin");
-		String filePath = java.net.URLDecoder.decode(ClassLoader.getSystemResource("test.jpg").getPath(), "UTF-8");
+		String filePath = super.getTestPhotoPath();
 		File f = new File(filePath);
 		FileSystemResource fsr = new FileSystemResource(filePath);
 		IpetUser ret = api.updateAvatar(fsr);
@@ -66,11 +66,11 @@ public class UserApiTest extends BaseTest {
 	}
 
 	@Test
-	public void updateAvatarException() {
+	public void updateAvatarException() throws UnsupportedEncodingException {
 		IpetApiImpl.getInstance("1", "1").getAccountApi().login("admin", "admin");
-		String fs = ClassLoader.getSystemResource("5M.JPG").getPath();
-		File f = new File(ClassLoader.getSystemResource("5M.JPG").getPath());
-		FileSystemResource fsr = new FileSystemResource(ClassLoader.getSystemResource("5M.JPG").getPath());
+		String fs = super.getTest5MPhotoPath();
+		File f = new File(fs);
+		FileSystemResource fsr = new FileSystemResource(fs);
 		try {
 			IpetUser ret = api.updateAvatar(fsr);
 			logger.debug(ToStringBuilder.reflectionToString(ret));

@@ -154,6 +154,20 @@ public class PhotoService extends BaseService {
 		}
 	}
 
+	/** 为了解决发布文字乱码问题而临时提供的一个接口 */
+	@Deprecated
+	@Transactional(readOnly = false)
+	public Photo publishText(String uid, String id, String context) throws IOException {
+		User user = this.getUserDao().findByIdAndUserState(uid, UserState.ENABLE);
+		if (user == null) {
+			throw new RuntimeException("无效用户");
+		}
+
+		Photo photo = this.getPhotoDao().findById(id);
+		photo.setText(context);
+		return this.getPhotoDao().save(photo);
+	}
+
 	// 生成临时文件相对路径
 	private String generateTempFileName(MultipartFile file) {
 		String prefix = ProjectUtil.getPrefix(file.getOriginalFilename());

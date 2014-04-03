@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
  * 
  * @author xiaojinghai
  */
-public class BaseTest {
+public class BaseTest extends com.ipet.test.BaseTest {
 
 	public RestTemplate restTemplate;
 

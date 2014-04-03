@@ -15,7 +15,7 @@ import com.ipet.test.BaseTest;
 public class FilePathTest extends BaseTest {
 
 	@Test
-	public void Test() throws IOException {
+	public void test() throws IOException {
 		System.out.println(Thread.currentThread().getContextClassLoader().getResource(""));
 		System.out.println(FilePathTest.class.getClassLoader().getResource(""));
 		System.out.println(ClassLoader.getSystemResource(""));
@@ -41,7 +41,8 @@ public class FilePathTest extends BaseTest {
 	}
 
 	public static void main(String[] args) throws IOException {
-		new FilePathTest().Test();
+		new FilePathTest().test();
+		System.out.println(new FilePathTest().getTestPhotoPath());
 	}
 
 }

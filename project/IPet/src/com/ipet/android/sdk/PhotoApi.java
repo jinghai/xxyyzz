@@ -23,6 +23,10 @@ public interface PhotoApi {
 
 	public IpetPhoto publish(String text, String file);
 
+	/** 为了解决发布文字乱码问题而临时提供的一个接口 */
+	@Deprecated
+	public IpetPhoto publishText(String id, String text);
+
 	/**
 	 * 按时间线分页获取我关注的图片
 	 */

@@ -26,7 +26,7 @@ public class PhotoApiTest extends BaseTest {
 	public void publishPhoto() throws UnsupportedEncodingException {
 		// IpetApiImpl.getInstance("1", "1").getAccountApi().login("admin",
 		// "admin");
-		String filePath = java.net.URLDecoder.decode(ClassLoader.getSystemResource("test.jpg").getPath(), "UTF-8");
+		String filePath = super.getTestPhotoPath();
 		FileSystemResource fsr = new FileSystemResource(filePath);
 		IpetPhoto ret = api.publish("测试", fsr);
 		logger.debug(ToStringBuilder.reflectionToString(ret));
