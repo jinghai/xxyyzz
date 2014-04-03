@@ -189,6 +189,7 @@ public class MainHomeFragment extends Fragment {
 			bundle.putString("PATH", picture.getPath());
 			intent.putExtras(bundle);
 			startActivity(intent);
+			this.activity.finish();
 		}
 
 	}

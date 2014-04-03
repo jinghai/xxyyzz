@@ -37,6 +37,7 @@ public class FeedAddAsyncTask extends AsyncTask<String, String, IpetPhoto> {
 		IpetPhoto ipetPhoto = null;
 		MyApp application = (MyApp) this.activity.getApplication();
 		ipetPhoto = application.getApi().getPhotoApi().publish("", path);
+		Log.i("publish", "id" + ipetPhoto.getId());
 		ipetPhoto = application.getApi().getPhotoApi().publishText(ipetPhoto.getId(), str);
 		// application.getApi().getCommentApi().comment(ipetPhoto.getId(), str);
 		this.progress.dismiss();

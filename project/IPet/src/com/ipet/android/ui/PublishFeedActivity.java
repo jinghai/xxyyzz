@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import com.ipet.R;
 import com.ipet.android.task.FeedAddAsyncTask;
 import com.ipet.android.ui.common.SimpleTitleBar;
+import com.ipet.android.ui.utils.AnimUtils;
 
 public class PublishFeedActivity extends Activity {
 	private ImageView imageView;
@@ -71,7 +72,7 @@ public class PublishFeedActivity extends Activity {
 	public void backAndfinish() {
 		Intent intent = new Intent(PublishFeedActivity.this, MainActivity.class);
 		startActivity(intent);
-		finish();
+		AnimUtils.backAndFinish(this);
 	}
 
 	@Override

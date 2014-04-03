@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import com.ipet.android.sdk.domain.IpetPhoto;
 import com.ipet.android.ui.common.SimpleTitleBar;
 import com.ipet.android.ui.event.BackAndFinishClick;
 import com.ipet.android.ui.utils.AnimUtils;
+import com.ipet.android.ui.utils.StringUtils;
 import com.loopj.android.image.SmartImageView;
 
 public class PhotoViewActivity extends Activity {
@@ -21,6 +23,8 @@ public class PhotoViewActivity extends Activity {
 	private SmartImageView avator;
 	private TextView create_by;
 	private TextView create_at;
+	private TextView textView;
+	public View comments_group;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,18 @@ public class PhotoViewActivity extends Activity {
 		avator.setImageUrl(feed.getAvatar48(), R.drawable.list_default_avatar_boy);
 		// create_by.setText(feed.getUserName());
 		create_at.setText(feed.getCreateAt());
+
+		textView = (TextView) this.findViewById(R.id.row_feed_photo_textview_comments);
+		comments_group = this.findViewById(R.id.row_feed_photo_comments_group);
+
+		String text = feed.getText();
+
+		if (!StringUtils.isEmpty(text)) {
+			comments_group.setVisibility(View.VISIBLE);
+			textView.setText(text);
+		} else {
+			comments_group.setVisibility(View.GONE);
+		}
 
 	}
 
