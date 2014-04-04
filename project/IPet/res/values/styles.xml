@@ -96,6 +96,25 @@
         <item name="android:windowExitAnimation">@anim/shrink_animation</item>
     </style>
     
+    <style name="welcome_caption">
+        <item name="android:textSize">@dimen/welcome_image_description_font_size</item>
+        <item name="android:textColor">@color/welcome_catchphrase</item>
+        <item name="android:shadowColor">@color/welcome_black_shadow</item>
+        <item name="android:shadowDx">1.0</item>
+        <item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">2.0</item>
+    </style>
+    
+    <style name="welcome_title">
+        <item name="android:textSize">@dimen/welcome_image_title_font_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/welcome_title</item>
+        <item name="android:shadowColor">@color/welcome_black_shadow</item>
+        <item name="android:shadowDx">1.0</item>
+        <item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">2.0</item>
+    </style>
+    
 
      
     

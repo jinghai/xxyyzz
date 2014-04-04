@@ -7,14 +7,17 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher.ViewFactory;
 
 import com.ipet.R;
 import com.ipet.android.ui.manager.ActivityManager;
@@ -35,6 +38,11 @@ public class WelcomeRegisterOrLoginActivity extends Activity {
 	private TextView regBtn = null;
 	private TextView version = null;
 	private long mExitTime;
+
+	private TextSwitcher title_ts;
+	private TextSwitcher ts;
+	private String[] titleArray = { "记录", "分享", "发现" };
+	private String[] poemArray = { "让手机记录我的宠物生活", "选择精彩记录分享到社交网络", "发现更多的宠物邻居和日常服务，这里有你需要的一些" };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +72,36 @@ public class WelcomeRegisterOrLoginActivity extends Activity {
 		viewPager = (ViewPager) findViewById(R.id.welcome_view_pager);
 		viewPager.setAdapter(mPagerAdapter);
 		viewPager.setOnPageChangeListener(welcomePageChangeListener);
+
+		title_ts = (TextSwitcher) findViewById(R.id.welcome_title);
+		ts = (TextSwitcher) findViewById(R.id.welcome_pane_caption);
+
+		ts.setFactory(new ViewFactory() {
+			public View makeView() {
+				TextView tv = new TextView(WelcomeRegisterOrLoginActivity.this);
+				tv.setTextAppearance(WelcomeRegisterOrLoginActivity.this, R.style.welcome_caption);
+				tv.setShadowLayer(2, 1, 1, R.color.welcome_black_shadow);
+				tv.setGravity(Gravity.CENTER);
+				return tv;
+			}
+		});
+
+		title_ts.setFactory(new ViewFactory() {
+			public View makeView() {
+				TextView tv = new TextView(WelcomeRegisterOrLoginActivity.this);
+				tv.setTextAppearance(WelcomeRegisterOrLoginActivity.this, R.style.welcome_title);
+				tv.setShadowLayer(2, 1, 1, R.color.welcome_black_shadow);
+				tv.setGravity(Gravity.CENTER);
+				return tv;
+			}
+		});
+
+		// ts.setInAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
+		// android.R.anim.slide_in_left));
+		// ts.setOutAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
+		// android.R.anim.slide_out_right));
+		ts.setText(poemArray[0]);
+		title_ts.setText(titleArray[0]);
 	}
 
 	private final PagerAdapter mPagerAdapter = new PagerAdapter() {
@@ -113,6 +151,8 @@ public class WelcomeRegisterOrLoginActivity extends Activity {
 		public void onPageSelected(int arg0) {
 			// TODO Auto-generated method stub
 			setCurrentDot(arg0);
+			ts.setText(poemArray[arg0]);
+			title_ts.setText(titleArray[arg0]);
 		}
 
 	};

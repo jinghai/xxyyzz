@@ -27,6 +27,7 @@ public class RegisterActivity extends Activity {
 
 	public String account;
 	public String password;
+	public View register_btn;
 
 	public final IpetUser user = new IpetUser();
 
@@ -39,17 +40,18 @@ public class RegisterActivity extends Activity {
 
 		SimpleTitleBar titleBar = (SimpleTitleBar) findViewById(R.id.register_titlebar);
 		titleBar.setLeftViewClick(new BackAndFinishClick(this));
-		titleBar.setRightViewClick(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				RegisterActivity.this.save();
-			}
-		});
 
 		accountEdit = (EditText) this.findViewById(R.id.reg_account);
 		passwordEdit = (EditText) this.findViewById(R.id.reg_password);
 		repasswordEdit = (EditText) this.findViewById(R.id.reg_repassword);
 		nicknameEdit = (EditText) this.findViewById(R.id.nickname_edit);
+		register_btn = this.findViewById(R.id.register_btn);
+		register_btn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				RegisterActivity.this.save();
+			}
+		});
 	}
 
 	protected void save() {
@@ -106,7 +108,7 @@ public class RegisterActivity extends Activity {
 
 	public void showError(int resId) {
 		// TODO Auto-generated method stub
-		Toast.makeText(this, resId, Toast.LENGTH_LONG).show();
+		Toast.makeText(this, resId, Toast.LENGTH_SHORT).show();
 	}
 
 	@Override

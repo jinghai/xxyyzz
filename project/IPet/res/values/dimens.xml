@@ -33,4 +33,8 @@
     <dimen name="TTTwinButtonMinSize">50.0dip</dimen>
     <dimen name="Large_TextSize">30.0dip</dimen>
     <dimen name="Big_TextSize">23.0dip</dimen>
+    
+    <dimen name="welcome_image_description_font_size">14dp</dimen>
+    <dimen name="welcome_image_title_font_size">24dp</dimen>
+    
 </resources>

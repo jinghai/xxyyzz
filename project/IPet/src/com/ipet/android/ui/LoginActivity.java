@@ -62,7 +62,7 @@ public class LoginActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 
-				Toast.makeText(LoginActivity.this, "暂时未实现", Toast.LENGTH_LONG).show();
+				Toast.makeText(LoginActivity.this, "暂时未实现", Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
@@ -119,7 +119,7 @@ public class LoginActivity extends Activity {
 
 	public void showError(int resId) {
 		// TODO Auto-generated method stub
-		Toast.makeText(LoginActivity.this, resId, Toast.LENGTH_LONG).show();
+		Toast.makeText(LoginActivity.this, resId, Toast.LENGTH_SHORT).show();
 	}
 
 	private void goRegister() {

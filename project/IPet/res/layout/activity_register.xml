@@ -12,7 +12,7 @@
         app:title="@string/title_register"
         app:title_left_res_visibility="visible"
         app:title_right_res_type="text"
-        app:title_right_res_visibility="visible"
+        app:title_right_res_visibility="invisible"
         app:title_right_text="@string/register" />
 
  	<LinearLayout
@@ -157,5 +157,18 @@
  	     </LinearLayout>
 
  	</LinearLayout>
+
+   <TextView
+       android:id="@+id/register_btn"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:layout_alignParentLeft="true"
+       android:layout_below="@+id/register_linearLayout"
+       android:layout_marginTop="16dp"
+       android:background="@drawable/welcome_reg_btn"
+       android:gravity="center"
+       android:text="@string/register"
+       android:textColor="@drawable/font_black_pressed_white"
+       android:textSize="18sp" />
 
 </RelativeLayout>

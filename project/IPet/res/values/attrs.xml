@@ -31,4 +31,5 @@
         	<enum name="gone" value="2" />
     	</attr>
    </declare-styleable>
+   
 </resources>

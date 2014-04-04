@@ -2,7 +2,43 @@
 <RelativeLayout android:id="@+id/welcome_wrapper" android:layout_width="fill_parent" android:layout_height="fill_parent"
   xmlns:android="http://schemas.android.com/apk/res/android">
     <android.support.v4.view.ViewPager android:id="@+id/welcome_view_pager" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_alignParentTop="true" />
-    
+     
+     <ImageView android:id="@+id/welcome_ipet_logo" 
+      android:layout_width="fill_parent" 
+      android:layout_height="wrap_content" 
+      android:layout_marginTop="50dp" 
+      android:src="@drawable/welcome_ipet" 
+      android:layout_alignParentTop="true" 
+      android:layout_centerHorizontal="true" />
+     
+
+
+   <TextSwitcher 
+       android:id="@+id/welcome_pane_caption" 
+       android:layout_width="fill_parent" 
+       android:layout_height="wrap_content" 
+       android:layout_marginLeft="20.0dip" 
+       android:layout_marginTop="20dp" 
+       android:layout_marginRight="20.0dip" 
+       android:layout_marginBottom="40dp"
+       android:layout_above="@+id/dotViewGroup" 
+       android:layout_centerHorizontal="true" 
+       style="@style/welcome_caption"/>
+       
+ 
+   <TextSwitcher 
+       android:id="@+id/welcome_title" 
+       android:layout_width="fill_parent" 
+       android:layout_height="wrap_content" 
+       android:layout_marginLeft="20.0dip" 
+       android:layout_marginTop="20dp" 
+       android:layout_marginRight="20.0dip" 
+       android:layout_above="@id/welcome_pane_caption" 
+       android:layout_centerHorizontal="true" 
+       style="@style/welcome_title" />
+       
+
+
    <LinearLayout
        android:id="@+id/dotViewGroup"
        android:layout_width="wrap_content"
@@ -12,22 +48,17 @@
        android:layout_marginBottom="20dp"
        android:gravity="center_horizontal"
        android:orientation="horizontal" >
-
    </LinearLayout>
   
-  <ImageView android:id="@+id/welcome_ipet_logo" 
-      android:layout_width="fill_parent" 
-      android:layout_height="wrap_content" 
-      android:layout_marginTop="50dp" 
-      android:src="@drawable/welcome_ipet" 
-      android:layout_alignParentTop="true" 
-      android:layout_centerHorizontal="true" />
+
+  
    
    <LinearLayout android:gravity="center_horizontal" android:orientation="horizontal" android:id="@+id/welcome_button_container" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" android:layout_marginRight="20.0dip" android:layout_above="@+id/welcome_branding_bar">
         <Button android:textColor="@color/invite_button_red" android:id="@+id/welcome_register_button" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginRight="5.0dip" android:text="@string/login_register" android:layout_weight="1.0" style="@style/welcome_button" />
         <Button android:id="@+id/welcome_login_button" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:text="@string/login_btn" android:layout_weight="1.0" style="@style/welcome_button" />
     </LinearLayout>
     
+   
    <FrameLayout android:id="@+id/welcome_branding_bar" android:background="@drawable/welcome_branding_gradient" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true">
 
         <TextView
