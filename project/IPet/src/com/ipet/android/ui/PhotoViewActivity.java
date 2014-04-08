@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,7 +14,6 @@ import android.widget.TextView;
 
 import com.ipet.R;
 import com.ipet.android.sdk.domain.IpetPhoto;
-import com.ipet.android.task.FeedLikedAsyncTask;
 import com.ipet.android.ui.common.SimpleTitleBar;
 import com.ipet.android.ui.event.BackAndFinishClick;
 import com.ipet.android.ui.utils.AnimUtils;
@@ -40,6 +40,8 @@ public class PhotoViewActivity extends Activity {
 
 		Intent intent = getIntent();
 		feed = (IpetPhoto) intent.getSerializableExtra("FEED");
+
+		Log.i("self0", "" + feed.isFavored());
 
 		SimpleTitleBar titleBar = (SimpleTitleBar) findViewById(R.id.titlebar);
 		titleBar.setLeftViewClick(new BackAndFinishClick(this));
@@ -78,6 +80,7 @@ public class PhotoViewActivity extends Activity {
 		likes_group = this.findViewById(R.id.row_feed_photo_likes_group);
 		favor_count = (TextView) this.findViewById(R.id.row_feed_photo_textview_likes);
 		btn_liked = (CheckBox) this.findViewById(R.id.row_feed_photo_toggle_button_like);
+		btn_liked.setVisibility(View.GONE);
 		btn_liked.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -85,7 +88,8 @@ public class PhotoViewActivity extends Activity {
 				CheckBox btn_liked = (CheckBox) v;
 				boolean checked = btn_liked.isChecked();
 				btn_liked.setChecked(!checked);
-				new FeedLikedAsyncTask(PhotoViewActivity.this, PhotoViewActivity.this.feed, checked).execute();
+				// new FeedLikedAsyncTask(PhotoViewActivity.this,
+				// PhotoViewActivity.this.feed, checked).execute();
 
 			}
 		});
@@ -105,6 +109,7 @@ public class PhotoViewActivity extends Activity {
 		String likedNum = this.getResources().getString(R.string.likedNum);
 		favor_count.setText(String.format(likedNum, feed.getFavorCount()));
 
+		Log.i("self", "" + feed.isFavored());
 		// TODO Auto-generated method stub
 		btn_liked.setChecked(feed.isFavored());
 

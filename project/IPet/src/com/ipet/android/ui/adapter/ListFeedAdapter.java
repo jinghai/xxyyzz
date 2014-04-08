@@ -25,10 +25,11 @@ import com.ipet.android.ui.utils.StringUtils;
 import com.loopj.android.image.SmartImageView;
 
 public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
-	private final List<IpetPhoto> list;
+	public final List<IpetPhoto> list;
 	private final LayoutInflater inflater;
 	public final Context context;
 	private final FeedListView listView;
+	public int curIndex;
 
 	public ListFeedAdapter(Context context, FeedListView listView, List<IpetPhoto> list) {
 		this.listView = listView;
@@ -125,7 +126,7 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 			holder.comments_group.setVisibility(View.GONE);
 		}
 
-		initLikedBtnView(holder, feed);
+		initLikedBtnView(holder, feed, position);
 
 		// holder.layout.addView(add());
 		return view;
@@ -140,7 +141,7 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 	// }
 
 	// 赞
-	private void initLikedBtnView(ViewHolder holder, final IpetPhoto feed) {
+	private void initLikedBtnView(ViewHolder holder, final IpetPhoto feed, final int position) {
 
 		if ("0".equals(feed.getFavorCount())) {
 			holder.likes_group.setVisibility(View.GONE);
@@ -161,7 +162,7 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 				boolean checked = btn_liked.isChecked();
 				btn_liked.setChecked(!checked);
 				new FeedLikedAsyncTask((Activity) ListFeedAdapter.this.context, ListFeedAdapter.this, feed, checked).execute();
-
+				ListFeedAdapter.this.curIndex = position;
 			}
 		});
 	}

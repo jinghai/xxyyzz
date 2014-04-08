@@ -40,6 +40,7 @@ public class FeedLikedAsyncTask extends AsyncTask<String, String, IpetPhoto> {
 
 		MyApp application = (MyApp) this.activity.getApplication();
 		try {
+			IpetPhoto feed;
 			if (isLiked) {
 				ipetPhoto = application.getApi().getFavorApi().favor(ipetPhoto.getId(), "");
 			} else {
@@ -60,6 +61,7 @@ public class FeedLikedAsyncTask extends AsyncTask<String, String, IpetPhoto> {
 		}
 
 		if (this.listFeedAdapter != null) {
+			this.listFeedAdapter.list.set(this.listFeedAdapter.curIndex, ipetPhoto);
 			this.listFeedAdapter.notifyDataSetChanged();
 			return;
 		}
