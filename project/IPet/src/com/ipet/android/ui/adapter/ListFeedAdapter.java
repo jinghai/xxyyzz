@@ -7,16 +7,19 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.ipet.R;
 import com.ipet.android.sdk.domain.IpetPhoto;
+import com.ipet.android.task.FeedLikedAsyncTask;
 import com.ipet.android.ui.common.FeedListView;
 import com.ipet.android.ui.utils.StringUtils;
 import com.loopj.android.image.SmartImageView;
@@ -24,7 +27,7 @@ import com.loopj.android.image.SmartImageView;
 public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 	private final List<IpetPhoto> list;
 	private final LayoutInflater inflater;
-	private final Context context;
+	public final Context context;
 	private final FeedListView listView;
 
 	public ListFeedAdapter(Context context, FeedListView listView, List<IpetPhoto> list) {
@@ -61,6 +64,9 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 		public TextView create_at;
 		public View comments_group;
 		public LinearLayout layout;
+		public CheckBox btn_liked;
+		public TextView favor_count;
+		public View likes_group;
 	}
 
 	public ViewHolder holder;
@@ -80,6 +86,7 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 			holder.create_at = (TextView) view.findViewById(R.id.feed_created_at);
 			holder.text = (TextView) view.findViewById(R.id.row_feed_photo_textview_comments);
 			holder.comments_group = view.findViewById(R.id.row_feed_photo_comments_group);
+			holder.likes_group = view.findViewById(R.id.row_feed_photo_likes_group);
 
 			DisplayMetrics dm = new DisplayMetrics();
 			((Activity) this.context).getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -89,7 +96,11 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 			ps.width = width;
 			ps.height = width;
 			holder.content_image.setLayoutParams(ps);
+
+			holder.favor_count = (TextView) view.findViewById(R.id.row_feed_photo_textview_likes);
+			holder.btn_liked = (CheckBox) view.findViewById(R.id.row_feed_photo_toggle_button_like);
 			view.setTag(holder);
+
 		} else {
 			view = convertView;
 			holder = (ViewHolder) view.getTag();
@@ -99,7 +110,6 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 		holder.create_at.setText(feed.getCreateAt());
 
 		String text = feed.getText();
-
 		String imageURL = feed.getSmallURL();
 
 		holder.avator.setImageUrl(feed.getAvatar48(), R.drawable.list_default_avatar_boy);
@@ -115,6 +125,8 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 			holder.comments_group.setVisibility(View.GONE);
 		}
 
+		initLikedBtnView(holder, feed);
+
 		// holder.layout.addView(add());
 		return view;
 	}
@@ -127,6 +139,34 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 
 	// }
 
+	// 赞
+	private void initLikedBtnView(ViewHolder holder, final IpetPhoto feed) {
+
+		if ("0".equals(feed.getFavorCount())) {
+			holder.likes_group.setVisibility(View.GONE);
+		} else {
+			holder.likes_group.setVisibility(View.VISIBLE);
+		}
+
+		String likedNum = this.context.getResources().getString(R.string.likedNum);
+		holder.favor_count.setText(String.format(likedNum, feed.getFavorCount()));
+
+		// TODO Auto-generated method stub
+		holder.btn_liked.setChecked(feed.isFavored());
+		holder.btn_liked.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				CheckBox btn_liked = (CheckBox) v;
+				boolean checked = btn_liked.isChecked();
+				btn_liked.setChecked(!checked);
+				new FeedLikedAsyncTask((Activity) ListFeedAdapter.this.context, ListFeedAdapter.this, feed, checked).execute();
+
+			}
+		});
+	}
+
+	// --end
 	public void prependList(List<IpetPhoto> list) {
 		this.list.addAll(0, list);
 		this.notifyDataSetChanged();

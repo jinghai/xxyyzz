@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.CheckBox;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.ipet.R;
 import com.ipet.android.sdk.domain.IpetPhoto;
+import com.ipet.android.task.FeedLikedAsyncTask;
 import com.ipet.android.ui.common.SimpleTitleBar;
 import com.ipet.android.ui.event.BackAndFinishClick;
 import com.ipet.android.ui.utils.AnimUtils;
@@ -25,6 +28,10 @@ public class PhotoViewActivity extends Activity {
 	private TextView create_at;
 	private TextView textView;
 	public View comments_group;
+	public CheckBox btn_liked;
+	public TextView favor_count;
+	public View likes_group;
+	public IpetPhoto feed;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +39,7 @@ public class PhotoViewActivity extends Activity {
 		setContentView(R.layout.activity_photo_view);
 
 		Intent intent = getIntent();
-		IpetPhoto feed = (IpetPhoto) intent.getSerializableExtra("FEED");
+		feed = (IpetPhoto) intent.getSerializableExtra("FEED");
 
 		SimpleTitleBar titleBar = (SimpleTitleBar) findViewById(R.id.titlebar);
 		titleBar.setLeftViewClick(new BackAndFinishClick(this));
@@ -66,6 +73,40 @@ public class PhotoViewActivity extends Activity {
 		} else {
 			comments_group.setVisibility(View.GONE);
 		}
+
+		// ---liked
+		likes_group = this.findViewById(R.id.row_feed_photo_likes_group);
+		favor_count = (TextView) this.findViewById(R.id.row_feed_photo_textview_likes);
+		btn_liked = (CheckBox) this.findViewById(R.id.row_feed_photo_toggle_button_like);
+		btn_liked.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				CheckBox btn_liked = (CheckBox) v;
+				boolean checked = btn_liked.isChecked();
+				btn_liked.setChecked(!checked);
+				new FeedLikedAsyncTask(PhotoViewActivity.this, PhotoViewActivity.this.feed, checked).execute();
+
+			}
+		});
+
+		initFavor(this.feed);
+	}
+
+	public void initFavor(IpetPhoto feed) {
+		this.feed = feed;
+		// TODO Auto-generated method stub
+		if ("0".equals(feed.getFavorCount())) {
+			likes_group.setVisibility(View.GONE);
+		} else {
+			likes_group.setVisibility(View.VISIBLE);
+		}
+
+		String likedNum = this.getResources().getString(R.string.likedNum);
+		favor_count.setText(String.format(likedNum, feed.getFavorCount()));
+
+		// TODO Auto-generated method stub
+		btn_liked.setChecked(feed.isFavored());
 
 	}
 

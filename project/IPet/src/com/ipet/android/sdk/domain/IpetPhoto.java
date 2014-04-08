@@ -27,7 +27,7 @@ public class IpetPhoto implements Serializable {
 	// 评论数量
 	private String commentCount;
 	// 赞数量
-	private String favorCount;
+	private String favorCount = "0";
 	// 所属用户
 	private String userId;
 
