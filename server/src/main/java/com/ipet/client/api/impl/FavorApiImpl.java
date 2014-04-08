@@ -10,6 +10,7 @@ import com.ipet.client.api.FavorApi;
 import com.ipet.client.api.base.ApiBase;
 import com.ipet.client.api.base.ApiContext;
 import com.ipet.client.api.domain.IpetFavor;
+import com.ipet.client.api.domain.IpetPhoto;
 
 /**
  * 
@@ -22,15 +23,24 @@ public class FavorApiImpl extends ApiBase implements FavorApi {
 	}
 
 	@Override
-	public IpetFavor favor(String photoId, String text) {
+	public IpetPhoto favor(String photoId, String text) {
 		requireAuthorization();
-		URI uri = buildUri("favor/create");
+		URI uri = buildUri("favor/favor");
 		LinkedMultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
 		body.add("uid", context.getCurrUserId());
 		body.add("photoId", photoId);
 		body.add("text", text);
-		IpetFavor ret = context.getRestTemplate().postForObject(uri, body, IpetFavor.class);
-		return ret;
+		return context.getRestTemplate().postForObject(uri, body, IpetPhoto.class);
+	}
+
+	@Override
+	public IpetPhoto unfavor(String photoId) {
+		requireAuthorization();
+		URI uri = buildUri("favor/unfavor");
+		LinkedMultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
+		body.add("uid", context.getCurrUserId());
+		body.add("photoId", photoId);
+		return context.getRestTemplate().postForObject(uri, body, IpetPhoto.class);
 	}
 
 	@Override

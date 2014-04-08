@@ -3,6 +3,7 @@ package com.ipet.android.sdk;
 import java.util.List;
 
 import com.ipet.android.sdk.domain.IpetFavor;
+import com.ipet.android.sdk.domain.IpetPhoto;
 
 /**
  * 赞API
@@ -11,7 +12,9 @@ import com.ipet.android.sdk.domain.IpetFavor;
  */
 public interface FavorApi {
 
-	public IpetFavor favor(String photoId, String text);
+	public IpetPhoto favor(String photoId, String text);
+
+	public IpetPhoto unfavor(String photoId);
 
 	public List<IpetFavor> list(String photoId);
 

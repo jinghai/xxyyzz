@@ -36,7 +36,7 @@ public class FavorService extends BaseService {
 	}
 
 	@Transactional(readOnly = false)
-	public Favor favor(String photoId, String userId, String text) {
+	public Photo favor(String photoId, String userId, String text) {
 		User user = getUserDao().findByIdAndUserState(userId, UserState.ENABLE);
 		if (user == null) {
 			throw new RuntimeException("无效用户");
@@ -55,7 +55,28 @@ public class FavorService extends BaseService {
 
 		user.setFavorCount(user.getFavorCount() + 1);
 		getUserDao().save(user);
-		return favor;
+
+		return photoDao.findById(photoId);
+	}
+
+	@Transactional(readOnly = false)
+	public Photo unfavor(String photoId, String userId) {
+		User user = getUserDao().findByIdAndUserState(userId, UserState.ENABLE);
+		if (user == null) {
+			throw new RuntimeException("无效用户");
+		}
+
+		Favor favor = getFavorDao().findByPhotoIdAndUserId(photoId, userId);
+		getFavorDao().delete(favor);
+
+		Photo photo = getPhotoDao().findOne(photoId);
+		photo.setFavorCount(photo.getFavorCount() - 1);
+		getPhotoDao().save(photo);
+
+		user.setFavorCount(user.getFavorCount() - 1);
+		getUserDao().save(user);
+
+		return photoDao.findById(photoId);
 	}
 
 	public UserDao getUserDao() {

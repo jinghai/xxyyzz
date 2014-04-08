@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -20,9 +22,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ipet.server.app.AppConfig;
 import com.ipet.server.domain.UserState;
+import com.ipet.server.domain.entity.Favor;
 import com.ipet.server.domain.entity.FollowRelation;
 import com.ipet.server.domain.entity.Photo;
 import com.ipet.server.domain.entity.User;
+import com.ipet.server.repository.FavorDao;
 import com.ipet.server.repository.FollowRelationDao;
 import com.ipet.server.repository.PhotoDao;
 import com.ipet.server.repository.UserDao;
@@ -45,6 +49,9 @@ public class PhotoService extends BaseService {
 
 	@Resource
 	private PhotoDao photoDao;
+
+	@Resource
+	private FavorDao favorDao;
 
 	@Resource
 	private AppConfig appConfig;
@@ -80,16 +87,37 @@ public class PhotoService extends BaseService {
 		// 取出所有图片
 		Page<Photo> ret = getPhotoDao().findByCreateAtBeforeAndUserIdIn(date, followIds, pageR);
 
-		/*
-		 * //填充图片发布者信息 List<Photo> photos = ret.getContent(); List<String>
-		 * userIds = new ArrayList<String>(ret.getSize()); for (Photo phtoto :
-		 * photos) { userIds.add(phtoto.getUserId()); } List<User> users =
-		 * this.getUserDao().findByUserIdIn(userIds); for (int i = 0, len =
-		 * photos.size(); i < len; i++) {
-		 * photos.get(i).setAvatar48(users.get(i).getAvatar48());
-		 * photos.get(i).setUserName(users.get(i).getDisplayName()); }
-		 */
-		return ret.getContent();
+		// 填充图片发布者信息
+		List<Photo> photos = ret.getContent();
+		Map<String, Photo> photoIdMap = new HashMap<String, Photo>(photos.size());
+		for (Photo photo : photos) {
+			photoIdMap.put(photo.getId(), photo);
+		}
+
+		List<Favor> favors = this.getFavorDao().findByPhotoIdInAndUserId(photoIdMap.keySet(), uid);
+		List<String> favoredPhotoIds = new ArrayList<String>(favors.size());
+		for (Favor favor : favors) {
+			favoredPhotoIds.add(favor.getPhotoId());
+		}
+
+		for (Map.Entry<String, Photo> photoItem : photoIdMap.entrySet()) {
+			if (favoredPhotoIds.contains(photoItem.getKey())) {
+				photoItem.getValue().setFavored(true);
+			}
+		}
+
+		favors.clear();
+		favoredPhotoIds.clear();
+		photoIdMap.clear();
+
+		return photos;
+	}
+
+	/**
+	 * 根据图片Id获取图片
+	 */
+	public Photo findById(String photoId) {
+		return getPhotoDao().findById(photoId);
 	}
 
 	/**
@@ -224,6 +252,14 @@ public class PhotoService extends BaseService {
 
 	public void setFollowRelationDao(FollowRelationDao followRelationDao) {
 		this.followRelationDao = followRelationDao;
+	}
+
+	public FavorDao getFavorDao() {
+		return favorDao;
+	}
+
+	public void setFavorDao(FavorDao favorDao) {
+		this.favorDao = favorDao;
 	}
 
 }

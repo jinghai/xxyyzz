@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.ipet.server.domain.IdEntity;
@@ -51,6 +52,10 @@ public class Photo extends IdEntity implements Serializable {
 
 	// @Transient
 	private String avatar48;
+
+	// 我是否赞过
+	@Transient
+	private boolean favored;
 
 	public String getOriginalURL() {
 		return originalURL;
@@ -130,6 +135,14 @@ public class Photo extends IdEntity implements Serializable {
 
 	public void setAvatar48(String avatar48) {
 		this.avatar48 = avatar48;
+	}
+
+	public boolean isFavored() {
+		return favored;
+	}
+
+	public void setFavored(boolean favored) {
+		this.favored = favored;
 	}
 
 }
