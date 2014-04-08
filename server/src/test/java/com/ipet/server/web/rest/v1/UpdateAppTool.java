@@ -7,7 +7,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import com.ipet.jetty.JettyServer;
-import com.ipet.server.domain.entity.User;
+import com.ipet.server.domain.entity.App;
 import com.ipet.server.web.rest.base.BaseTest;
 
 /**
@@ -36,10 +36,10 @@ public class UpdateAppTool extends BaseTest {
 		// 发送MultiValueMap参数
 		MultiValueMap<String, String> request = new LinkedMultiValueMap<String, String>();
 		request.add("appKey", "ipet");
-		request.add("versionCode", "3");
-		request.add("versionName", "0.3");
+		request.add("versionCode", "5");
+		request.add("versionName", "0.5");
 		request.add("downloadUrl", "http://jinghai.imblog.in:8080/server/files/update/android/IPet-release.apk");
-		User r = restTemplate.postForObject(baseUrl + "/update", request, User.class);
+		restTemplate.postForObject(baseUrl + "/update", request, App.class);
 	}
 
 }

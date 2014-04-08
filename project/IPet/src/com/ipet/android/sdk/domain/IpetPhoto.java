@@ -12,7 +12,9 @@ import com.ipet.android.sdk.base.ApiContext;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class IpetPhoto implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	/** serialVersionUID */
+	private static final long serialVersionUID = 1668704192767921961L;
+
 	private String id;
 	// 原图
 	private String originalURL;
@@ -34,6 +36,9 @@ public class IpetPhoto implements Serializable {
 	private String avatar48;
 
 	private String createAt;
+
+	// 我是否赞过
+	private boolean favored;
 
 	public String getOriginalURL() {
 		return ApiContext.FILE_SERVER_BASE + originalURL;
@@ -121,6 +126,14 @@ public class IpetPhoto implements Serializable {
 
 	public void setAvatar48(String avatar48) {
 		this.avatar48 = avatar48;
+	}
+
+	public boolean isFavored() {
+		return favored;
+	}
+
+	public void setFavored(boolean favored) {
+		this.favored = favored;
 	}
 
 }

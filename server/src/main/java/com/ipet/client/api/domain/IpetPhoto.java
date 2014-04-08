@@ -1,5 +1,7 @@
 package com.ipet.client.api.domain;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ipet.client.api.base.ApiContext;
 
@@ -8,7 +10,10 @@ import com.ipet.client.api.base.ApiContext;
  * @author xiaojinghai
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class IpetPhoto {
+public class IpetPhoto implements Serializable {
+
+	/** serialVersionUID */
+	private static final long serialVersionUID = 1668704192767921961L;
 
 	private String id;
 	// 原图
@@ -31,6 +36,9 @@ public class IpetPhoto {
 	private String avatar48;
 
 	private String createAt;
+
+	// 我是否赞过
+	private boolean favored;
 
 	public String getOriginalURL() {
 		return ApiContext.FILE_SERVER_BASE + originalURL;
@@ -118,6 +126,14 @@ public class IpetPhoto {
 
 	public void setAvatar48(String avatar48) {
 		this.avatar48 = avatar48;
+	}
+
+	public boolean isFavored() {
+		return favored;
+	}
+
+	public void setFavored(boolean favored) {
+		this.favored = favored;
 	}
 
 }
