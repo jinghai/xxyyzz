@@ -49,14 +49,15 @@ public class FavorService extends BaseService {
 		favor.setUserId(userId);
 		getFavorDao().save(favor);
 
-		Photo photo = getPhotoDao().findOne(photoId);
-		photo.setFavorCount(photo.getFavorCount() + 1);
-		getPhotoDao().save(photo);
-
 		user.setFavorCount(user.getFavorCount() + 1);
 		getUserDao().save(user);
 
-		return photoDao.findById(photoId);
+		Photo photo = getPhotoDao().findOne(photoId);
+		photo.setFavorCount(photo.getFavorCount() + 1);
+		photo = getPhotoDao().save(photo);
+
+		photo.setFavored(true);
+		return photo;
 	}
 
 	@Transactional(readOnly = false)
@@ -69,14 +70,15 @@ public class FavorService extends BaseService {
 		Favor favor = getFavorDao().findByPhotoIdAndUserId(photoId, userId);
 		getFavorDao().delete(favor);
 
-		Photo photo = getPhotoDao().findOne(photoId);
-		photo.setFavorCount(photo.getFavorCount() - 1);
-		getPhotoDao().save(photo);
-
 		user.setFavorCount(user.getFavorCount() - 1);
 		getUserDao().save(user);
 
-		return photoDao.findById(photoId);
+		Photo photo = getPhotoDao().findOne(photoId);
+		photo.setFavorCount(photo.getFavorCount() - 1);
+		photo = getPhotoDao().save(photo);
+
+		photo.setFavored(false);
+		return photo;
 	}
 
 	public UserDao getUserDao() {

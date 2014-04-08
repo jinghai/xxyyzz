@@ -30,7 +30,7 @@ public class CommentApiTest extends BaseTest {
 		FileSystemResource fsr = new FileSystemResource(filePath);
 		IpetPhoto photo = photoApi.publish("测试", fsr);
 		commentApi.comment(photo.getId(), "真好啊");
-		List<IpetComment> comm = commentApi.listPage(photo.getId(), "1", "20");
+		List<IpetComment> comm = commentApi.listPage(photo.getId(), "0", "20");
 		assertEquals("真好啊", comm.get(0).getText());
 	}
 

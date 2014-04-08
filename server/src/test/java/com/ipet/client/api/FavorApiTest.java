@@ -24,7 +24,7 @@ public class FavorApiTest extends BaseTest {
 	private final FavorApi favorApi = IpetApiImpl.getInstance("1", "1").getFavorApi();
 
 	@Test()
-	public void favor() throws UnsupportedEncodingException {
+	public void testFavor() throws UnsupportedEncodingException {
 		accountApi.login("admin", "admin");
 		String filePath = super.getTestPhotoPath();
 		FileSystemResource fsr = new FileSystemResource(filePath);
@@ -32,6 +32,21 @@ public class FavorApiTest extends BaseTest {
 		favorApi.favor(photo.getId(), "喜欢");
 		List<IpetFavor> comm = favorApi.list(photo.getId());
 		assertEquals("喜欢", comm.get(0).getText());
+	}
+
+	@Test()
+	public void testUnfavor() throws UnsupportedEncodingException {
+		accountApi.login("admin", "admin");
+		String filePath = super.getTestPhotoPath();
+		FileSystemResource fsr = new FileSystemResource(filePath);
+		IpetPhoto photo = photoApi.publish("测试", fsr);
+		photo = favorApi.favor(photo.getId(), "喜欢");
+		assertEquals("1", photo.getFavorCount());
+		assertEquals(true, photo.isFavored());
+
+		photo = favorApi.unfavor(photo.getId());
+		assertEquals("0", photo.getFavorCount());
+		assertEquals(false, photo.isFavored());
 	}
 
 }
