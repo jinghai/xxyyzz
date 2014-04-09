@@ -7,6 +7,7 @@ import com.ipet.android.sdk.IpetApi;
 
 import com.ipet.android.sdk.domain.IpetUser;
 import com.ipet.android.sdk.impl.IpetApiImpl;
+import com.ipet.android.ui.manager.LoginManager;
 
 /**
  * 应用程序类 负责应用程序启动逻辑 常用共享对象的引用
@@ -38,15 +39,15 @@ public class MyApp extends Application {
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(this);
         context = getApplicationContext();
-        this.ipetApi = IpetApiImpl.getInstance(APP_ID, APP_SECRET);
+        this.ipetApi = IpetApiImpl.getInstance(APP_ID, APP_SECRET, this);
     }
 
     public IpetUser getUser() {
-        return user;
+        return LoginManager.getUser(this);
     }
 
     public void setUser(IpetUser user) {
-        this.user = user;
+        LoginManager.setUser(context, user);
     }
 
 }

@@ -62,16 +62,16 @@ public class SplashActivity extends Activity {
                 mHandler.sendEmptyMessageDelayed(GO_WELCOME, Constant.SPLASH_DELAY_MILLIS);
             }
         } else {
-        	Toast.makeText(this, "没有发现可用网络,程序即将退出", 3).show();
-        	new Thread() {
+            Toast.makeText(this, "没有发现可用网络,程序即将退出", 3).show();
+            new Thread() {
                 @Override
                 public void run() {
-                	try {
-						Thread.sleep(3000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-                	SplashActivity.this.finish();
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    SplashActivity.this.finish();
                 }
             }.start();
 
