@@ -12,9 +12,9 @@ service tomcat stop
 mysql -pitserver -e "create database if not exists ipet default charset utf8;"
 mysql -pitserver ipet < $backup_dir/ipet.sql
 
-rm -rf $tomcat_home/webapps/server
-\cp -a  $backup_dir/server $tomcat_home/webapps/
-ln -sf /home/data/files $tomcat_home/webapps/server
+rm -rf $tomcat_home/webapps/ROOT/*
+\cp -a  $backup_dir/server/* $tomcat_home/webapps/ROOT/*
+ln -sf /home/data/files $tomcat_home/webapps/ROOT
 
 service tomcat start
 tail -f $tomcat_home/logs/catalina.out

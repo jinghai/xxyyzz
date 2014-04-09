@@ -24,17 +24,18 @@ cd /src/xxyyzz/server
 mvn clean package -DskipTests=true 
 
 
-rm -rf $tomcat_home/webapps/server
+rm -rf $tomcat_home/webapps/ROOT/*
 rm -rf $tomcat_home/logs/*
 rm -rf $tomcat_home/work/*
 
-unzip -oq /src/xxyyzz/server/target/server.war -d $tomcat_home/webapps/server
+\cp -a /src/xxyyzz/server/target/server.war /src/xxyyzz/server/target/ROOT.war
+unzip -oq /src/xxyyzz/server/target/ROOT.war -d $tomcat_home/webapps/ROOT
 
-sed -i "/^jdbc.username=/c\jdbc.username=admin" $tomcat_home/webapps/server/WEB-INF/classes/jdbc.properties
-sed -i "/^jdbc.password=/c\jdbc.password=itserver" $tomcat_home/webapps/server/WEB-INF/classes/jdbc.properties
+sed -i "/^jdbc.username=/c\jdbc.username=admin" $tomcat_home/webapps/ROOT/WEB-INF/classes/jdbc.properties
+sed -i "/^jdbc.password=/c\jdbc.password=itserver" $tomcat_home/webapps/ROOT/WEB-INF/classes/jdbc.properties
 
 mkdir -p /home/data/files
-ln -sf /home/data/files $tomcat_home/webapps/server
+ln -sf /home/data/files $tomcat_home/webapps/ROOT
 
 mysql -pitserver -e "create database if not exists ipet default charset utf8;"
 
