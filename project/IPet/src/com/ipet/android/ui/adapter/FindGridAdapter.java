@@ -104,4 +104,23 @@ public class FindGridAdapter extends BaseAdapter {
 		this.appendList(list);
 		this.notifyDataSetChanged();
 	}
+
+	public int getPosItemById(String id) {
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).getId().equals(id)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	public void updataItem(IpetPhoto ipetPhoto) {
+		// TODO Auto-generated method stub
+		int i = this.getPosItemById(ipetPhoto.getId());
+		if (i == -1) {
+			return;
+		}
+		this.list.set(i, ipetPhoto);
+		this.notifyDataSetChanged();
+	}
 }

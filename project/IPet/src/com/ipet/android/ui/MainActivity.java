@@ -3,6 +3,7 @@ package com.ipet.android.ui;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.ipet.R;
+import com.ipet.android.sdk.domain.IpetPhoto;
 import com.ipet.android.ui.manager.ActivityManager;
 import com.ipet.android.ui.manager.LoginManager;
 import com.ipet.android.ui.manager.UpdateManager;
@@ -38,6 +40,9 @@ public class MainActivity extends FragmentActivity {
 	private int one;
 	private int two;
 	private int three;
+	BroadcastReceiver mReceiver;
+	MainHomeFragment mainHomeFragment;
+	MainFindFragment mainFindFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +71,8 @@ public class MainActivity extends FragmentActivity {
 
 		fragmentsList = new ArrayList<Fragment>();
 
-		Fragment mainHomeFragment = new MainHomeFragment();
-		Fragment mainFindFragment = new MainFindFragment();
+		mainHomeFragment = new MainHomeFragment();
+		mainFindFragment = new MainFindFragment();
 
 		fragmentsList.add(mainHomeFragment);
 		fragmentsList.add(mainFindFragment);
@@ -162,6 +167,7 @@ public class MainActivity extends FragmentActivity {
 				} else if (currIndex == 3) {
 					animation = new TranslateAnimation(three, one, 0, 0);
 				}
+
 				break;
 			}
 			case 2: {
@@ -172,6 +178,7 @@ public class MainActivity extends FragmentActivity {
 				} else if (currIndex == 3) {
 					animation = new TranslateAnimation(three, two, 0, 0);
 				}
+
 				break;
 			}
 			case 3: {
@@ -190,6 +197,7 @@ public class MainActivity extends FragmentActivity {
 			animation.setFillAfter(true);
 			animation.setDuration(150);
 			mTabImg.startAnimation(animation);
+
 		}
 
 	};
@@ -228,6 +236,19 @@ public class MainActivity extends FragmentActivity {
 		}
 	}
 
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		/*
+		 * mReceiver = new BroadcastReceiver() { public void onReceive(Context
+		 * context, Intent intent) {
+		 * 
+		 * } }; IntentFilter intentFilter = new IntentFilter("");
+		 * registerReceiver(mReceiver, intentFilter);
+		 */
+	}
+
 	private void toLogout() {
 		// TODO Auto-generated method stub
 		LoginManager.logout(MainActivity.this);
@@ -236,4 +257,15 @@ public class MainActivity extends FragmentActivity {
 		AnimUtils.backAndFinish(this);
 	}
 
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		// unregisterReceiver(mReceiver);
+	}
+
+	public void updateItem(IpetPhoto ipetPhoto) {
+		mainHomeFragment.updateItem(ipetPhoto);
+		mainFindFragment.updateItem(ipetPhoto);
+	}
 }

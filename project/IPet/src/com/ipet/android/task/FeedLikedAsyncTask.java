@@ -7,21 +7,13 @@ import android.widget.Toast;
 
 import com.ipet.android.MyApp;
 import com.ipet.android.sdk.domain.IpetPhoto;
+import com.ipet.android.ui.MainActivity;
 import com.ipet.android.ui.PhotoViewActivity;
-import com.ipet.android.ui.adapter.ListFeedAdapter;
 
 public class FeedLikedAsyncTask extends AsyncTask<String, String, IpetPhoto> {
-	private ListFeedAdapter listFeedAdapter;
 	private Activity activity;
 	private boolean isLiked;
 	private IpetPhoto ipetPhoto;
-
-	public FeedLikedAsyncTask(Activity activity, ListFeedAdapter listFeedAdapter, IpetPhoto ipetPhoto, boolean isLiked) {
-		this.listFeedAdapter = listFeedAdapter;
-		this.activity = activity;
-		this.ipetPhoto = ipetPhoto;
-		this.isLiked = isLiked;
-	}
 
 	public FeedLikedAsyncTask(Activity activity, IpetPhoto ipetPhoto, boolean isLiked) {
 		this.activity = activity;
@@ -60,9 +52,8 @@ public class FeedLikedAsyncTask extends AsyncTask<String, String, IpetPhoto> {
 			return;
 		}
 
-		if (this.listFeedAdapter != null) {
-			this.listFeedAdapter.list.set(this.listFeedAdapter.curIndex, ipetPhoto);
-			this.listFeedAdapter.notifyDataSetChanged();
+		if (this.activity instanceof MainActivity) {
+			((MainActivity) this.activity).updateItem(ipetPhoto);
 			return;
 		}
 

@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.ipet.R;
 import com.ipet.android.sdk.domain.IpetPhoto;
 import com.ipet.android.task.FeedLikedAsyncTask;
+import com.ipet.android.ui.MainActivity;
 import com.ipet.android.ui.common.FeedListView;
 import com.ipet.android.ui.utils.StringUtils;
 import com.loopj.android.image.SmartImageView;
@@ -54,6 +55,15 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	public int getPosItemById(String id) {
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).getId().equals(id)) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
 	public class ViewHolder {
@@ -161,7 +171,7 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 				CheckBox btn_liked = (CheckBox) v;
 				boolean checked = btn_liked.isChecked();
 				btn_liked.setChecked(!checked);
-				new FeedLikedAsyncTask((Activity) ListFeedAdapter.this.context, ListFeedAdapter.this, feed, checked).execute();
+				new FeedLikedAsyncTask((MainActivity) ListFeedAdapter.this.context, feed, checked).execute();
 				ListFeedAdapter.this.curIndex = position;
 			}
 		});
@@ -185,6 +195,15 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 		this.list.clear();
 		this.appendList(list);
 		listView.setSelection(1);
+	}
+
+	public void updataItem(IpetPhoto ipetPhoto) {
+		int i = this.getPosItemById(ipetPhoto.getId());
+		if (i == -1) {
+			return;
+		}
+		this.list.set(i, ipetPhoto);
+		this.notifyDataSetChanged();
 	}
 
 	@Override

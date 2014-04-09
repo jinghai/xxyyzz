@@ -106,6 +106,10 @@ public class MainHomeFragment extends Fragment {
 
 	}
 
+	public void updateItem(IpetPhoto ipetPhoto) {
+		this.adapter.updataItem(ipetPhoto);
+	}
+
 	@Override
 	public void onStart() {
 		super.onStart();

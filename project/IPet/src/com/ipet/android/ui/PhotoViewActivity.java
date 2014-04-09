@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.ipet.R;
 import com.ipet.android.sdk.domain.IpetPhoto;
+import com.ipet.android.task.FeedLikedAsyncTask;
 import com.ipet.android.ui.common.SimpleTitleBar;
 import com.ipet.android.ui.event.BackAndFinishClick;
 import com.ipet.android.ui.utils.AnimUtils;
@@ -80,7 +81,6 @@ public class PhotoViewActivity extends Activity {
 		likes_group = this.findViewById(R.id.row_feed_photo_likes_group);
 		favor_count = (TextView) this.findViewById(R.id.row_feed_photo_textview_likes);
 		btn_liked = (CheckBox) this.findViewById(R.id.row_feed_photo_toggle_button_like);
-		btn_liked.setVisibility(View.GONE);
 		btn_liked.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -88,8 +88,7 @@ public class PhotoViewActivity extends Activity {
 				CheckBox btn_liked = (CheckBox) v;
 				boolean checked = btn_liked.isChecked();
 				btn_liked.setChecked(!checked);
-				// new FeedLikedAsyncTask(PhotoViewActivity.this,
-				// PhotoViewActivity.this.feed, checked).execute();
+				new FeedLikedAsyncTask(PhotoViewActivity.this, PhotoViewActivity.this.feed, checked).execute();
 
 			}
 		});

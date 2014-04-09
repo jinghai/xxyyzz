@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ import com.ipet.android.ui.utils.DateTimeUtils;
 public class MainFindFragment extends Fragment {
 	public static final int TYPE_CODE_LOAD = 10;
 	public static final int TYPE_CODE_MORE = 20;
+	public static final int VIEW_IPET_PHOTO = 100;
+
 	public static final int LIST_SIZE = 24;
 	private Activity activity;
 	private GridView gridview;
@@ -40,6 +43,7 @@ public class MainFindFragment extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		Log.i("MainFindFragment", "onActivityCreated");
 		this.activity = getActivity();
 		gridview = (GridView) this.activity.findViewById(R.id.gridview);
 		adapter = new FindGridAdapter(this.activity, gridview);
@@ -66,10 +70,15 @@ public class MainFindFragment extends Fragment {
 	@Override
 	public void onStart() {
 		// TODO Auto-generated method stub
+		Log.i("MainFindFragment", "onStart");
 		timeline = DateTimeUtils.getNowDateTime();
 		page = 0;
 		new FindLoadAsyncTask(this, gridview, adapter, MainFindFragment.TYPE_CODE_LOAD).execute(timeline, String.valueOf(page));
 		super.onStart();
+	}
+
+	public void updateItem(IpetPhoto ipetPhoto) {
+		this.adapter.updataItem(ipetPhoto);
 	}
 
 }
