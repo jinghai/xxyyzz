@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -30,8 +29,10 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.ipet.android.ui.MainActivity;
 import com.ipet.android.ui.manager.ActivityManager;
+import com.ipet.android.ui.utils.NetWorkUtils;
+import com.ipet.android.ui.utils.mail.MultiMailsender;
+import com.ipet.android.ui.utils.mail.MultiMailsender.MultiMailSenderInfo;
 
 /**
  * UncaughtException处理类,当程序发生Uncaught异常的时候,由该类来接管程序,并记录发送错误报告.
@@ -79,34 +80,33 @@ public class CrashHandler implements UncaughtExceptionHandler {
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
         Log.d(TAG, "uncaughtException:");
-        Boolean flag = (!handleException(thread,ex) && mDefaultHandler != null);
-        Log.d(TAG, "flag:"+flag);
+        Boolean flag = (!handleException(thread, ex) && mDefaultHandler != null);
+        Log.d(TAG, "flag:" + flag);
         String threadName = thread.getName();
-        if("main".equals(threadName)) {
+        if ("main".equals(threadName)) {
             Log.d(TAG, "在主线程的崩溃！");
-        }else {
+        } else {
             //根据thread name来进行区别对待：可以将异常信息写入文件供以后分析
             Log.d(TAG, "在子线程中崩溃!");
         }
         if (flag) {
-        	Log.d(TAG, "mDefaultHandler");
+            Log.d(TAG, "mDefaultHandler");
             // 如果自定义的没有处理则让系统默认的异常处理器来处理  
             mDefaultHandler.uncaughtException(thread, ex);
         } else {
             try {
-            	Log.d(TAG, "sleep 3");
+                Log.d(TAG, "sleep 3");
                 Thread.sleep(3000);// 如果处理了，让程序继续运行3秒再退出，保证文件保存并上传到服务器  
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             Log.d(TAG, "ActivityManager");
-            
-            ActivityManager.getInstance().exit();            
-             
+
+            ActivityManager.getInstance().exit();
+
             // 退出程序  
             //android.os.Process.killProcess(android.os.Process.myPid());
             //System.exit(1);
-
         }
     }
 
@@ -116,7 +116,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
      * @param ex 异常信息
      * @return true 如果处理了该异常信息;否则返回false.
      */
-    public boolean handleException(Thread thread,Throwable ex) {
+    public boolean handleException(Thread thread, Throwable ex) {
         Log.d(TAG, "handleException:");
         if (ex == null) {
             return false;
@@ -129,7 +129,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
             }
         }.start();
         // 收集设备参数信息  
-        collectDeviceInfo(thread,mContext);
+        collectDeviceInfo(thread, mContext);
         // 保存日志文件  
         saveCrashInfo2File(ex);
         return true;
@@ -140,7 +140,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
      *
      * @param context
      */
-    public void collectDeviceInfo(Thread thread,Context context) {
+    public void collectDeviceInfo(Thread thread, Context context) {
         try {
             PackageManager pm = context.getPackageManager();// 获得包管理器  
             PackageInfo pi = pm.getPackageInfo(context.getPackageName(),
@@ -190,7 +190,12 @@ public class CrashHandler implements UncaughtExceptionHandler {
         pw.close();// 记得关闭  
         String result = writer.toString();
         sb.append(result);
-        // 保存文件  
+        //如果网络可用则发送崩溃邮件
+        if (NetWorkUtils.isNetworkConnected(mContext)) {
+            new SendCrashMailThread(sb.toString()).start();
+            //this.sendCrashEmail(sb.toString());
+        }
+        //如果有外部存储则保存文件  
         long timetamp = System.currentTimeMillis();
         String time = format.format(new Date());
         String fileName = "crash-" + time + "-" + timetamp + ".log";
@@ -213,6 +218,36 @@ public class CrashHandler implements UncaughtExceptionHandler {
                 e.printStackTrace();
             }
         }
+
         return null;
+    }
+
+    private class SendCrashMailThread extends Thread {
+
+        private final String body;
+
+        SendCrashMailThread(String msg) {
+            super();
+            this.body = msg;
+        }
+
+        @Override
+        public void run() {
+            //设置邮件
+            MultiMailSenderInfo mailInfo = new MultiMailSenderInfo();
+            mailInfo.setMailServerHost("smtp.ipetty.net");
+            mailInfo.setMailServerPort("587");
+            mailInfo.setValidate(true);
+            mailInfo.setUserName("service@ipetty.net");
+            mailInfo.setPassword("ipetty888");
+            mailInfo.setFromAddress("service@ipetty.net");
+            mailInfo.setToAddress("service@ipetty.net");
+            mailInfo.setSubject("Ipetty-Android-CrashLog");
+            mailInfo.setContent(body);
+            //这个类主要来发送邮件 
+            MultiMailsender sms = new MultiMailsender();
+            sms.sendTextMail(mailInfo);//发送文体格式 
+            Log.d(TAG, "SendCrashMailDone");
+        }
     }
 }
