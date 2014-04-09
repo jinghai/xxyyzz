@@ -14,7 +14,7 @@ import org.eclipse.jetty.webapp.WebAppContext;
 public class JettyServer {
 
 	private static final int PORT = 8080;
-	private static final String CONTEXT_PATH = "/server";
+	private static final String CONTEXT_PATH = "/";
 	private static final String DEFAULT_WEBAPP_PATH = "src/main/webapp";
 
 	private static Server server;

@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import com.ipet.client.api.base.ApiContext;
 import com.ipet.server.domain.entity.User;
 import com.ipet.server.web.rest.base.BaseTest;
 
@@ -17,7 +18,7 @@ import com.ipet.server.web.rest.base.BaseTest;
  */
 public class AccountControllerTest extends BaseTest {
 
-	public static final String baseUrl = "http://localhost:8080/server/api/v1/account";
+	public static final String baseUrl = ApiContext.API_SERVER_BASE + "account";
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Test

@@ -435,7 +435,7 @@
 					<stopKey>stop</stopKey>
 					<stopPort>9999</stopPort>
 					<webAppConfig>
-						<contextPath>/server</contextPath>
+						<contextPath>/</contextPath>
 					</webAppConfig>
 				</configuration>
 			</plugin>
