@@ -17,14 +17,15 @@ import com.ipet.test.BaseTest;
  * 
  * @author xiaojinghai
  */
-public class DescoverApiTest extends BaseTest {
+public class DiscoverApiTest extends BaseTest {
 
 	private final AccountApi accountApi = IpetApiImpl.getInstance("1", "1").getAccountApi();
 	private final PhotoApi photoApi = IpetApiImpl.getInstance("1", "1").getPhotoApi();
+	private final FavorApi favorApi = IpetApiImpl.getInstance("1", "1").getFavorApi();
 	private final DiscoverApi discoverApi = IpetApiImpl.getInstance("1", "1").getDiscoverApi();
 
 	@Test
-	public void comment() throws InterruptedException, UnsupportedEncodingException {
+	public void testDiscover() throws InterruptedException, UnsupportedEncodingException {
 		accountApi.login("admin", "admin");
 		String filePath = super.getTestPhotoPath();
 		FileSystemResource fsr = new FileSystemResource(filePath);
@@ -35,8 +36,12 @@ public class DescoverApiTest extends BaseTest {
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String dateStr = dateformat.format(new Date());
 		logger.debug(dateStr);
-		List<IpetPhoto> list = discoverApi.listPage(dateStr, "0", "20");
-		Assert.assertEquals("测试", list.get(0).getText());
+		List<IpetPhoto> photos = discoverApi.listPage(dateStr, "0", "20");
+		Assert.assertEquals("测试", photos.get(0).getText());
+
+		favorApi.favor(photo.getId(), "I liked it.");
+		photos = discoverApi.listPage(dateStr, "0", "20");
+		Assert.assertTrue(photos.get(0).isFavored());
 	}
 
 }

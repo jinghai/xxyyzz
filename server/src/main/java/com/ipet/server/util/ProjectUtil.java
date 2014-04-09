@@ -66,19 +66,16 @@ public class ProjectUtil {
 	}
 
 	/**
-	 * 检查一个路径是否存在，若不存在则创建
-	 * 
-	 * @param filePath
+	 * 检查一个文件路径是否存在，若不存在则创建其目录结构
 	 */
-	public static void checkDirAndCreateIfNotExists(String filePath) {
-		File myFile = new File(filePath);
-		// String path = myFile.getPath();
-		if (!myFile.isDirectory()) {
-			myFile = new File(myFile.getParent());
+	public static void checkAndCreateIfNotExists(String filePath, boolean isDirectory) {
+		File folder = new File(filePath);
+		if (!isDirectory) {
+			folder = new File(folder.getParent());
 		}
 
-		if (!myFile.exists()) {
-			myFile.mkdirs();
+		if (!folder.exists()) {
+			folder.mkdirs();
 		}
 	}
 

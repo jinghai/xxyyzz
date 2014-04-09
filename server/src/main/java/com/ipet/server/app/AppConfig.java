@@ -44,8 +44,7 @@ public class AppConfig {
 	public String getUploadDirRealPath() {
 		if (StringUtils.isEmpty(uploadDirRealPath)) {
 			uploadDirRealPath = getWebContextRealPath() + uploadDir;
-			// uploadDirRealPath = new File("/").getAbsolutePath() + uploadDir;
-			ProjectUtil.checkDirAndCreateIfNotExists(uploadDirRealPath);
+			ProjectUtil.checkAndCreateIfNotExists(uploadDirRealPath, true);
 		}
 		return uploadDirRealPath;
 	}
@@ -56,8 +55,7 @@ public class AppConfig {
 	public String getTempDirRealPath() {
 		if (StringUtils.isEmpty(tempDirRealPath)) {
 			tempDirRealPath = getWebContextRealPath() + tempDir;
-			// tempDirRealPath = new File("/").getAbsolutePath() + tempDir;
-			ProjectUtil.checkDirAndCreateIfNotExists(tempDirRealPath);
+			ProjectUtil.checkAndCreateIfNotExists(tempDirRealPath, true);
 		}
 		return tempDirRealPath;
 	}

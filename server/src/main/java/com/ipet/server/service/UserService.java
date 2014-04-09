@@ -163,7 +163,7 @@ public class UserService extends BaseService {
 	// 得到头像绝对地址
 	private String getAvatarRealPath(String relativePath) {
 		String path = appConfig.getWebContextRealPath() + relativePath;
-		ProjectUtil.checkDirAndCreateIfNotExists(path);
+		ProjectUtil.checkAndCreateIfNotExists(path, false);
 		return path;
 	}
 

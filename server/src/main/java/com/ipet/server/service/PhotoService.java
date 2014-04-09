@@ -85,10 +85,10 @@ public class PhotoService extends BaseService {
 			followIds.add(r.getUserIdB());
 		}
 		// 取出所有图片
-		Page<Photo> ret = getPhotoDao().findByCreateAtBeforeAndUserIdIn(date, followIds, pageR);
+		Page<Photo> result = getPhotoDao().findByCreateAtBeforeAndUserIdIn(date, followIds, pageR);
 
-		// 填充图片发布者信息
-		List<Photo> photos = ret.getContent();
+		// 填充favored（我是否赞过）信息
+		List<Photo> photos = result.getContent();
 		Map<String, Photo> photoIdMap = new HashMap<String, Photo>(photos.size());
 		for (Photo photo : photos) {
 			photoIdMap.put(photo.getId(), photo);
@@ -226,7 +226,7 @@ public class PhotoService extends BaseService {
 	// 得到绝对地址
 	private String getPhotoRealPath(String relativePath) {
 		String path = appConfig.getWebContextRealPath() + relativePath;
-		ProjectUtil.checkDirAndCreateIfNotExists(path);
+		ProjectUtil.checkAndCreateIfNotExists(path, false);
 		return path;
 	}
 

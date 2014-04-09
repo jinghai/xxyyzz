@@ -33,8 +33,8 @@ public class DiscoverController extends BaseController {
 
 	@RequestMapping(value = "listPage", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<Photo> getFollowForPage(String date, String pageNumber, String pageSize) throws IOException,
-			ParseException {
+	public List<Photo> getFollowForPage(String uid, String date, String pageNumber, String pageSize)
+			throws IOException, ParseException {
 		if (StringUtils.isEmpty(date) || StringUtils.isEmpty(pageNumber) || StringUtils.isEmpty(pageSize)) {
 			throw new RuntimeException("非法参数");
 		}
@@ -42,7 +42,7 @@ public class DiscoverController extends BaseController {
 		Date datetime = format.parse(date);
 		Integer page = Integer.valueOf(pageNumber);
 		Integer size = Integer.valueOf(pageSize);
-		return discoverService.listNewerPhotosForPage(datetime, page, size);
+		return discoverService.listNewerPhotosForPage(uid, datetime, page, size);
 	}
 
 }
