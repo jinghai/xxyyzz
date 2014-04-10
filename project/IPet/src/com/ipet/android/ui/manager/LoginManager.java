@@ -81,6 +81,13 @@ public class LoginManager {
         return uid;
     }
 
+    public static String getUserName(Context activity) {
+        Context ctx = activity;
+        SharedPreferences sp = ctx.getSharedPreferences(flag, Context.MODE_PRIVATE);
+        String str = sp.getString(USER_NAME, "");
+        return str;
+    }
+
     public static void setUser(Context activity, IpetUser user) {
         ObjectMapper mapper = new ObjectMapper();
         Writer strWriter = new StringWriter();
