@@ -22,10 +22,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ipet.server.app.AppConfig;
 import com.ipet.server.domain.UserState;
+import com.ipet.server.domain.entity.Comment;
 import com.ipet.server.domain.entity.Favor;
 import com.ipet.server.domain.entity.FollowRelation;
 import com.ipet.server.domain.entity.Photo;
 import com.ipet.server.domain.entity.User;
+import com.ipet.server.repository.CommentDao;
 import com.ipet.server.repository.FavorDao;
 import com.ipet.server.repository.FollowRelationDao;
 import com.ipet.server.repository.PhotoDao;
@@ -54,6 +56,9 @@ public class PhotoService extends BaseService {
 	private FavorDao favorDao;
 
 	@Resource
+	private CommentDao commentDao;
+
+	@Resource
 	private AppConfig appConfig;
 
 	private final int smallWith = 480;
@@ -74,8 +79,7 @@ public class PhotoService extends BaseService {
 	/**
 	 * 按时间和关注分页获取图片
 	 */
-	public List<Photo> getPhotosByTimeAndFollowForPage(String uid, Date date, Integer pageNumber, Integer pageSize) {
-
+	public List<Photo> listPhotosByDatetimeAndFollowForPage(String uid, Date date, Integer pageNumber, Integer pageSize) {
 		PageRequest pageR = ProjectUtil.buildPageRequest(pageNumber, pageSize, Sort.Direction.DESC, "createAt");
 		// 寻找关注关系，含自己
 		List<FollowRelation> idsR = getFollowRelationDao().findByUserIdA(uid);
@@ -86,15 +90,26 @@ public class PhotoService extends BaseService {
 		}
 		// 取出所有图片
 		Page<Photo> result = getPhotoDao().findByCreateAtBeforeAndUserIdIn(date, followIds, pageR);
+		return fullfillPhotos(result.getContent(), uid);
+	}
 
+	/**
+	 * 分页获取时间点之后最新的图片（发现）
+	 */
+	public List<Photo> discoverPhotosForPage(String uid, Date date, Integer pageNumber, Integer pageSize) {
+		PageRequest pageR = ProjectUtil.buildPageRequest(pageNumber, pageSize, Sort.Direction.DESC, "createAt");
+		Page<Photo> result = getPhotoDao().findByCreateAtBefore(date, pageR);
+		return fullfillPhotos(result.getContent(), uid);
+	}
+
+	private List<Photo> fullfillPhotos(List<Photo> photos, String userId) {
 		// 填充favored（我是否赞过）信息
-		List<Photo> photos = result.getContent();
 		Map<String, Photo> photoIdMap = new HashMap<String, Photo>(photos.size());
 		for (Photo photo : photos) {
 			photoIdMap.put(photo.getId(), photo);
 		}
 
-		List<Favor> favors = this.getFavorDao().findByPhotoIdInAndUserId(photoIdMap.keySet(), uid);
+		List<Favor> favors = this.getFavorDao().findByPhotoIdInAndUserId(photoIdMap.keySet(), userId);
 		List<String> favoredPhotoIds = new ArrayList<String>(favors.size());
 		for (Favor favor : favors) {
 			favoredPhotoIds.add(favor.getPhotoId());
@@ -108,8 +123,15 @@ public class PhotoService extends BaseService {
 
 		favors.clear();
 		favoredPhotoIds.clear();
-		photoIdMap.clear();
 
+		// 填充评论信息
+		List<Comment> comments = commentDao.findByPhotoIdInOrderByCreateAtAsc(photoIdMap.keySet());
+		for (Comment comment : comments) {
+			photoIdMap.get(comment.getPhotoId()).getComments().add(comment);
+		}
+		comments.clear();
+
+		photoIdMap.clear();
 		return photos;
 	}
 
@@ -260,6 +282,14 @@ public class PhotoService extends BaseService {
 
 	public void setFavorDao(FavorDao favorDao) {
 		this.favorDao = favorDao;
+	}
+
+	public CommentDao getCommentDao() {
+		return commentDao;
+	}
+
+	public void setCommentDao(CommentDao commentDao) {
+		this.commentDao = commentDao;
 	}
 
 }
