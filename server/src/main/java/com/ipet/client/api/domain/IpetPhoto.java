@@ -1,6 +1,8 @@
 package com.ipet.client.api.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ipet.client.api.base.ApiContext;
@@ -39,6 +41,8 @@ public class IpetPhoto implements Serializable {
 
 	// 我是否赞过
 	private boolean favored;
+
+	private List<IpetComment> comments = new ArrayList<IpetComment>();
 
 	public String getOriginalURL() {
 		return ApiContext.FILE_SERVER_BASE + originalURL;
@@ -134,6 +138,14 @@ public class IpetPhoto implements Serializable {
 
 	public void setFavored(boolean favored) {
 		this.favored = favored;
+	}
+
+	public List<IpetComment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<IpetComment> comments) {
+		this.comments = comments;
 	}
 
 }
