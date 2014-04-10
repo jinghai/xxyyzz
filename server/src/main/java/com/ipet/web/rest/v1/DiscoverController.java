@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ipet.server.domain.entity.Photo;
-import com.ipet.server.service.DiscoverService;
+import com.ipet.server.service.PhotoService;
 
 /**
  * 人脉rest
@@ -29,7 +29,7 @@ import com.ipet.server.service.DiscoverService;
 public class DiscoverController extends BaseController {
 
 	@Resource
-	private DiscoverService discoverService;
+	private PhotoService photoService;
 
 	@RequestMapping(value = "listPage", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -42,7 +42,7 @@ public class DiscoverController extends BaseController {
 		Date datetime = format.parse(date);
 		Integer page = Integer.valueOf(pageNumber);
 		Integer size = Integer.valueOf(pageSize);
-		return discoverService.listNewerPhotosForPage(uid, datetime, page, size);
+		return photoService.discoverPhotosForPage(uid, datetime, page, size);
 	}
 
 }

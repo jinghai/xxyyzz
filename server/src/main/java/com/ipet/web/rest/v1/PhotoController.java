@@ -125,7 +125,7 @@ public class PhotoController extends BaseController {
 		Date datetime = format.parse(date);
 		Integer page = Integer.valueOf(pageNumber);
 		Integer size = Integer.valueOf(pageSize);
-		return photoService.getPhotosByTimeAndFollowForPage(uid, datetime, page, size);
+		return photoService.listPhotosByDatetimeAndFollowForPage(uid, datetime, page, size);
 	}
 
 }

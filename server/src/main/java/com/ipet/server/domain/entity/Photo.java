@@ -1,6 +1,8 @@
 package com.ipet.server.domain.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -56,6 +58,9 @@ public class Photo extends IdEntity implements Serializable {
 	// 我是否赞过
 	@Transient
 	private boolean favored;
+
+	@Transient
+	private List<Comment> comments = new ArrayList<Comment>();
 
 	public String getOriginalURL() {
 		return originalURL;
@@ -143,6 +148,14 @@ public class Photo extends IdEntity implements Serializable {
 
 	public void setFavored(boolean favored) {
 		this.favored = favored;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
 }
