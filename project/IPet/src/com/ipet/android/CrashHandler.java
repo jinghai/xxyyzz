@@ -30,6 +30,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.ipet.android.ui.manager.ActivityManager;
+import com.ipet.android.ui.manager.LoginManager;
 import com.ipet.android.ui.utils.NetWorkUtils;
 import com.ipet.android.ui.utils.mail.MultiMailsender;
 import com.ipet.android.ui.utils.mail.MultiMailsender.MultiMailSenderInfo;
@@ -41,7 +42,7 @@ import com.ipet.android.ui.utils.mail.MultiMailsender.MultiMailSenderInfo;
  *
  */
 public class CrashHandler implements UncaughtExceptionHandler {
-
+    
     private static final String TAG = "CrashHandler";
     private Thread.UncaughtExceptionHandler mDefaultHandler;// 系统默认的UncaughtException处理类  
     private static final CrashHandler INSTANCE = new CrashHandler();// CrashHandler实例  
@@ -53,7 +54,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
      * 保证只有一个CrashHandler实例
      */
     private CrashHandler() {
-
+        
     }
 
     /**
@@ -101,7 +102,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
                 e.printStackTrace();
             }
             Log.d(TAG, "ActivityManager");
-
+            
             ActivityManager.getInstance().exit();
 
             // 退出程序  
@@ -152,11 +153,13 @@ public class CrashHandler implements UncaughtExceptionHandler {
                 info.put("versionName", versionName);
                 info.put("versionCode", versionCode);
                 info.put("threadName", thread.getName());
+                info.put("userName", LoginManager.getUserName(context));
+                info.put("userId", LoginManager.getUid(context));
             }
         } catch (NameNotFoundException e) {
             e.printStackTrace();
         }
-
+        
         Field[] fields = Build.class.getDeclaredFields();// 反射机制  
         for (Field field : fields) {
             try {
@@ -170,7 +173,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
             }
         }
     }
-
+    
     private String saveCrashInfo2File(Throwable ex) {
         StringBuffer sb = new StringBuffer();
         for (Map.Entry<String, String> entry : info.entrySet()) {
@@ -218,19 +221,19 @@ public class CrashHandler implements UncaughtExceptionHandler {
                 e.printStackTrace();
             }
         }
-
+        
         return null;
     }
-
+    
     private class SendCrashMailThread extends Thread {
-
+        
         private final String body;
-
+        
         SendCrashMailThread(String msg) {
             super();
             this.body = msg;
         }
-
+        
         @Override
         public void run() {
             //设置邮件
@@ -244,6 +247,10 @@ public class CrashHandler implements UncaughtExceptionHandler {
             mailInfo.setToAddress("service@ipetty.net");
             mailInfo.setSubject("Ipetty-Android-CrashLog");
             mailInfo.setContent(body);
+            String[] receivers = new String[]{"kongchun@ipetty.net", "wangweihua@ipetty.net", "luocanfeng@ipetty.net", "xiaojinghai@ipetty.net"};            
+            String[] ccs = receivers;            
+            mailInfo.setReceivers(receivers);            
+            mailInfo.setCcs(ccs);
             //这个类主要来发送邮件 
             MultiMailsender sms = new MultiMailsender();
             sms.sendTextMail(mailInfo);//发送文体格式 
