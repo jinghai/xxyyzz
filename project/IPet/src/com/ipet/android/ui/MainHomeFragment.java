@@ -5,7 +5,10 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ipet.R;
+import com.ipet.android.Constant;
 import com.ipet.android.MyApp;
 import com.ipet.android.sdk.domain.IpetPhoto;
 import com.ipet.android.task.FeedLoadAsyncTask;
@@ -106,6 +110,26 @@ public class MainHomeFragment extends Fragment {
 
 	}
 
+	@Override
+	public void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		this.activity.unregisterReceiver(broadcastreciver);
+	}
+
+	private BroadcastReceiver broadcastreciver = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			String action = intent.getAction();
+			Log.i("actionFind", action);
+			IpetPhoto ipetPhoto = (IpetPhoto) intent.getSerializableExtra(Constant.IPET_PHOTO_SERIALIZABLE);
+			MainHomeFragment.this.updateItem(ipetPhoto);
+		}
+
+	};
+
 	public void updateItem(IpetPhoto ipetPhoto) {
 		this.adapter.updataItem(ipetPhoto);
 	}
@@ -113,8 +137,13 @@ public class MainHomeFragment extends Fragment {
 	@Override
 	public void onStart() {
 		super.onStart();
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(Constant.BROADCAST_INTENT_IPET_PHOTO_FAVORED);
+		this.activity.registerReceiver(broadcastreciver, filter);
+
 		Log.i("MainHomeFragment", "onStart");
 		new FeedLoadAsyncTask(this, listView, adapter, MainHomeFragment.TYPE_CODE_LOAD).execute(timeline, String.valueOf(page));
+
 	}
 
 	@Override

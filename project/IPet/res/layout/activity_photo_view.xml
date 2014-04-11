@@ -14,13 +14,29 @@
         app:title_right_res_type="text"
         app:title_right_res_visibility="invisible" />
 
- 	<include layout="@layout/list_feed_item_header"  android:id="@+id/inc_feed_header"/>
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none|vertical" >
 
- 	<com.loopj.android.image.SmartImageView
- 	    android:id="@+id/feed_content_image"
- 	    android:layout_width="wrap_content"
- 	    android:layout_height="wrap_content"
- 	    android:src="@drawable/list_feed_image_default" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            
+            <include layout="@layout/list_feed_item_header"  android:id="@+id/inc_feed_header"/>
+
+		 	<com.loopj.android.image.SmartImageView
+		 	    android:id="@+id/feed_content_image"
+		 	    android:layout_width="wrap_content"
+		 	    android:layout_height="wrap_content"
+		 	    android:src="@drawable/list_feed_image_default" />
+		 	
+		 	<include layout="@layout/list_feed_item_feedback" />
+            
+        </LinearLayout>
+    </ScrollView>
+
  	
- 	<include layout="@layout/list_feed_item_feedback" />
 </LinearLayout>

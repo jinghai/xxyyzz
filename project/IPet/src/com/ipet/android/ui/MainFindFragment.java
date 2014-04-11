@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -17,6 +20,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
 import com.ipet.R;
+import com.ipet.android.Constant;
 import com.ipet.android.sdk.domain.IpetPhoto;
 import com.ipet.android.task.FindLoadAsyncTask;
 import com.ipet.android.ui.adapter.FindGridAdapter;
@@ -50,7 +54,21 @@ public class MainFindFragment extends Fragment {
 		adapter.setList(list);
 		gridview.setAdapter(adapter);
 		gridview.setOnItemClickListener(myclick);
+
 	}
+
+	private BroadcastReceiver broadcastreciver = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			String action = intent.getAction();
+			Log.i("actionFind", action);
+			IpetPhoto ipetPhoto = (IpetPhoto) intent.getSerializableExtra(Constant.IPET_PHOTO_SERIALIZABLE);
+			MainFindFragment.this.updateItem(ipetPhoto);
+		}
+
+	};
 
 	private OnItemClickListener myclick = new OnItemClickListener() {
 
@@ -60,7 +78,7 @@ public class MainFindFragment extends Fragment {
 			IpetPhoto feed = adapter.getItem(position);
 			Intent intent = new Intent(MainFindFragment.this.activity, PhotoViewActivity.class);
 			Bundle mBundle = new Bundle();
-			mBundle.putSerializable("FEED", (Serializable) feed);
+			mBundle.putSerializable(Constant.IPET_PHOTO_SERIALIZABLE, (Serializable) feed);
 			intent.putExtras(mBundle);
 			startActivity(intent);
 		}
@@ -68,13 +86,26 @@ public class MainFindFragment extends Fragment {
 	};
 
 	@Override
+	public void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		this.activity.unregisterReceiver(broadcastreciver);
+	}
+
+	@Override
 	public void onStart() {
 		// TODO Auto-generated method stub
+
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(Constant.BROADCAST_INTENT_IPET_PHOTO_FAVORED);
+		this.activity.registerReceiver(broadcastreciver, filter);
+
 		Log.i("MainFindFragment", "onStart");
 		timeline = DateTimeUtils.getNowDateTime();
 		page = 0;
 		new FindLoadAsyncTask(this, gridview, adapter, MainFindFragment.TYPE_CODE_LOAD).execute(timeline, String.valueOf(page));
 		super.onStart();
+
 	}
 
 	public void updateItem(IpetPhoto ipetPhoto) {

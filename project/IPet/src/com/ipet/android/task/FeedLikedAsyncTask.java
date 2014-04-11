@@ -1,14 +1,17 @@
 package com.ipet.android.task;
 
+import java.io.Serializable;
+
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.ipet.android.Constant;
 import com.ipet.android.MyApp;
 import com.ipet.android.sdk.domain.IpetPhoto;
-import com.ipet.android.ui.MainActivity;
-import com.ipet.android.ui.PhotoViewActivity;
 
 public class FeedLikedAsyncTask extends AsyncTask<String, String, IpetPhoto> {
 	private Activity activity;
@@ -52,15 +55,11 @@ public class FeedLikedAsyncTask extends AsyncTask<String, String, IpetPhoto> {
 			return;
 		}
 
-		if (this.activity instanceof MainActivity) {
-			((MainActivity) this.activity).updateItem(ipetPhoto);
-			return;
-		}
-
-		if (this.activity instanceof PhotoViewActivity) {
-			((PhotoViewActivity) this.activity).initFavor(ipetPhoto);
-			return;
-		}
-
+		Intent intent = new Intent(Constant.BROADCAST_INTENT_IPET_PHOTO_FAVORED);
+		Bundle mBundle = new Bundle();
+		mBundle.putSerializable(Constant.IPET_PHOTO_SERIALIZABLE, (Serializable) ipetPhoto);
+		intent.putExtras(mBundle);
+		this.activity.sendBroadcast(intent);
+		Log.i("sendBroadcast", "sendBroadcast");
 	}
 }
