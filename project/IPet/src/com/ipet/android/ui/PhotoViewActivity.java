@@ -1,7 +1,10 @@
 package com.ipet.android.ui;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -13,6 +16,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.ipet.R;
+import com.ipet.android.Constant;
 import com.ipet.android.sdk.domain.IpetPhoto;
 import com.ipet.android.task.FeedLikedAsyncTask;
 import com.ipet.android.ui.common.SimpleTitleBar;
@@ -40,7 +44,7 @@ public class PhotoViewActivity extends Activity {
 		setContentView(R.layout.activity_photo_view);
 
 		Intent intent = getIntent();
-		feed = (IpetPhoto) intent.getSerializableExtra("FEED");
+		feed = (IpetPhoto) intent.getSerializableExtra(Constant.IPET_PHOTO_SERIALIZABLE);
 
 		Log.i("self0", "" + feed.isFavored());
 
@@ -94,7 +98,28 @@ public class PhotoViewActivity extends Activity {
 		});
 
 		initFavor(this.feed);
+
 	}
+
+	@Override
+	public void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		this.unregisterReceiver(broadcastreciver);
+	}
+
+	private BroadcastReceiver broadcastreciver = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			String action = intent.getAction();
+			Log.i("actionFind", action);
+			IpetPhoto ipetPhoto = (IpetPhoto) intent.getSerializableExtra(Constant.IPET_PHOTO_SERIALIZABLE);
+			initFavor(ipetPhoto);
+		}
+
+	};
 
 	public void initFavor(IpetPhoto feed) {
 		this.feed = feed;
@@ -118,6 +143,10 @@ public class PhotoViewActivity extends Activity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
+
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(Constant.BROADCAST_INTENT_IPET_PHOTO_FAVORED);
+		this.registerReceiver(broadcastreciver, filter);
 
 	}
 

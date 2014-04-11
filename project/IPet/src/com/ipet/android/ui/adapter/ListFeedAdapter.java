@@ -13,9 +13,11 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ipet.R;
 import com.ipet.android.sdk.domain.IpetPhoto;
@@ -78,6 +80,7 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 		public CheckBox btn_liked;
 		public TextView favor_count;
 		public View likes_group;
+		public ImageView btn_comment;
 	}
 
 	public ViewHolder holder;
@@ -98,6 +101,8 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 			holder.text = (TextView) view.findViewById(R.id.row_feed_photo_textview_comments);
 			holder.comments_group = view.findViewById(R.id.row_feed_photo_comments_group);
 			holder.likes_group = view.findViewById(R.id.row_feed_photo_likes_group);
+
+			holder.btn_comment = (ImageView) view.findViewById(R.id.row_feed_photo_button_comment);
 
 			DisplayMetrics dm = new DisplayMetrics();
 			((Activity) this.context).getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -137,6 +142,7 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 		}
 
 		initLikedBtnView(holder, feed, position);
+		initCommentView(holder, feed, position);
 
 		// holder.layout.addView(add());
 		return view;
@@ -149,6 +155,17 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 	// return layout1;
 
 	// }
+
+	private void initCommentView(ViewHolder holder, IpetPhoto feed, int position) {
+		// TODO Auto-generated method stub
+		holder.btn_comment.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Toast.makeText(context, "尚未实现", Toast.LENGTH_SHORT).show();
+			}
+		});
+	}
 
 	// 赞
 	private void initLikedBtnView(ViewHolder holder, final IpetPhoto feed, final int position) {

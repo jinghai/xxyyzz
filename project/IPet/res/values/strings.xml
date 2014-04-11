@@ -99,7 +99,8 @@
     <string name="title_publish">发布照片</string>
     <string name="publish">发布</string>
      <string name="publish_loading">发布中...</string>
-     <string name="likedNum">%1s 赞</string>
+     <string name="likedNum">%1s 个赞</string>
+     <string name="commentNum">查看所有  %1s 条评论</string>
     
 
 </resources>
