@@ -1,22 +1,32 @@
 package com.ipet.android.ui;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ipet.R;
 import com.ipet.android.Constant;
+import com.ipet.android.sdk.domain.IpetComment;
 import com.ipet.android.sdk.domain.IpetPhoto;
 import com.ipet.android.task.FeedLikedAsyncTask;
 import com.ipet.android.ui.common.SimpleTitleBar;
@@ -37,6 +47,10 @@ public class PhotoViewActivity extends Activity {
 	public TextView favor_count;
 	public View likes_group;
 	public IpetPhoto feed;
+	public ImageView btn_comment;
+	public View comments_num_group;
+	public TextView comments_num;
+	public LinearLayout comments_group_list;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +59,6 @@ public class PhotoViewActivity extends Activity {
 
 		Intent intent = getIntent();
 		feed = (IpetPhoto) intent.getSerializableExtra(Constant.IPET_PHOTO_SERIALIZABLE);
-
-		Log.i("self0", "" + feed.isFavored());
 
 		SimpleTitleBar titleBar = (SimpleTitleBar) findViewById(R.id.titlebar);
 		titleBar.setLeftViewClick(new BackAndFinishClick(this));
@@ -99,13 +111,79 @@ public class PhotoViewActivity extends Activity {
 
 		initFavor(this.feed);
 
+		btn_comment = (ImageView) this.findViewById(R.id.row_feed_photo_button_comment);
+		comments_num_group = this.findViewById(R.id.row_feed_photo_comments_num_group);
+		comments_num = (TextView) this.findViewById(R.id.row_feed_photo_textview_comments_num);
+		comments_group_list = (LinearLayout) this.findViewById(R.id.row_feed_photo_comments_list);
+
+		btn_comment.setOnClickListener(myCommentClick);
+		comments_num.setOnClickListener(myCommentClick);
+
+		initCommentView(this.feed);
+
 	}
 
-	@Override
-	public void onStop() {
+	private OnClickListener myCommentClick = new OnClickListener() {
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent(PhotoViewActivity.this, CommentActivity.class);
+			Bundle mBundle = new Bundle();
+			mBundle.putSerializable(Constant.IPET_PHOTO_SERIALIZABLE, (Serializable) feed);
+			intent.putExtras(mBundle);
+			PhotoViewActivity.this.startActivity(intent);
+		}
+	};
+
+	private void initCommentView(IpetPhoto feed) {
 		// TODO Auto-generated method stub
-		super.onStop();
-		this.unregisterReceiver(broadcastreciver);
+		String commentNumStr = this.getResources().getString(R.string.commentNum);
+		String commentsNum = feed.getCommentCount();
+
+		comments_num.setText(String.format(commentNumStr, commentsNum));
+
+		int size = feed.getComments().size();
+		if (feed.getComments().size() == 0) {
+			comments_num_group.setVisibility(View.GONE);
+		} else {
+			comments_num_group.setVisibility(View.VISIBLE);
+		}
+
+		comments_group_list.removeAllViews();
+		List<IpetComment> list = new ArrayList<IpetComment>(5);
+		if (size <= 5) {
+			list = feed.getComments();
+		} else {
+			list = feed.getComments().subList(size - 5, size);
+		}
+
+		for (IpetComment comment : list) {
+			comments_group_list.addView(addComment(comment));
+		}
+	}
+
+	private View addComment(IpetComment comment) {
+		String username = comment.getUserName();
+		String text = comment.getText();
+		RelativeLayout layout = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.list_feed_item_feedback_comment, null);
+		TextView t = (TextView) layout.findViewById(R.id.row_feed_photo_textview_comments_item);
+		String link = this.getResources().getString(R.color.feed_link_color);
+		link = link.substring(3, 9);
+		t.setText(Html.fromHtml("<b><font color='#" + link + "'>" + username + "</font></b>&nbsp;" + text));
+		return layout;
+	}
+
+	private void updateCommentView(String type, IpetComment comment) {
+		// TODO Auto-generated method stub
+		if (Constant.IPET_COMMENT_TYPE_ADD.equals(type)) {
+			this.updateAddComment(comment);
+		}
+	}
+
+	private void updateAddComment(IpetComment comment) {
+		// TODO Auto-generated method stub
+		this.feed.getComments().add(comment);
+		this.feed.setCommentCount(Integer.toString(this.feed.getComments().size()));
+		initCommentView(this.feed);
 	}
 
 	private BroadcastReceiver broadcastreciver = new BroadcastReceiver() {
@@ -114,9 +192,20 @@ public class PhotoViewActivity extends Activity {
 		public void onReceive(Context context, Intent intent) {
 			// TODO Auto-generated method stub
 			String action = intent.getAction();
+
+			if (Constant.BROADCAST_INTENT_IPET_PHOTO_FAVORED.equals(action)) {
+				IpetPhoto ipetPhoto = (IpetPhoto) intent.getSerializableExtra(Constant.IPET_PHOTO_SERIALIZABLE);
+				initFavor(ipetPhoto);
+			}
+
+			if (Constant.BROADCAST_INTENT_IPET_PHOTO_COMMENT.equals(action)) {
+				IpetComment comment = (IpetComment) intent.getSerializableExtra(Constant.IPET_COMMENT_SERIALIZABLE);
+				String type = (String) intent.getStringExtra(Constant.IPET_COMMENT_TYPE);
+				updateCommentView(type, comment);
+			}
+
 			Log.i("actionFind", action);
-			IpetPhoto ipetPhoto = (IpetPhoto) intent.getSerializableExtra(Constant.IPET_PHOTO_SERIALIZABLE);
-			initFavor(ipetPhoto);
+
 		}
 
 	};
@@ -132,9 +221,6 @@ public class PhotoViewActivity extends Activity {
 
 		String likedNum = this.getResources().getString(R.string.likedNum);
 		favor_count.setText(String.format(likedNum, feed.getFavorCount()));
-
-		Log.i("self", "" + feed.isFavored());
-		// TODO Auto-generated method stub
 		btn_liked.setChecked(feed.isFavored());
 
 	}
@@ -146,8 +232,16 @@ public class PhotoViewActivity extends Activity {
 
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(Constant.BROADCAST_INTENT_IPET_PHOTO_FAVORED);
+		filter.addAction(Constant.BROADCAST_INTENT_IPET_PHOTO_COMMENT);
 		this.registerReceiver(broadcastreciver, filter);
 
+	}
+
+	@Override
+	public void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		this.unregisterReceiver(broadcastreciver);
 	}
 
 	@Override

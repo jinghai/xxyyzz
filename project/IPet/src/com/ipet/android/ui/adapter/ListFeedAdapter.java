@@ -1,9 +1,14 @@
 package com.ipet.android.ui.adapter;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.Html;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +21,15 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ipet.R;
+import com.ipet.android.Constant;
+import com.ipet.android.sdk.domain.IpetComment;
 import com.ipet.android.sdk.domain.IpetPhoto;
 import com.ipet.android.task.FeedLikedAsyncTask;
+import com.ipet.android.ui.CommentActivity;
 import com.ipet.android.ui.MainActivity;
 import com.ipet.android.ui.common.FeedListView;
 import com.ipet.android.ui.utils.StringUtils;
@@ -81,6 +89,9 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 		public TextView favor_count;
 		public View likes_group;
 		public ImageView btn_comment;
+		public View comments_num_group;
+		public TextView comments_num;
+		public LinearLayout comments_group_list;
 	}
 
 	public ViewHolder holder;
@@ -101,8 +112,12 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 			holder.text = (TextView) view.findViewById(R.id.row_feed_photo_textview_comments);
 			holder.comments_group = view.findViewById(R.id.row_feed_photo_comments_group);
 			holder.likes_group = view.findViewById(R.id.row_feed_photo_likes_group);
-
 			holder.btn_comment = (ImageView) view.findViewById(R.id.row_feed_photo_button_comment);
+
+			holder.comments_num_group = view.findViewById(R.id.row_feed_photo_comments_num_group);
+			holder.comments_num = (TextView) view.findViewById(R.id.row_feed_photo_textview_comments_num);
+
+			holder.comments_group_list = (LinearLayout) view.findViewById(R.id.row_feed_photo_comments_list);
 
 			DisplayMetrics dm = new DisplayMetrics();
 			((Activity) this.context).getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -128,7 +143,13 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 		String text = feed.getText();
 		String imageURL = feed.getSmallURL();
 
-		holder.avator.setImageUrl(feed.getAvatar48(), R.drawable.list_default_avatar_boy);
+		String headerImage = feed.getAvatar48();
+		// holder.avator.setImageUrl(feed.getAvatar48(),
+		// R.drawable.list_default_avatar_boy);
+
+		if (!StringUtils.isEmpty(headerImage)) {
+			holder.avator.setImageUrl(headerImage);
+		}
 
 		if (!StringUtils.isEmpty(imageURL)) {
 			holder.content_image.setImageUrl(imageURL);
@@ -148,23 +169,65 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 		return view;
 	}
 
-	// private LinearLayout add() {
-	// LinearLayout layout1 = (LinearLayout)
-	// LayoutInflater.from(context).inflate(R.layout.list_feed_item_feedback_add,
-	// null);
-	// return layout1;
+	private RelativeLayout addComment(IpetComment comment) {
+		String username = comment.getUserName();
+		String text = comment.getText();
 
-	// }
+		RelativeLayout layout = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.list_feed_item_feedback_comment, null);
+		TextView t = (TextView) layout.findViewById(R.id.row_feed_photo_textview_comments_item);
+		String link = this.context.getResources().getString(R.color.feed_link_color);
+		link = link.substring(3, 9);
+		t.setText(Html.fromHtml("<b><font color='#" + link + "'>" + username + "</font></b>&nbsp;" + text));
+		return layout;
+	}
 
-	private void initCommentView(ViewHolder holder, IpetPhoto feed, int position) {
+	public class OnCommentClick implements OnClickListener {
+		private IpetPhoto feed;
+
+		public OnCommentClick(IpetPhoto feed) {
+			this.feed = feed;
+		}
+
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent((MainActivity) ListFeedAdapter.this.context, CommentActivity.class);
+			Bundle mBundle = new Bundle();
+			mBundle.putSerializable(Constant.IPET_PHOTO_SERIALIZABLE, (Serializable) feed);
+			intent.putExtras(mBundle);
+			((MainActivity) ListFeedAdapter.this.context).startActivity(intent);
+		}
+	}
+
+	private void initCommentView(ViewHolder holder, final IpetPhoto feed, int position) {
 		// TODO Auto-generated method stub
-		holder.btn_comment.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Toast.makeText(context, "尚未实现", Toast.LENGTH_SHORT).show();
-			}
-		});
+		OnCommentClick myCommentClick = new OnCommentClick(feed);
+		holder.btn_comment.setOnClickListener(myCommentClick);
+		holder.comments_num.setOnClickListener(myCommentClick);
+
+		String commentNumStr = this.context.getResources().getString(R.string.commentNum);
+		String commentsNum = feed.getCommentCount();
+
+		holder.comments_num.setText(String.format(commentNumStr, commentsNum));
+
+		int size = feed.getComments().size();
+		if (feed.getComments().size() == 0) {
+			holder.comments_num_group.setVisibility(View.GONE);
+		} else {
+			holder.comments_num_group.setVisibility(View.VISIBLE);
+		}
+
+		holder.comments_group_list.removeAllViews();
+		List<IpetComment> list = new ArrayList<IpetComment>(5);
+		if (size <= 5) {
+			list = feed.getComments();
+		} else {
+			list = feed.getComments().subList(size - 5, size);
+		}
+
+		for (IpetComment comment : list) {
+			holder.comments_group_list.addView(addComment(comment));
+		}
+
 	}
 
 	// 赞
@@ -220,6 +283,36 @@ public class ListFeedAdapter extends BaseAdapter implements OnScrollListener {
 			return;
 		}
 		this.list.set(i, ipetPhoto);
+		this.notifyDataSetChanged();
+	}
+
+	public void updateLike(IpetPhoto ipetPhoto) {
+		// TODO Auto-generated method stub
+		int i = this.getPosItemById(ipetPhoto.getId());
+		if (i == -1) {
+			return;
+		}
+		IpetPhoto feed = this.list.get(i);
+		feed.setFavorCount(ipetPhoto.getFavorCount());
+		feed.setFavored(ipetPhoto.isFavored());
+		this.notifyDataSetChanged();
+	}
+
+	public void updateComment(String type, IpetComment comment) {
+		// TODO Auto-generated method stub
+		if (Constant.IPET_COMMENT_TYPE_ADD.equals(type)) {
+			this.updateAddComment(comment);
+		}
+	}
+
+	public void updateAddComment(IpetComment comment) {
+		int i = this.getPosItemById(comment.getPhotoId());
+		if (i == -1) {
+			return;
+		}
+		IpetPhoto ipetPhoto = this.list.get(i);
+		ipetPhoto.getComments().add(comment);
+		ipetPhoto.setCommentCount(Integer.toString(ipetPhoto.getComments().size()));
 		this.notifyDataSetChanged();
 	}
 

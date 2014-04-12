@@ -14,6 +14,8 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.ipet.R;
+import com.ipet.android.Constant;
+import com.ipet.android.sdk.domain.IpetComment;
 import com.ipet.android.sdk.domain.IpetPhoto;
 import com.ipet.android.ui.utils.AnimUtils;
 import com.ipet.android.ui.utils.StringUtils;
@@ -123,4 +125,35 @@ public class FindGridAdapter extends BaseAdapter {
 		this.list.set(i, ipetPhoto);
 		this.notifyDataSetChanged();
 	}
+
+	public void updateLike(IpetPhoto ipetPhoto) {
+		// TODO Auto-generated method stub
+		int i = this.getPosItemById(ipetPhoto.getId());
+		if (i == -1) {
+			return;
+		}
+		IpetPhoto feed = this.list.get(i);
+		feed.setFavorCount(ipetPhoto.getFavorCount());
+		feed.setFavored(ipetPhoto.isFavored());
+		this.notifyDataSetChanged();
+	}
+
+	public void updateComment(String type, IpetComment comment) {
+		// TODO Auto-generated method stub
+		if (Constant.IPET_COMMENT_TYPE_ADD.equals(type)) {
+			this.updateAddComment(comment);
+		}
+	}
+
+	public void updateAddComment(IpetComment comment) {
+		int i = this.getPosItemById(comment.getPhotoId());
+		if (i == -1) {
+			return;
+		}
+		IpetPhoto ipetPhoto = this.list.get(i);
+		ipetPhoto.getComments().add(comment);
+		ipetPhoto.setCommentCount(Integer.toString(ipetPhoto.getComments().size()));
+		this.notifyDataSetChanged();
+	}
+
 }

@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.ipet.R;
-import com.ipet.android.sdk.domain.IpetPhoto;
 import com.ipet.android.ui.manager.ActivityManager;
 import com.ipet.android.ui.manager.LoginManager;
 import com.ipet.android.ui.manager.UpdateManager;
@@ -264,8 +263,4 @@ public class MainActivity extends FragmentActivity {
 		// unregisterReceiver(mReceiver);
 	}
 
-	public void updateItem(IpetPhoto ipetPhoto) {
-		mainHomeFragment.updateItem(ipetPhoto);
-		mainFindFragment.updateItem(ipetPhoto);
-	}
 }

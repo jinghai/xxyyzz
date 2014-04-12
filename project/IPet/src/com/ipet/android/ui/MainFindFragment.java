@@ -21,6 +21,7 @@ import android.widget.GridView;
 
 import com.ipet.R;
 import com.ipet.android.Constant;
+import com.ipet.android.sdk.domain.IpetComment;
 import com.ipet.android.sdk.domain.IpetPhoto;
 import com.ipet.android.task.FindLoadAsyncTask;
 import com.ipet.android.ui.adapter.FindGridAdapter;
@@ -63,9 +64,16 @@ public class MainFindFragment extends Fragment {
 		public void onReceive(Context context, Intent intent) {
 			// TODO Auto-generated method stub
 			String action = intent.getAction();
-			Log.i("actionFind", action);
-			IpetPhoto ipetPhoto = (IpetPhoto) intent.getSerializableExtra(Constant.IPET_PHOTO_SERIALIZABLE);
-			MainFindFragment.this.updateItem(ipetPhoto);
+			if (Constant.BROADCAST_INTENT_IPET_PHOTO_FAVORED.equals(action)) {
+				IpetPhoto ipetPhoto = (IpetPhoto) intent.getSerializableExtra(Constant.IPET_PHOTO_SERIALIZABLE);
+				MainFindFragment.this.updateLike(ipetPhoto);
+			}
+
+			if (Constant.BROADCAST_INTENT_IPET_PHOTO_COMMENT.equals(action)) {
+				IpetComment comment = (IpetComment) intent.getSerializableExtra(Constant.IPET_COMMENT_SERIALIZABLE);
+				String type = (String) intent.getStringExtra(Constant.IPET_COMMENT_TYPE);
+				MainFindFragment.this.updateComment(type, comment);
+			}
 		}
 
 	};
@@ -92,6 +100,11 @@ public class MainFindFragment extends Fragment {
 		this.activity.unregisterReceiver(broadcastreciver);
 	}
 
+	protected void updateComment(String type, IpetComment comment) {
+		// TODO Auto-generated method stub
+		this.adapter.updateComment(type, comment);
+	}
+
 	@Override
 	public void onStart() {
 		// TODO Auto-generated method stub
@@ -108,8 +121,8 @@ public class MainFindFragment extends Fragment {
 
 	}
 
-	public void updateItem(IpetPhoto ipetPhoto) {
-		this.adapter.updataItem(ipetPhoto);
+	public void updateLike(IpetPhoto ipetPhoto) {
+		this.adapter.updateLike(ipetPhoto);
 	}
 
 }

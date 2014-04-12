@@ -12,7 +12,7 @@
         <ImageView 
             android:id="@+id/row_feed_photo_textview_likes_glyph" 
             android:src="@drawable/stream_photo_activity_glyph_likes" 
-            android:paddingTop="3.0dip" 
+            android:paddingTop="2.0dip" 
             android:layout_width="wrap_content" 
             android:layout_height="wrap_content" 
             android:layout_alignParentLeft="true" 
@@ -25,8 +25,8 @@
             android:layout_height="wrap_content"
             android:paddingTop="0.0dip"
             android:text="@string/likedNum"
-            android:textColor="#395D75"
-            android:textColorLink="#395D75"
+            android:textColor="@color/feed_link_color"
+            android:textColorLink="@color/feed_link_color"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -43,7 +43,7 @@
         <ImageView 
             android:id="@+id/row_feed_photo_textview_comments_glyph" 
             android:src="@drawable/stream_photo_activity_glyph_comments" 
-            android:paddingTop="3.0dip" 
+            android:paddingTop="2.0dip" 
             android:layout_width="wrap_content" 
             android:layout_height="wrap_content" 
             android:layout_alignParentLeft="true" 
@@ -55,11 +55,45 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="0.0dip"
-            android:textColor="#ff222222"
+            android:textColor="@color/feed_font_color"
             android:textSize="14sp"
-            android:textColorLink="#395D75" />
+            android:textColorLink="@color/feed_link_color" />
     </RelativeLayout>
     
+    <RelativeLayout android:id="@+id/row_feed_photo_comments_num_group" 
+        android:paddingLeft="8dp" 
+        android:paddingRight="8dp" 
+        android:layout_marginTop="5dip"
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content" 
+        android:layout_marginStart="10.0dip"
+        android:layout_marginBottom="0dp">
+        <ImageView 
+            android:id="@+id/row_feed_photo_textview_comments_glyph" 
+            android:src="@drawable/stream_photo_activity_glyph_comments" 
+            android:paddingTop="2.0dip" 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content" 
+            android:layout_alignParentLeft="true" 
+            android:layout_alignParentTop="true"
+            android:visibility="invisible" />
+			
+        <TextView
+            android:id="@+id/row_feed_photo_textview_comments_num"
+            android:layout_toRightOf="@id/row_feed_photo_textview_comments_glyph"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="0.0dip"
+            android:textColor="@color/feed_num_color"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:id="@+id/row_feed_photo_comments_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
 
     <RelativeLayout android:id="@+id/row_feed_photo_view_group_buttons" 
         android:paddingLeft="8dp" android:paddingRight="8dp" 

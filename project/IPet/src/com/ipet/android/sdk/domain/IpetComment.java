@@ -1,5 +1,7 @@
 package com.ipet.android.sdk.domain;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
@@ -8,7 +10,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @author xiaojinghai
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class IpetComment {
+public class IpetComment implements Serializable {
+	private static final long serialVersionUID = 8683452581122892180L;
 
 	private String id;
 

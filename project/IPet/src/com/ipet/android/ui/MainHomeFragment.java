@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import com.ipet.R;
 import com.ipet.android.Constant;
 import com.ipet.android.MyApp;
+import com.ipet.android.sdk.domain.IpetComment;
 import com.ipet.android.sdk.domain.IpetPhoto;
 import com.ipet.android.task.FeedLoadAsyncTask;
 import com.ipet.android.ui.adapter.ListFeedAdapter;
@@ -110,28 +111,34 @@ public class MainHomeFragment extends Fragment {
 
 	}
 
-	@Override
-	public void onStop() {
-		// TODO Auto-generated method stub
-		super.onStop();
-		this.activity.unregisterReceiver(broadcastreciver);
-	}
-
 	private BroadcastReceiver broadcastreciver = new BroadcastReceiver() {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			// TODO Auto-generated method stub
 			String action = intent.getAction();
-			Log.i("actionFind", action);
-			IpetPhoto ipetPhoto = (IpetPhoto) intent.getSerializableExtra(Constant.IPET_PHOTO_SERIALIZABLE);
-			MainHomeFragment.this.updateItem(ipetPhoto);
+
+			if (Constant.BROADCAST_INTENT_IPET_PHOTO_FAVORED.equals(action)) {
+				IpetPhoto ipetPhoto = (IpetPhoto) intent.getSerializableExtra(Constant.IPET_PHOTO_SERIALIZABLE);
+				MainHomeFragment.this.updateLike(ipetPhoto);
+			}
+
+			if (Constant.BROADCAST_INTENT_IPET_PHOTO_COMMENT.equals(action)) {
+				IpetComment comment = (IpetComment) intent.getSerializableExtra(Constant.IPET_COMMENT_SERIALIZABLE);
+				String type = (String) intent.getStringExtra(Constant.IPET_COMMENT_TYPE);
+				MainHomeFragment.this.updateComment(type, comment);
+			}
 		}
 
 	};
 
-	public void updateItem(IpetPhoto ipetPhoto) {
-		this.adapter.updataItem(ipetPhoto);
+	public void updateLike(IpetPhoto ipetPhoto) {
+		this.adapter.updateLike(ipetPhoto);
+	}
+
+	protected void updateComment(String type, IpetComment comment) {
+		// TODO Auto-generated method stub
+		this.adapter.updateComment(type, comment);
 	}
 
 	@Override
@@ -139,6 +146,7 @@ public class MainHomeFragment extends Fragment {
 		super.onStart();
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(Constant.BROADCAST_INTENT_IPET_PHOTO_FAVORED);
+		filter.addAction(Constant.BROADCAST_INTENT_IPET_PHOTO_COMMENT);
 		this.activity.registerReceiver(broadcastreciver, filter);
 
 		Log.i("MainHomeFragment", "onStart");
@@ -151,6 +159,13 @@ public class MainHomeFragment extends Fragment {
 		// TODO Auto-generated method stub
 		Log.i("MainHomeFragment", "onResume");
 		super.onResume();
+	}
+
+	@Override
+	public void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		this.activity.unregisterReceiver(broadcastreciver);
 	}
 
 	private final OnClickListener cameraClick = new OnClickListener() {

@@ -43,7 +43,7 @@
         android:paddingRight="5dp"
         android:layout_toLeftOf="@+id/stream_photo_timestamp"
         android:layout_toRightOf="@+id/feed_avatar"
-        android:textColor="@color/font_black"
+        android:textColor="@color/feed_font_color"
         android:textSize="@dimen/text_size_16"
         android:textStyle="bold" />
 

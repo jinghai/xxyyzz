@@ -16,7 +16,14 @@ public class Constant {
 	public static final int TITLE_TYPE_TEXT = 0;
 	public static final int TITLE_TYPE_IMAGE = 1;
 
+	public static final String IPET_PHOTO_ID = "IPET_PHOTO_ID";
 	public static final String IPET_PHOTO_SERIALIZABLE = "IPET_PHOTO_SERIALIZABLE";
+	public static final String IPET_COMMENT_SERIALIZABLE = "IPET_COMMENT_SERIALIZABLE";
 	public static final String BROADCAST_INTENT_IPET_PHOTO_FAVORED = "com.ipet.broadcast.favored";
+	public static final String BROADCAST_INTENT_IPET_PHOTO_COMMENT = "com.ipet.broadcast.comment";
+
+	public static final String IPET_COMMENT_TYPE = "IPET_COMMENT_TYPE";
+	public static final String IPET_COMMENT_TYPE_ADD = "ADD";
+	public static final String IPET_COMMENT_TYPE_DELETE = "DELETE";
 
 }
