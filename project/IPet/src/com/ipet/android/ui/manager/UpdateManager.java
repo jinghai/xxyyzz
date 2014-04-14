@@ -36,14 +36,14 @@ public class UpdateManager {
     private static final int DOWNLOAD = 1;
     /* 下载结束 */
     private static final int DOWNLOAD_FINISH = 2;
-    /* 下载地址 */
-    private String downloadUrl;
+
+    /* 本版更新对象 */
+    private static IpetAppUpdate updateInfo;
+
     /* 下载保存路径 */
     private String mSavePath;
     /* 下载文件名 */
     private final String mFileName = "ipet.apk";
-    /* 最新版本 */
-    private Integer mRemotVerson;
 
     /* 记录进度条数量 */
     private int progress;
@@ -101,9 +101,7 @@ public class UpdateManager {
             @Override
             public void run() {
                 MyApp application = (MyApp) mContext.getApplication();
-                IpetAppUpdate updateInfo = application.getApi().getAppApi().checkAppVersion(application.APP_ID);
-                downloadUrl = updateInfo.getAppDownloadUrl();
-                mRemotVerson = updateInfo.getVersionCode();
+                updateInfo = application.getApi().getAppApi().checkAppVersion(application.APP_ID);
                 latch.countDown();
             }
         }).start();
@@ -117,7 +115,7 @@ public class UpdateManager {
         // 获取当前软件版本
         int versionCode = getVersionCode(mContext);
 
-        if (mRemotVerson > versionCode) {
+        if (updateInfo.getVersionCode() > versionCode) {
             return true;
         }
         return false;
@@ -145,7 +143,7 @@ public class UpdateManager {
         // 构造对话框
         AlertDialog.Builder builder = new Builder(mContext);
         builder.setTitle(R.string.soft_update_title);
-        builder.setMessage(R.string.soft_update_info);
+        builder.setMessage(updateInfo.getUpdateText());
         // 更新
         builder.setPositiveButton(R.string.soft_update_updatebtn, new OnClickListener() {
             @Override
@@ -215,7 +213,7 @@ public class UpdateManager {
                     // 获得存储卡的路径
                     String sdpath = Environment.getExternalStorageDirectory() + "/";
                     mSavePath = sdpath + "download";
-                    URL url = new URL(downloadUrl);
+                    URL url = new URL(updateInfo.getAppDownloadUrl());
                     // 创建连接
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.connect();
