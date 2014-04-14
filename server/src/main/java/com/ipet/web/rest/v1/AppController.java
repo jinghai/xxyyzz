@@ -16,37 +16,37 @@ import com.ipet.server.service.AppService;
 
 /**
  * 赞
- * 
+ *
  * @author xiaojinghai
  */
 @Controller
 @RequestMapping(value = "/v1/app")
 public class AppController extends BaseController {
 
-	@Resource
-	private AppService appService;
+    @Resource
+    private AppService appService;
 
-	/**
-	 * 更新软件版本
-	 */
-	@RequestMapping(value = "update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public void create(String appKey, String versionCode, String versionName, String downloadUrl) throws IOException {
-		if (StringUtils.isEmpty(appKey) || StringUtils.isEmpty(versionName) || StringUtils.isEmpty(versionCode)
-				|| StringUtils.isEmpty(downloadUrl)) {
-			throw new RuntimeException("非法参数");
-		}
-		Integer vc = Integer.valueOf(versionCode);
-		appService.newVersion(appKey, vc, versionName, downloadUrl);
-	}
+    /**
+     * 更新软件版本
+     */
+    @RequestMapping(value = "update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public void create(String appKey, String versionCode, String versionName, String downloadUrl, String text) throws IOException {
+        if (StringUtils.isEmpty(appKey) || StringUtils.isEmpty(versionName) || StringUtils.isEmpty(versionCode)
+                || StringUtils.isEmpty(downloadUrl)) {
+            throw new RuntimeException("非法参数");
+        }
+        Integer vc = Integer.valueOf(versionCode);
+        appService.newVersion(appKey, vc, versionName, downloadUrl, text);
+    }
 
-	@RequestMapping(value = "checkUpdate", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public App check(String appKey) throws IOException {
-		if (StringUtils.isEmpty(appKey)) {
-			throw new RuntimeException("非法参数");
-		}
-		return appService.checkForUpdate(appKey);
-	}
+    @RequestMapping(value = "checkUpdate", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public App check(String appKey) throws IOException {
+        if (StringUtils.isEmpty(appKey)) {
+            throw new RuntimeException("非法参数");
+        }
+        return appService.checkForUpdate(appKey);
+    }
 
 }

@@ -37,6 +37,8 @@ public class UpdateAppTool extends BaseTest {
         request.add("versionCode", "6");
         request.add("versionName", "0.6");
         request.add("downloadUrl", "http://api.ipetty.net/files/update/android/IPet-release.apk");
+        request.add("text", "1.xxx\r\n2.yyy\r\n3.zzz");
+
         restTemplate.postForObject(baseUrl + "/update", request, App.class);
     }
 
