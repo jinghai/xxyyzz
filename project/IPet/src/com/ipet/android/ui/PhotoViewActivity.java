@@ -187,24 +187,24 @@ public class PhotoViewActivity extends Activity {
 	}
 
 	private BroadcastReceiver broadcastreciver = new BroadcastReceiver() {
-
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			// TODO Auto-generated method stub
 			String action = intent.getAction();
-
+			Log.i("action", action);
 			if (Constant.BROADCAST_INTENT_IPET_PHOTO_FAVORED.equals(action)) {
+				Log.i("initFavor", "initFavor");
 				IpetPhoto ipetPhoto = (IpetPhoto) intent.getSerializableExtra(Constant.IPET_PHOTO_SERIALIZABLE);
 				initFavor(ipetPhoto);
 			}
 
 			if (Constant.BROADCAST_INTENT_IPET_PHOTO_COMMENT.equals(action)) {
+				Log.i("updateCommentView", "updateCommentView");
 				IpetComment comment = (IpetComment) intent.getSerializableExtra(Constant.IPET_COMMENT_SERIALIZABLE);
 				String type = (String) intent.getStringExtra(Constant.IPET_COMMENT_TYPE);
 				updateCommentView(type, comment);
-			}
 
-			Log.i("actionFind", action);
+			}
 
 		}
 
@@ -229,11 +229,10 @@ public class PhotoViewActivity extends Activity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(Constant.BROADCAST_INTENT_IPET_PHOTO_FAVORED);
 		filter.addAction(Constant.BROADCAST_INTENT_IPET_PHOTO_COMMENT);
-		this.registerReceiver(broadcastreciver, filter);
+		registerReceiver(broadcastreciver, filter);
 
 	}
 
