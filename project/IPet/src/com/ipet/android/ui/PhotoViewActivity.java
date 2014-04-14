@@ -121,6 +121,21 @@ public class PhotoViewActivity extends Activity {
 
 		initCommentView(this.feed);
 
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(Constant.BROADCAST_INTENT_IPET_PHOTO_FAVORED);
+		filter.addAction(Constant.BROADCAST_INTENT_IPET_PHOTO_COMMENT);
+		registerReceiver(broadcastreciver, filter);
+
+		Log.i("PhotoViewActivity", "registerReceiver");
+
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		Log.i("PhotoViewActivity", "unregisterReceiver");
+		this.unregisterReceiver(broadcastreciver);
 	}
 
 	private OnClickListener myCommentClick = new OnClickListener() {
@@ -199,7 +214,6 @@ public class PhotoViewActivity extends Activity {
 			}
 
 			if (Constant.BROADCAST_INTENT_IPET_PHOTO_COMMENT.equals(action)) {
-				Log.i("updateCommentView", "updateCommentView");
 				IpetComment comment = (IpetComment) intent.getSerializableExtra(Constant.IPET_COMMENT_SERIALIZABLE);
 				String type = (String) intent.getStringExtra(Constant.IPET_COMMENT_TYPE);
 				updateCommentView(type, comment);
@@ -229,10 +243,6 @@ public class PhotoViewActivity extends Activity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		IntentFilter filter = new IntentFilter();
-		filter.addAction(Constant.BROADCAST_INTENT_IPET_PHOTO_FAVORED);
-		filter.addAction(Constant.BROADCAST_INTENT_IPET_PHOTO_COMMENT);
-		registerReceiver(broadcastreciver, filter);
 
 	}
 
@@ -240,7 +250,7 @@ public class PhotoViewActivity extends Activity {
 	public void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
-		this.unregisterReceiver(broadcastreciver);
+
 	}
 
 	@Override
