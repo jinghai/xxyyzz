@@ -16,7 +16,7 @@ import com.ipet.server.web.rest.base.BaseTest;
  */
 public class UpdateAppTool extends BaseTest {
 
-    public static final String baseUrl = "http://localhost:8080/server/api/v1/app";
+    public static final String baseUrl = "http://localhost:8080/api/v1/app";
     //public static final String baseUrl = "http://api.ipetty.net/api/v1/app";
 
     @Before

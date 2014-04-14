@@ -49,6 +49,7 @@ public class App extends IdEntity implements Serializable {
     private String versionName;
 
     // 更新内容
+    @Column(columnDefinition = "text")
     private String updateText;
 
     // app下载地址（完整路径）
