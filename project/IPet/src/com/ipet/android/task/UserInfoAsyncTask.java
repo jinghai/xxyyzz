@@ -3,16 +3,23 @@ package com.ipet.android.task;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.ipet.R;
 import com.ipet.android.MyApp;
 import com.ipet.android.sdk.domain.IpetUser;
 import com.ipet.android.sdk.domain.IpetUserUpdate;
 
-public class UserInfoAsyncTask extends AsyncTask<String, String, IpetUser> {
+public class UserInfoAsyncTask extends AsyncTask<String, String, Integer> {
+	public final static String TAG = "UserInfoAsyncTask";
+	public final static int RESULT_SUCCESS = 0;
+	public final static int RESULT_FAILURE = 1;
+
 	private final Activity activity;
 	private ProgressDialog progress;
 	private final IpetUserUpdate userUpdate;
+	private IpetUser ipetUser;
 
 	public UserInfoAsyncTask(Activity activity, IpetUserUpdate userUpdate) {
 		this.activity = activity;
@@ -28,17 +35,29 @@ public class UserInfoAsyncTask extends AsyncTask<String, String, IpetUser> {
 	}
 
 	@Override
-	protected IpetUser doInBackground(String... params) {
+	protected Integer doInBackground(String... params) {
 		// TODO Auto-generated method stub
-
-		MyApp application = (MyApp) this.activity.getApplication();
-		IpetUser ipetUser = application.getApi().getUserApi().updateUserInfo(userUpdate);
+		int result = RESULT_FAILURE;
+		try {
+			MyApp application = (MyApp) this.activity.getApplication();
+			ipetUser = application.getApi().getUserApi().updateUserInfo(userUpdate);
+			result = RESULT_SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+			Log.e(TAG, "" + e.getLocalizedMessage());
+		}
 		this.progress.dismiss();
-		return ipetUser;
+		return result;
 	}
 
 	@Override
-	protected void onPostExecute(IpetUser ipetUser) {
+	protected void onPostExecute(Integer result) {
+		super.onPostExecute(result);
+		if (RESULT_FAILURE == result.intValue()) {
+			Toast.makeText(this.activity, "更新失败", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
 		MyApp application = (MyApp) this.activity.getApplication();
 		application.setUser(ipetUser);
 		this.activity.finish();

@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,6 +28,7 @@ import com.ipet.android.ui.manager.UpdateManager;
 import com.ipet.android.ui.utils.AnimUtils;
 
 public class MainActivity extends FragmentActivity {
+	private static String TAG = "MainActivity";
 	private ArrayList<Fragment> fragmentsList;
 	private ViewPager viewPager;
 	private long mExitTime;
@@ -47,12 +49,42 @@ public class MainActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Log.i(TAG, "onCreate");
+
 		ActivityManager.getInstance().addActivity(this);
 		// 初始化页面
 		initViews();
 		// 检查软件更新
 		UpdateManager manager = new UpdateManager(MainActivity.this);
 		manager.checkUpdate();
+	}
+
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		Log.i(TAG, "onStart");
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		Log.i(TAG, "onResume");
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		Log.i(TAG, "onPause");
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		Log.i(TAG, "onDestroy");
 	}
 
 	private void initViews() {
@@ -235,32 +267,12 @@ public class MainActivity extends FragmentActivity {
 		}
 	}
 
-	@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-		/*
-		 * mReceiver = new BroadcastReceiver() { public void onReceive(Context
-		 * context, Intent intent) {
-		 * 
-		 * } }; IntentFilter intentFilter = new IntentFilter("");
-		 * registerReceiver(mReceiver, intentFilter);
-		 */
-	}
-
 	private void toLogout() {
 		// TODO Auto-generated method stub
 		LoginManager.logout(MainActivity.this);
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
 		AnimUtils.backAndFinish(this);
-	}
-
-	@Override
-	protected void onStop() {
-		// TODO Auto-generated method stub
-		super.onStop();
-		// unregisterReceiver(mReceiver);
 	}
 
 }

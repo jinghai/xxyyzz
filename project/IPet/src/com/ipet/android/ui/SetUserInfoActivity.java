@@ -28,6 +28,8 @@ import com.ipet.android.ui.utils.PathUtils;
 import com.loopj.android.image.SmartImageView;
 
 public class SetUserInfoActivity extends Activity {
+
+	public final static String TAG = "SetUserInfoActivity";
 	private static final int REQUEST_CODE_PHOTORESOULT = 20;
 
 	private SmartImageView imageView;
@@ -64,6 +66,8 @@ public class SetUserInfoActivity extends Activity {
 
 		imageView = (SmartImageView) this.findViewById(R.id.imageMyHead);
 		imageView.setImageUrl(user.getAvatar48(), R.drawable.list_default_avatar_boy);
+
+		Log.i(TAG, user.getAvatar48());
 
 		account.setText(user.getLoginName());
 		nickname.setText(user.getDisplayName());

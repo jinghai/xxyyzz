@@ -11,7 +11,7 @@ import com.ipet.android.ui.LoginActivity;
 import com.ipet.android.ui.manager.LoginManager;
 
 public class LoginAsyncTask extends AsyncTask<Integer, Integer, Integer> {
-
+	public final static String TAG = "LoginAsyncTask";
 	public final static int RESULT_SUCCESS = 0;
 	public final static int RESULT_FAILURE_NETWORK = 1;
 	public final static int RESULT_FAILURE_AUTH = 2;
@@ -46,16 +46,11 @@ public class LoginAsyncTask extends AsyncTask<Integer, Integer, Integer> {
 			IpetUser u = application.getApi().getAccountApi().login(account, password);
 			application.setUser(u);
 			result = RESULT_SUCCESS;
-			/*
-			 * Thread.sleep(1000);
-			 * 
-			 * if(this.account.equals("admin") && this.password.equals("888")){
-			 * result = RESULT_SUCCESS; }else{ result = RESULT_FAILURE_AUTH; }
-			 */
-
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			result = RESULT_FAILURE_AUTH;
 			e.printStackTrace();
+			Log.e(TAG, "" + e.getLocalizedMessage());
 		}
 		this.progress.dismiss();
 		return result;

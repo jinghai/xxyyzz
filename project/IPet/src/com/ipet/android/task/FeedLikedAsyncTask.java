@@ -13,7 +13,11 @@ import com.ipet.android.Constant;
 import com.ipet.android.MyApp;
 import com.ipet.android.sdk.domain.IpetPhoto;
 
-public class FeedLikedAsyncTask extends AsyncTask<String, String, IpetPhoto> {
+public class FeedLikedAsyncTask extends AsyncTask<String, String, Integer> {
+	public final static String TAG = "FeedLikedAsyncTask";
+	public final static int RESULT_SUCCESS = 0;
+	public final static int RESULT_FAILURE = 1;
+
 	private Activity activity;
 	private boolean isLiked;
 	private IpetPhoto ipetPhoto;
@@ -30,27 +34,26 @@ public class FeedLikedAsyncTask extends AsyncTask<String, String, IpetPhoto> {
 	}
 
 	@Override
-	protected IpetPhoto doInBackground(String... params) {
+	protected Integer doInBackground(String... params) {
 		// TODO Auto-generated method stub
-
-		MyApp application = (MyApp) this.activity.getApplication();
+		int result = RESULT_FAILURE;
 		try {
-			IpetPhoto feed;
+			MyApp application = (MyApp) this.activity.getApplication();
 			if (isLiked) {
 				ipetPhoto = application.getApi().getFavorApi().favor(ipetPhoto.getId(), "");
 			} else {
 				ipetPhoto = application.getApi().getFavorApi().unfavor(ipetPhoto.getId());
 			}
+			result = RESULT_SUCCESS;
 		} catch (Exception e) {
-			ipetPhoto = null;
-			Log.e("error", "" + e.getLocalizedMessage());
+			Log.e(TAG, "" + e.getLocalizedMessage());
 		}
-		return ipetPhoto;
+		return result;
 	}
 
 	@Override
-	protected void onPostExecute(IpetPhoto ipetPhoto) {
-		if (ipetPhoto == null) {
+	protected void onPostExecute(Integer result) {
+		if (RESULT_FAILURE == result.intValue()) {
 			Toast.makeText(this.activity, "操作失败", Toast.LENGTH_SHORT).show();
 			return;
 		}
@@ -60,6 +63,6 @@ public class FeedLikedAsyncTask extends AsyncTask<String, String, IpetPhoto> {
 		mBundle.putSerializable(Constant.IPET_PHOTO_SERIALIZABLE, (Serializable) ipetPhoto);
 		intent.putExtras(mBundle);
 		this.activity.sendBroadcast(intent);
-		Log.i("sendBroadcast", "sendBroadcast");
+		Log.i(TAG, "sendBroadcast");
 	}
 }

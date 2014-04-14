@@ -16,11 +16,15 @@ import com.ipet.android.MyApp;
 import com.ipet.android.sdk.domain.IpetComment;
 import com.ipet.android.sdk.domain.IpetPhoto;
 
-public class CommentAsyncTask extends AsyncTask<String, String, IpetComment> {
+public class CommentAsyncTask extends AsyncTask<String, String, Integer> {
+	public final static String TAG = "CommentAsyncTask";
+	public final static int RESULT_SUCCESS = 0;
+	public final static int RESULT_FAILURE = 1;
 
 	private Activity activity;
 	private ProgressDialog progress;
 	private IpetPhoto feed;
+	private IpetComment comment = null;
 
 	public CommentAsyncTask(Activity activity, IpetPhoto feed) {
 		this.activity = activity;
@@ -36,24 +40,26 @@ public class CommentAsyncTask extends AsyncTask<String, String, IpetComment> {
 	}
 
 	@Override
-	protected IpetComment doInBackground(String... params) {
+	protected Integer doInBackground(String... params) {
 		// TODO Auto-generated method stub
-		IpetComment comment = null;
+		int result = RESULT_FAILURE;
 		String str = params[0];
 		try {
 			MyApp application = (MyApp) this.activity.getApplication();
 			comment = application.getApi().getCommentApi().comment(this.feed.getId(), str);
+			result = RESULT_SUCCESS;
 		} catch (Exception e) {
-			Log.e("error", "" + e.getLocalizedMessage());
+			e.printStackTrace();
+			Log.e(TAG, "" + e.getLocalizedMessage());
 		}
 
 		this.progress.dismiss();
-		return comment;
+		return result;
 	}
 
 	@Override
-	protected void onPostExecute(IpetComment comment) {
-		if (comment == null) {
+	protected void onPostExecute(Integer result) {
+		if (RESULT_FAILURE == result.intValue()) {
 			Toast.makeText(this.activity, "评论发送失败", Toast.LENGTH_SHORT).show();
 			return;
 		}

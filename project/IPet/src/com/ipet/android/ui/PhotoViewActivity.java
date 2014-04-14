@@ -56,9 +56,12 @@ public class PhotoViewActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_photo_view);
+		Log.i("PhotoViewActivity", "onCreate");
 
 		Intent intent = getIntent();
 		feed = (IpetPhoto) intent.getSerializableExtra(Constant.IPET_PHOTO_SERIALIZABLE);
+
+		// Log.i("PhotoViewActivity", feed.toString());
 
 		SimpleTitleBar titleBar = (SimpleTitleBar) findViewById(R.id.titlebar);
 		titleBar.setLeftViewClick(new BackAndFinishClick(this));

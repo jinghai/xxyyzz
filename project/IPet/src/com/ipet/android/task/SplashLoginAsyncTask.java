@@ -9,7 +9,7 @@ import com.ipet.android.sdk.domain.IpetUser;
 import com.ipet.android.ui.SplashActivity;
 
 public class SplashLoginAsyncTask extends AsyncTask<Integer, Integer, Integer> {
-
+	public final static String TAG = "SplashLoginAsyncTask";
 	public final static int RESULT_SUCCESS = 0;
 	public final static int RESULT_FAILURE_NETWORK = 1;
 	public final static int RESULT_FAILURE_AUTH = 2;
@@ -45,17 +45,11 @@ public class SplashLoginAsyncTask extends AsyncTask<Integer, Integer, Integer> {
 			IpetUser u = application.getApi().getAccountApi().login(account, password);
 			application.setUser(u);
 			result = RESULT_SUCCESS;
-			Thread.sleep(1000);
-			/*
-			 * Thread.sleep(1000);
-			 * 
-			 * if(this.account.equals("admin") && this.password.equals("888")){
-			 * result = RESULT_SUCCESS; }else{ result = RESULT_FAILURE_AUTH; }
-			 */
-
+			Thread.sleep(500);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Log.e(TAG, "" + e.getLocalizedMessage());
 		}
 		// this.progress.dismiss();
 		return result;
