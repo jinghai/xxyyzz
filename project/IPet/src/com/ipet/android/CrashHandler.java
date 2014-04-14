@@ -36,208 +36,206 @@ import com.ipet.android.ui.utils.NetWorkUtils;
 
 /**
  * UncaughtException处理类,当程序发生Uncaught异常的时候,由该类来接管程序,并记录发送错误报告.
- * 
+ *
  * @author way
- * 
+ *
  */
 public class CrashHandler implements UncaughtExceptionHandler {
 
-	private static final String TAG = "CrashHandler";
-	private Thread.UncaughtExceptionHandler mDefaultHandler;// 系统默认的UncaughtException处理类
-	private static final CrashHandler INSTANCE = new CrashHandler();// CrashHandler实例
-	private Context mContext;// 程序的Context对象
-	private final Map<String, String> info = new HashMap<String, String>();// 用来存储设备信息和异常信息
-	private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");// 用于格式化日期,作为日志文件名的一部分
+    private static final String TAG = "CrashHandler";
+    private Thread.UncaughtExceptionHandler mDefaultHandler;// 系统默认的UncaughtException处理类
+    private static final CrashHandler INSTANCE = new CrashHandler();// CrashHandler实例
+    private Context mContext;// 程序的Context对象
+    private final Map<String, String> info = new HashMap<String, String>();// 用来存储设备信息和异常信息
+    private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");// 用于格式化日期,作为日志文件名的一部分
 
-	/**
-	 * 保证只有一个CrashHandler实例
-	 */
-	private CrashHandler() {
+    /**
+     * 保证只有一个CrashHandler实例
+     */
+    private CrashHandler() {
 
-	}
+    }
 
-	/**
-	 * 获取CrashHandler实例 ,单例模式
-	 */
-	public static CrashHandler getInstance() {
-		return INSTANCE;
-	}
+    /**
+     * 获取CrashHandler实例 ,单例模式
+     */
+    public static CrashHandler getInstance() {
+        return INSTANCE;
+    }
 
-	/**
-	 * 初始化
-	 * 
-	 * @param context
-	 */
-	public void init(Context context) {
-		mContext = context;
-		mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();// 获取系统默认的UncaughtException处理器
-		Thread.setDefaultUncaughtExceptionHandler(this);// 设置该CrashHandler为程序的默认处理器
-	}
+    /**
+     * 初始化
+     *
+     * @param context
+     */
+    public void init(Context context) {
+        mContext = context;
+        mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();// 获取系统默认的UncaughtException处理器
+        Thread.setDefaultUncaughtExceptionHandler(this);// 设置该CrashHandler为程序的默认处理器
+    }
 
-	/**
-	 * 当UncaughtException发生时会转入该重写的方法来处理
-	 */
-	@Override
-	public void uncaughtException(Thread thread, Throwable ex) {
-		Log.d(TAG, "uncaughtException:");
-		Boolean flag = (!handleException(thread, ex) && mDefaultHandler != null);
-		Log.d(TAG, "flag:" + flag);
-		String threadName = thread.getName();
-		if ("main".equals(threadName)) {
-			Log.d(TAG, "在主线程的崩溃！");
-		} else {
-			// 根据thread name来进行区别对待：可以将异常信息写入文件供以后分析
-			Log.d(TAG, "在子线程中崩溃!");
-		}
-		if (flag) {
-			Log.d(TAG, "mDefaultHandler");
-			// 如果自定义的没有处理则让系统默认的异常处理器来处理
-			mDefaultHandler.uncaughtException(thread, ex);
-		} else {
-			try {
-				Log.d(TAG, "sleep 3");
-				Thread.sleep(3000);// 如果处理了，让程序继续运行3秒再退出，保证文件保存并上传到服务器
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			Log.d(TAG, "ActivityManager");
+    /**
+     * 当UncaughtException发生时会转入该重写的方法来处理
+     */
+    @Override
+    public void uncaughtException(Thread thread, Throwable ex) {
+        Log.d(TAG, "uncaughtException:");
+        Boolean flag = (!handleException(thread, ex) && mDefaultHandler != null);
+        Log.d(TAG, "flag:" + flag);
+        String threadName = thread.getName();
+        if ("main".equals(threadName)) {
+            Log.d(TAG, "在主线程的崩溃！");
+        } else {
+            // 根据thread name来进行区别对待：可以将异常信息写入文件供以后分析
+            Log.d(TAG, "在子线程中崩溃!");
+        }
+        if (flag) {
+            Log.d(TAG, "mDefaultHandler");
+            // 如果自定义的没有处理则让系统默认的异常处理器来处理
+            mDefaultHandler.uncaughtException(thread, ex);
+        } else {
+            try {
+                Log.d(TAG, "sleep 3");
+                Thread.sleep(3000);// 如果处理了，让程序继续运行3秒再退出，保证文件保存并上传到服务器
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Log.d(TAG, "ActivityManager");
 
-			ActivityManager.getInstance().exit();
+            ActivityManager.getInstance().exit();
 
 			// 退出程序
-			// android.os.Process.killProcess(android.os.Process.myPid());
-			// System.exit(1);
-		}
-	}
+            // android.os.Process.killProcess(android.os.Process.myPid());
+            // System.exit(1);
+        }
+    }
 
-	/**
-	 * 自定义错误处理,收集错误信息 发送错误报告等操作均在此完成.
-	 * 
-	 * @param ex
-	 *            异常信息
-	 * @return true 如果处理了该异常信息;否则返回false.
-	 */
-	public boolean handleException(Thread thread, Throwable ex) {
-		Log.d(TAG, "handleException:");
-		if (ex == null) {
-			return false;
-		}
-		new Thread() {
-			public void run() {
-				Looper.prepare();
-				Toast.makeText(mContext, "很抱歉,程序出现异常,即将退出", 0).show();
-				Looper.loop();
-			}
-		}.start();
-		// 收集设备参数信息
-		collectDeviceInfo(thread, mContext);
-		// 保存日志文件
-		saveCrashInfo2File(ex);
+    /**
+     * 自定义错误处理,收集错误信息 发送错误报告等操作均在此完成.
+     *
+     * @param ex 异常信息
+     * @return true 如果处理了该异常信息;否则返回false.
+     */
+    public boolean handleException(Thread thread, Throwable ex) {
+        Log.d(TAG, "handleException:");
+        if (ex == null) {
+            return false;
+        }
+        new Thread() {
+            public void run() {
+                Looper.prepare();
+                Toast.makeText(mContext, "很抱歉,程序出现异常,即将退出", 0).show();
+                Looper.loop();
+            }
+        }.start();
+        // 收集设备参数信息
+        collectDeviceInfo(thread, mContext);
+        // 保存日志文件
+        saveCrashInfo2File(ex);
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * 收集设备参数信息
-	 * 
-	 * @param context
-	 */
-	public void collectDeviceInfo(Thread thread, Context context) {
-		try {
-			PackageManager pm = context.getPackageManager();// 获得包管理器
-			PackageInfo pi = pm.getPackageInfo(context.getPackageName(), PackageManager.GET_ACTIVITIES);// 得到该应用的信息，即主Activity
-			if (pi != null) {
-				String versionName = pi.versionName == null ? "null" : pi.versionName;
-				String versionCode = pi.versionCode + "";
-				info.put("versionName", versionName);
-				info.put("versionCode", versionCode);
-				info.put("threadName", thread.getName());
-				info.put("userName", LoginManager.getUserName(context));
-				info.put("userId", LoginManager.getUid(context));
-			}
-		} catch (NameNotFoundException e) {
-			e.printStackTrace();
-		}
+    /**
+     * 收集设备参数信息
+     *
+     * @param context
+     */
+    public void collectDeviceInfo(Thread thread, Context context) {
+        try {
+            PackageManager pm = context.getPackageManager();// 获得包管理器
+            PackageInfo pi = pm.getPackageInfo(context.getPackageName(), PackageManager.GET_ACTIVITIES);// 得到该应用的信息，即主Activity
+            if (pi != null) {
+                String versionName = pi.versionName == null ? "null" : pi.versionName;
+                String versionCode = pi.versionCode + "";
+                info.put("versionName", versionName);
+                info.put("versionCode", versionCode);
+                info.put("threadName", thread.getName());
+                info.put("userName", LoginManager.getUserName(context));
+                info.put("userId", LoginManager.getUid(context));
+            }
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
+        }
 
-		Field[] fields = Build.class.getDeclaredFields();// 反射机制
-		for (Field field : fields) {
-			try {
-				field.setAccessible(true);
-				info.put(field.getName(), field.get("").toString());
-				// Log.d(TAG, field.getName() + ":" + field.get(""));
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+        Field[] fields = Build.class.getDeclaredFields();// 反射机制
+        for (Field field : fields) {
+            try {
+                field.setAccessible(true);
+                info.put(field.getName(), field.get("").toString());
+                // Log.d(TAG, field.getName() + ":" + field.get(""));
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-	private String saveCrashInfo2File(Throwable ex) {
-		StringBuffer sb = new StringBuffer();
-		for (Map.Entry<String, String> entry : info.entrySet()) {
-			String key = entry.getKey();
-			String value = entry.getValue();
-			sb.append(key + "=" + value + "\r\n");
-		}
-		Writer writer = new StringWriter();
-		PrintWriter pw = new PrintWriter(writer);
-		ex.printStackTrace(pw);
-		Throwable cause = ex.getCause();
-		// 循环着把所有的异常信息写入writer中
-		while (cause != null) {
-			cause.printStackTrace(pw);
-			cause = cause.getCause();
-		}
-		pw.close();// 记得关闭
-		String result = writer.toString();
-		sb.append(result);
-		Log.e("error", sb.toString());
-		// 如果网络可用则发送崩溃邮件
-		if (NetWorkUtils.isNetworkConnected(mContext)) {
-			new SendCrashMailThread(sb.toString()).start();
-			// this.sendCrashEmail(sb.toString());
-		}
-		// 如果有外部存储则保存文件
-		long timetamp = System.currentTimeMillis();
-		String time = format.format(new Date());
-		String fileName = "crash-" + time + "-" + timetamp + ".log";
-		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-			try {
-				File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "ipet_crash");
-				Log.i("CrashHandler", dir.toString());
-				if (!dir.exists()) {
-					dir.mkdir();
-				}
-				FileOutputStream fos = new FileOutputStream(new File(dir, fileName));
-				fos.write(sb.toString().getBytes());
-				fos.close();
-				return fileName;
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+    private String saveCrashInfo2File(Throwable ex) {
+        StringBuffer sb = new StringBuffer();
+        for (Map.Entry<String, String> entry : info.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            sb.append(key + "=" + value + "\r\n");
+        }
+        Writer writer = new StringWriter();
+        PrintWriter pw = new PrintWriter(writer);
+        ex.printStackTrace(pw);
+        Throwable cause = ex.getCause();
+        // 循环着把所有的异常信息写入writer中
+        while (cause != null) {
+            cause.printStackTrace(pw);
+            cause = cause.getCause();
+        }
+        pw.close();// 记得关闭
+        String result = writer.toString();
+        sb.append(result);
+        Log.e("error", sb.toString());
+        // 如果网络可用则发送崩溃邮件
+        if (NetWorkUtils.isNetworkConnected(mContext)) {
+            new SendCrashMailThread(sb.toString()).start();
+            // this.sendCrashEmail(sb.toString());
+        }
+        // 如果有外部存储则保存文件
+        long timetamp = System.currentTimeMillis();
+        String time = format.format(new Date());
+        String fileName = "crash-" + time + "-" + timetamp + ".log";
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            try {
+                File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "ipet_crash");
+                Log.i("CrashHandler", dir.toString());
+                if (!dir.exists()) {
+                    dir.mkdir();
+                }
+                FileOutputStream fos = new FileOutputStream(new File(dir, fileName));
+                fos.write(sb.toString().getBytes());
+                fos.close();
+                return fileName;
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	private class SendCrashMailThread extends Thread {
+    private class SendCrashMailThread extends Thread {
 
-		private final String body;
+        private final String body;
 
-		SendCrashMailThread(String msg) {
-			super();
-			this.body = msg;
-		}
+        SendCrashMailThread(String msg) {
+            super();
+            this.body = msg;
+        }
 
-		@Override
-		public void run() {
-			String[] receivers = new String[] { "kongchun@ipetty.net", "wangweihua@ipetty.net", "luocanfeng@ipetty.net", "xiaojinghai@ipetty.net" };
-			String subject = "[异常崩溃邮件]-爱宠安卓";
-			MailUtils.sendTextMail("service@ipetty.net", "service@ipetty.net", subject, body, receivers);
-			Log.d(TAG, "SendCrashMailDone");
-		}
-	}
+        @Override
+        public void run() {
+            String subject = "[异常崩溃邮件]-爱宠安卓";
+            MailUtils.sendTextMail("service@ipetty.net", "dev@ipetty.net", subject, body);
+            Log.d(TAG, "SendCrashMailDone");
+        }
+    }
 }
