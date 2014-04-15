@@ -23,6 +23,7 @@ public class BaiduPlaceRestApi {
     //从百度申请的AcessKey
     //管理地址：http://lbsyun.baidu.com/apiconsole/app
     public static final String ak = "559933d2044dafee4bcc08c1b691673c";
+    //总请求数: 10万次/天,http://lbsyun.baidu.com/apiconsole/quota
     public static final String base_url = "http://api.map.baidu.com/place/v2/";
     private static final LinkedMultiValueMap<String, String> EMPTY_PARAMETERS = new LinkedMultiValueMap<String, String>();
 
