@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.ipet</groupId>
+    <artifactId>server</artifactId>
+    <version>0.0.1</version>
+    <packaging>jar</packaging>
+    <name>demo-baidu-api</name>
+
+    <properties>
+        <!-- 主要依赖库的版本定义 -->
+        <jackson.version>2.0.6</jackson.version>
+        <spring.version>4.0.0.RELEASE</spring.version>
+        <spring.social-version>1.0.3.RELEASE</spring.social-version>
+        <!-- Plugin的属性定义 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jdk.version>1.6</jdk.version>
+
+    </properties>
+
+    <dependencies>
+       
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-core</artifactId>
+            <version>${spring.social-version}</version>
+            <exclusions>
+                <!-- Exclude in favor of Spring Android RestTemplate -->
+                <exclusion>
+                    <artifactId>spring-web</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <!-- Provided by Android -->
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+
+        <!-- WEB begin -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <!-- JSON begin -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-jaxb-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <!-- JSON end -->
+
+
+    </dependencies>
+
+
+
+    <build>
+
+
+        <pluginManagement>
+            <plugins>
+                <!-- compiler插件, 设定JDK版本 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.5.1</version>
+                    <configuration>
+                        <source>${jdk.version}</source>
+                        <target>${jdk.version}</target>
+                        <showWarnings>true</showWarnings>
+                    </configuration>
+                </plugin>
+
+
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>
