@@ -1,8 +1,13 @@
 package com.ipet.demo.baidu.placeapi;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ipet.demo.baidu.placeapi.domain.Region;
+import com.ipet.demo.baidu.placeapi.domain.Result;
+import java.io.IOException;
 import java.net.URI;
-import java.util.Arrays;
-import java.util.List;
+import java.util.ArrayList;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.social.support.URIBuilder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -28,7 +33,7 @@ public class BaiduPlaceRestApi {
     private static final LinkedMultiValueMap<String, String> EMPTY_PARAMETERS = new LinkedMultiValueMap<String, String>();
 
     public static void main(String[] args) {
-
+        getChinaRegions();
     }
 
     /**
@@ -40,9 +45,7 @@ public class BaiduPlaceRestApi {
      * @param page_num
      */
     public static void search(String keyword, String region, String page_size, String page_num) {
-        //这里只演示一个最简单查询，详细使用方法请见：http://developer.baidu.com/map/webservice-placeapi.htm
-        RestApi rest = new RestApi(base_url);
-        //todo
+
     }
 
     public static void getPOIDetail() {
@@ -51,16 +54,32 @@ public class BaiduPlaceRestApi {
 
     public static void getChinaRegions() {
 
-        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = RestTemplateFactory.getRestTemplate();
 
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
         parameters.set("q", "a");
         parameters.set("region", "全国");
         parameters.set("ak", ak);
-        //todo
-        URI uri = buildUri("discover/listPage", parameters);
-        restTemplate.getForObject(uri, Object.class);
+        parameters.set("output", "json");
 
+        //todo
+        URI uri = buildUri("search", parameters);
+        log(uri.toString());
+        String txt = restTemplate.getForObject(uri, String.class);
+        log(txt);
+        ObjectMapper mapper = new ObjectMapper();
+        Result<Region> ret = new Result<Region>();
+
+        try {
+            //ret = mapper.readValue(txt, Result.class);
+            ret = mapper.readValue(txt, new TypeReference<Result<Region>>() {
+            });
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        log(ret.getResults().get(1).getName());
+
+        //Result<Region> ret = restTemplate.getForObject(uri, Result.class);
     }
 
     public static URI buildUri(String path) {
@@ -75,5 +94,14 @@ public class BaiduPlaceRestApi {
 
     public static URI buildUri(String path, MultiValueMap<String, String> parameters) {
         return URIBuilder.fromUri(base_url + path).queryParams(parameters).build();
+    }
+
+    public static void log(Object o) {
+        if (o instanceof String) {
+            System.out.println(o);
+        } else {
+            System.out.println(ToStringBuilder.reflectionToString(o));
+        }
+
     }
 }
