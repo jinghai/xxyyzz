@@ -4,6 +4,7 @@
  */
 package com.ipet.demo.baidu.placeapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 
 /**
@@ -11,6 +12,7 @@ import java.util.List;
  *
  * @author xiaojinghai
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Result<T> {
 
     private Integer status;     //本次API访问状态，如果成功返回0，如果失败返回其他数字。

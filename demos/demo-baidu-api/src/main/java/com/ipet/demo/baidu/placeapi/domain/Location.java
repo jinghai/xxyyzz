@@ -4,11 +4,14 @@
  */
 package com.ipet.demo.baidu.placeapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * 位置
  *
  * @author xiaojinghai
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Location {
 
     private Float lat;          //纬度值

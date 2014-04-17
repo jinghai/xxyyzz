@@ -7,6 +7,7 @@ package com.ipet.demo.baidu.placeapi;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
@@ -41,6 +42,10 @@ public class RestTemplateFactory {
         messageConverters.add(new StringHttpMessageConverter(charset));
         messageConverters.add(new MappingJackson2HttpMessageConverter());
         restTemplate.setMessageConverters(messageConverters);
+
+        List<ClientHttpRequestInterceptor> interceptors = new ArrayList<ClientHttpRequestInterceptor>();
+        interceptors.add(new ApiInterceptor());
+        restTemplate.setInterceptors(interceptors);
 
         if (restTemplate.getRequestFactory() instanceof SimpleClientHttpRequestFactory) {
             ((SimpleClientHttpRequestFactory) restTemplate.getRequestFactory()).setConnectTimeout(10 * 1000);

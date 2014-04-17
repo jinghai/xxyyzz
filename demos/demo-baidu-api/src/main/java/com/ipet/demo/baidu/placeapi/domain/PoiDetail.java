@@ -4,10 +4,13 @@
  */
 package com.ipet.demo.baidu.placeapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  *
  * @author xiaojinghai
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PoiDetail {
 
     private Integer distance;           //距离中心点的距离
