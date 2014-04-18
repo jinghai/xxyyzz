@@ -1,5 +1,6 @@
 package com.ipet.demo.baidu.placeapi;
 
+import com.ipet.demo.baidu.placeapi.tool.RestTemplateFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ipet.demo.baidu.placeapi.domain.Poi;
@@ -23,7 +24,7 @@ import org.springframework.web.client.RestTemplate;
  *
  * API文档：http://developer.baidu.com/map/webservice-placeapi.htm
  */
-public class BaiduPlaceRestApi {
+public class BaiduPlaceRestApiDemo1 {
 
     //从百度申请的AcessKey
     //管理地址：http://lbsyun.baidu.com/apiconsole/app

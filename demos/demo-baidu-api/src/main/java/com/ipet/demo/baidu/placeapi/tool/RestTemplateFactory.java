@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates,
  * and open the template in the editor.
  */
-package com.ipet.demo.baidu.placeapi;
+package com.ipet.demo.baidu.placeapi.tool;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
