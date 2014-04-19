@@ -25,7 +25,7 @@ public class Main {
         PlaceExcelDao.initTable(allRegions);
         PlaceSqliteDao.initTable();
         PlaceH2Dao.initTable();
-        log("共有:" + allRegions.size() + "个省/地区");
+        log("共有:" + allRegions.size() + "个省/地区\n");
         //详细
         for (Map.Entry<Region, List<Region>> entry : allRegions.entrySet()) {
             List<Region> citys = entry.getValue();
@@ -33,8 +33,8 @@ public class Main {
             for (Region city : citys) {
                 String cityName = city.getName();
                 Result<Poi> result = BaiduPlaceApi.searchByRegion(cityName, keyword);
-                log(province + "," + cityName + "应有:" + result.getTotal());
-                log(province + "," + cityName + "实有:" + result.getResults().size() + "\n");
+                log(province + " " + cityName + " 应有:" + result.getTotal());
+                log(province + " " + cityName + " 实有:" + result.getResults().size() + "\n");
                 for (Poi p : result.getResults()) {
                     PlaceSqliteDao.save(province, cityName, p);
                     PlaceH2Dao.save(province, cityName, p);
