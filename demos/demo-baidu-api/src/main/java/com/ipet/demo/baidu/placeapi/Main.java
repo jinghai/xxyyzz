@@ -31,6 +31,7 @@ public class Main {
         for (Map.Entry<Region, List<Region>> entry : allRegions.entrySet()) {
             List<Region> citys = entry.getValue();
             String province = entry.getKey().getName();
+            log("正在获取" + province + ",省级数据");
             for (Region city : citys) {
                 String cityName = city.getName();
                 Result<Poi> result = BaiduPlaceApi.searchByRegion(cityName, keyword);
