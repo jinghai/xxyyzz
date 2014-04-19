@@ -25,7 +25,12 @@ public class Main {
         PlaceExcelDao.initTable(allRegions);
         PlaceSqliteDao.initTable();
         PlaceH2Dao.initTable();
-        log("共有:" + allRegions.size() + "个省");
+        log("共有:" + allRegions.size() + "个省，总计");
+        for (Map.Entry<Region, List<Region>> entry : allRegions.entrySet()) {
+            Region province = entry.getKey();
+            log(province.getName() + ",全地区共有：" + province.getNum());
+
+        }
         //详细
         for (Map.Entry<Region, List<Region>> entry : allRegions.entrySet()) {
             List<Region> citys = entry.getValue();
@@ -42,7 +47,6 @@ public class Main {
                     PlaceExcelDao.save(province, cityName, p);
                 }
             }
-
         }
 
     }

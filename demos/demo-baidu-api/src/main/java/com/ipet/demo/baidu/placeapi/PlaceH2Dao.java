@@ -8,12 +8,6 @@ package com.ipet.demo.baidu.placeapi;
 import com.ipet.demo.baidu.placeapi.domain.Poi;
 import com.ipet.demo.baidu.placeapi.domain.PoiDetail;
 import com.ipet.demo.util.H2Util;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -31,8 +25,8 @@ public class PlaceH2Dao {
         String drop = "drop table if exists " + tableName;
         String sql = "create table if not exists " + tableName
                 + " ("
-                //+ "id VARCHAR "
-                + "id VARCHAR PRIMARY KEY"
+                + "id VARCHAR "
+                //+ "id VARCHAR PRIMARY KEY"
                 + ",省 VARCHAR"
                 + ",市 VARCHAR"
                 + ",名称 VARCHAR"

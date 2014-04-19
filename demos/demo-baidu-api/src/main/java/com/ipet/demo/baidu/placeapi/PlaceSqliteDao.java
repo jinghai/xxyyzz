@@ -22,8 +22,8 @@ public class PlaceSqliteDao {
         String drop = "drop table if exists " + tableName;
         String sql = "create table if not exists " + tableName
                 + " ("
-                //+ "id VARCHAR "
-                + "id VARCHAR PRIMARY KEY"
+                + "id VARCHAR "
+                //+ "id VARCHAR PRIMARY KEY"
                 + ",省 VARCHAR"
                 + ",市 VARCHAR"
                 + ",名称 VARCHAR"
