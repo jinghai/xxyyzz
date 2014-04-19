@@ -96,7 +96,7 @@ public class PlaceSqliteDao {
     }
 
     public static String stringValue(String str) {
-        String ret = str == null ? "" : str.replace("'", "\'");
+        String ret = str == null ? "" : str.replace("'", "\\\'");
         return ret;
     }
 
