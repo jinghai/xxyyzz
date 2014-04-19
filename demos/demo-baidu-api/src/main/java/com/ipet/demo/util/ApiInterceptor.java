@@ -1,8 +1,6 @@
-package com.ipet.demo.baidu.placeapi.tool;
+package com.ipet.demo.util;
 
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
