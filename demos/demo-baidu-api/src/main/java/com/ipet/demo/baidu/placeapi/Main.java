@@ -37,8 +37,8 @@ public class Main {
             for (Region city : citys) {
                 String cityName = city.getName();
                 Result<Poi> result = BaiduPlaceApi.searchByRegion(cityName, keyword);
-                log(cityName + "应有:" + result.getTotal());
-                log(cityName + "实有:" + result.getResults().size() + "\n");
+                log(province + "," + cityName + "应有:" + result.getTotal());
+                log(province + "," + cityName + "实有:" + result.getResults().size() + "\n");
                 for (Poi p : result.getResults()) {
                     PlaceSqliteDao.save(province, cityName, p);
                     PlaceH2Dao.save(province, cityName, p);
