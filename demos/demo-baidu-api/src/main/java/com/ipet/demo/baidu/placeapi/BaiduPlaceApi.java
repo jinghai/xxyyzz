@@ -150,11 +150,11 @@ public class BaiduPlaceApi {
 
         URI uri = buildUri("search", parameters);
         Main.log(uri.toString());
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException ex) {
-//            Logger.getLogger(BaiduPlaceApi.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(BaiduPlaceApi.class.getName()).log(Level.SEVERE, null, ex);
+        }
         String txt = restTemplate.getForObject(uri, String.class);
         //Main.log(txt);
         return txt;
