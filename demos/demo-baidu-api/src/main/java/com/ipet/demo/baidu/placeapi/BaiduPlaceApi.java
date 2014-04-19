@@ -37,6 +37,8 @@ public class BaiduPlaceApi {
 
     private static final String base_url = "http://api.map.baidu.com/place/v2/";
 
+    private static final RestTemplate restTemplate = RestTemplateFactory.getRestTemplate();
+
     //以下地址在placeApi中出现在省级位置，却可以按市级直接查询
     private static final ArrayList<String> sCity = new ArrayList<String>() {
         {
@@ -63,6 +65,7 @@ public class BaiduPlaceApi {
                 pageNum++;
                 Result<Poi> ret = searchPoiForResult(region, keyword, pageNum.toString());
                 result.getResults().addAll(ret.getResults());
+                //Main.log("curr size:" + ret.getResults().size());
                 if (ret.getResults().size() < 20) {
                     break;
                 }
@@ -132,12 +135,12 @@ public class BaiduPlaceApi {
     public static Result<Poi> searchPoiForResult(String region, String keyword, String page_num) {
         String json = request(region, keyword, page_num);
         Result<Poi> poi = json2Poi(json);
+        //Main.log("状态码：" + poi.getStatus());
         return poi;
     }
 
     //api请求
     public static String request(String region, String keyword, String page_num) {
-        RestTemplate restTemplate = RestTemplateFactory.getRestTemplate();
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
         parameters.set("ak", ak);
         parameters.set("output", "json");
@@ -149,7 +152,7 @@ public class BaiduPlaceApi {
         parameters.set("page_num", page_num);
 
         URI uri = buildUri("search", parameters);
-        Main.log(uri.toString());
+        //Main.log(uri.toString());
         try {
             Thread.sleep(3000);
         } catch (InterruptedException ex) {

@@ -7,11 +7,14 @@ package com.ipet.demo.baidu.placeapi;
 
 import com.ipet.demo.baidu.placeapi.domain.Poi;
 import com.ipet.demo.baidu.placeapi.domain.PoiDetail;
+import com.ipet.demo.baidu.placeapi.domain.Region;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -28,7 +31,7 @@ public class PlaceExcelDao {
 
     private static String file = "target/place.xls";
 
-    public static void initTable() {
+    public static void initTable(Map<Region, List<Region>> allRegions) {
         File f = new File(file);
         if (f.exists()) {
             f.delete();
@@ -38,16 +41,22 @@ public class PlaceExcelDao {
                 + ",图片数,团购数,优惠数,评论数,收藏数,签到数";
         // 创建Excel的工作书册 Workbook,对应到一个excel文档
         HSSFWorkbook wb = new HSSFWorkbook();
-        // 创建Excel的工作sheet,对应到一个excel文档的tab
-        HSSFSheet sheet = wb.createSheet("sheet1");
-        // 创建Excel的sheet的一行
-        HSSFRow row = sheet.createRow(0);
-        String[] fs = filds.split(",");
-        for (int i = 0, len = fs.length; i < len; i++) {
-            // 创建一个Excel的单元格
-            HSSFCell cell = row.createCell(i);
-            cell.setCellValue(fs[i]);
+
+        for (Map.Entry<Region, List<Region>> entry : allRegions.entrySet()) {
+            String province = entry.getKey().getName();
+            // 创建Excel的工作sheet,对应到一个excel文档的tab
+            HSSFSheet sheet = wb.createSheet(province);
+            // 创建Excel的sheet的一行
+            HSSFRow row = sheet.createRow(0);
+            String[] fs = filds.split(",");
+            for (int i = 0, len = fs.length; i < len; i++) {
+                // 创建一个Excel的单元格
+                HSSFCell cell = row.createCell(i);
+                cell.setCellValue(fs[i]);
+            }
+
         }
+
         FileOutputStream fos;
         try {
             fos = new FileOutputStream(file);
@@ -68,7 +77,7 @@ public class PlaceExcelDao {
         } catch (IOException ex) {
             Logger.getLogger(PlaceExcelDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        HSSFSheet sheet = wb.getSheetAt(0);
+        HSSFSheet sheet = wb.getSheet(province);
         HSSFRow row = sheet.createRow(sheet.getLastRowNum() + 1);
         Float lat = null == p.getLocation() ? null : p.getLocation().getLat();
         Float lng = null == p.getLocation() ? null : p.getLocation().getLng();
@@ -116,9 +125,4 @@ public class PlaceExcelDao {
         }
     }
 
-    public static void main(String[] arge) {
-        initTable();
-        Poi p = new Poi();
-        save("", "", p);
-    }
 }

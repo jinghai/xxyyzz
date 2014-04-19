@@ -19,13 +19,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-        PlaceSqliteDao.initTable();
-        PlaceH2Dao.initTable();
-        PlaceExcelDao.initTable();
-
         String keyword = "宠物";
 
         Map<Region, List<Region>> allRegions = BaiduPlaceApi.getRegions(keyword);
+        PlaceExcelDao.initTable(allRegions);
+        PlaceSqliteDao.initTable();
+        PlaceH2Dao.initTable();
         log("共有:" + allRegions.size() + "个省");
         //详细
         for (Map.Entry<Region, List<Region>> entry : allRegions.entrySet()) {
