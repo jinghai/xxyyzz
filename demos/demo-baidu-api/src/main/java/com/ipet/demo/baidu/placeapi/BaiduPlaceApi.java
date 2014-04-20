@@ -64,11 +64,30 @@ public class BaiduPlaceApi {
             while (true) {
                 pageNum++;
                 Result<Poi> ret = searchPoiForResult(region, keyword, pageNum.toString());
+                int currCount = result.getResults().size() + ret.getResults().size();
+                //Main.log("currCount:" + currCount + ",total:" + ret.getTotal() + ",pageNum:" + pageNum + ",return:" + ret.getResults().size());
+                if (currCount < ret.getTotal() && pageNum < 38 && ret.getResults().size() < 20) {
+                    int retryCount = 0;
+                    while (true) {
+                        retryCount++;
+                        try {
+                            Thread.sleep(retryCount * 1000);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(BaiduPlaceApi.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        Main.log("retry:" + retryCount);
+                        ret = searchPoiForResult(region, keyword, pageNum.toString());
+                        if (ret.getResults().size() == 20 || retryCount < 3) {
+                            break;
+                        }
+                    }
+                }
                 result.getResults().addAll(ret.getResults());
                 //Main.log("curr size:" + ret.getResults().size());
                 if (ret.getResults().size() < 20) {
                     break;
                 }
+
             }
         }
         return result;
@@ -153,11 +172,6 @@ public class BaiduPlaceApi {
 
         URI uri = buildUri("search", parameters);
         //Main.log(uri.toString());
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(BaiduPlaceApi.class.getName()).log(Level.SEVERE, null, ex);
-        }
         String txt = restTemplate.getForObject(uri, String.class);
         //Main.log(txt);
         return txt;

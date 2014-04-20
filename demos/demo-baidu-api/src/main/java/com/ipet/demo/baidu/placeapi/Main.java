@@ -20,6 +20,7 @@ public class Main {
     public static void main(String[] args) {
 
         String keyword = "宠物";
+        //Result<Poi> result = BaiduPlaceApi.searchByRegion("上海市", keyword);
 
         Map<Region, List<Region>> allRegions = BaiduPlaceApi.getRegions(keyword);
         PlaceExcelDao.initTable(allRegions);
@@ -42,7 +43,6 @@ public class Main {
                 }
             }
         }
-
     }
 
     public static void log(Object o) {
