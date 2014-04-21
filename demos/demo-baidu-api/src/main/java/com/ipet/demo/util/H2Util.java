@@ -31,7 +31,9 @@ public class H2Util {
         }
 
         try {
-            conn = DriverManager.getConnection(connectionStr);
+            java.util.Properties config = new java.util.Properties();
+            config.setProperty("encoding", "UTF-8");
+            conn = DriverManager.getConnection(connectionStr, config);
 
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "无法创建数据库连接对象", ex);
