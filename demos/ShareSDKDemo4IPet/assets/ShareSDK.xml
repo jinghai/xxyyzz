@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DevInfor>
+
+	<ShareSDK AppKey="1a3ebd55380b" />
+
+	<!-- 微信好友 -->
+	<!-- BypassApproval是绕过审核的标记，设置为true后AppId将被忽略，故不经过审核的应用也可以执行分享，但是仅限于分享文字和图片，不能分享其他类型， 默认值为false。 -->
+	<Wechat Id="1" SortId="1" AppId="wx4de69ff9bdc320d2" BypassApproval="true" Enable="true" />
+
+	<!-- 微信朋友圈 -->
+	<!-- BypassApproval是绕过审核的标记，设置为true后AppId将被忽略，故不经过审核的应用也可以执行分享，但是仅限于分享文字和图片，不能分享其他类型， 默认值为false。 -->
+	<WechatMoments Id="2" SortId="2" AppId="wx4de69ff9bdc320d2" BypassApproval="true" Enable="true" />
+
+	<!-- QQ -->
+	<QQ Id="3" SortId="3" AppId="101070641" AppKey="7548387bf5268c03306d95299a97379c" Enable="true" />
+
+	<!-- QQ空间 -->
+	<QZone Id="4" SortId="4" AppId="101070641" AppKey="7548387bf5268c03306d95299a97379c" ShareByAppClient="true"
+		Enable="true" />
+
+	<!-- 新浪 -->
+	<!-- ShareByAppClient标识是否使用微博客户端分享 -->
+	<SinaWeibo Id="5" SortId="5" AppKey="2539430263" AppSecret="365c5c203e6be33cd95423cd82477e70" RedirectUrl="http://ipetty.net/demo/sharesdk/callback"
+		ShareByAppClient="false" Enable="true" />
+
+	<!-- 腾讯微博 -->
+	<TencentWeibo Id="6" SortId="6" AppKey="801499817" AppSecret="b2f6614e1a7a78a7613998647dc9ae8f"
+		RedirectUri="http://ipetty.net" Enable="true" />
+
+</DevInfor>
