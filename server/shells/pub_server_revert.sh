@@ -13,7 +13,7 @@ mysql -pitserver -e "create database if not exists ipet default charset utf8;"
 mysql -pitserver ipet < $backup_dir/ipet.sql
 
 rm -rf $tomcat_home/webapps/ROOT/*
-\cp -a  $backup_dir/server/* $tomcat_home/webapps/ROOT/*
+\cp -a  $backup_dir/server/* $tomcat_home/webapps/ROOT/
 ln -sf /home/data/files $tomcat_home/webapps/ROOT
 
 service tomcat start
