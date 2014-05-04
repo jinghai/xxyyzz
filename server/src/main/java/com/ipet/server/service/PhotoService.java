@@ -17,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -103,6 +104,10 @@ public class PhotoService extends BaseService {
 	}
 
 	private List<Photo> fullfillPhotos(List<Photo> photos, String userId) {
+		if (CollectionUtils.isEmpty(photos)) {
+			return photos;
+		}
+
 		// 填充favored（我是否赞过）信息
 		Map<String, Photo> photoIdMap = new HashMap<String, Photo>(photos.size());
 		for (Photo photo : photos) {
