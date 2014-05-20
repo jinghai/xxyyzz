@@ -20,7 +20,7 @@ import android.widget.Toast;
 import android.widget.ViewSwitcher.ViewFactory;
 
 import com.ipet.R;
-import com.ipet.android.app.ActivityManager;
+import com.ipet.android.ui.manager.ActivityManager;
 import com.ipet.android.ui.utils.AppUtils;
 
 public class WelcomeRegisterOrLoginActivity extends Activity {

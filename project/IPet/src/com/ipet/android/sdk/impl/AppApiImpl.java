@@ -1,7 +1,8 @@
 package com.ipet.android.sdk.impl;
 
-import com.ipet.android.sdk.core.ApiBase;
-import com.ipet.android.sdk.core.ApiContext;
+import com.ipet.android.sdk.AppApi;
+import com.ipet.android.sdk.base.ApiBase;
+import com.ipet.android.sdk.base.ApiContext;
 import com.ipet.android.sdk.domain.IpetAppUpdate;
 import java.net.URI;
 import org.springframework.util.LinkedMultiValueMap;

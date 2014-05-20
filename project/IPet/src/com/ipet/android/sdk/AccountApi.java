@@ -1,4 +1,4 @@
-package com.ipet.android.sdk.impl;
+package com.ipet.android.sdk;
 
 import com.ipet.android.sdk.domain.IpetUser;
 

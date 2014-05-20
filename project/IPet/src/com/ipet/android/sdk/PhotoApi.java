@@ -1,4 +1,4 @@
-package com.ipet.android.sdk.impl;
+package com.ipet.android.sdk;
 
 import java.io.File;
 import java.util.List;

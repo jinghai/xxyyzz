@@ -29,6 +29,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.ipet.android.ui.manager.ActivityManager;
 import com.ipet.android.ui.manager.LoginManager;
 import com.ipet.android.ui.utils.MailUtils;
 import com.ipet.android.ui.utils.NetWorkUtils;

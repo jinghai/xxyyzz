@@ -1,4 +1,4 @@
-package com.ipet.android.sdk.impl;
+package com.ipet.android.sdk;
 
 /**
  * IpetApi 门面

@@ -1,7 +1,7 @@
 package com.ipet.android.sdk.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.ipet.android.sdk.core.ApiContext;
+import com.ipet.android.sdk.base.ApiContext;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class IpetUser {

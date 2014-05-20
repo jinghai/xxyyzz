@@ -14,7 +14,7 @@ import com.ipet.android.sdk.domain.IpetUser;
 import com.ipet.android.task.RegisterAsyncTask;
 import com.ipet.android.ui.common.SimpleTitleBar;
 import com.ipet.android.ui.event.BackAndFinishClick;
-import com.ipet.android.app.ActivityManager;
+import com.ipet.android.ui.manager.ActivityManager;
 import com.ipet.android.ui.utils.AnimUtils;
 import com.ipet.android.ui.utils.StringUtils;
 

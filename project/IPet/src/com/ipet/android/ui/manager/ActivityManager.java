@@ -1,4 +1,4 @@
-package com.ipet.android.app;
+package com.ipet.android.ui.manager;
 
 import java.util.LinkedList;
 import java.util.List;
