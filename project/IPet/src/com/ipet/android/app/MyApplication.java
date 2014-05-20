@@ -3,7 +3,7 @@ package com.ipet.android.app;
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
-import com.ipet.android.sdk.IpetApi;
+import com.ipet.android.sdk.impl.IpetApi;
 
 import com.ipet.android.sdk.domain.IpetUser;
 import com.ipet.android.sdk.impl.IpetApiImpl;

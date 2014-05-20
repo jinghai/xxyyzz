@@ -1,4 +1,4 @@
-package com.ipet.android.sdk.base;
+package com.ipet.android.sdk.core;
 
 import java.io.IOException;
 import java.io.InputStream;

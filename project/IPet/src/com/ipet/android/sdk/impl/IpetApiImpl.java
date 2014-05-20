@@ -1,17 +1,7 @@
 package com.ipet.android.sdk.impl;
 
 import android.content.Context;
-import com.ipet.android.sdk.AccountApi;
-import com.ipet.android.sdk.AppApi;
-import com.ipet.android.sdk.CommentApi;
-import com.ipet.android.sdk.ContactApi;
-import com.ipet.android.sdk.DiscoverApi;
-import com.ipet.android.sdk.FavorApi;
-import com.ipet.android.sdk.FeedbackApi;
-import com.ipet.android.sdk.IpetApi;
-import com.ipet.android.sdk.PhotoApi;
-import com.ipet.android.sdk.UserApi;
-import com.ipet.android.sdk.base.ApiContext;
+import com.ipet.android.sdk.core.ApiContext;
 
 /**
  * API门户，负载组装API组件，对用户提供统一访问接口

@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.ipet.R;
 import com.ipet.android.app.MyApplication;
 import com.ipet.android.sdk.domain.IpetUser;
-import com.ipet.android.ui.manager.ActivityManager;
+import com.ipet.android.app.ActivityManager;
 import com.loopj.android.image.SmartImageView;
 
 public class MainPopDialog extends Activity {

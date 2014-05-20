@@ -1,4 +1,4 @@
-package com.ipet.android.sdk.base;
+package com.ipet.android.sdk.core;
 
 import android.content.Context;
 import com.ipet.android.ui.manager.LoginManager;

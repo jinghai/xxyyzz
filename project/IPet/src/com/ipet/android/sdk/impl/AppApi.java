@@ -1,4 +1,4 @@
-package com.ipet.android.sdk;
+package com.ipet.android.sdk.impl;
 
 import com.ipet.android.sdk.domain.IpetAppUpdate;
 

@@ -22,7 +22,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.ipet.R;
-import com.ipet.android.ui.manager.ActivityManager;
+import com.ipet.android.app.ActivityManager;
 import com.ipet.android.ui.manager.LoginManager;
 import com.ipet.android.app.UpdateManager;
 import com.ipet.android.ui.utils.AnimUtils;

@@ -9,9 +9,8 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import com.ipet.android.sdk.PhotoApi;
-import com.ipet.android.sdk.base.ApiBase;
-import com.ipet.android.sdk.base.ApiContext;
+import com.ipet.android.sdk.core.ApiBase;
+import com.ipet.android.sdk.core.ApiContext;
 import com.ipet.android.sdk.domain.IpetPhoto;
 
 /**

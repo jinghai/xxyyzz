@@ -14,7 +14,7 @@ import com.ipet.R;
 import com.ipet.android.app.Constant;
 import com.ipet.android.app.MyApplication;
 import com.ipet.android.task.SplashLoginAsyncTask;
-import com.ipet.android.ui.manager.ActivityManager;
+import com.ipet.android.app.ActivityManager;
 import com.ipet.android.ui.manager.LoginManager;
 import com.ipet.android.ui.manager.UserManager;
 import com.ipet.android.ui.utils.AppUtils;
