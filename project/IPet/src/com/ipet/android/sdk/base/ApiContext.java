@@ -1,6 +1,7 @@
 package com.ipet.android.sdk.base;
 
 import android.content.Context;
+import com.ipet.android.sdk.cache.http.ETagCachingRestTemplate;
 import com.ipet.android.ui.manager.LoginManager;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -22,11 +23,11 @@ import org.springframework.web.client.RestTemplate;
  * @author xiaojinghai
  */
 public class ApiContext {
-    
+
     private final RestTemplate restTemplate;
-    
+
     private Boolean isAuthorized;
-    
+
     private String currUserId;
 
     // 文件服务器地址
@@ -40,21 +41,21 @@ public class ApiContext {
     // "http://192.168.253.1:8080/api/v1/";
 
     private static ApiContext instance;
-    
+
     private final Context androidContext;
-    
+
     private ApiContext(String appKey, String appSecret, Context androidContext) {
         this.androidContext = androidContext;
         //isAuthorized = LoginManager.isLogin(androidContext);
         Charset charset = Charset.forName("UTF-8");
-        
-        restTemplate = new RestTemplate();
+
+        restTemplate = new ETagCachingRestTemplate();
         // 避免HttpURLConnection的http.keepAlive Bug
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
         factory.setConnectTimeout(10 * 1000);
         factory.setReadTimeout(30 * 1000);
         restTemplate.setRequestFactory(factory);
-        
+
         List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
         messageConverters.add(new ByteArrayHttpMessageConverter());
         messageConverters.add(new FormHttpMessageConverter());
@@ -64,9 +65,9 @@ public class ApiContext {
         MappingJacksonHttpMessageConverter mjm = new MappingJacksonHttpMessageConverter();
         mjm.getObjectMapper().configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         messageConverters.add(mjm);
-        
+
         restTemplate.setMessageConverters(messageConverters);
-        
+
         restTemplate.setErrorHandler(new ApiExceptionHandler());
         List<ClientHttpRequestInterceptor> interceptors = new ArrayList<ClientHttpRequestInterceptor>();
         interceptors.add(new ApiInterceptor(appKey, appSecret));
@@ -86,32 +87,32 @@ public class ApiContext {
          * .getRequestFactory()).setConnectTimeout(10 * 1000); }
          */
     }
-    
+
     public static synchronized ApiContext getInstace(String appKey, String appSecret, Context androidContext) {
         if (instance == null) {
             instance = new ApiContext(appKey, appSecret, androidContext);
         }
         return instance;
     }
-    
+
     public synchronized RestTemplate getRestTemplate() {
         return restTemplate;
     }
-    
+
     public synchronized Boolean getIsAuthorized() {
         return LoginManager.isLogin(androidContext);
     }
-    
+
     public synchronized void setIsAuthorized(Boolean isAuthorized) {
         LoginManager.setLogin(androidContext, isAuthorized);
     }
-    
+
     public synchronized String getCurrUserId() {
         return LoginManager.getUid(androidContext);
     }
-    
+
     public synchronized void setCurrUserId(String currUser) {
         LoginManager.setUid(androidContext, currUser);
     }
-    
+
 }

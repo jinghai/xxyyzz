@@ -1,11 +1,15 @@
 package com.ipet.android.sdk.cache.http;
 
+import android.util.Log;
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.http.HttpStatus.*;
 
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.net.URI;
 import java.util.Arrays;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -24,6 +28,7 @@ import org.springframework.web.client.RestTemplate;
  */
 public class ETagCachingRestTemplate extends RestTemplate {
 
+    private final String TAG = "ETagCachingRestTemplate";
     private static final String ETAG_HEADER = "ETag";
     private static final String IF_NONE_MATCH_HEADER = "If-None-Match";
 
@@ -146,7 +151,15 @@ public class ETagCachingRestTemplate extends RestTemplate {
 
             // Put into cache if ETag returned
             if (isCacheableRequest(method) && headers.containsKey(ETAG_HEADER)) {
+                ObjectMapper mapper = new ObjectMapper();
+                Writer strWriter = new StringWriter();
+                try {
+                    mapper.writeValue(strWriter, result);
+                } catch (IOException ex) {
 
+                }
+                String userDataJSON = strWriter.toString();
+                Log.i(TAG, "put:" + userDataJSON);
                 synchronized (cache) {
                     cache.put(new EtagCacheEntry(headers.getFirst(ETAG_HEADER),
                             uri, result));
