@@ -27,8 +27,18 @@ public class ETagCachingRestTemplate extends RestTemplate {
     private static final String ETAG_HEADER = "ETag";
     private static final String IF_NONE_MATCH_HEADER = "If-None-Match";
 
-    private EtagCache cache = new EtagCache();
+    private final EtagCache cache = new EtagCache();
 
+    /**
+     *
+     * @param <T>
+     * @param url
+     * @param method
+     * @param requestCallback
+     * @param responseExtractor
+     * @return
+     * @throws RestClientException
+     */
     @Override
     protected <T> T doExecute(URI url, HttpMethod method,
             RequestCallback requestCallback,
@@ -68,8 +78,8 @@ public class ETagCachingRestTemplate extends RestTemplate {
      */
     private class DelegatingRequestCallback implements RequestCallback {
 
-        private URI uri;
-        private RequestCallback callback;
+        private final URI uri;
+        private final RequestCallback callback;
 
         public DelegatingRequestCallback(URI uri, RequestCallback callback) {
 
@@ -98,9 +108,9 @@ public class ETagCachingRestTemplate extends RestTemplate {
     private class DelegatingResponseExtractor<T> implements
             ResponseExtractor<T> {
 
-        private URI uri;
-        private HttpMethod method;
-        private ResponseExtractor<T> extractor;
+        private final URI uri;
+        private final HttpMethod method;
+        private final ResponseExtractor<T> extractor;
 
         public DelegatingResponseExtractor(URI uri, HttpMethod method,
                 ResponseExtractor<T> extractor) {

@@ -15,7 +15,7 @@ import java.util.WeakHashMap;
  */
 public class EtagCache {
 
-    private Map<URI, EtagCacheEntry> entries
+    private final Map<URI, EtagCacheEntry> entries
             = new WeakHashMap<URI, EtagCacheEntry>();
 
     public void put(EtagCacheEntry entry) {

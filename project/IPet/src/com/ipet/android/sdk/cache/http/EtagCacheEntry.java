@@ -14,9 +14,9 @@ import org.springframework.util.Assert;
  */
 public class EtagCacheEntry {
 
-    private String etag;
-    private URI uri;
-    private Object resource;
+    private final String etag;
+    private final URI uri;
+    private final Object resource;
 
     /**
      * @param etag
@@ -57,7 +57,7 @@ public class EtagCacheEntry {
     @Override
     public String toString() {
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         buffer.append("URI: ").append(uri);
         buffer.append(" - ETag: ").append(etag);
         buffer.append(" - Resource: ").append(resource);
