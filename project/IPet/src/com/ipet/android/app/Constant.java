@@ -1,4 +1,4 @@
-package com.ipet.android;
+package com.ipet.android.app;
 
 public class Constant {
 	// SharedPreferences

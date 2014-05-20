@@ -1,4 +1,4 @@
-package com.ipet.android.ui.manager;
+package com.ipet.android.app;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -27,7 +27,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.ipet.R;
-import com.ipet.android.MyApp;
+import com.ipet.android.app.MyApplication;
 import com.ipet.android.sdk.domain.IpetAppUpdate;
 
 public class UpdateManager {
@@ -100,7 +100,7 @@ public class UpdateManager {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                MyApp application = (MyApp) mContext.getApplication();
+                MyApplication application = (MyApplication) mContext.getApplication();
                 updateInfo = application.getApi().getAppApi().checkAppVersion(application.APP_ID);
                 latch.countDown();
             }

@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.ipet.android.MyApp;
+import com.ipet.android.app.MyApplication;
 import com.ipet.android.sdk.domain.IpetPhoto;
 import com.ipet.android.ui.MainHomeFragment;
 import com.ipet.android.ui.adapter.ListFeedAdapter;
@@ -46,7 +46,7 @@ public class FeedLoadAsyncTask extends AsyncTask<String, String, Integer> {
 		// TODO Auto-generated method stub
 		int result = RESULT_FAILURE;
 		try {
-			MyApp application = (MyApp) this.fragment.getActivity().getApplication();
+			MyApplication application = (MyApplication) this.fragment.getActivity().getApplication();
 			this.list = application.getApi().getPhotoApi().listFollowd(timeline, page, String.valueOf(MainHomeFragment.LIST_SIZE));
 			result = RESULT_SUCCESS;
 		} catch (Exception e) {

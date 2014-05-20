@@ -9,7 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.ipet.R;
-import com.ipet.android.MyApp;
+import com.ipet.android.app.MyApplication;
 import com.ipet.android.sdk.domain.IpetUser;
 import com.ipet.android.ui.manager.ActivityManager;
 import com.loopj.android.image.SmartImageView;
@@ -38,7 +38,7 @@ public class MainPopDialog extends Activity {
 		feedback.setOnClickListener(myFeedback);
 		person.setOnClickListener(myPerson);
 
-		MyApp application = (MyApp) this.getApplication();
+		MyApplication application = (MyApplication) this.getApplication();
 		IpetUser user = application.getUser();
 
 		avator = (SmartImageView) this.findViewById(R.id.avator);

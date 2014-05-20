@@ -25,7 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ipet.R;
-import com.ipet.android.Constant;
+import com.ipet.android.app.Constant;
 import com.ipet.android.sdk.domain.IpetComment;
 import com.ipet.android.sdk.domain.IpetPhoto;
 import com.ipet.android.task.FeedLikedAsyncTask;

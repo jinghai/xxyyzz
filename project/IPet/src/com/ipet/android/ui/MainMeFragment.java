@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ipet.R;
-import com.ipet.android.MyApp;
+import com.ipet.android.app.MyApplication;
 import com.ipet.android.sdk.domain.IpetUser;
 import com.ipet.android.ui.utils.BitmapUtils;
 import com.loopj.android.image.SmartImageTask;
@@ -75,7 +75,7 @@ public class MainMeFragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.onStart();
 
-		IpetUser user = ((MyApp) this.activity.getApplication()).getUser();
+		IpetUser user = ((MyApplication) this.activity.getApplication()).getUser();
 		String userImgURI = user.getAvatar32();
 		avatar.setImageUrl(userImgURI, R.drawable.list_default_avatar_boy, new SmartImageTask.OnCompleteListener() {
 			@Override

@@ -6,7 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.ipet.R;
-import com.ipet.android.MyApp;
+import com.ipet.android.app.MyApplication;
 import com.ipet.android.ui.FeedbackActivity;
 import com.ipet.android.ui.manager.LoginManager;
 import com.ipet.android.ui.utils.MailUtils;
@@ -37,7 +37,7 @@ public class FeedbackAsyncTask extends AsyncTask<String, String, Boolean> {
 		String str = params[0];
 		Boolean bl = Boolean.valueOf(false);
 		try {
-			MyApp application = (MyApp) this.activity.getApplication();
+			MyApplication application = (MyApplication) this.activity.getApplication();
 			bl = application.getApi().getFeedbackApi().feedback("", str, "");
 			String text = "用户名：" + LoginManager.getUserName(activity) + "\r\n";
 			text += "用户ID：" + LoginManager.getUid(activity) + "\r\n";

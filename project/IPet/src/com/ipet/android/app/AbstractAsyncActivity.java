@@ -1,4 +1,4 @@
-package com.ipet.android;
+package com.ipet.android.app;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -17,8 +17,8 @@ public abstract class AbstractAsyncActivity extends Activity implements AsyncAct
 	private boolean destroyed = false;
 
 	@Override
-	public MyApp getApplicationContext() {
-		return (MyApp) super.getApplicationContext();
+	public MyApplication getApplicationContext() {
+		return (MyApplication) super.getApplicationContext();
 	}
 
 	@Override

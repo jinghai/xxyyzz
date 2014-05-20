@@ -1,4 +1,4 @@
-package com.ipet.android;
+package com.ipet.android.app;
 
 import android.app.Application;
 import android.content.Context;
@@ -14,9 +14,9 @@ import com.ipet.android.ui.manager.LoginManager;
  *
  * @author xiaojinghai
  */
-public class MyApp extends Application {
+public class MyApplication extends Application {
 
-    private static final String TAG = MyApp.class.getSimpleName();
+    private static final String TAG = MyApplication.class.getSimpleName();
 
     private static Context context;
     private IpetApi ipetApi;

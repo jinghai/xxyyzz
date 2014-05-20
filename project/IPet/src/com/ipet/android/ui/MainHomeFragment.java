@@ -23,8 +23,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ipet.R;
-import com.ipet.android.Constant;
-import com.ipet.android.MyApp;
+import com.ipet.android.app.Constant;
+import com.ipet.android.app.MyApplication;
 import com.ipet.android.sdk.domain.IpetComment;
 import com.ipet.android.sdk.domain.IpetPhoto;
 import com.ipet.android.task.FeedLoadAsyncTask;
@@ -69,7 +69,7 @@ public class MainHomeFragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		Log.i("MainHomeFragment", "onActivityCreated");
-		MyApp application = (MyApp) this.getActivity().getApplication();
+		MyApplication application = (MyApplication) this.getActivity().getApplication();
 		// Log.i("User", application.getUser().getId());
 		Log.i("API CurrUserId", application.getApi().getCurrUserId());
 

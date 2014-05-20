@@ -11,8 +11,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.ipet.R;
-import com.ipet.android.Constant;
-import com.ipet.android.MyApp;
+import com.ipet.android.app.Constant;
+import com.ipet.android.app.MyApplication;
 import com.ipet.android.sdk.domain.IpetComment;
 import com.ipet.android.sdk.domain.IpetPhoto;
 
@@ -45,7 +45,7 @@ public class CommentAsyncTask extends AsyncTask<String, String, Integer> {
 		int result = RESULT_FAILURE;
 		String str = params[0];
 		try {
-			MyApp application = (MyApp) this.activity.getApplication();
+			MyApplication application = (MyApplication) this.activity.getApplication();
 			comment = application.getApi().getCommentApi().comment(this.feed.getId(), str);
 			result = RESULT_SUCCESS;
 		} catch (Exception e) {

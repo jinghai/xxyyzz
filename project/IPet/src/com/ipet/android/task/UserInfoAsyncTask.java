@@ -7,7 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.ipet.R;
-import com.ipet.android.MyApp;
+import com.ipet.android.app.MyApplication;
 import com.ipet.android.sdk.domain.IpetUser;
 import com.ipet.android.sdk.domain.IpetUserUpdate;
 
@@ -39,7 +39,7 @@ public class UserInfoAsyncTask extends AsyncTask<String, String, Integer> {
 		// TODO Auto-generated method stub
 		int result = RESULT_FAILURE;
 		try {
-			MyApp application = (MyApp) this.activity.getApplication();
+			MyApplication application = (MyApplication) this.activity.getApplication();
 			ipetUser = application.getApi().getUserApi().updateUserInfo(userUpdate);
 			result = RESULT_SUCCESS;
 		} catch (Exception e) {
@@ -58,7 +58,7 @@ public class UserInfoAsyncTask extends AsyncTask<String, String, Integer> {
 			return;
 		}
 
-		MyApp application = (MyApp) this.activity.getApplication();
+		MyApplication application = (MyApplication) this.activity.getApplication();
 		application.setUser(ipetUser);
 		this.activity.finish();
 	}

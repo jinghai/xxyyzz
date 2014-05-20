@@ -6,7 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.ipet.R;
-import com.ipet.android.MyApp;
+import com.ipet.android.app.MyApplication;
 import com.ipet.android.sdk.domain.IpetPhoto;
 import com.ipet.android.ui.PublishFeedActivity;
 import com.ipet.android.ui.utils.MailUtils;
@@ -40,7 +40,7 @@ public class FeedAddAsyncTask extends AsyncTask<String, String, Integer> {
     protected Integer doInBackground(String... params) {
         // TODO Auto-generated method stub
         int result = RESULT_FAILURE;
-        MyApp application = (MyApp) this.activity.getApplication();
+        MyApplication application = (MyApplication) this.activity.getApplication();
         try {
             ipetPhoto = application.getApi().getPhotoApi().publish("", path);
             Log.i("publish", "id" + ipetPhoto.getId());

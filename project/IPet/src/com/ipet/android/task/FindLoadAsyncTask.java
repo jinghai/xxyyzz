@@ -7,7 +7,7 @@ import android.util.Log;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.ipet.android.MyApp;
+import com.ipet.android.app.MyApplication;
 import com.ipet.android.sdk.domain.IpetPhoto;
 import com.ipet.android.ui.MainFindFragment;
 import com.ipet.android.ui.adapter.FindGridAdapter;
@@ -39,7 +39,7 @@ public class FindLoadAsyncTask extends AsyncTask<String, String, Integer> {
 			String timeline = params[0];
 			String page = params[1];
 
-			MyApp application = (MyApp) this.fragment.getActivity().getApplication();
+			MyApplication application = (MyApplication) this.fragment.getActivity().getApplication();
 			list = application.getApi().getDiscoverApi().listPage(timeline, page, String.valueOf(MainFindFragment.LIST_SIZE));
 			result = RESULT_SUCCESS;
 		} catch (Exception e) {

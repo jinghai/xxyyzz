@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.ipet.R;
-import com.ipet.android.MyApp;
+import com.ipet.android.app.MyApplication;
 import com.ipet.android.sdk.domain.IpetUser;
 import com.ipet.android.ui.LoginActivity;
 import com.ipet.android.ui.manager.LoginManager;
@@ -42,7 +42,7 @@ public class LoginAsyncTask extends AsyncTask<Integer, Integer, Integer> {
 		// TODO Auto-generated method stub
 		int result = RESULT_FAILURE_OTHER;
 		try {
-			MyApp application = (MyApp) this.activity.getApplication();
+			MyApplication application = (MyApplication) this.activity.getApplication();
 			IpetUser u = application.getApi().getAccountApi().login(account, password);
 			application.setUser(u);
 			result = RESULT_SUCCESS;

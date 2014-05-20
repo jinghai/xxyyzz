@@ -11,8 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ipet.R;
-import com.ipet.android.Constant;
-import com.ipet.android.MyApp;
+import com.ipet.android.app.Constant;
+import com.ipet.android.app.MyApplication;
 import com.ipet.android.task.SplashLoginAsyncTask;
 import com.ipet.android.ui.manager.ActivityManager;
 import com.ipet.android.ui.manager.LoginManager;
@@ -43,7 +43,7 @@ public class SplashActivity extends Activity {
         String v = String.format(verStr, AppUtils.getAppVersionName(this));
         version.setText(v);
         // 初始化模拟用户数据
-        MyApp application = (MyApp) this.getApplication();
+        MyApplication application = (MyApplication) this.getApplication();
         if (application.getUser() == null) {
             application.setUser(UserManager.getCurrentUser());
         }

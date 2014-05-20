@@ -17,7 +17,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.ipet.R;
-import com.ipet.android.MyApp;
+import com.ipet.android.app.MyApplication;
 import com.ipet.android.sdk.domain.IpetUser;
 import com.ipet.android.task.UploadAvatorAsyncTask;
 import com.ipet.android.ui.common.SimpleTitleBar;
@@ -62,7 +62,7 @@ public class SetUserInfoActivity extends Activity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		user = ((MyApp) this.getApplication()).getUser();
+		user = ((MyApplication) this.getApplication()).getUser();
 
 		imageView = (SmartImageView) this.findViewById(R.id.imageMyHead);
 		imageView.setImageUrl(user.getAvatar48(), R.drawable.list_default_avatar_boy);
@@ -177,7 +177,7 @@ public class SetUserInfoActivity extends Activity {
 
 	public void uploadFinish() {
 		// TODO Auto-generated method stub
-		user = ((MyApp) this.getApplication()).getUser();
+		user = ((MyApplication) this.getApplication()).getUser();
 		imageView.setImageUrl(user.getAvatar48(), R.drawable.list_default_avatar_boy);
 	}
 

@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ipet.R;
-import com.ipet.android.Constant;
+import com.ipet.android.app.Constant;
 
 public class SimpleTitleBar extends LinearLayout {
 

@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.ipet.R;
-import com.ipet.android.MyApp;
+import com.ipet.android.app.MyApplication;
 import com.ipet.android.sdk.domain.IpetUser;
 import com.ipet.android.ui.RegisterActivity;
 
@@ -46,7 +46,7 @@ public class RegisterAsyncTask extends AsyncTask<Integer, Integer, Integer> {
 			// 这里进行业务处理
 
 			Log.v("REG", account + password + user.getDisplayName());
-			MyApp application = (MyApp) this.activity.getApplication();
+			MyApplication application = (MyApplication) this.activity.getApplication();
 			IpetUser u = application.getApi().getAccountApi().register(account, password);
 			application.setUser(u);
 			result = RESULT_SUCCESS; // 操作成功

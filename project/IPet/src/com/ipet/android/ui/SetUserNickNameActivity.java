@@ -8,7 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 
 import com.ipet.R;
-import com.ipet.android.MyApp;
+import com.ipet.android.app.MyApplication;
 import com.ipet.android.sdk.domain.IpetUser;
 import com.ipet.android.sdk.domain.IpetUserUpdate;
 import com.ipet.android.task.UserInfoAsyncTask;
@@ -19,7 +19,7 @@ import com.ipet.android.ui.utils.StringUtils;
 public class SetUserNickNameActivity extends Activity {
 
 	private EditText nicknameView = null;
-	private MyApp application = null;
+	private MyApplication application = null;
 	private IpetUser user;
 
 	@Override
@@ -27,7 +27,7 @@ public class SetUserNickNameActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_set_user_nick_name);
 
-		application = (MyApp) this.getApplication();
+		application = (MyApplication) this.getApplication();
 
 		SimpleTitleBar titleBar = (SimpleTitleBar) findViewById(R.id.me_set_info_nickname_titlebar);
 		titleBar.setLeftViewClick(new BackAndFinishClick(this));
@@ -42,7 +42,7 @@ public class SetUserNickNameActivity extends Activity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		user = ((MyApp) this.getApplication()).getUser();
+		user = ((MyApplication) this.getApplication()).getUser();
 	}
 
 	private final OnClickListener saveClick = new OnClickListener() {

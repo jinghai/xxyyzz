@@ -9,8 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.ipet.android.Constant;
-import com.ipet.android.MyApp;
+import com.ipet.android.app.Constant;
+import com.ipet.android.app.MyApplication;
 import com.ipet.android.sdk.domain.IpetPhoto;
 
 public class FeedLikedAsyncTask extends AsyncTask<String, String, Integer> {
@@ -38,7 +38,7 @@ public class FeedLikedAsyncTask extends AsyncTask<String, String, Integer> {
 		// TODO Auto-generated method stub
 		int result = RESULT_FAILURE;
 		try {
-			MyApp application = (MyApp) this.activity.getApplication();
+			MyApplication application = (MyApplication) this.activity.getApplication();
 			if (isLiked) {
 				ipetPhoto = application.getApi().getFavorApi().favor(ipetPhoto.getId(), "");
 			} else {

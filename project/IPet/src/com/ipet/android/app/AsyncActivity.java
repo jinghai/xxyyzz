@@ -1,4 +1,4 @@
-package com.ipet.android;
+package com.ipet.android.app;
 
 /**
  * 抽象异步Activity接口 增加一些统用方法
@@ -7,7 +7,7 @@ package com.ipet.android;
  */
 public interface AsyncActivity {
 
-	public MyApp getApplicationContext();
+	public MyApplication getApplicationContext();
 
 	public void showLoadingProgressDialog();
 
