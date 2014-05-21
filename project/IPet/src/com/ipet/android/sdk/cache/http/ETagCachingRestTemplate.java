@@ -1,18 +1,15 @@
 package com.ipet.android.sdk.cache.http;
 
 import android.util.Log;
-import static org.springframework.http.HttpMethod.*;
-import static org.springframework.http.HttpStatus.*;
-
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URI;
-import java.util.Arrays;
 import org.codehaus.jackson.map.ObjectMapper;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpStatus.NOT_MODIFIED;
 import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.util.Assert;
@@ -32,7 +29,7 @@ public class ETagCachingRestTemplate extends RestTemplate {
     private static final String ETAG_HEADER = "ETag";
     private static final String IF_NONE_MATCH_HEADER = "If-None-Match";
 
-    private final EtagCache cache = new EtagCache();
+    private final MemoryLRUCache cache = new MemoryLRUCache();
 
     /**
      *
@@ -45,20 +42,15 @@ public class ETagCachingRestTemplate extends RestTemplate {
      * @throws RestClientException
      */
     @Override
-    protected <T> T doExecute(URI url, HttpMethod method,
-            RequestCallback requestCallback,
-            ResponseExtractor<T> responseExtractor) throws RestClientException {
+    protected <T> T doExecute(URI url, HttpMethod method, RequestCallback requestCallback, ResponseExtractor<T> responseExtractor)
+            throws RestClientException {
 
-        if (isPurgingRequest(method)) {
-
-            synchronized (cache) {
-                cache.remove(url);
-            }
-
+        //如果是不可以被缓存的请求，则透出给父类正常请求
+        if (!isCacheableRequest(method)) {
             return super.doExecute(url, method, requestCallback,
                     responseExtractor);
         }
-
+        //如果是get请求，则使用自定义的代理对像，以处理缓存
         return super.doExecute(url, method, new DelegatingRequestCallback(url,
                 requestCallback), new DelegatingResponseExtractor<T>(url,
                         method, responseExtractor));
@@ -69,17 +61,8 @@ public class ETagCachingRestTemplate extends RestTemplate {
         return GET.equals(method);
     }
 
-    private boolean isPurgingRequest(HttpMethod method) {
-
-        return Arrays.asList(POST, PUT, DELETE).contains(method);
-    }
-
     /**
-     * Applies an {@value ETagCachingRestTemplate#IF_NONE_MATCH_HEADER} header
-     * to the request if there we already have an instance of the requested
-     * resource in the cache.
-     *
-     * @author Oliver Gierke
+     * 支持缓存的回调 请求前对Request对象进行处理
      */
     private class DelegatingRequestCallback implements RequestCallback {
 
@@ -95,12 +78,11 @@ public class ETagCachingRestTemplate extends RestTemplate {
         }
 
         public void doWithRequest(ClientHttpRequest request) throws IOException {
-
-            // Do we have a cached object? Apply header...
+            //如果之前有缓存则增加IF_NONE_MATCH_HEADER头
             synchronized (cache) {
-                if (cache.hasEntry(uri)) {
+                if (cache.hasEntry(uri.toString())) {
                     request.getHeaders().add(IF_NONE_MATCH_HEADER,
-                            cache.getEtag(uri));
+                            cache.get(uri.toString()).getEtag());
                 }
             }
 
@@ -142,8 +124,8 @@ public class ETagCachingRestTemplate extends RestTemplate {
 
             synchronized (cache) {
                 // Return cached instance on 304
-                if (isNotModified && cache.hasEntry(uri)) {
-                    return (T) cache.get(uri);
+                if (isNotModified && cache.hasEntry(uri.toString())) {
+                    return (T) cache.get(uri.toString());
                 }
             }
 
@@ -158,11 +140,12 @@ public class ETagCachingRestTemplate extends RestTemplate {
                 } catch (IOException ex) {
 
                 }
-                String userDataJSON = strWriter.toString();
-                Log.i(TAG, "put:" + userDataJSON);
+                String jsonStr = strWriter.toString();
+                Log.i(TAG, "put:" + jsonStr);
                 synchronized (cache) {
-                    cache.put(new EtagCacheEntry(headers.getFirst(ETAG_HEADER),
-                            uri, result));
+                    //TODO:
+                    cache.put(new EtagCacheEntry(uri.toString(), jsonStr, headers.getFirst(ETAG_HEADER),
+                            20000l));
                 }
             }
 

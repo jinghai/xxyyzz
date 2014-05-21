@@ -23,10 +23,7 @@ import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.util.Assert;
 
 /**
- * Wrapps a {@link ClientHttpRequestFactory} and applies caching behaviour to
- * all created {@link ClientHttpRequest} instances.
- *
- * @author Oliver Gierke
+ * 参考，暂时不使用
  */
 public class CachingHttpRequestFactory implements ClientHttpRequestFactory {
 
@@ -76,13 +73,6 @@ public class CachingHttpRequestFactory implements ClientHttpRequestFactory {
         return GET.equals(method);
     }
 
-    /**
-     * Buffers the {@link InputStream} contained in the wrapped
-     * {@link ClientHttpResponse}. Delegates all other calls to the original
-     * instance.
-     *
-     * @author Oliver Gierke
-     */
     private class CachingHttpResponse implements ClientHttpResponse {
 
         private ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -108,7 +98,7 @@ public class CachingHttpRequestFactory implements ClientHttpRequestFactory {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see org.springframework.http.client.ClientHttpResponse#close()
          */
         public void close() {
@@ -119,7 +109,7 @@ public class CachingHttpRequestFactory implements ClientHttpRequestFactory {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see
          * org.springframework.http.client.ClientHttpResponse#getStatusCode()
          */
@@ -162,7 +152,7 @@ public class CachingHttpRequestFactory implements ClientHttpRequestFactory {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see
          * org.springframework.http.client.AbstractClientHttpRequest#executeInternal
          * (org.springframework.http.HttpHeaders, byte[])
@@ -291,7 +281,7 @@ public class CachingHttpRequestFactory implements ClientHttpRequestFactory {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Object#toString()
          */
         @Override

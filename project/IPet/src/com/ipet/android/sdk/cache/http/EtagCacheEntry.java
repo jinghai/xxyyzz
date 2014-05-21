@@ -5,97 +5,95 @@
  */
 package com.ipet.android.sdk.cache.http;
 
-import java.net.URI;
 import org.springframework.util.Assert;
 
 /**
+ * 缓存实体
  *
- * @author Administrator
+ * @author xiao
  */
 public class EtagCacheEntry {
 
-    private final String etag;
-    private final URI uri;
-    private final Object resource;
+    private String key;       //请求的URI
+    private String value;     //返回值
+    private String etag;
+    private Long expireOn;   //过期时间戳（毫秒数）
 
-    /**
-     * @param etag
-     * @param uri
-     * @param resource
-     */
-    public EtagCacheEntry(String etag, URI uri, Object resource) {
+    public EtagCacheEntry() {
 
-        Assert.notNull(etag);
-        Assert.notNull(uri);
-
-        this.etag = etag;
-        this.uri = uri;
-        this.resource = resource;
     }
 
-    public String getEtag() {
+    public EtagCacheEntry(String key) {
+        Assert.notNull(key);
+        this.key = key;
+    }
 
+    public EtagCacheEntry(String key, String value, String etag, Long expireOn) {
+        Assert.notNull(key);
+        Assert.notNull(value);
+        Assert.notNull(etag);
+        Assert.notNull(expireOn);
+        this.key = key;
+        this.value = value;
+        this.etag = etag;
+        this.expireOn = expireOn;
+
+    }
+
+    /**
+     * @return the key
+     */
+    public String getKey() {
+        return key;
+    }
+
+    /**
+     * @return the value
+     */
+    public String getValue() {
+        return value;
+    }
+
+    /**
+     * @return the etag
+     */
+    public String getEtag() {
         return etag;
     }
 
-    public URI getUri() {
-
-        return uri;
-    }
-
-    public Object getResource() {
-
-        return resource;
-    }
-
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
+    /**
+     * @return the expireOn
      */
-    @Override
-    public String toString() {
-
-        StringBuilder buffer = new StringBuilder();
-        buffer.append("URI: ").append(uri);
-        buffer.append(" - ETag: ").append(etag);
-        buffer.append(" - Resource: ").append(resource);
-
-        return buffer.toString();
+    public Long getExpireOn() {
+        return expireOn;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-
-        if (obj == this) {
-            return true;
-        }
-
-        if (!(obj instanceof EtagCacheEntry)) {
-            return false;
-        }
-
-        EtagCacheEntry that = (EtagCacheEntry) obj;
-
-        boolean uriAndEtag
-                = this.uri.equals(that.uri) && this.etag.equals(that.etag);
-
-        return uriAndEtag
-                && (null == this.resource ? null == that.resource
-                : this.resource.equals(that.resource));
+    /**
+     * @param key the key to set
+     */
+    public void setKey(String key) {
+        this.key = key;
     }
 
-    @Override
-    public int hashCode() {
-
-        int result = 31;
-
-        result += 17 * etag.hashCode();
-        result += 17 * uri.hashCode();
-
-        result += null == resource ? 0 : resource.hashCode();
-
-        return result;
+    /**
+     * @param value the value to set
+     */
+    public void setValue(String value) {
+        this.value = value;
     }
+
+    /**
+     * @param etag the etag to set
+     */
+    public void setEtag(String etag) {
+        this.etag = etag;
+    }
+
+    /**
+     * @param expireOn the expireOn to set
+     */
+    public void setExpireOn(Long expireOn) {
+        this.expireOn = expireOn;
+    }
+
 }

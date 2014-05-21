@@ -1,13 +1,16 @@
 package com.ipet.android.sdk.base;
 
 import android.content.Context;
-import com.ipet.android.sdk.cache.http.ETagCachingRestTemplate;
 import com.ipet.android.ui.manager.LoginManager;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.cache.CacheConfig;
+import org.apache.http.impl.client.cache.CachingHttpClients;
 import org.codehaus.jackson.map.DeserializationConfig;
+import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
@@ -49,13 +52,30 @@ public class ApiContext {
         //isAuthorized = LoginManager.isLogin(androidContext);
         Charset charset = Charset.forName("UTF-8");
 
-        restTemplate = new ETagCachingRestTemplate();
-        // 避免HttpURLConnection的http.keepAlive Bug
-        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
-        factory.setConnectTimeout(10 * 1000);
-        factory.setReadTimeout(30 * 1000);
-        restTemplate.setRequestFactory(factory);
+        CacheConfig cacheConfig = CacheConfig.custom()
+                .setMaxCacheEntries(1000)
+                .setMaxObjectSize(8192)
+                .build();
 
+        RequestConfig requestConfig = RequestConfig.custom()
+                .setConnectTimeout(30000)
+                .setSocketTimeout(30000)
+                .build();
+
+        CloseableHttpClient cachingClient = CachingHttpClients.custom()
+                .setCacheConfig(cacheConfig)
+                .setDefaultRequestConfig(requestConfig)
+                .build();
+
+        ClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(cachingClient);
+        restTemplate = new RestTemplate(requestFactory);
+
+        //restTemplate = new ETagCachingRestTemplate();
+        // 避免HttpURLConnection的http.keepAlive Bug
+//        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
+//        factory.setConnectTimeout(10 * 1000);
+//        factory.setReadTimeout(30 * 1000);
+//        restTemplate.setRequestFactory(factory);
         List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
         messageConverters.add(new ByteArrayHttpMessageConverter());
         messageConverters.add(new FormHttpMessageConverter());
@@ -80,7 +100,7 @@ public class ApiContext {
          * .getRequestFactory()).setReadTimeout(10 * 1000); } else if
          * (restTemplate.getRequestFactory() instanceof
          * HttpComponentsClientHttpRequestFactory) {
-         * 
+         *
          * ((HttpComponentsClientHttpRequestFactory) restTemplate
          * .getRequestFactory()).setReadTimeout(10 * 1000);
          * ((HttpComponentsClientHttpRequestFactory) restTemplate
