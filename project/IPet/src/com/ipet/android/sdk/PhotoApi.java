@@ -1,12 +1,15 @@
-package com.ipet.android.sdk.impl;
+package com.ipet.android.sdk;
 
 import android.content.Context;
-import com.ipet.android.sdk.base.ApiBase;
+
+import com.ipet.android.sdk.core.ApiBase;
 import com.ipet.android.sdk.domain.IpetPhoto;
+
 import java.io.File;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
+
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;

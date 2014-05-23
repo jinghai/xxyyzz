@@ -2,17 +2,24 @@ package com.ipet.android.sdk.cache;
 
 import android.content.Context;
 import android.util.Log;
-import com.ipet.android.sdk.base.APIException;
-import com.ipet.android.sdk.base.JSONUtil;
+
+import com.ipet.android.sdk.core.APIException;
+import com.ipet.android.sdk.core.JSONUtil;
 import com.ipet.android.sdk.util.NetWorkUtils;
+
 import java.io.IOException;
 import java.net.URI;
+
 import org.codehaus.jackson.type.TypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+
 import static org.springframework.http.HttpMethod.GET;
+
 import org.springframework.http.HttpStatus;
+
 import static org.springframework.http.HttpStatus.NOT_MODIFIED;
+
 import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.util.Assert;

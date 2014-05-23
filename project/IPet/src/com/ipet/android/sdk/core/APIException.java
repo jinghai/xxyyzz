@@ -1,4 +1,4 @@
-package com.ipet.android.sdk.base;
+package com.ipet.android.sdk.core;
 
 /**
  * Service层公用的Exception.

@@ -1,12 +1,15 @@
-package com.ipet.android.sdk.impl;
+package com.ipet.android.sdk;
 
 import android.content.Context;
-import com.ipet.android.sdk.base.ApiBase;
+
+import com.ipet.android.sdk.core.ApiBase;
 import com.ipet.android.sdk.domain.IpetFavor;
 import com.ipet.android.sdk.domain.IpetPhoto;
+
 import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
+
 import org.springframework.util.LinkedMultiValueMap;
 
 /**

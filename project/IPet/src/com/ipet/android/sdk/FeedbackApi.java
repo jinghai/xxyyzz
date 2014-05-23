@@ -1,9 +1,12 @@
-package com.ipet.android.sdk.impl;
+package com.ipet.android.sdk;
 
 import android.content.Context;
-import com.ipet.android.sdk.base.ApiBase;
+
+import com.ipet.android.sdk.core.ApiBase;
 import com.ipet.android.sdk.domain.IpetFeedback;
+
 import java.net.URI;
+
 import org.springframework.util.LinkedMultiValueMap;
 
 public class FeedbackApi extends ApiBase {
