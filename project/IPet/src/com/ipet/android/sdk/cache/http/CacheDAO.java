@@ -19,10 +19,10 @@ public class CacheDAO {
 
     private static final String TAG = "CacheDAO";
 
-    private DBHelper helper = null;
+    private DataBase helper = null;
 
     public CacheDAO(Context cxt) {
-        helper = new DBHelper(cxt);
+        helper = new DataBase(cxt);
     }
 
     public void insert(EtagCacheEntry e) {
