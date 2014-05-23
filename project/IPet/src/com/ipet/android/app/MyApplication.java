@@ -3,10 +3,8 @@ package com.ipet.android.app;
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
-import com.ipet.android.sdk.IpetApi;
-
+import com.ipet.android.sdk.base.IpetApi;
 import com.ipet.android.sdk.domain.IpetUser;
-import com.ipet.android.sdk.impl.IpetApiImpl;
 import com.ipet.android.ui.manager.LoginManager;
 
 /**
@@ -39,7 +37,7 @@ public class MyApplication extends Application {
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(this);
         context = getApplicationContext();
-        this.ipetApi = IpetApiImpl.getInstance(APP_ID, APP_SECRET, this);
+        this.ipetApi = new IpetApi(this);
     }
 
     public IpetUser getUser() {
