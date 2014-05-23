@@ -3,13 +3,13 @@ package com.ipet.android.sdk.base;
 import android.util.Log;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.http.ContentCodingType;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.security.crypto.codec.Base64;
 
 /**
  * Api请求拦截
@@ -28,8 +28,9 @@ class ApiInterceptor implements ClientHttpRequestInterceptor {
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
             throws IOException {
+
         request.getHeaders().set("Authorization",
-                "Basic TODO" + new String(Base64.encode((Constant.APP_KEY + ":" + Constant.APP_SECRET).getBytes(charset)), charset));
+                "Basic " + new String(new Base64().encode((Constant.APP_KEY + ":" + Constant.APP_SECRET).getBytes(charset)), charset));
         request.getHeaders().setAcceptEncoding(ContentCodingType.GZIP);
 
         if (request.getMethod().equals(HttpMethod.GET)) {
