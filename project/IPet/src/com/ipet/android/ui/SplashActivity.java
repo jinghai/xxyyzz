@@ -18,7 +18,7 @@ import com.ipet.android.ui.manager.ActivityManager;
 import com.ipet.android.ui.manager.LoginManager;
 import com.ipet.android.ui.manager.UserManager;
 import com.ipet.android.ui.utils.AppUtils;
-import com.ipet.android.ui.utils.NetWorkUtils;
+import com.ipet.android.sdk.util.NetWorkUtils;
 
 public class SplashActivity extends Activity {
 
@@ -44,37 +44,19 @@ public class SplashActivity extends Activity {
         version.setText(v);
         // 初始化模拟用户数据
         MyApplication application = (MyApplication) this.getApplication();
-        if (application.getUser() == null) {
-            application.setUser(UserManager.getCurrentUser());
-        }
-        //判断网络是否可用
-        boolean isNetworkConnected = NetWorkUtils.isNetworkConnected(this);
+//        if (application.getUser() == null) {
+//            application.setUser(UserManager.getCurrentUser());
+//        }
 
         // 判断是否登录
-        isLogin = LoginManager.isLogin(SplashActivity.this);
+        isLogin = application.getUser() != null;
 
-        if (isNetworkConnected) {
-            // 判断程序与第几次运行，如果是第一次运行则跳转到引导界面，否则跳转到主界面
-            if (isLogin) {
-                String[] u = LoginManager.getAccount(SplashActivity.this);
-                new SplashLoginAsyncTask(SplashActivity.this, u[0], u[1]).execute();
-            } else {
-                mHandler.sendEmptyMessageDelayed(GO_WELCOME, Constant.SPLASH_DELAY_MILLIS);
-            }
+        // 判断程序与第几次运行，如果是第一次运行则跳转到引导界面，否则跳转到主界面
+        if (isLogin) {
+            String[] u = LoginManager.getAccount(SplashActivity.this);
+            new SplashLoginAsyncTask(SplashActivity.this, u[0], u[1]).execute();
         } else {
-            Toast.makeText(this, "没有发现可用网络,程序即将退出", 3).show();
-            new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    SplashActivity.this.finish();
-                }
-            }.start();
-
+            mHandler.sendEmptyMessageDelayed(GO_WELCOME, Constant.SPLASH_DELAY_MILLIS);
         }
 
     }

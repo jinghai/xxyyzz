@@ -1,4 +1,4 @@
-package com.ipet.android.sdk.cache.http;
+package com.ipet.android.sdk.cache;
 
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.http.HttpStatus.*;

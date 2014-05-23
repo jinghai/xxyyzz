@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.ipet.android.sdk.cache.http;
+package com.ipet.android.sdk.cache;
 
 import java.util.Iterator;
 import java.util.Map;

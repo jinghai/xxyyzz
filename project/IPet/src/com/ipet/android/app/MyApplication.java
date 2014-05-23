@@ -16,15 +16,7 @@ public class MyApplication extends Application {
 
     private static final String TAG = MyApplication.class.getSimpleName();
 
-    private static Context context;
     private IpetApi ipetApi;
-    public static final String APP_ID = "ipet";
-    public static final String APP_SECRET = "ipet";
-    private IpetUser user;
-
-    public static Context getContext() {
-        return context;
-    }
 
     public IpetApi getApi() {
         return ipetApi;
@@ -32,20 +24,15 @@ public class MyApplication extends Application {
 
     @Override
     public void onCreate() {
-        Log.d(TAG, TAG + ":onCreate:" + APP_ID + "," + APP_SECRET);
         super.onCreate();
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(this);
-        context = getApplicationContext();
         this.ipetApi = new IpetApi(this);
     }
 
     public IpetUser getUser() {
-        return LoginManager.getUser(this);
-    }
-
-    public void setUser(IpetUser user) {
-        LoginManager.setUser(context, user);
+        String uid = getApi().getCurrUserId();
+        return null == uid ? null : getApi().getUserApi().getUser(uid);
     }
 
 }

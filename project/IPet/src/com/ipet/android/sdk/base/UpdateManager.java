@@ -1,4 +1,4 @@
-package com.ipet.android.app;
+package com.ipet.android.sdk.base;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -101,7 +101,7 @@ public class UpdateManager {
             @Override
             public void run() {
                 MyApplication application = (MyApplication) mContext.getApplication();
-                updateInfo = application.getApi().getAppApi().checkAppVersion(application.APP_ID);
+                updateInfo = application.getApi().getAppApi().checkAppVersion(Constant.APP_KEY);
                 latch.countDown();
             }
         }).start();

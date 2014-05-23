@@ -14,58 +14,59 @@ import com.ipet.android.sdk.domain.IpetUser;
 import com.ipet.android.ui.SetUserInfoActivity;
 
 public class UploadAvatorAsyncTask extends AsyncTask<String, String, Integer> {
-	public final static String TAG = "UploadAvatorAsyncTask";
-	public final static int RESULT_SUCCESS = 0;
-	public final static int RESULT_FAILURE = 1;
 
-	private final Uri uri;
-	private final SetUserInfoActivity activity;
-	private final File picture;
-	private ProgressDialog progress;
-	private IpetUser ipetUser;
+    public final static String TAG = "UploadAvatorAsyncTask";
+    public final static int RESULT_SUCCESS = 0;
+    public final static int RESULT_FAILURE = 1;
 
-	public UploadAvatorAsyncTask(SetUserInfoActivity activity, File picture, Uri uri) {
-		this.uri = uri;
-		this.activity = activity;
-		this.picture = picture;
-	}
+    private final Uri uri;
+    private final SetUserInfoActivity activity;
+    private final File picture;
+    private ProgressDialog progress;
+    private IpetUser ipetUser;
 
-	@Override
-	protected void onPreExecute() {
-		// TODO Auto-generated method stub
-		super.onPreExecute();
-		String str = this.activity.getResources().getString(R.string.upload_loading);
-		this.progress = ProgressDialog.show(this.activity, null, str);
-	}
+    public UploadAvatorAsyncTask(SetUserInfoActivity activity, File picture, Uri uri) {
+        this.uri = uri;
+        this.activity = activity;
+        this.picture = picture;
+    }
 
-	@Override
-	protected Integer doInBackground(String... params) {
-		// TODO Auto-generated method stub
-		int result = RESULT_FAILURE;
-		try {
-			MyApplication application = (MyApplication) this.activity.getApplication();
-			String path = picture.getPath();
-			ipetUser = application.getApi().getUserApi().updateAvatar(path);
-			result = RESULT_SUCCESS;
-		} catch (Exception e) {
-			e.printStackTrace();
-			Log.e(TAG, "" + e.getLocalizedMessage());
-		}
+    @Override
+    protected void onPreExecute() {
+        // TODO Auto-generated method stub
+        super.onPreExecute();
+        String str = this.activity.getResources().getString(R.string.upload_loading);
+        this.progress = ProgressDialog.show(this.activity, null, str);
+    }
 
-		this.progress.dismiss();
-		return result;
-	}
+    @Override
+    protected Integer doInBackground(String... params) {
+        // TODO Auto-generated method stub
+        int result = RESULT_FAILURE;
+        try {
+            MyApplication application = (MyApplication) this.activity.getApplication();
+            String path = picture.getPath();
+            ipetUser = application.getApi().getUserApi().updateAvatar(path);
+            result = RESULT_SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(TAG, "" + e.getLocalizedMessage());
+        }
 
-	@Override
-	protected void onPostExecute(Integer result) {
-		super.onPostExecute(result);
-		if (RESULT_FAILURE == result.intValue()) {
-			Toast.makeText(this.activity, "头像发布失败", Toast.LENGTH_SHORT).show();
-			return;
-		}
+        this.progress.dismiss();
+        return result;
+    }
 
-		MyApplication application = (MyApplication) this.activity.getApplication();
-		application.setUser(ipetUser);
-		this.activity.uploadFinish();
-	}
+    @Override
+    protected void onPostExecute(Integer result) {
+        super.onPostExecute(result);
+        if (RESULT_FAILURE == result.intValue()) {
+            Toast.makeText(this.activity, "头像发布失败", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        MyApplication application = (MyApplication) this.activity.getApplication();
+        //application.setUser(ipetUser);
+        this.activity.uploadFinish();
+    }
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ipet.android.sdk.cache.http;
+package com.ipet.android.sdk.cache;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -40,7 +40,7 @@ public class CacheDAO {
     }
 
     public void update(EtagCacheEntry e) {
-        String sql = "update [http] set [key]=?,[etag]=?,[expire_on]=? where [uri]=?";
+        String sql = "update [http] set [val]=?,[etag]=?,[expire_on]=? where [uri]=?";
         SQLiteDatabase db = helper.getWritableDatabase();
         Log.d(TAG, "update:" + sql);
         db.execSQL(sql, new Object[]{e.getValue(), e.getEtag(), e.getExpireOn(), e.getKey()});

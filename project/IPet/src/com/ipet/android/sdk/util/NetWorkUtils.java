@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ipet.android.ui.utils;
+package com.ipet.android.sdk.util;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

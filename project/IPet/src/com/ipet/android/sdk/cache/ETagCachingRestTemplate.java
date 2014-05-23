@@ -1,8 +1,10 @@
-package com.ipet.android.sdk.cache.http;
+package com.ipet.android.sdk.cache;
 
 import android.content.Context;
 import android.util.Log;
+import com.ipet.android.sdk.base.APIException;
 import com.ipet.android.sdk.base.JSONUtil;
+import com.ipet.android.sdk.util.NetWorkUtils;
 import java.io.IOException;
 import java.net.URI;
 import org.codehaus.jackson.type.TypeReference;
@@ -33,9 +35,12 @@ public class ETagCachingRestTemplate extends RestTemplate {
     // private final MemoryLRUCache memCache = new MemoryLRUCache();
     private final DBLRUCache memCache;
 
-    public ETagCachingRestTemplate(Context context) {
+    private final Context context;
+
+    public ETagCachingRestTemplate(Context ctx) {
         super();
-        memCache = new DBLRUCache(context);
+        context = ctx;
+        memCache = new DBLRUCache(ctx);
     }
 
     /**
@@ -51,8 +56,23 @@ public class ETagCachingRestTemplate extends RestTemplate {
     @Override
     protected <T> T doExecute(URI url, HttpMethod method, RequestCallback requestCallback, ResponseExtractor<T> responseExtractor)
             throws RestClientException {
+        //如果网络不可用，直接从缓存获取数据
+        if (!NetWorkUtils.isNetworkConnected(context)) {
+            if (!isCacheableRequest(method)) {
+                throw new APIException("网络不可用");
+            }
 
-        //如果是不可以被缓存的请求，则透出给父类正常请求
+            EtagCacheEntry e = memCache.get(url.toString());
+            TypeReference type = new TypeReference<T>() {
+            };
+            if (null != e) {
+                return JSONUtil.fromJSON(e.getValue(), type);
+            } else {
+                throw new APIException("网络不可用");
+            }
+
+        }
+        //非get请求，则透传给父类正常请求
         if (!isCacheableRequest(method)) {
             return super.doExecute(url, method, requestCallback,
                     responseExtractor);
@@ -86,9 +106,8 @@ public class ETagCachingRestTemplate extends RestTemplate {
 
         public void doWithRequest(ClientHttpRequest request) throws IOException {
             //如果之前有缓存则增加IF_NONE_MATCH_HEADER头
-
-            if (memCache.hasEntry(uri.toString())) {
-                EtagCacheEntry e = memCache.get(uri.toString());
+            EtagCacheEntry e = memCache.get(uri.toString());
+            if (null != e) {
                 Log.i(TAG, "doWithRequest-->增加Etag头:" + e.getEtag());
                 request.getHeaders().add(IF_NONE_MATCH_HEADER, e.getEtag());
             }
@@ -130,10 +149,10 @@ public class ETagCachingRestTemplate extends RestTemplate {
             TypeReference type = new TypeReference<T>() {
             };
             // 如果返回304状态，则直接从缓存取值
-            if (isNotModified && memCache.hasEntry(uri.toString())) {
+            if (isNotModified) {
                 EtagCacheEntry e = memCache.get(uri.toString());
                 Log.i(TAG, "extractData-->304,从缓存取:" + e.getValue());
-                return (T) JSONUtil.fromJSON(e.getValue(), type);
+                return JSONUtil.fromJSON(e.getValue(), type);
             }
 
             T result = extractor.extractData(response);
@@ -142,10 +161,10 @@ public class ETagCachingRestTemplate extends RestTemplate {
             if (isCacheableRequest(method)
                     && headers.containsKey(ETAG_HEADER)
                     && HttpStatus.OK.equals(response.getStatusCode())) {
-
+                String eTag = headers.getFirst(ETAG_HEADER);
                 String str = JSONUtil.toJson(result);
                 Log.i(TAG, "extractData-->200,放入缓存:" + str);
-                memCache.put(new EtagCacheEntry(uri.toString(), str, headers.getFirst(ETAG_HEADER), 0l));
+                memCache.put(new EtagCacheEntry(uri.toString(), str, eTag, 0l));
 
             }
 

@@ -24,7 +24,7 @@ import android.widget.Toast;
 import com.ipet.R;
 import com.ipet.android.ui.manager.ActivityManager;
 import com.ipet.android.ui.manager.LoginManager;
-import com.ipet.android.app.UpdateManager;
+import com.ipet.android.sdk.base.UpdateManager;
 import com.ipet.android.ui.utils.AnimUtils;
 
 public class MainActivity extends FragmentActivity {

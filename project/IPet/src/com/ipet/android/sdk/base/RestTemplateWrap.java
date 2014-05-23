@@ -6,11 +6,14 @@
 package com.ipet.android.sdk.base;
 
 import android.content.Context;
-import com.ipet.android.sdk.cache.http.ETagCachingRestTemplate;
+
+import com.ipet.android.sdk.cache.ETagCachingRestTemplate;
+
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;

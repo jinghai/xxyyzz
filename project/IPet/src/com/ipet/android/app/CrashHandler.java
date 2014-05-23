@@ -32,7 +32,7 @@ import android.widget.Toast;
 import com.ipet.android.ui.manager.ActivityManager;
 import com.ipet.android.ui.manager.LoginManager;
 import com.ipet.android.ui.utils.MailUtils;
-import com.ipet.android.ui.utils.NetWorkUtils;
+import com.ipet.android.sdk.util.NetWorkUtils;
 
 /**
  * UncaughtException处理类,当程序发生Uncaught异常的时候,由该类来接管程序,并记录发送错误报告.
@@ -104,7 +104,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 
             ActivityManager.getInstance().exit();
 
-			// 退出程序
+            // 退出程序
             // android.os.Process.killProcess(android.os.Process.myPid());
             // System.exit(1);
         }
