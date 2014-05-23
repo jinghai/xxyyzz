@@ -1,14 +1,15 @@
 package com.ipet.android.sdk.cache.http;
 
+import android.content.Context;
 import android.util.Log;
+import com.ipet.android.sdk.base.JSONUtil;
 import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
 import java.net.URI;
-import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import static org.springframework.http.HttpMethod.GET;
+import org.springframework.http.HttpStatus;
 import static org.springframework.http.HttpStatus.NOT_MODIFIED;
 import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.http.client.ClientHttpResponse;
@@ -29,7 +30,13 @@ public class ETagCachingRestTemplate extends RestTemplate {
     private static final String ETAG_HEADER = "ETag";
     private static final String IF_NONE_MATCH_HEADER = "If-None-Match";
 
-    private final MemoryLRUCache cache = new MemoryLRUCache();
+    // private final MemoryLRUCache memCache = new MemoryLRUCache();
+    private final DBLRUCache memCache;
+
+    public ETagCachingRestTemplate(Context context) {
+        super();
+        memCache = new DBLRUCache(context);
+    }
 
     /**
      *
@@ -79,11 +86,11 @@ public class ETagCachingRestTemplate extends RestTemplate {
 
         public void doWithRequest(ClientHttpRequest request) throws IOException {
             //如果之前有缓存则增加IF_NONE_MATCH_HEADER头
-            synchronized (cache) {
-                if (cache.hasEntry(uri.toString())) {
-                    request.getHeaders().add(IF_NONE_MATCH_HEADER,
-                            cache.get(uri.toString()).getEtag());
-                }
+
+            if (memCache.hasEntry(uri.toString())) {
+                EtagCacheEntry e = memCache.get(uri.toString());
+                Log.i(TAG, "doWithRequest-->增加Etag头:" + e.getEtag());
+                request.getHeaders().add(IF_NONE_MATCH_HEADER, e.getEtag());
             }
 
             if (null != callback) {
@@ -111,42 +118,35 @@ public class ETagCachingRestTemplate extends RestTemplate {
 
         /**
          * Returns a cached instance if the response returns 304 and we already
-         * have a cached instance available. Puts the extracted resource into
-         * the cache on 200.
+         * have a memCached instance available. Puts the extracted resource into
+         * the memCache on 200.
          */
         @SuppressWarnings("unchecked")
         public T extractData(ClientHttpResponse response) throws IOException {
 
             HttpHeaders headers = response.getHeaders();
 
-            boolean isNotModified
-                    = NOT_MODIFIED.equals(response.getStatusCode());
-
-            synchronized (cache) {
-                // Return cached instance on 304
-                if (isNotModified && cache.hasEntry(uri.toString())) {
-                    return (T) cache.get(uri.toString());
-                }
+            boolean isNotModified = NOT_MODIFIED.equals(response.getStatusCode());
+            TypeReference type = new TypeReference<T>() {
+            };
+            // 如果返回304状态，则直接从缓存取值
+            if (isNotModified && memCache.hasEntry(uri.toString())) {
+                EtagCacheEntry e = memCache.get(uri.toString());
+                Log.i(TAG, "extractData-->304,从缓存取:" + e.getValue());
+                return (T) JSONUtil.fromJSON(e.getValue(), type);
             }
 
             T result = extractor.extractData(response);
 
-            // Put into cache if ETag returned
-            if (isCacheableRequest(method) && headers.containsKey(ETAG_HEADER)) {
-                ObjectMapper mapper = new ObjectMapper();
-                Writer strWriter = new StringWriter();
-                try {
-                    mapper.writeValue(strWriter, result);
-                } catch (IOException ex) {
+            // Put into memCache if ETag returned
+            if (isCacheableRequest(method)
+                    && headers.containsKey(ETAG_HEADER)
+                    && HttpStatus.OK.equals(response.getStatusCode())) {
 
-                }
-                String jsonStr = strWriter.toString();
-                Log.i(TAG, "put:" + jsonStr);
-                synchronized (cache) {
-                    //TODO:
-                    cache.put(new EtagCacheEntry(uri.toString(), jsonStr, headers.getFirst(ETAG_HEADER),
-                            20000l));
-                }
+                String str = JSONUtil.toJson(result);
+                Log.i(TAG, "extractData-->200,放入缓存:" + str);
+                memCache.put(new EtagCacheEntry(uri.toString(), str, headers.getFirst(ETAG_HEADER), 0l));
+
             }
 
             return result;

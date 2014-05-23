@@ -22,8 +22,8 @@ public class UserApi extends ApiBase {
     }
 
     public IpetUser getUser(String userId) {
-        URI uri = buildUri("user/{id}");
-        IpetUser user = getRestTemplate().getForObject(uri.toString(), IpetUser.class, userId);
+        URI uri = buildUri("user/" + userId);
+        IpetUser user = getRestTemplate().getForObject(uri, IpetUser.class);
         return user;
     }
 
@@ -38,8 +38,7 @@ public class UserApi extends ApiBase {
         requireAuthorization();
         update.setId(getCurrUserId());
         URI uri = buildUri("user/updateInfo");
-        IpetUser ret = getRestTemplate().postForObject(uri, update,
-                IpetUser.class);
+        IpetUser ret = getRestTemplate().postForObject(uri, update, IpetUser.class);
         return ret;
     }
 
