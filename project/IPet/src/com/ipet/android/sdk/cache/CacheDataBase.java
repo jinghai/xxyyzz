@@ -14,7 +14,7 @@ import android.util.Log;
  * 
  * @author Administrator
  */
-public class DataBase extends SQLiteOpenHelper {
+public class CacheDataBase extends SQLiteOpenHelper {
 
 	private static final String TAG = "DataBase";
 
@@ -22,7 +22,7 @@ public class DataBase extends SQLiteOpenHelper {
 
 	private static final String NAME = "cache.db";
 
-	public DataBase(Context context) {
+	public CacheDataBase(Context context) {
 		super(context, NAME, null, VERSION);
 	}
 
@@ -31,11 +31,13 @@ public class DataBase extends SQLiteOpenHelper {
 		Log.d(TAG, "onCreate:" + db.toString());
 		StringBuilder str = new StringBuilder();
 		str.append("create table IF NOT EXISTS [http](");
-		str.append("[key] TEXT,");
-		str.append("[val] TEXT,");
-		str.append("[etag] TEXT,");
-		str.append("[expire_on] BIGINT,");
-		str.append("CONSTRAINT [] PRIMARY KEY ([key]));");
+		str.append("[id] TEXT PRIMARY KEY,");	//MD5(url)
+		str.append("[url] TEXT,");				//url含参数
+		str.append("[value] TEXT,");			//返回值
+		str.append("[etag] TEXT,");				//etag
+		str.append("[hits] BIGINT,");			//命中次数
+		str.append("[put_on] BIGINT,");			//保存或更新时间戳（毫秒数）
+		str.append("[expire_on] BIGINT);");		//过期时间戳（毫秒数）
 		db.execSQL(str.toString());
 	}
 

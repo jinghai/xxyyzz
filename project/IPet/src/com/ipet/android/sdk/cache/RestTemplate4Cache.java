@@ -1,11 +1,7 @@
 package com.ipet.android.sdk.cache;
 
-import android.content.Context;
-import android.util.Log;
-
-import com.ipet.android.sdk.core.APIException;
-import com.ipet.android.sdk.core.JSONUtil;
-import com.ipet.android.sdk.util.NetWorkUtils;
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpStatus.NOT_MODIFIED;
 
 import java.io.IOException;
 import java.net.URI;
@@ -13,13 +9,7 @@ import java.net.URI;
 import org.codehaus.jackson.type.TypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-
-import static org.springframework.http.HttpMethod.GET;
-
 import org.springframework.http.HttpStatus;
-
-import static org.springframework.http.HttpStatus.NOT_MODIFIED;
-
 import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.util.Assert;
@@ -28,26 +18,33 @@ import org.springframework.web.client.ResponseExtractor;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import android.content.Context;
+import android.util.Log;
+
+import com.ipet.android.sdk.core.APIException;
+import com.ipet.android.sdk.core.JSONUtil;
+import com.ipet.android.sdk.util.NetWorkUtils;
+
 /**
  *
  *
  * @author xiaojinghai
  */
-public class ETagCachingRestTemplate extends RestTemplate {
+public class RestTemplate4Cache extends RestTemplate {
 
     private final String TAG = "ETagCachingRestTemplate";
     private static final String ETAG_HEADER = "ETag";
     private static final String IF_NONE_MATCH_HEADER = "If-None-Match";
 
-    // private final MemoryLRUCache memCache = new MemoryLRUCache();
-    private final DBLRUCache memCache;
+    // private final MemoryLRUCache cache = new MemoryLRUCache();
+    private final Cache4DB cache;
 
     private final Context context;
 
-    public ETagCachingRestTemplate(Context ctx) {
+    public RestTemplate4Cache(Context ctx) {
         super();
         context = ctx;
-        memCache = new DBLRUCache(ctx);
+        cache = new Cache4DB(ctx,5000);
     }
 
     /**
@@ -69,7 +66,7 @@ public class ETagCachingRestTemplate extends RestTemplate {
                 throw new APIException("网络不可用");
             }
 
-            EtagCacheEntry e = memCache.get(url.toString());
+            CacheEntry e = cache.get(url.toString());
             TypeReference type = new TypeReference<T>() {
             };
             if (null != e) {
@@ -113,7 +110,7 @@ public class ETagCachingRestTemplate extends RestTemplate {
 
         public void doWithRequest(ClientHttpRequest request) throws IOException {
             //如果之前有缓存则增加IF_NONE_MATCH_HEADER头
-            EtagCacheEntry e = memCache.get(uri.toString());
+            CacheEntry e = cache.get(uri.toString());
             if (null != e) {
                 Log.i(TAG, "doWithRequest-->增加Etag头:" + e.getEtag());
                 request.getHeaders().add(IF_NONE_MATCH_HEADER, e.getEtag());
@@ -145,7 +142,7 @@ public class ETagCachingRestTemplate extends RestTemplate {
         /**
          * Returns a cached instance if the response returns 304 and we already
          * have a memCached instance available. Puts the extracted resource into
-         * the memCache on 200.
+         * the cache on 200.
          */
         @SuppressWarnings("unchecked")
         public T extractData(ClientHttpResponse response) throws IOException {
@@ -157,21 +154,21 @@ public class ETagCachingRestTemplate extends RestTemplate {
             };
             // 如果返回304状态，则直接从缓存取值
             if (isNotModified) {
-                EtagCacheEntry e = memCache.get(uri.toString());
+                CacheEntry e = cache.get(uri.toString());
                 Log.i(TAG, "extractData-->304,从缓存取:" + e.getValue());
                 return JSONUtil.fromJSON(e.getValue(), type);
             }
 
             T result = extractor.extractData(response);
 
-            // Put into memCache if ETag returned
+            // Put into cache if ETag returned
             if (isCacheableRequest(method)
                     && headers.containsKey(ETAG_HEADER)
                     && HttpStatus.OK.equals(response.getStatusCode())) {
                 String eTag = headers.getFirst(ETAG_HEADER);
                 String str = JSONUtil.toJson(result);
                 Log.i(TAG, "extractData-->200,放入缓存:" + str);
-                memCache.put(new EtagCacheEntry(uri.toString(), str, eTag, 0l));
+                cache.put(new CacheEntry(uri.toString(), str, eTag, 0l));
 
             }
 

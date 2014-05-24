@@ -7,7 +7,7 @@ package com.ipet.android.sdk.core;
 
 import android.content.Context;
 
-import com.ipet.android.sdk.cache.ETagCachingRestTemplate;
+import com.ipet.android.sdk.cache.RestTemplate4Cache;
 
 import java.net.URI;
 import java.nio.charset.Charset;
@@ -48,7 +48,7 @@ public class RestTemplateWrap extends RestTemplate {
     public RestTemplateWrap(Context context) {
         Charset charset = Charset.forName("UTF-8");
 
-        restTemplate = new ETagCachingRestTemplate(context);
+        restTemplate = new RestTemplate4Cache(context);
         //避免HttpURLConnection的http.keepAlive Bug
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
         factory.setConnectTimeout(10 * 1000);

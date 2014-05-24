@@ -4,21 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.ipet.R;
 import com.ipet.android.app.Constant;
 import com.ipet.android.app.MyApplication;
 import com.ipet.android.task.SplashLoginAsyncTask;
-import com.ipet.android.ui.manager.ActivityManager;
 import com.ipet.android.ui.manager.LoginManager;
 import com.ipet.android.ui.manager.UserManager;
 import com.ipet.android.ui.utils.AppUtils;
-import com.ipet.android.sdk.util.NetWorkUtils;
 
 public class SplashActivity extends Activity {
 
@@ -44,9 +39,9 @@ public class SplashActivity extends Activity {
         version.setText(v);
         // 初始化模拟用户数据
         MyApplication application = (MyApplication) this.getApplication();
-//        if (application.getUser() == null) {
-//            application.setUser(UserManager.getCurrentUser());
-//        }
+        if (application.getUser() == null) {
+            application.setUser(UserManager.getCurrentUser());
+        }
 
         // 判断是否登录
         isLogin = application.getUser() != null;
