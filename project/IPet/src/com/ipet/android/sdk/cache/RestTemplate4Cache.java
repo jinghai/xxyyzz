@@ -35,6 +35,7 @@ public class RestTemplate4Cache extends RestTemplate {
     private final String TAG = "ETagCachingRestTemplate";
     private static final String ETAG_HEADER = "ETag";
     private static final String IF_NONE_MATCH_HEADER = "If-None-Match";
+    private static final String CHACE_CHONTROL_HEADER = "Cache-Control";
 
     // private final MemoryLRUCache cache = new MemoryLRUCache();
     private final Cache4DB cache;
@@ -67,7 +68,7 @@ public class RestTemplate4Cache extends RestTemplate {
             }
 
             CacheEntry e = cache.get(url.toString());
-            TypeReference type = new TypeReference<T>() {
+            TypeReference<T> type = new TypeReference<T>() {
             };
             if (null != e) {
                 return JSONUtil.fromJSON(e.getValue(), type);
@@ -81,6 +82,15 @@ public class RestTemplate4Cache extends RestTemplate {
             return super.doExecute(url, method, requestCallback,
                     responseExtractor);
         }
+        
+        //如果没有到过期时间，则直接返回结果，不产生请求
+        CacheEntry e = cache.get(url.toString());
+        TypeReference<T> type = new TypeReference<T>() {
+        };
+        if (null != e && System.currentTimeMillis() < e.getExpireOn()) {
+            return JSONUtil.fromJSON(e.getValue(), type);
+        } 
+        
         //如果是get请求，则使用自定义的代理对像，以处理缓存
         return super.doExecute(url, method, new DelegatingRequestCallback(url,
                 requestCallback), new DelegatingResponseExtractor<T>(url,
@@ -139,18 +149,13 @@ public class RestTemplate4Cache extends RestTemplate {
             this.extractor = extractor;
         }
 
-        /**
-         * Returns a cached instance if the response returns 304 and we already
-         * have a memCached instance available. Puts the extracted resource into
-         * the cache on 200.
-         */
-        @SuppressWarnings("unchecked")
+
         public T extractData(ClientHttpResponse response) throws IOException {
 
             HttpHeaders headers = response.getHeaders();
 
             boolean isNotModified = NOT_MODIFIED.equals(response.getStatusCode());
-            TypeReference type = new TypeReference<T>() {
+            TypeReference<T> type = new TypeReference<T>() {
             };
             // 如果返回304状态，则直接从缓存取值
             if (isNotModified) {
@@ -165,10 +170,22 @@ public class RestTemplate4Cache extends RestTemplate {
             if (isCacheableRequest(method)
                     && headers.containsKey(ETAG_HEADER)
                     && HttpStatus.OK.equals(response.getStatusCode())) {
-                String eTag = headers.getFirst(ETAG_HEADER);
+            	//处理Etag
+                String eTag = response.getHeaders().getETag();
+                eTag = eTag==null?"-1":eTag;
+                
+                //处理CacheControl
+                String cacheControl = response.getHeaders().getCacheControl();
+                Long expireOn = 0l;
+                if(null!=cacheControl){
+                	String[] t = cacheControl.split("=");
+                	String s = t[1];
+                	expireOn = System.currentTimeMillis()+(Long.valueOf(s)*1000);
+                }
+                
                 String str = JSONUtil.toJson(result);
                 Log.i(TAG, "extractData-->200,放入缓存:" + str);
-                cache.put(new CacheEntry(uri.toString(), str, eTag, 0l));
+                cache.put(new CacheEntry(uri.toString(), str, eTag, expireOn));
 
             }
 
