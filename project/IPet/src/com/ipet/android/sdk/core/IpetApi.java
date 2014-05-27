@@ -1,7 +1,6 @@
 package com.ipet.android.sdk.core;
 
 import android.content.Context;
-
 import com.ipet.android.sdk.AccountApi;
 import com.ipet.android.sdk.AppApi;
 import com.ipet.android.sdk.CommentApi;
@@ -39,7 +38,7 @@ public class IpetApi extends ApiBase {
 
     private final AppApi appApi;
 
-    public IpetApi(Context context) {
+    private IpetApi(Context context) {
         super(context);
         accountApi = new AccountApi(context);
         userApi = new UserApi(context);
@@ -50,6 +49,13 @@ public class IpetApi extends ApiBase {
         commentApi = new CommentApi(context);
         feedbackApi = new FeedbackApi(context);
         appApi = new AppApi(context);
+    }
+
+    public static IpetApi init(Context context) {
+        if (null == instance) {
+            instance = new IpetApi(context);
+        }
+        return instance;
     }
 
     public AccountApi getAccountApi() {

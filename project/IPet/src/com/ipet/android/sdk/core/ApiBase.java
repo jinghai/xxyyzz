@@ -1,5 +1,6 @@
 package com.ipet.android.sdk.core;
 
+import com.ipet.android.sdk.util.URIBuilder;
 import android.content.Context;
 import java.net.URI;
 import org.springframework.util.LinkedMultiValueMap;

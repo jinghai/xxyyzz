@@ -1,12 +1,9 @@
 package com.ipet.android.sdk;
 
 import android.content.Context;
-
 import com.ipet.android.sdk.core.ApiBase;
 import com.ipet.android.sdk.domain.IpetUser;
-
 import java.net.URI;
-
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -31,7 +28,7 @@ public class AccountApi extends ApiBase {
     }
 
     public void logout() {
-        setIsAuthorized(Boolean.FALSE);
+        setIsAuthorized(false);
         setCurrUserId("");
     }
 

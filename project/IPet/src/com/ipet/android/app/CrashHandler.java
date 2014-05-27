@@ -5,6 +5,19 @@
  */
 package com.ipet.android.app;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Build;
+import android.os.Environment;
+import android.os.Looper;
+import android.util.Log;
+import android.widget.Toast;
+import com.ipet.android.sdk.core.IpetApi;
+import com.ipet.android.sdk.util.NetWorkUtils;
+import com.ipet.android.ui.manager.ActivityManager;
+import com.ipet.android.ui.utils.MailUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -18,21 +31,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.Build;
-import android.os.Environment;
-import android.os.Looper;
-import android.util.Log;
-import android.widget.Toast;
-
-import com.ipet.android.ui.manager.ActivityManager;
-import com.ipet.android.ui.manager.LoginManager;
-import com.ipet.android.ui.utils.MailUtils;
-import com.ipet.android.sdk.util.NetWorkUtils;
 
 /**
  * UncaughtException处理类,当程序发生Uncaught异常的时候,由该类来接管程序,并记录发送错误报告.
@@ -151,8 +149,8 @@ public class CrashHandler implements UncaughtExceptionHandler {
                 info.put("versionName", versionName);
                 info.put("versionCode", versionCode);
                 info.put("threadName", thread.getName());
-                info.put("userName", LoginManager.getUserName(context));
-                info.put("userId", LoginManager.getUid(context));
+                String uid = IpetApi.init(mContext).getCurrUserId();
+                info.put("userId", uid);
             }
         } catch (NameNotFoundException e) {
             e.printStackTrace();

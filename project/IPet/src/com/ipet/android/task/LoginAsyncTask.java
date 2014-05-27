@@ -3,12 +3,10 @@ package com.ipet.android.task;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
-
 import com.ipet.R;
 import com.ipet.android.app.MyApplication;
 import com.ipet.android.sdk.domain.IpetUser;
 import com.ipet.android.ui.LoginActivity;
-import com.ipet.android.ui.manager.LoginManager;
 
 public class LoginAsyncTask extends AsyncTask<Integer, Integer, Integer> {
 
@@ -64,7 +62,7 @@ public class LoginAsyncTask extends AsyncTask<Integer, Integer, Integer> {
 
         switch (result.intValue()) {
             case RESULT_SUCCESS: {
-                LoginManager.saveAccountAndPassword(activity, account, password);
+                //LoginManager.saveAccountAndPassword(activity, account, password);
                 this.activity.goMain();
                 break;
             }

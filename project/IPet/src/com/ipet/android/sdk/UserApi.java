@@ -1,16 +1,15 @@
 package com.ipet.android.sdk;
 
 import android.content.Context;
-
+import com.ipet.android.sdk.core.APIException;
 import com.ipet.android.sdk.core.ApiBase;
 import com.ipet.android.sdk.domain.IpetUser;
 import com.ipet.android.sdk.domain.IpetUserUpdate;
-
 import java.io.File;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
-
+import java.util.concurrent.CountDownLatch;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.util.LinkedMultiValueMap;
 
@@ -20,13 +19,28 @@ import org.springframework.util.LinkedMultiValueMap;
  */
 public class UserApi extends ApiBase {
 
+    private IpetUser user;
+
     public UserApi(Context context) {
         super(context);
     }
 
-    public IpetUser getUser(String userId) {
-        URI uri = buildUri("user/" + userId);
-        IpetUser user = getRestTemplate().getForObject(uri, IpetUser.class);
+    public synchronized IpetUser getUser(String userId) {
+        final CountDownLatch latch = new CountDownLatch(1);
+        final URI uri = buildUri("user/" + userId);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                user = getRestTemplate().getForObject(uri, IpetUser.class);
+                latch.countDown();
+            }
+        }).start();
+        try {
+            latch.await();
+        } catch (InterruptedException ex) {
+            throw new APIException(ex);
+        }
         return user;
     }
 

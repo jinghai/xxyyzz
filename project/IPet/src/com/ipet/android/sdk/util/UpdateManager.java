@@ -1,13 +1,4 @@
-package com.ipet.android.sdk.core;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.concurrent.CountDownLatch;
+package com.ipet.android.sdk.util;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -25,10 +16,18 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
-
 import com.ipet.R;
 import com.ipet.android.app.MyApplication;
+import com.ipet.android.sdk.core.Constant;
 import com.ipet.android.sdk.domain.IpetAppUpdate;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.concurrent.CountDownLatch;
 
 public class UpdateManager {
     /* 下载中 */

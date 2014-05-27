@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ipet.android.sdk.core;
+package com.ipet.android.sdk.util;
 
+import com.ipet.android.sdk.core.APIException;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -17,6 +18,8 @@ import org.codehaus.jackson.type.TypeReference;
  */
 public class JSONUtil {
 
+    private final String TAG = "JSONUtil";
+
     public static String toJson(Object o) {
         ObjectMapper mapper = new ObjectMapper();
         Writer str = new StringWriter();
@@ -28,11 +31,22 @@ public class JSONUtil {
         return str.toString();
     }
 
-    public static <T> T fromJSON(String str, TypeReference valueTypeRef) {
+    public static <T extends Object> T fromJSON(String str, TypeReference<T> valueTypeRef) {
         ObjectMapper mapper = new ObjectMapper();
         T t;
         try {
             t = mapper.readValue(str, valueTypeRef);
+        } catch (IOException ex) {
+            throw new APIException(ex);
+        }
+        return t;
+    }
+
+    public static <T> T fromJSON(String str, Class<T> type) {
+        ObjectMapper mapper = new ObjectMapper();
+        T t;
+        try {
+            t = mapper.readValue(str, type);
         } catch (IOException ex) {
             throw new APIException(ex);
         }

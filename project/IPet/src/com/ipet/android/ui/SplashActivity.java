@@ -9,10 +9,7 @@ import android.util.Log;
 import android.widget.TextView;
 import com.ipet.R;
 import com.ipet.android.app.Constant;
-import com.ipet.android.app.MyApplication;
-import com.ipet.android.task.SplashLoginAsyncTask;
-import com.ipet.android.ui.manager.LoginManager;
-import com.ipet.android.ui.manager.UserManager;
+import com.ipet.android.sdk.core.IpetApi;
 import com.ipet.android.ui.utils.AppUtils;
 
 public class SplashActivity extends Activity {
@@ -37,19 +34,14 @@ public class SplashActivity extends Activity {
         String verStr = getResources().getString(R.string.app_version);
         String v = String.format(verStr, AppUtils.getAppVersionName(this));
         version.setText(v);
-        // 初始化模拟用户数据
-        MyApplication application = (MyApplication) this.getApplication();
-        if (application.getUser() == null) {
-            application.setUser(UserManager.getCurrentUser());
-        }
 
+        IpetApi api = IpetApi.init(this);
         // 判断是否登录
-        isLogin = application.getUser() != null;
+        isLogin = api.getCurrUserId() != null;
 
         // 判断程序与第几次运行，如果是第一次运行则跳转到引导界面，否则跳转到主界面
         if (isLogin) {
-            String[] u = LoginManager.getAccount(SplashActivity.this);
-            new SplashLoginAsyncTask(SplashActivity.this, u[0], u[1]).execute();
+            this.goMain();
         } else {
             mHandler.sendEmptyMessageDelayed(GO_WELCOME, Constant.SPLASH_DELAY_MILLIS);
         }

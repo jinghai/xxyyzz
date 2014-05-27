@@ -6,14 +6,11 @@
 package com.ipet.android.sdk.core;
 
 import android.content.Context;
-
 import com.ipet.android.sdk.cache.RestTemplate4Cache;
-
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
