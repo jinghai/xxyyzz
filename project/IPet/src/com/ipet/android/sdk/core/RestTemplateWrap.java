@@ -25,7 +25,7 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author Administrator
  */
-public class RestTemplateWrap extends RestTemplate {
+public class RestTemplateWrap {
 
     private static final String TAG = "RestTemplateWrap";
 
@@ -45,7 +45,7 @@ public class RestTemplateWrap extends RestTemplate {
     public RestTemplateWrap(Context context) {
         Charset charset = Charset.forName("UTF-8");
 
-        restTemplate = new RestTemplate4Cache(context);
+        restTemplate = new RestTemplate4Cache(context, 50, 500);
         //避免HttpURLConnection的http.keepAlive Bug
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
         factory.setConnectTimeout(10 * 1000);

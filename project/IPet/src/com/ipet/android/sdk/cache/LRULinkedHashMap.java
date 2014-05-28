@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public class LRULinkedHashMap<K, V> extends LinkedHashMap<K, V> {
 
-    private int capacity;   //定义缓存的容量
+    private final int capacity;   //定义缓存的容量
     private static final long serialVersionUID = 1L;
 
     LRULinkedHashMap(int capacity) {
@@ -32,6 +32,5 @@ public class LRULinkedHashMap<K, V> extends LinkedHashMap<K, V> {
     public boolean removeEldestEntry(Map.Entry<K, V> eldest) {
         return size() > capacity;
     }
-    
-    
+
 }

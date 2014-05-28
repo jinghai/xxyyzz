@@ -7,8 +7,6 @@ import com.ipet.android.sdk.util.JSONUtil;
 import com.ipet.android.sdk.util.NetWorkUtils;
 import java.io.IOException;
 import java.net.URI;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.TypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import static org.springframework.http.HttpMethod.GET;
@@ -33,66 +31,14 @@ public class RestTemplate4Cache extends RestTemplate {
     private static final String ETAG_HEADER = "ETag";
 
     // private final MemoryLRUCache cache = new MemoryLRUCache();
-    private final Cache4DB cache;
+    private final Cache cache;
 
     private final Context context;
 
-    public RestTemplate4Cache(Context ctx) {
+    public RestTemplate4Cache(Context ctx, int maxNumL1, int maxNumL2) {
         super();
         context = ctx;
-        cache = new Cache4DB(ctx, 5000);
-    }
-
-//    @Override
-//    public <T> T getForObject(URI url, Class<T> responseType) throws RestClientException {
-//        //如果网络不可用，直接从缓存获取数据
-//        if (!NetWorkUtils.isNetworkConnected(context)) {
-//
-//            CacheEntry e = cache.get(url.toString());
-//
-//            if (null != e) {
-//                Log.i(TAG, "getForObject:" + "找到离线缓存:" + e.getValue());
-//
-//                ObjectMapper mapper = new ObjectMapper();
-//                T t;
-//                try {
-//                    t = mapper.readValue(e.getValue(), responseType);
-//                } catch (IOException ex) {
-//                    throw new APIException(ex);
-//                }
-//                return t;
-//            } else {
-//                Log.i(TAG, "getForObject:" + "没找到离线缓存");
-//                throw new APIException("网络不可用");
-//            }
-//
-//        }
-//
-//        //如果没有到过期时间，则直接返回结果，不产生请求
-//        CacheEntry e = cache.get(url.toString());
-//
-//        if (null != e && System.currentTimeMillis() > e.getExpireOn()) {
-//            Log.i(TAG, "getForObject:" + "找到未过期缓存");
-//            ObjectMapper mapper = new ObjectMapper();
-//            T t;
-//            try {
-//                t = mapper.readValue(e.getValue(), responseType);
-//            } catch (IOException ex) {
-//                throw new APIException(ex);
-//            }
-//            Log.i(TAG, "getForObject:" + "未过期缓存JSON:" + e.getValue());
-//            Log.i(TAG, "getForObject:" + "转换后:" + t.getClass());
-//            return t;
-//        }
-//
-//        return super.getForObject(url, responseType);
-//
-//    }
-    @Override
-    public <T> T execute(URI url, HttpMethod method, RequestCallback requestCallback,
-            ResponseExtractor<T> responseExtractor) throws RestClientException {
-
-        return doExecute(url, method, requestCallback, responseExtractor);
+        cache = new Cache(ctx, maxNumL1, maxNumL2);
     }
 
     @Override
@@ -110,15 +56,7 @@ public class RestTemplate4Cache extends RestTemplate {
 
             if (null != e) {
                 Log.i(TAG, "doExecute:" + "找到离线缓存:" + e.getValue());
-                TypeReference<Class<T>> type = new TypeReference<Class<T>>() {
-                };
-                ObjectMapper mapper = new ObjectMapper();
-                T t;
-                try {
-                    t = mapper.readValue(e.getValue(), type);
-                } catch (IOException ex) {
-                    throw new APIException(ex);
-                }
+                T t = JSONUtil.fromJSON(e.getValue(), e.getClassType());
                 return t;
             } else {
                 Log.i(TAG, "doExecute:" + "没找到离线缓存");
@@ -138,10 +76,7 @@ public class RestTemplate4Cache extends RestTemplate {
 
         if (null != e && System.currentTimeMillis() > e.getExpireOn()) {
             Log.i(TAG, "doExecute:" + "找到未过期缓存");
-            //问题点
-            TypeReference<T> type = new TypeReference<T>() {
-            };
-            T t = JSONUtil.fromJSON(e.getEtag(), type);
+            T t = JSONUtil.fromJSON(e.getValue(), e.getClassType());
             Log.i(TAG, "doExecute:" + "未过期缓存JSON:" + e.getValue());
             Log.i(TAG, "doExecute:" + "转换后:" + t.getClass());
             return t;
@@ -215,19 +150,8 @@ public class RestTemplate4Cache extends RestTemplate {
             if (isNotModified) {
                 CacheEntry e = cache.get(uri.toString());
                 Log.i(TAG, "extractData-->304,从缓存取:" + e.getValue());
-
-                TypeReference<Class<T>> type = new TypeReference<Class<T>>() {
-                };
-                ObjectMapper mapper = new ObjectMapper();
-                T t;
-                try {
-                    t = mapper.readValue(e.getValue(), type);
-                } catch (IOException ex) {
-                    throw new APIException(ex);
-                }
+                T t = JSONUtil.fromJSON(e.getValue(), e.getClassType());
                 return t;
-
-                //return JSONUtil.fromJSON(e.getValue(), type);
             }
 
             T result = extractor.extractData(response);
@@ -242,16 +166,18 @@ public class RestTemplate4Cache extends RestTemplate {
 
                 //处理CacheControl
                 String cacheControl = response.getHeaders().getCacheControl();
-                Long expireOn = 0l;
-                if (null != cacheControl) {
+                Long expireOn = System.currentTimeMillis();
+                if (null != cacheControl && !"".equals(cacheControl)) {
                     String[] t = cacheControl.split("=");
-                    String s = t[1];
+                    String s = null == t[1] ? "0" : t[1];
                     expireOn = System.currentTimeMillis() + (Long.valueOf(s) * 1000);
                 }
 
                 String str = JSONUtil.toJson(result);
+                String classType = result.getClass().getName();
+                Log.i(TAG, "extractData-->200,Result类型:" + classType);
                 Log.i(TAG, "extractData-->200,放入缓存:" + str);
-                cache.put(new CacheEntry(uri.toString(), str, eTag, expireOn));
+                cache.put(new CacheEntry(uri.toString(), str, eTag, expireOn, classType));
 
             }
 
